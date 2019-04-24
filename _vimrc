@@ -289,3 +289,8 @@ let g:startify_custom_header = [
     \ '                                 ▒▒▒▓██▓',
     \ '                                   ▒█▓',
     \ ]
+
+" Map next, previous, and delete buffer to leader p and leader n and leader d
+map <leader>n :bn<cr>
+map <leader>p :bp<cr>
+map <leader>d :bd<cr>  
