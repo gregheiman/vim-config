@@ -10,6 +10,11 @@ set renderoptions=type:directx
 set encoding=utf8
 let mapleader =","
 
+"Make finding files easy
+set path=.,/usr/include,,.
+set path+=**
+set wildmenu
+
 """""""""""""""""""""""""""""
 " START Vundle Configuration 
 """""""""""""""""""""""""""""
