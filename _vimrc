@@ -16,80 +16,78 @@ set path+=**
 set wildmenu
 
 """""""""""""""""""""""""""""
-" START Vundle Configuration 
+" START Vim Plug Configuration 
 """""""""""""""""""""""""""""
-
-" Disable file type for vundle
+" Disable file type for vim plug
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin('~/.vim/bundle')
+
+call plug#begin('~/.vim/bundle')
 
 """""""""""""""""""""""""""""""
 " Required
 """""""""""""""""""""""""""""""
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plug 'gmarik/Vundle.vim'
 
 """""""""""""""""""""""
 " Utility
 """""""""""""""""""""""
 "Add indent guides
-Plugin 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 "Fantastic Commenting
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 "Multiple line cursors"
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 " Fuzzy finder"
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " Auto closing"
-Plugin 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 
 """"""""""""""""""""""" 
 " Generic Programming Support 
 """""""""""""""""""""""
 "Asyncronous lint engine
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 " Code completion
-Plugin 'valloric/youcompleteme'
+Plug 'valloric/youcompleteme'
 
 """"""""""""""""""""""" 
 " Git Support
 """""""""""""""""""""""
 "General git wrapper
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 "Git icons in gutter
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 
 """""""""""""""""""""""
 " Theme / Interface
 """""""""""""""""""""""
 "Side file tree
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 "Improved status bar
-Plugin 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 "Adds a tagbar to the side
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 "Atom One Dark Theme
-Plugin 'joshdick/onedark.vim'
+Plug 'joshdick/onedark.vim'
 "Gruvbox theme"
-Plugin 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 "Rainbow brackets and parenthesis
-Plugin 'kien/rainbow_parentheses.vim'
+Plug 'kien/rainbow_parentheses.vim'
 "Adds a start page
-Plugin 'mhinz/vim-startify'
+Plug 'mhinz/vim-startify'
 "Ayu theme
-Plugin 'ayu-theme/ayu-vim'
+Plug 'ayu-theme/ayu-vim'
 "Palenight theme
-Plugin 'drewtempelmeyer/palenight.vim'
+Plug 'drewtempelmeyer/palenight.vim'
 
 " OSX stupid backspace fix
 set backspace=indent,eol,start
 
-call vundle#end()            " required
+call plug#end()            " required
 filetype plugin indent on    " required
-"""" END Vundle Configuration 
+"""" END Vim Plug Configuration 
 
 """""""""""""""""""""""""""""""""""""
 " Configuration Section
