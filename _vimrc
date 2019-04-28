@@ -8,7 +8,7 @@ set mouse=a
 set nowrap
 set renderoptions=type:directx
 set encoding=utf8
-let mapleader =","
+let mapleader =" "
 
 "Make finding files easy
 set path=.,/usr/include,,.
@@ -21,14 +21,7 @@ set wildmenu
 " Disable file type for vim plug
 filetype off                  " required
 
-
 call plug#begin('~/.vim/bundle')
-
-"""""""""""""""""""""""""""""""
-" Required
-"""""""""""""""""""""""""""""""
-" let Vundle manage Vundle, required
-Plug 'gmarik/Vundle.vim'
 
 """""""""""""""""""""""
 " Utility
