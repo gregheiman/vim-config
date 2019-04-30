@@ -1,13 +1,19 @@
 """"""""""""""""""""""""""""
 " Greg's Configuration
 """"""""""""""""""""""""""""
-
+"Required
 set nocompatible
+
+"Enable syntax, the mouse, and no line wrapping
 syntax on
 set mouse=a
 set nowrap
+
+"Enable ligatures
 set renderoptions=type:directx
 set encoding=utf8
+
+" Map leader to space
 let mapleader =" "
 
 "Make finding files easy
@@ -169,9 +175,6 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
-" Enable deoplete by default
-let g:deoplete#enable_at_startup = 1
-
 " Set keybind for NERDTREE to Ctrl+o"
 map <C-o> :NERDTreeToggle<CR>
 
@@ -201,6 +204,7 @@ au GUIEnter * simalt ~x
 " TAGBAR keybinding"
 nmap <F8> :TagbarToggle<CR>
 
+" Set keybindings for creating java classes and running java programs
 autocmd Filetype java set makeprg=javac\ %
 set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 map <F9> :make<Return>:copen<Return>
