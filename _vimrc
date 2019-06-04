@@ -48,6 +48,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'w0rp/ale'
 " Code completion
 Plug 'valloric/youcompleteme'
+" Database support
+Plug 'tpope/vim-dadbod'
 
 """"""""""""""""""""""" 
 " Git Support
@@ -202,7 +204,7 @@ set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 map <F9> :make<Return>:copen<Return>
 map <F10> :cprevious<Return>
 map <F11> :cnext<Return>
-map <F12> :!start cmd /k "cd %:~:h:s?src?bin? & java :%:r"
+map <F12> :!start cmd /k "cd %:~:h:s?src?bin? & java %:r"
 
 " Run ctags -R command with F5"
 map <F5> :!start cmd /k "cd %:~:h:s?src?bin? & ctags -R"
