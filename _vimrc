@@ -111,7 +111,7 @@ set cursorline
 
 " Set lightline theme
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'ayu',
       \ }
 
 " true colors support
@@ -121,7 +121,7 @@ set termguicolors
 let ayucolor="mirage" 
 
 " Set color theme
-colorscheme onedark
+colorscheme ayu
 set background=dark
 
 " Let ale complete
