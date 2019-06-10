@@ -65,7 +65,7 @@ Plug 'airblade/vim-gitgutter'
 "Side file tree
 Plug 'scrooloose/nerdtree'
 "Improved status bar
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 "Adds a tagbar to the side
 Plug 'majutsushi/tagbar'
 "Gruvbox theme"
@@ -74,6 +74,8 @@ Plug 'morhetz/gruvbox'
 Plug 'kien/rainbow_parentheses.vim'
 "Ayu theme
 Plug 'ayu-theme/ayu-vim'
+"Onedark theme
+Plug 'joshdick/onedark.vim'
 
 " OSX stupid backspace fix
 set backspace=indent,eol,start
@@ -107,8 +109,10 @@ let g:elite_mode=1
 " Enable highlighting of the current line
 set cursorline
 
-" Set airline theme to onedark
-let g:airline_theme='gruvbox'
+" Set lightline theme
+let g:lightline = {
+      \ 'colorscheme': 'onedark',
+      \ }
 
 " true colors support
 set termguicolors     
@@ -117,7 +121,7 @@ set termguicolors
 let ayucolor="mirage" 
 
 " Set color theme
-colorscheme gruvbox
+colorscheme onedark
 set background=dark
 
 " Let ale complete
@@ -211,16 +215,6 @@ map <F5> :!start cmd /k "cd %:~:h:s?src?bin? & ctags -R"
 
 " Sets the curretly open windows path to the active path"
 autocmd BufEnter * lcd %:p:h
-
-" Enable airlines tabline and displays open spilts per tab
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_splits = 1
-
-"Enable ale integration with airline
- let g:airline#extensions#ale#enabled = 1
-
-" Set specific tab style for airline
-let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 "Sets the default splits to be to the right and below from default
 set splitbelow splitright
