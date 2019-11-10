@@ -71,7 +71,7 @@ Plug 'majutsushi/tagbar'
 "Gruvbox theme"
 Plug 'morhetz/gruvbox'
 "Rainbow brackets and parenthesis
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
 "Ayu theme
 Plug 'ayu-theme/ayu-vim'
 "Onedark theme
@@ -111,7 +111,7 @@ set cursorline
 
 " Set lightline theme
 let g:lightline = {
-      \ 'colorscheme': 'ayu',
+      \ 'colorscheme' : 'onedark',
       \ }
 
 " true colors support
@@ -121,7 +121,7 @@ set termguicolors
 let ayucolor="mirage" 
 
 " Set color theme
-colorscheme ayu
+colorscheme Onedark
 set background=dark
 
 " Let ale complete
@@ -130,35 +130,8 @@ let g:ale_completion_enabled = 1
 " Ale fix files on save
 let g:ale_fix_on_save = 1
 
-" Set colors for Rainbow Parenthesis
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-
-"Set max number of rainbow parenthesis pairs
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-
-" Automatically turn on rainbow brackets
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" Autorun RainbowParentheses command on startup
+autocmd VimEnter * RainbowParentheses
 
 " Multiple line cursor configuration
 let g:multi_cursor_use_default_mapping=0
@@ -213,7 +186,10 @@ map <F12> :!start cmd /k "cd %:~:h:s?src?bin? & java %:r"
 " Run ctags -R command with F5"
 map <F5> :!start cmd /k "cd %:~:h:s?src?bin? & ctags -R"
 
-" Sets the curretly open windows path to the active path"
+" Run the current python file in seperate terminal"
+map <F8> :!python %
+
+"  Sets the curretly open windows path to the active path"
 autocmd BufEnter * lcd %:p:h
 
 "Sets the default splits to be to the right and below from default
