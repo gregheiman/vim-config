@@ -189,6 +189,9 @@ map <F5> :!start cmd /k "cd %:~:h:s?src?bin? & ctags -R"
 " Run the current python file in seperate terminal"
 map <F8> :!python %
 
+" Open up the _vimrc file in a serperate vertical buffer
+map <F7> :e C:/Users/Greg/Vim/_vimrc
+
 "  Sets the curretly open windows path to the active path"
 autocmd BufEnter * lcd %:p:h
 
