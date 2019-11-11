@@ -192,6 +192,10 @@ map <F8> :!python %
 " Open up the _vimrc file in a serperate vertical buffer
 map <F7> :e C:/Users/Greg/Vim/_vimrc
 
+" Keybinding for tabing inside of visual mode selection
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+
 "  Sets the curretly open windows path to the active path"
 autocmd BufEnter * lcd %:p:h
 
