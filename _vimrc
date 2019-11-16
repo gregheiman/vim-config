@@ -14,7 +14,7 @@ set renderoptions=type:directx
 set encoding=utf8
 
 " Map leader to space
-let mapleader =" "
+map <Space> <Leader>
 
 "Make finding files easy
 set path=.,/usr/include,,.
@@ -50,7 +50,8 @@ Plug 'w0rp/ale'
 Plug 'valloric/youcompleteme'
 " Database support
 Plug 'tpope/vim-dadbod'
-
+" Pretty complete language pack for better syntax highlighting
+Plug 'sheerun/vim-polyglot'
 """"""""""""""""""""""" 
 " Git Support
 """""""""""""""""""""""
@@ -109,9 +110,16 @@ let g:elite_mode=1
 " Enable highlighting of the current line
 set cursorline
 
-" Set lightline theme
+" Set lightline theme and settings
 let g:lightline = {
       \ 'colorscheme' : 'onedark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
       \ }
 
 " true colors support
@@ -173,7 +181,7 @@ call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 au GUIEnter * simalt ~x
 
 " TAGBAR keybinding"
-nmap <F8> :TagbarToggle<CR>
+nmap <F6> :TagbarToggle<CR>
 
 " Set keybindings for creating java classes and running java programs
 autocmd Filetype java set makeprg=javac\ %
@@ -184,17 +192,20 @@ map <F11> :cnext<Return>
 map <F12> :!start cmd /k "cd %:~:h:s?src?bin? & java %:r"
 
 " Run ctags -R command with F5"
-map <F5> :!start cmd /k "cd %:~:h:s?src?bin? & ctags -R"
+map <F7> :!start cmd /k "cd %:~:h:s?src?bin? & ctags -R"
 
 " Run the current python file in seperate terminal"
-map <F8> :!python %
+map <F8> :!python %<CR>
 
 " Open up the _vimrc file in a serperate vertical buffer
-map <F7> :e C:/Users/Greg/Vim/_vimrc
+map <F5> :e C:/Users/Greg/Vim/_vimrc<CR>
 
 " Keybinding for tabing inside of visual mode selection
 vmap <Tab> >gv
 vmap <S-Tab> <gv
+
+" Keybinding for quick refactoring
+nnoremap <leader>r gD:%s/<C-R>///gc<left><left><left>
 
 "  Sets the curretly open windows path to the active path"
 autocmd BufEnter * lcd %:p:h
@@ -211,4 +222,5 @@ map <C-l> <C-w>l
 " Map next, previous, and delete buffer to leader p and leader n and leader d
 map <leader>n :bn<cr>
 map <leader>p :bp<cr>
-map <leader>d :bd<cr>  
+map <leader>d :bd<cr>
+
