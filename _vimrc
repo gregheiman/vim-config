@@ -46,8 +46,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'w0rp/ale'
 " Code completion (Requires Node.js)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Database support
-Plug 'tpope/vim-dadbod'
 " Pretty complete language pack for better syntax highlighting
 Plug 'sheerun/vim-polyglot'
 
@@ -193,7 +191,7 @@ map <F7> :!start cmd /k "cd %:~:h:s?src?bin? & ctags -R"
 map <F8> :!python %<CR>
 
 " Open up the _vimrc file in a serperate vertical buffer
-map <F5> :e C:/Users/Greg/Vim/_vimrc<CR>
+map <F5> :e $MYVIMRC<CR>
 
 " Keybinding for tabing inside of visual mode selection
 vmap <Tab> >gv
@@ -237,9 +235,6 @@ set updatetime=300
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -293,4 +288,3 @@ augroup end
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
