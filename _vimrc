@@ -34,8 +34,6 @@ call plug#begin('~/.vim/bundle')
 """""""""""""""""""""""
 "Add indent guides
 Plug 'Yggdroot/indentLine'
-"Fantastic Commenting
-Plug 'scrooloose/nerdcommenter'
 "Multiple line cursors"
 Plug 'terryma/vim-multiple-cursors'
 "Auto closing"
@@ -44,15 +42,16 @@ Plug 'jiangmiao/auto-pairs'
 """"""""""""""""""""""" 
 " Generic Programming Support 
 """""""""""""""""""""""
-"Asyncronous lint engine
+" Asyncronous lint engine
 Plug 'w0rp/ale'
-" Code completion
-Plug 'valloric/youcompleteme'
+" Code completion (Requires Node.js)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Database support
 Plug 'tpope/vim-dadbod'
 " Pretty complete language pack for better syntax highlighting
 Plug 'sheerun/vim-polyglot'
-""""""""""""""""""""""" 
+
+"""""""""""""""""""""" 
 " Git Support
 """""""""""""""""""""""
 "General git wrapper
@@ -67,7 +66,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 "Improved status bar
 Plug 'itchyny/lightline.vim'
-"Adds a tagbar to the side
+"Adds a tagbar to the side (Requires CTags)
 Plug 'majutsushi/tagbar'
 "Gruvbox theme"
 Plug 'morhetz/gruvbox'
@@ -112,7 +111,7 @@ set cursorline
 
 " Set lightline theme and settings
 let g:lightline = {
-      \ 'colorscheme' : 'onedark',
+      \ 'colorscheme' : 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -127,13 +126,9 @@ set termguicolors
 
 " set ayu theme to the middle mirage style
 let ayucolor="mirage" 
-
 " Set color theme
-colorscheme Onedark
+colorscheme gruvbox
 set background=dark
-
-" Let ale complete
-let g:ale_completion_enabled = 1
 
 " Ale fix files on save
 let g:ale_fix_on_save = 1
@@ -223,4 +218,79 @@ map <C-l> <C-w>l
 map <leader>n :bn<cr>
 map <leader>p :bp<cr>
 map <leader>d :bd<cr>
+
+" Add syntax highlighting for java functions
+let g:java_highlight_functions = 1
+
+""""""""""""""""""""""""""""""""
+" CoC Config
+""""""""""""""""""""""""""""""""
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
