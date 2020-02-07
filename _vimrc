@@ -77,7 +77,7 @@ Plug 'ayu-theme/ayu-vim'
 "Onedark theme
 Plug 'joshdick/onedark.vim'
 
-" OSX stupid backspace fix
+" OSX backspace fix
 set backspace=indent,eol,start
 
 call plug#end()            " required
@@ -152,48 +152,14 @@ let g:multi_cursor_quit_key            = '<Esc>'
 " Set keybind for NERDTREE to Ctrl+o"
 map <C-o> :NERDTreeToggle<CR>
 
-" Set file highlighting for NERDTREE"
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-
 " Start vim fullscreen"
 au GUIEnter * simalt ~x
 
 " TAGBAR keybinding"
 nmap <F6> :TagbarToggle<CR>
 
-" Set keybindings for creating java classes and running java programs
-autocmd Filetype java set makeprg=javac\ %
-set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
-map <F9> :make<Return>:copen<Return>
-map <F10> :cprevious<Return>
-map <F11> :cnext<Return>
-map <F12> :!start cmd /k "cd %:~:h:s?src?bin? & java %:r"
-
-" Run ctags -R command with F5"
-map <F7> :!start cmd /k "cd %:~:h:s?src?bin? & ctags -R"
-
-" Run the current python file in seperate terminal"
-map <F8> :!python %<CR>
-
 " Open up the _vimrc file in a serperate vertical buffer
-map <F5> :e C:/Users/Greg/Vim/_vimrc<CR>
+map <F5> :vsp C:/Users/Greg/Vim/_vimrc<CR>
 
 " Keybinding for tabing inside of visual mode selection
 vmap <Tab> >gv
@@ -202,11 +168,11 @@ vmap <S-Tab> <gv
 " Keybinding for quick refactoring
 nnoremap <leader>r gD:%s/<C-R>///gc<left><left><left>
 
-"  Sets the curretly open windows path to the active path"
+"  Sets the curretly open windows path to the current files path
 autocmd BufEnter * lcd %:p:h
 
 "Sets the default splits to be to the right and below from default
-set splitbelow splitright
+set splitright splitbelow
 
 "Change split navigation keys
 map <C-h> <C-w>h
@@ -238,9 +204,6 @@ set updatetime=300
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
-" always show signcolumns
-set signcolumn=yes
-
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -263,6 +226,10 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -283,6 +250,10 @@ endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -291,6 +262,52 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
