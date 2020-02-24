@@ -1,7 +1,7 @@
 """"""""""""""""""""""""""""
 " Greg's Configuration
 """"""""""""""""""""""""""""
-"Required
+"Required to not be forced into vi mode
 set nocompatible
 
 "Enable syntax, the mouse, and no line wrapping
@@ -29,7 +29,9 @@ filetype off                  " required
 
 call plug#begin('~/.vim/bundle')
 
-"""""""""""""""""""""""
+""""""""""""""""""""""""
+" Plugins
+""""""""""""""""""""""""
 " Utility
 """""""""""""""""""""""
 "Add indent guides
@@ -46,8 +48,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'w0rp/ale'
 " Code completion (Requires Node.js)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Database support
-Plug 'tpope/vim-dadbod'
 " Pretty complete language pack for better syntax highlighting
 Plug 'sheerun/vim-polyglot'
 
@@ -87,14 +87,14 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""
 " Configuration Section
 """""""""""""""""""""""""""""""""""""
-"Set Font
+"Set Font and size
 set guifont=Fira_Code:h10
 
 " Show linenumbers
 set number
 set ruler
 
-" Set Proper Tabs
+" Set Proper 4 Space Tabs
 set tabstop=4
 set shiftwidth=4
 set smarttab
@@ -102,9 +102,6 @@ set expandtab
 
 " Always display the status line
 set laststatus=2
-
-" Enable Elite mode
-let g:elite_mode=1
 
 " Enable highlighting of the current line
 set cursorline
@@ -117,11 +114,11 @@ let g:lightline = {
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head',
       \ },
       \ }
 
-" true colors support
+" true colors support for terminal
 set termguicolors     
 
 " set ayu theme to the middle mirage style
@@ -155,21 +152,36 @@ map <C-o> :NERDTreeToggle<CR>
 " Start vim fullscreen"
 au GUIEnter * simalt ~x
 
-" TAGBAR keybinding"
+" TAGBAR keybinding to F6"
 nmap <F6> :TagbarToggle<CR>
 
-" Open up the _vimrc file in a serperate vertical buffer
-map <F5> :vsp C:/Users/Greg/Vim/_vimrc<CR>
+" Open up the _vimrc file in a serperate vertical buffer with F5
+map <F5> :vsp $MYVIMRC<CR>
 
-" Keybinding for tabing inside of visual mode selection
-vmap <Tab> >gv
+" Keybinding for tabbing inside of visual mode selection
+vmap <Tab> >gv 
 vmap <S-Tab> <gv
 
 " Keybinding for quick refactoring
 nnoremap <leader>r gD:%s/<C-R>///gc<left><left><left>
 
-"  Sets the curretly open windows path to the current files path
-autocmd BufEnter * lcd %:p:h
+" set working directory to git project root
+" or directory of current file if not git project
+function! SetProjectRoot()
+  " default to the current file's directory
+  lcd %:p:h
+  let git_dir = system("git rev-parse --show-toplevel")
+  " See if the command output starts with 'fatal' (if it does, not in a git repo)
+  let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
+  " if git project, change local directory to git project root
+  if empty(is_not_git_dir)
+    lcd `=git_dir`
+  endif
+endfunction
+
+" set working directory
+autocmd BufRead *
+  \ call SetProjectRoot()
 
 "Sets the default splits to be to the right and below from default
 set splitright splitbelow
@@ -185,12 +197,18 @@ map <leader>n :bn<cr>
 map <leader>p :bp<cr>
 map <leader>d :bd<cr>
 
-" Add syntax highlighting for java functions
+" Improve syntax highlighting for java code
 let g:java_highlight_functions = 1
+let java_highlight_all = 1
+highlight link javaScopeDecl Statement
+highlight link javaType Type
+highlight link javaDocTags PreProc
 
 """"""""""""""""""""""""""""""""
 " CoC Config
 """"""""""""""""""""""""""""""""
+" Next and previous selection are <C-J> and <C-K> respectively
+
 " if hidden is not set, TextEdit might fail.
 set hidden
 
