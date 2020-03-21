@@ -1,5 +1,4 @@
 {
-    "diagnostic.displayByAle": true,
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "languageserver": {
