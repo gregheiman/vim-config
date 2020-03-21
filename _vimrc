@@ -1,18 +1,22 @@
 """"""""""""""""""""""""""""
 " Greg's Configuration
 """"""""""""""""""""""""""""
-"Required to not be forced into vi mode
+" Required to not be forced into vi mode
 set nocompatible
 
-"Enable syntax, the mouse, and no line wrapping
+" Enable syntax, the mouse, and no line wrapping
 syntax on
 set mouse=a
 set nowrap
 
+" Set rendering option for brighter colors and ligatures
+set renderoptions=type:directx
+set encoding=utf-8
+
 " Map leader to space
 map <Space> <Leader>
 
-"Make finding files easy
+" Make finding files easy
 set path=.,/usr/include,,.
 set path+=**
 set wildmenu
@@ -55,23 +59,23 @@ Plug 'sheerun/vim-polyglot'
 """""""""""""""""""""" 
 " Git Support
 """""""""""""""""""""""
-"General git wrapper
+" General git wrapper
 Plug 'tpope/vim-fugitive'
-"Git icons in gutter
+" Git icons in gutter
 Plug 'airblade/vim-gitgutter'
 
 """""""""""""""""""""""
 " Theme / Interface
 """""""""""""""""""""""
-"Side file tree
+" Side file tree
 Plug 'scrooloose/nerdtree'
-"Improved status bar
+" Improved status bar
 Plug 'itchyny/lightline.vim'
-"Adds a tagbar to the side (Requires CTags)
+" Adds a tagbar to the side (Requires CTags)
 Plug 'majutsushi/tagbar'
-"Gruvbox theme"
+" Gruvbox theme"
 Plug 'morhetz/gruvbox'
-"Rainbow brackets and parenthesis
+" Rainbow brackets and parenthesis
 Plug 'junegunn/rainbow_parentheses.vim'
 
 " OSX backspace fix
@@ -84,7 +88,7 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""
 " Configuration Section
 """""""""""""""""""""""""""""""""""""
-"Set Font and size
+" Set Font and size
 set guifont=Fira_Code:h10
 
 " Start vim fullscreen"
@@ -118,7 +122,7 @@ let g:lightline = {
       \ },
       \ }
 
-" true colors support for terminal
+" True colors support for terminal
 set termguicolors     
 
 " Set color theme
@@ -127,31 +131,6 @@ set background=dark
 
 " Autorun RainbowParentheses command on startup
 autocmd VimEnter * RainbowParentheses
-
-" Custom Keybindings
-" Set keybind for NERDTREE to Ctrl+o"
-map <C-o> :NERDTreeToggle<CR>
-
-" TAGBAR keybinding to F6"
-nmap <F6> :TagbarToggle<CR>
-
-" Open up the _vimrc file in a serperate vertical buffer with F5
-map <F5> :vsp $MYVIMRC<CR>
-
-" Keybinding for tabbing inside of visual mode selection
-vmap <Tab> >gv 
-vmap <S-Tab> <gv
-
-"Change split navigation keys
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k	
-map <C-l> <C-w>l
-
-" Map next, previous, and delete buffer to leader p and leader n and leader d
-map <leader>n :bn<cr>
-map <leader>p :bp<cr>
-map <leader>d :bd<cr>
 
 " Automatically set the cwd to the directory with .git folder
 " set working directory to git project root
@@ -184,6 +163,39 @@ highlight link javaDocTags PreProc
 
 " Autosave autocmd
 autocmd CursorHold,InsertEnter,InsertLeave,BufEnter * silent update
+
+""""""""""""""""""""""""""""""""""""""""""
+" Custom Keybindings
+""""""""""""""""""""""""""""""""""""""""""
+" Set keybind for NERDTREE to Ctrl+o
+map <C-o> :NERDTreeToggle<CR>
+
+" TAGBAR keybinding to F6
+nmap <F6> :TagbarToggle<CR>
+
+" Open up the vimrc file in a serperate vertical buffer with F5
+map <F5> :vsp $MYVIMRC<CR>
+
+" Assign F7 to run the current python file
+autocmd FileType python nnoremap <F7> :update<CR>:!python %<CR>
+
+" Assign F8 to compile the current c++ file with g++
+autocmd FileType cpp nnoremap <F8> :update<CR>:!g++ % -o %:r.exe<CR>
+
+" Keybinding for tabbing inside of visual mode selection
+vnoremap <Tab> >gv 
+vnoremap <S-Tab> <gv
+
+" Change split navigation keys
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k	
+map <C-l> <C-w>l
+
+" Map next, previous, and delete buffer to leader p and leader n and leader d
+map <leader>n :bn<cr>
+map <leader>p :bp<cr>
+map <leader>d :bd<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config
