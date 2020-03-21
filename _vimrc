@@ -9,10 +9,6 @@ syntax on
 set mouse=a
 set nowrap
 
-"Enable ligatures
-set renderoptions=type:directx
-set encoding=utf8
-
 " Map leader to space
 map <Space> <Leader>
 
@@ -20,7 +16,8 @@ map <Space> <Leader>
 set path=.,/usr/include,,.
 set path+=**
 set wildmenu
-
+ 
+" Plugins section
 """""""""""""""""""""""""""""
 " START Vim Plug Configuration 
 """""""""""""""""""""""""""""
@@ -36,8 +33,6 @@ call plug#begin('~/.vim/bundle')
 """""""""""""""""""""""
 " Add indent guides
 Plug 'Yggdroot/indentLine'
- "Multiple line cursors"
-Plug 'terryma/vim-multiple-cursors'
 " Auto closing"
 Plug 'jiangmiao/auto-pairs'
 " Auto close html and xml tags
@@ -46,12 +41,12 @@ Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
 " Preview Markdown files in browser
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+" Better commenting
+Plug 'preservim/nerdcommenter'
 
 """"""""""""""""""""""" 
 " Generic Programming Support 
 """""""""""""""""""""""
-" Asyncronous lint engine
-Plug 'w0rp/ale'
 " Code completion (Requires Node.js)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Pretty complete language pack for better syntax highlighting
@@ -78,10 +73,6 @@ Plug 'majutsushi/tagbar'
 Plug 'morhetz/gruvbox'
 "Rainbow brackets and parenthesis
 Plug 'junegunn/rainbow_parentheses.vim'
-"Ayu theme
-Plug 'ayu-theme/ayu-vim'
-"Onedark theme
-Plug 'joshdick/onedark.vim'
 
 " OSX backspace fix
 set backspace=indent,eol,start
@@ -95,6 +86,9 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""
 "Set Font and size
 set guifont=Fira_Code:h10
+
+" Start vim fullscreen"
+au GUIEnter * simalt ~x
 
 " Show linenumbers
 set number
@@ -127,36 +121,16 @@ let g:lightline = {
 " true colors support for terminal
 set termguicolors     
 
-" set ayu theme to the middle mirage style
-let ayucolor="mirage" 
 " Set color theme
 colorscheme gruvbox
 set background=dark
 
-" Ale fix files on save
-let g:ale_fix_on_save = 1
-
 " Autorun RainbowParentheses command on startup
 autocmd VimEnter * RainbowParentheses
 
-" Multiple line cursor configuration
-let g:multi_cursor_use_default_mapping=0
-
-" Default mapping for multiple cursor
-let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = '<A-n>'
-let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<C-n>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
-
+" Custom Keybindings
 " Set keybind for NERDTREE to Ctrl+o"
 map <C-o> :NERDTreeToggle<CR>
-
-" Start vim fullscreen"
-au GUIEnter * simalt ~x
 
 " TAGBAR keybinding to F6"
 nmap <F6> :TagbarToggle<CR>
@@ -168,9 +142,18 @@ map <F5> :vsp $MYVIMRC<CR>
 vmap <Tab> >gv 
 vmap <S-Tab> <gv
 
-" Keybinding for quick refactoring
-nnoremap <leader>r gD:%s/<C-R>///gc<left><left><left>
+"Change split navigation keys
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k	
+map <C-l> <C-w>l
 
+" Map next, previous, and delete buffer to leader p and leader n and leader d
+map <leader>n :bn<cr>
+map <leader>p :bp<cr>
+map <leader>d :bd<cr>
+
+" Automatically set the cwd to the directory with .git folder
 " set working directory to git project root
 " or directory of current file if not git project
 function! SetProjectRoot()
@@ -192,17 +175,6 @@ autocmd BufRead *
 "Sets the default splits to be to the right and below from default
 set splitright splitbelow
 
-"Change split navigation keys
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k	
-map <C-l> <C-w>l
-
-" Map next, previous, and delete buffer to leader p and leader n and leader d
-map <leader>n :bn<cr>
-map <leader>p :bp<cr>
-map <leader>d :bd<cr>
-
 " Improve syntax highlighting for java code
 let g:java_highlight_functions = 1
 let java_highlight_all = 1
@@ -210,12 +182,12 @@ highlight link javaScopeDecl Statement
 highlight link javaType Type
 highlight link javaDocTags PreProc
 
-"Create a autosave autocmd
-autocmd CursorHold,InsertEnter,InsertLeave * silent update
+" Autosave autocmd
+autocmd CursorHold,InsertEnter,InsertLeave,BufEnter * silent update
 
-""""""""""""""""""""
-" Closetag options
-"""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Closetag Config
+""""""""""""""""""""""""""""""""""""""""""""""""""
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
@@ -249,9 +221,9 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 let g:closetag_close_shortcut = '<leader>>'
 
-""""""""""""""""""""""""""""""""
-" CoC Config
-""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""
+" COC Config
+""""""""""""""""""""""""""""""""""""""""""""""
 " Next and previous selection are <C-J> and <C-K> respectively
 
 " if hidden is not set, TextEdit might fail.
@@ -353,16 +325,19 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
+" Use command Prettier for Prettier support
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <space>a  :<C-u>CocList commands<cr>
 " Find symbol of current document
 nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
@@ -374,3 +349,5 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
