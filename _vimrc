@@ -1,6 +1,6 @@
-""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""
 " Greg's Configuration
-""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""
 " Required to not be forced into vi mode
 set nocompatible
 
@@ -71,8 +71,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 " Improved status bar
 Plug 'itchyny/lightline.vim'
-" Adds a tagbar to the side (Requires CTags)
-Plug 'majutsushi/tagbar'
+" Presents tags in a bar to the side, can use LSP (Requires Universal-Ctags)
+Plug 'liuchengxu/vista.vim'
 " Gruvbox theme"
 Plug 'morhetz/gruvbox'
 " Rainbow brackets and parenthesis
@@ -86,7 +86,7 @@ filetype plugin indent on    " required
 """" END Vim Plug Configuration 
 
 """""""""""""""""""""""""""""""""""""
-" Configuration Section
+" Vim Config Settings
 """""""""""""""""""""""""""""""""""""
 " Set Font and size
 set guifont=Fira_Code:h10
@@ -110,17 +110,6 @@ set laststatus=2
 " Enable highlighting of the current line
 set cursorline
 
-" Set lightline theme and settings
-let g:lightline = {
-      \ 'colorscheme' : 'gruvbox',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \ },
-      \ }
 
 " True colors support for terminal
 set termguicolors     
@@ -171,7 +160,7 @@ autocmd CursorHold,InsertEnter,InsertLeave,BufEnter * silent update
 map <C-o> :NERDTreeToggle<CR>
 
 " TAGBAR keybinding to F6
-nmap <F6> :TagbarToggle<CR>
+nmap <F6> :Vista!!<CR>
 
 " Open up the vimrc file in a serperate vertical buffer with F5
 map <F5> :vsp $MYVIMRC<CR>
@@ -180,7 +169,7 @@ map <F5> :vsp $MYVIMRC<CR>
 autocmd FileType python nnoremap <F7> :update<CR>:!python %<CR>
 
 " Assign F8 to compile the current c++ file with g++
-autocmd FileType cpp nnoremap <F8> :update<CR>:!g++ % -o %:r.exe<CR>
+autocmd FileType cpp nnoremap <F8> :update<CR>:!g++ % -o %:r.exe<CR>:!%:r.exe<CR>
 
 " Keybinding for tabbing inside of visual mode selection
 vnoremap <Tab> >gv 
@@ -196,6 +185,31 @@ map <C-l> <C-w>l
 map <leader>n :bn<cr>
 map <leader>p :bp<cr>
 map <leader>d :bd<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom Plugin Config Options
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set up Vista
+let g:vista_sidebar_width = 40
+let g:vista_update_on_text_changed = 1
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+" By default vista.vim never run if you don't call it explicitly.
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+" Set lightline theme and settings
+let g:lightline = {
+      \ 'colorscheme' : 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'vistaNearestMethod' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
+      \   'vistaNearestMethod': 'NearestMethodOrFunction'
+      \ },
+      \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config
@@ -237,6 +251,7 @@ let g:closetag_close_shortcut = '<leader>>'
 " COC Config
 """"""""""""""""""""""""""""""""""""""""""""""
 " Next and previous selection are <C-J> and <C-K> respectively
+" For statusline integration with other plugins, checkout `:h coc-status`
 
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -325,8 +340,8 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
+nmap <silent> <C-TAB> <Plug>(coc-range-select)
+xmap <silent> <C-TAB> <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -339,9 +354,6 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Use command Prettier for Prettier support
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
-
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
