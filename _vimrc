@@ -28,7 +28,7 @@ set wildmenu
 " Disable file type for vim plug
 filetype off                  " required
 
-call plug#begin('~/.vim/bundle')
+call plug#begin('~/vimfiles/plugged')
 
 """"""""""""""""""""""""
 " Plugins
@@ -44,7 +44,7 @@ Plug 'alvan/vim-closetag'
 " Easily surround and change quotes
 Plug 'tpope/vim-surround'
 " Preview Markdown files in browser
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown', 'on': ['MarkdownPreview', 'MarkdownPreviewStop', 'MarkdownPreviewToggle'] }
 " Better commenting
 Plug 'preservim/nerdcommenter'
 
@@ -68,13 +68,15 @@ Plug 'airblade/vim-gitgutter'
 " Theme / Interface
 """""""""""""""""""""""
 " Side file tree
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Improved status bar
 Plug 'itchyny/lightline.vim'
-" Presents tags in a bar to the side, can use LSP (Requires Universal-Ctags)
-Plug 'liuchengxu/vista.vim'
+" Presents tags in a bar to the side (Requires Universal-Ctags)
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 " Gruvbox theme"
 Plug 'morhetz/gruvbox'
+" Seoul256 Theme
+Plug 'junegunn/seoul256.vim'
 " Rainbow brackets and parenthesis
 Plug 'junegunn/rainbow_parentheses.vim'
 
@@ -110,12 +112,13 @@ set laststatus=2
 " Enable highlighting of the current line
 set cursorline
 
-
 " True colors support for terminal
 set termguicolors     
 
 " Set color theme
-colorscheme gruvbox
+" Set darkness of background (233 (darkest) - 239 (lightest))
+let g:seoul256_background = 235
+colorscheme seoul256
 set background=dark
 
 " Autorun RainbowParentheses command on startup
@@ -150,8 +153,22 @@ highlight link javaScopeDecl Statement
 highlight link javaType Type
 highlight link javaDocTags PreProc
 
-" Autosave autocmd
-autocmd CursorHold,InsertEnter,InsertLeave,BufEnter * silent update
+" Autosave autocmd that makes sure the file exists before saving. Stops errors
+" from being thrown
+function Autosave()
+    if @% != ""
+        " Unless file has filename
+        silent update
+    elseif filereadable(@%) != 0
+        " Unless file exists
+        silent update
+    elseif line('$') != 1 && col('$') != 1
+        " Unless files isn't empty
+        silent update
+    endif
+endfunction
+
+autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 
 """"""""""""""""""""""""""""""""""""""""""
 " Custom Keybindings
@@ -159,8 +176,8 @@ autocmd CursorHold,InsertEnter,InsertLeave,BufEnter * silent update
 " Set keybind for NERDTREE to Ctrl+o
 map <C-o> :NERDTreeToggle<CR>
 
-" TAGBAR keybinding to F6
-nmap <F6> :Vista!!<CR>
+" Vista toggle keybinding to F6
+map <F6> :TagbarToggle<CR>
 
 " Open up the vimrc file in a serperate vertical buffer with F5
 map <F5> :vsp $MYVIMRC<CR>
@@ -189,25 +206,15 @@ map <leader>d :bd<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Custom Plugin Config Options
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Set up Vista
-let g:vista_sidebar_width = 40
-let g:vista_update_on_text_changed = 1
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-" By default vista.vim never run if you don't call it explicitly.
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
 " Set lightline theme and settings
 let g:lightline = {
-      \ 'colorscheme' : 'gruvbox',
+      \ 'colorscheme' : 'seoul256',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'vistaNearestMethod' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified'] ]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head',
-      \   'vistaNearestMethod': 'NearestMethodOrFunction'
       \ },
       \ }
 
