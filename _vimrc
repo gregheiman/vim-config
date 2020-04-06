@@ -16,19 +16,26 @@ set encoding=utf-8
 " Map leader to space
 map <Space> <Leader>
 
-" Make finding files easy
+" Enable a fuzzy finder esque system for files
 set path=.,/usr/include,,.
 set path+=**
 set wildmenu
  
 " Plugins section
-"""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""
 " START Vim Plug Configuration 
-"""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""
 " Disable file type for vim plug
 filetype off                  " required
 
-call plug#begin('~/vimfiles/plugged')
+" Check for OS system in order to start vim-plug in
+if has('win32') || has('win64')
+    let g:plugDirectory = '~/vimfiles/plugged'
+elseif has('macunix')
+    let g:plugDirectory = '~/.vim/plugged'
+endif
+
+call plug#begin(plugDirectory)
 
 """"""""""""""""""""""""
 " Plugins
@@ -93,11 +100,13 @@ filetype plugin indent on    " required
 " Set Font and size
 set guifont=Fira_Code:h10
 
-" Start vim fullscreen"
-au GUIEnter * simalt ~x
+" Start Vim fullscreen (only works on Windows)
+if has('win32') || has('win64')
+    au GUIEnter * simalt ~x
+endif
 
 " Show linenumbers
-set number
+set number relativenumber
 set ruler
 
 " Set Proper 4 Space Tabs
@@ -118,37 +127,35 @@ set termguicolors
 " Set color theme
 " Set darkness of background (233 (darkest) - 239 (lightest))
 let g:seoul256_background = 235
-colorscheme seoul256
+colorscheme gruvbox
 set background=dark
 
-" Autorun RainbowParentheses command on startup
-autocmd VimEnter * RainbowParentheses
+" Autorun RainbowParentheses command upon opening a file
+autocmd BufRead * RainbowParentheses
 
 " Automatically set the cwd to the directory with .git folder
-" set working directory to git project root
-" or directory of current file if not git project
+" or directory of current file if not a git project
 function! SetProjectRoot()
-  " default to the current file's directory
+  " Default to the current file's directory
   lcd %:p:h
   let git_dir = system("git rev-parse --show-toplevel")
   " See if the command output starts with 'fatal' (if it does, not in a git repo)
   let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
-  " if git project, change local directory to git project root
+  " If git project, change local directory to git project root
   if empty(is_not_git_dir)
     lcd `=git_dir`
   endif
 endfunction
 
-" set working directory
-autocmd BufRead *
-  \ call SetProjectRoot()
+" Set working directory
+autocmd BufRead * call SetProjectRoot()
 
-"Sets the default splits to be to the right and below from default
+" Sets the default splits to be to the right and below from default
 set splitright splitbelow
 
 " Improve syntax highlighting for java code
 let g:java_highlight_functions = 1
-let java_highlight_all = 1
+let g:java_highlight_all = 1
 highlight link javaScopeDecl Statement
 highlight link javaType Type
 highlight link javaDocTags PreProc
@@ -176,7 +183,7 @@ autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 " Set keybind for NERDTREE to Ctrl+o
 map <C-o> :NERDTreeToggle<CR>
 
-" Vista toggle keybinding to F6
+" Tagbar toggle keybinding to F6
 map <F6> :TagbarToggle<CR>
 
 " Open up the vimrc file in a serperate vertical buffer with F5
@@ -187,6 +194,10 @@ autocmd FileType python nnoremap <F7> :update<CR>:!python %<CR>
 
 " Assign F8 to compile the current c++ file with g++
 autocmd FileType cpp nnoremap <F8> :update<CR>:!g++ % -o %:r.exe<CR>:!%:r.exe<CR>
+
+" Assign F12 to reload my vimrc file so I don't have to restart upon making
+" changes
+map <F12> :so $MYVIMRC<CR>
 
 " Keybinding for tabbing inside of visual mode selection
 vnoremap <Tab> >gv 
@@ -208,7 +219,7 @@ map <leader>d :bd<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Set lightline theme and settings
 let g:lightline = {
-      \ 'colorscheme' : 'seoul256',
+      \ 'colorscheme' : 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified'] ]
