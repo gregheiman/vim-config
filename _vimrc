@@ -54,6 +54,10 @@ Plug 'tpope/vim-surround'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown', 'on': ['MarkdownPreview', 'MarkdownPreviewStop', 'MarkdownPreviewToggle'] }
 " Better commenting
 Plug 'preservim/nerdcommenter'
+" Automatically set project directory (Works with Fugitive)
+Plug 'airblade/vim-rooter'
+" Add multiple cursors to Vim
+Plug 'terryma/vim-multiple-cursors'
 
 """"""""""""""""""""""" 
 " Generic Programming Support 
@@ -133,22 +137,16 @@ set background=dark
 " Autorun RainbowParentheses command upon opening a file
 autocmd BufRead * RainbowParentheses
 
-" Automatically set the cwd to the directory with .git folder
-" or directory of current file if not a git project
-function! SetProjectRoot()
-  " Default to the current file's directory
-  lcd %:p:h
-  let git_dir = system("git rev-parse --show-toplevel")
-  " See if the command output starts with 'fatal' (if it does, not in a git repo)
-  let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
-  " If git project, change local directory to git project root
-  if empty(is_not_git_dir)
-    lcd `=git_dir`
-  endif
+" Automatically save Session.vim if one exists
+function SaveSessionIfExistsUponExit()
+    if glob('./Session.vim') != ""
+        " If Session.vim exists save if before exiting
+        silent mksession!
+        echo "Session updated"
+    endif
 endfunction
 
-" Set working directory
-autocmd BufRead * call SetProjectRoot()
+autocmd BufLeave,BufWinLeave,VimLeave * call SaveSessionIfExistsUponExit()
 
 " Sets the default splits to be to the right and below from default
 set splitright splitbelow
@@ -159,6 +157,17 @@ let g:java_highlight_all = 1
 highlight link javaScopeDecl Statement
 highlight link javaType Type
 highlight link javaDocTags PreProc
+
+" Check if the buffer is empty and determine how to open my vimrc
+function CheckHowToOpenVimrc()
+    if @% == "" || filereadable(@%) == 0 || line('$') == 1 && col('$') == 1
+        " If the buffer is empty open vimrc fullscreen 
+        e $MYVIMRC
+    else
+        " Otherwise open vimrc in a vertical split
+        vsp $MYVIMRC
+    endif
+endfunction
 
 " Autosave autocmd that makes sure the file exists before saving. Stops errors
 " from being thrown
@@ -186,8 +195,8 @@ map <C-o> :NERDTreeToggle<CR>
 " Tagbar toggle keybinding to F6
 map <F6> :TagbarToggle<CR>
 
-" Open up the vimrc file in a serperate vertical buffer with F5
-map <F5> :vsp $MYVIMRC<CR>
+" Determine how to open vimrc before opening with F5
+map <F5> :call CheckHowToOpenVimrc()<CR>
 
 " Assign F7 to run the current python file
 autocmd FileType python nnoremap <F7> :update<CR>:!python %<CR>
@@ -228,6 +237,11 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head',
       \ },
       \ }
+
+" Set non-project directories to go to the files current directory
+let g:rooter_change_directory_for_non_project_files = 'current'
+" Rooter won't echo the current working directory
+let g:rooter_silent_chdir = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config
