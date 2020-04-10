@@ -66,6 +66,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Pretty complete language pack for better syntax highlighting
 Plug 'sheerun/vim-polyglot'
+" Add support for running build, run, and test tasks
+Plug 'tpope/vim-dispatch'
 
 """""""""""""""""""""" 
 " Git Support
@@ -142,7 +144,6 @@ function SaveSessionIfExistsUponExit()
     if glob('./Session.vim') != ""
         " If Session.vim exists save if before exiting
         silent mksession!
-        echo "Session updated"
     endif
 endfunction
 
