@@ -11,7 +11,7 @@ directory (Follow installation instructions on page)
 3. Checkout this repository to Vim directory
 4. Start Vim
 5. Run :Plug Install
-6. Place coc-settings.json into "C:/users/'username'/.vim" folder
+6. Place coc-settings.json into "C:/users/'username'/vimfiles" folder or create a symlink to that location
 7. Restart Vim
 8. Profit
 
