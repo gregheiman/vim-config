@@ -20,7 +20,10 @@ map <Space> <Leader>
 set path=.,/usr/include,,.
 set path+=**
 set wildmenu
- 
+
+" Disable the mode display below statusline
+set noshowmode
+
 " Plugins section
 """"""""""""""""""""""""""""""""""""""""""
 " START Vim Plug Configuration 
@@ -92,7 +95,8 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
 " Rainbow brackets and parenthesis
 Plug 'junegunn/rainbow_parentheses.vim'
-
+" Add semantic highlighting
+Plug 'jaxbot/semantic-highlight.vim'
 " OSX backspace fix
 set backspace=indent,eol,start
 
@@ -139,15 +143,15 @@ set background=dark
 " Autorun RainbowParentheses command upon opening a file
 autocmd BufRead * RainbowParentheses
 
-" Automatically save Session.vim if one exists
-function SaveSessionIfExistsUponExit()
+" Automatically save Session.vim it one exists
+function! SaveSessionIfExistsUponExit()
     if glob('./Session.vim') != ""
         " If Session.vim exists save if before exiting
         silent mksession!
     endif
 endfunction
 
-autocmd BufLeave,BufWinLeave,VimLeave * call SaveSessionIfExistsUponExit()
+autocmd VimLeave * call SaveSessionIfExistsUponExit()
 
 " Sets the default splits to be to the right and below from default
 set splitright splitbelow
@@ -160,7 +164,7 @@ highlight link javaType Type
 highlight link javaDocTags PreProc
 
 " Check if the buffer is empty and determine how to open my vimrc
-function CheckHowToOpenVimrc()
+function! CheckHowToOpenVimrc()
     if @% == "" || filereadable(@%) == 0 || line('$') == 1 && col('$') == 1
         " If the buffer is empty open vimrc fullscreen 
         e $MYVIMRC
@@ -172,7 +176,7 @@ endfunction
 
 " Autosave autocmd that makes sure the file exists before saving. Stops errors
 " from being thrown
-function Autosave()
+function! Autosave()
     if @% != ""
         " Unless file has filename
         silent update
@@ -232,24 +236,36 @@ let g:lightline = {
       \ 'colorscheme' : 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified'] ]
+      \             [ 'gitGutterDiff', 'gitbranch', 'readonly', 'filename', 'modified'] ]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head',
+      \   'gitGutterDiff': 'LightlineGitGutter',
       \ },
       \ }
+" Sees what changes have occurred in the current file
+function! LightlineGitGutter()
+  if !get(g:, 'gitgutter_enabled', 0) || empty(FugitiveHead())
+    return ''
+  endif
+  let [ l:added, l:modified, l:removed ] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', l:added, l:modified, l:removed)
+endfunction
 
 " Set non-project directories to go to the files current directory
 let g:rooter_change_directory_for_non_project_files = 'current'
 " Rooter won't echo the current working directory
 let g:rooter_silent_chdir = 1
 
+" Languages in which to disable polyglot
+let g:polyglot_disabled = ['python']
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
 
 " filenames like *.xml, *.xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
@@ -283,6 +299,20 @@ let g:closetag_close_shortcut = '<leader>>'
 """""""""""""""""""""""""""""""""""""""""""""""
 " COC Config
 """"""""""""""""""""""""""""""""""""""""""""""
+" COC List of Extensions
+let g:coc_global_extensions = [
+    \ "coc-python", 
+    \ "coc-java", 
+    \ "coc-clangd", 
+    \ "coc-xml", 
+    \ "coc-vimlsp", 
+    \ "coc-spell-checker", 
+    \ "coc-highlight", 
+    \ "coc-tsserver", 
+    \ "coc-markdownlint", 
+    \ "coc-eslint",
+    \ "coc-json",
+    \ ]
 " Next and previous selection are <C-J> and <C-K> respectively
 " For statusline integration with other plugins, checkout `:h coc-status`
 
