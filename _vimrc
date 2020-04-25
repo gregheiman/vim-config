@@ -66,11 +66,11 @@ Plug 'terryma/vim-multiple-cursors'
 " Generic Programming Support 
 """""""""""""""""""""""
 " Code completion (Requires Node.js)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 " Pretty complete language pack for better syntax highlighting
 Plug 'sheerun/vim-polyglot'
 " Add support for running build, run, and test tasks
-Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
 
 """""""""""""""""""""" 
 " Git Support
@@ -91,12 +91,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 " Gruvbox theme"
 Plug 'morhetz/gruvbox'
-" Seoul256 Theme
-Plug 'junegunn/seoul256.vim'
 " Rainbow brackets and parenthesis
-Plug 'junegunn/rainbow_parentheses.vim'
-" Add semantic highlighting
-Plug 'jaxbot/semantic-highlight.vim'
+Plug 'junegunn/rainbow_parentheses.vim', { 'on': 'RainbowParentheses' }
+
 " OSX backspace fix
 set backspace=indent,eol,start
 
@@ -135,8 +132,6 @@ set cursorline
 set termguicolors     
 
 " Set color theme
-" Set darkness of background (233 (darkest) - 239 (lightest))
-let g:seoul256_background = 235
 colorscheme gruvbox
 set background=dark
 
@@ -146,7 +141,7 @@ autocmd BufRead * RainbowParentheses
 " Automatically save Session.vim it one exists
 function! SaveSessionIfExistsUponExit()
     if glob('./Session.vim') != ""
-        " If Session.vim exists save if before exiting
+        " If Session.vim exists save before exiting
         silent mksession!
     endif
 endfunction
@@ -156,12 +151,20 @@ autocmd VimLeave * call SaveSessionIfExistsUponExit()
 " Sets the default splits to be to the right and below from default
 set splitright splitbelow
 
-" Improve syntax highlighting for java code
-let g:java_highlight_functions = 1
-let g:java_highlight_all = 1
-highlight link javaScopeDecl Statement
-highlight link javaType Type
-highlight link javaDocTags PreProc
+" Autocmd for improving the syntax highlight for .java files
+autocmd FileType java * call JavaHighlightEnhancement()
+
+function! JavaHighlightEnhancement()
+    " Improve syntax highlighting for java code
+    let g:java_highlight_functions = 1
+    let g:java_highlight_all = 1
+    let g:java_highlight_debug = 1
+    let g:java_space_errors = 1
+    let g:java_allow_cpp_keywords = 1
+    highlight link javaScopeDecl Statement
+    highlight link javaType Type
+    highlight link javaDocTags PreProc
+endfunction
 
 " Check if the buffer is empty and determine how to open my vimrc
 function! CheckHowToOpenVimrc()
@@ -207,7 +210,7 @@ map <F5> :call CheckHowToOpenVimrc()<CR>
 autocmd FileType python nnoremap <F7> :update<CR>:!python %<CR>
 
 " Assign F8 to compile the current c++ file with g++
-autocmd FileType cpp nnoremap <F8> :update<CR>:!g++ % -o %:r.exe<CR>:!%:r.exe<CR>
+autocmd FileType cpp nnoremap <F8> :update<CR>:Dispatch g++ % -o %:r.exe<CR>:!%:r.exe<CR>
 
 " Assign F12 to reload my vimrc file so I don't have to restart upon making
 " changes
@@ -269,15 +272,15 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
 
 " filenames like *.xml, *.xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js'
 
 " filetypes like xml, html, xhtml, ...
 " These are the file types where this plugin is enabled.
-let g:closetag_filetypes = 'html,xhtml,phtml'
+let g:closetag_filetypes = 'html,xhtml,phtml,javascript'
 
 " filetypes like xml, xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript'
 
 " integer value [0|1]
 " This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
@@ -437,4 +440,4 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nnoremap <silent> <space>rn <Plug>(coc-rename)
