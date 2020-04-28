@@ -50,11 +50,11 @@ Plug 'Yggdroot/indentLine'
 " Auto closing"
 Plug 'jiangmiao/auto-pairs'
 " Auto close html and xml tags
-Plug 'alvan/vim-closetag'
+Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xhtml', 'javascript', 'jsx'] }
 " Easily surround and change quotes
 Plug 'tpope/vim-surround'
 " Preview Markdown files in browser
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown', 'on': ['MarkdownPreview', 'MarkdownPreviewStop', 'MarkdownPreviewToggle'] }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown', 'on': ['MarkdownPreview'] }
 " Better commenting
 Plug 'preservim/nerdcommenter'
 " Automatically set project directory (Works with Fugitive)
@@ -84,7 +84,7 @@ Plug 'airblade/vim-gitgutter'
 " Theme / Interface
 """""""""""""""""""""""
 " Side file tree
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTree' }
 " Improved status bar
 Plug 'itchyny/lightline.vim'
 " Presents tags in a bar to the side (Requires Universal-Ctags)
@@ -261,7 +261,7 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_silent_chdir = 1
 
 " Languages in which to disable polyglot
-let g:polyglot_disabled = ['python']
+let g:polyglot_disabled = ['python', 'markdown']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config
