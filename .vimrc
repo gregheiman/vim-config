@@ -29,10 +29,18 @@ set noshowmode
 " START Vim Plug Configuration 
 """"""""""""""""""""""""""""""""""""""""""
 " Checks if vim-plug is installed and if not automatically installs it
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+if has('win32') || has ('win64')
+	if empty(glob('C:/tools/vim/vim82/autoload/plug.vim'))
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	endif
+elseif has('mac') || had('macunix')
+	if empty(glob('~/.vim/autoload/plug.vim'))
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	endif
 endif
 
 " Disable file type for vim plug
@@ -41,7 +49,7 @@ filetype off                  " required
 " Check for OS system in order to start vim-plug in
 if has('win32') || has('win64')
     let g:plugDirectory = '~/vimfiles/plugged'
-elseif has('macunix')
+elseif has('macunix') || has('mac')
     let g:plugDirectory = '~/.vim/plugged'
 endif
 
