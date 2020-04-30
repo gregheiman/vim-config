@@ -65,7 +65,7 @@ Plug 'Yggdroot/indentLine'
 " Auto closing"
 Plug 'jiangmiao/auto-pairs'
 " Auto close html and xml tags
-Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xhtml', 'javascript', 'jsx'] }
+Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xhtml', 'javascript', 'jsx', 'xml'] }
 " Easily surround and change quotes
 Plug 'tpope/vim-surround'
 " Preview Markdown files in browser
@@ -99,7 +99,7 @@ Plug 'airblade/vim-gitgutter'
 " Theme / Interface
 """""""""""""""""""""""
 " Side file tree
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTree' }
+Plug 'preservim/nerdtree', { 'on': [ 'NERDTree', 'NERDTreeToggle' ] }
 " Improved status bar
 Plug 'itchyny/lightline.vim'
 " Presents tags in a bar to the side (Requires Universal-Ctags)
