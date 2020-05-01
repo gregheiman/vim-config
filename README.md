@@ -1,14 +1,14 @@
 # Vim-Config
 
 My personal Vim configuration for Windows and MacOS.
-Before beginning make sure you have CURL installed. Will make installation easier.
+Before beginning it is recommended to install CURL first.
 
 ## Installation for Windows
 
 1. Install Vim from [here](https://github.com/vim/vim-win32-installer/releases).
 2. Clone this repository into your Vim directory.
 3. Start Vim.
-4. Vim-Plug should install and run :Plug Install automatically, but if not
+4. Vim-Plug should install through CURL and run :PlugInstall automatically, but if not
 install [Vim-Plug](https://github.com/junegunn/vim-plug) yourself
 (follow the instructions on the page). Then run :PlugInstall upon launching.
 Vim for the first time
@@ -29,7 +29,7 @@ ln -s ~/Vim-Config/.vimrc ~/.vimrc
 ```
 
 4. Start MacVim.
-5. Vim-Plug should install and run :Plug Install automatically, but if not
+5. Vim-Plug should install through CURL and run :PlugInstall automatically, but if not
 install [Vim-Plug](https://github.com/junegunn/vim-plug) yourself
 (follow the instructions on the page). Then run :PlugInstall upon launching
 MacVim for the first time.
