@@ -28,7 +28,7 @@ set noshowmode
 """"""""""""""""""""""""""""""""""""""""""
 " START Vim Plug Configuration 
 """"""""""""""""""""""""""""""""""""""""""
-" Checks if vim-plug is installed and if not automatically installs it
+" Checks if vim-plug is installed, and if not automatically installs it
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -61,7 +61,8 @@ Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xhtml', 'javascript', 'js
 " Easily surround and change quotes
 Plug 'tpope/vim-surround'
 " Preview Markdown files in browser
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown', 'on': ['MarkdownPreview'] }
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown', 'on': ['MarkdownPreview'] }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': 'markdown', 'on': ['MarkdownPreview'] }
 " Better commenting
 Plug 'preservim/nerdcommenter'
 " Automatically set project directory (Works with Fugitive)
@@ -91,7 +92,7 @@ Plug 'airblade/vim-gitgutter'
 " Theme / Interface
 """""""""""""""""""""""
 " Side file tree
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTree' }
+Plug 'preservim/nerdtree', { 'on': ['NERDTree', 'NERDTreeToggle'] }
 " Improved status bar
 Plug 'itchyny/lightline.vim'
 " Presents tags in a bar to the side (Requires Universal-Ctags)
