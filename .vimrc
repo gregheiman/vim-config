@@ -28,11 +28,19 @@ set noshowmode
 """"""""""""""""""""""""""""""""""""""""""
 " START Vim Plug Configuration 
 """"""""""""""""""""""""""""""""""""""""""
-" Checks if vim-plug is installed, and if not automatically installs it
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" Checks if vim-plug is installed and if not automatically installs it
+if has('win32') || has ('win64')
+	if empty(glob('C:/tools/vim/vim82/autoload/plug.vim'))
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	endif
+elseif has('mac') || had('macunix')
+	if empty(glob('~/.vim/autoload/plug.vim'))
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	endif
 endif
 
 " Disable file type for vim plug
@@ -41,7 +49,7 @@ filetype off                  " required
 " Check for OS system in order to start vim-plug in
 if has('win32') || has('win64')
     let g:plugDirectory = '~/vimfiles/plugged'
-elseif has('macunix')
+elseif has('macunix') || has('mac')
     let g:plugDirectory = '~/.vim/plugged'
 endif
 
@@ -57,12 +65,11 @@ Plug 'Yggdroot/indentLine'
 " Auto closing"
 Plug 'jiangmiao/auto-pairs'
 " Auto close html and xml tags
-Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xhtml', 'javascript', 'jsx'] }
+Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xhtml', 'javascript', 'jsx', 'xml'] }
 " Easily surround and change quotes
 Plug 'tpope/vim-surround'
 " Preview Markdown files in browser
-" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown', 'on': ['MarkdownPreview'] }
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': 'markdown', 'on': ['MarkdownPreview'] }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown', 'on': ['MarkdownPreview'] }
 " Better commenting
 Plug 'preservim/nerdcommenter'
 " Automatically set project directory (Works with Fugitive)
@@ -92,7 +99,7 @@ Plug 'airblade/vim-gitgutter'
 " Theme / Interface
 """""""""""""""""""""""
 " Side file tree
-Plug 'preservim/nerdtree', { 'on': ['NERDTree', 'NERDTreeToggle'] }
+Plug 'preservim/nerdtree', { 'on': [ 'NERDTree', 'NERDTreeToggle' ] }
 " Improved status bar
 Plug 'itchyny/lightline.vim'
 " Presents tags in a bar to the side (Requires Universal-Ctags)
