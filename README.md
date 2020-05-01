@@ -10,7 +10,7 @@ Before beginning it is recommended to install CURL first.
 3. Start Vim.
 4. Vim-Plug should install through CURL and run :PlugInstall automatically, but if not
 install [Vim-Plug](https://github.com/junegunn/vim-plug) yourself
-(follow the instructions on the page). Then run :PlugInstall upon launching.
+(follow the instructions on the page). Then run :PlugInstall upon launching
 Vim for the first time
 5. Place coc-settings.json into "C:/users/'username'/vimfiles" folder or create
 a symlink to that location.
