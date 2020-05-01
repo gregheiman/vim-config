@@ -1,7 +1,7 @@
 # Vim-Config
 
-My personal Vim configuration for Windows. Works on MacOS but you have to rename
-_vimrc to .vimrc and .gvimrc.
+My personal Vim configuration for Windows and MacOS.
+Before beginning make sure you have CURL installed. Will make installation easier.
 
 ## Installation for Windows
 
