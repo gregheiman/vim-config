@@ -33,7 +33,10 @@ ln -s ~/Vim-Config/.vimrc ~/.vimrc
 install [Vim-Plug](https://github.com/junegunn/vim-plug) yourself
 (follow the instructions on the page). Then run :PlugInstall upon launching
 MacVim for the first time.
-6. Place coc-settings.json into ~/.vim folder.
+6. Place coc-settings.json into ~/.vim folder. Or symlink it with the following command:
+```
+ln -s ~/Vim-Config/coc-settings.json ~/.vim/coc-settings.json
+```
 7. Restart MacVim.
 8. Profit.
 
