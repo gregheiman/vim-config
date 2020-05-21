@@ -31,16 +31,25 @@ set noshowmode
 " Checks if vim-plug is installed and if not automatically installs it
 if has('win32') || has ('win64')
 	if empty(glob('C:/tools/vim/vim82/autoload/plug.vim'))
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        silent !curl -fLo C:/tools/vim/vim82/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 	endif
-elseif has('mac') || had('macunix')
-	if empty(glob('~/.vim/autoload/plug.vim'))
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-	endif
+elseif has('unix')
+    if has('mac') || had('macunix')
+        if empty(glob('~/.vim/autoload/plug.vim'))
+            silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+            autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+        endif
+    else
+        " Linux distributions
+        if empty(glob('~/.vim/autoload/plug.vim'))
+            silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+            autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+        endif
+    endif
 endif
 
 " Disable file type for vim plug
@@ -49,8 +58,13 @@ filetype off                  " required
 " Check for OS system in order to start vim-plug in
 if has('win32') || has('win64')
     let g:plugDirectory = '~/vimfiles/plugged'
-elseif has('macunix') || has('mac')
-    let g:plugDirectory = '~/.vim/plugged'
+elseif has('unix')
+    if has('macunix') || has('mac')
+        let g:plugDirectory = '~/.vim/plugged'
+    else
+        " Linux distributions
+        let g:plugDirectory = '~/.vim/plugged'     
+    endif
 endif
 
 call plug#begin(plugDirectory)
@@ -69,7 +83,7 @@ Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xhtml', 'javascript', 'js
 " Easily surround and change quotes
 Plug 'tpope/vim-surround'
 " Preview Markdown files in browser
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown', 'on': ['MarkdownPreview'] }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'], 'on': ['MarkdownPreview'] }
 " Better commenting
 Plug 'preservim/nerdcommenter'
 " Automatically set project directory (Works with Fugitive)
@@ -121,9 +135,20 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""
 " Set Font and size
 if has('win32') || has('win64')
-    set guifont=Fira_Code:h10
-elseif has('macunix') || has('mac')
-    set guifont=Fira_Code:h12
+    if glob("C:/DELL") != ""
+        " Set the font for my Dell XPS 13
+        set guifont=Fira_Code:h8
+    else
+        " Set the font for my desktop
+        set guifont=Fira_Code:h10
+    endif
+elseif has('unix')
+    if has('macunix') || has('mac')
+        set guifont=Fira_Code:h12
+    else
+        " Linux distributions
+        set guifont=firacode    
+    endif
 endif
 
 " Start Vim fullscreen
