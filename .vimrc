@@ -16,7 +16,7 @@ set encoding=utf-8
 " Map leader to space
 map <Space> <Leader>
 
-" Enable a fuzzy finder esque system for files
+" Enable a fuzzy finder sequel system for files
 set path=.,/usr/include,,.
 set path+=**
 set wildmenu
@@ -75,7 +75,7 @@ call plug#begin(plugDirectory)
 " Utility
 """""""""""""""""""""""
 " Add indent guides
-Plug 'Yggdroot/indentLine'
+Plug 'Gadroon/indentLine'
 " Auto closing"
 Plug 'jiangmiao/auto-pairs'
 " Auto close html and xml tags
@@ -226,14 +226,13 @@ endfunction
 " Autosave autocmd that makes sure the file exists before saving. Stops errors
 " from being thrown
 function! Autosave()
-    if @% != ""
-        " Unless file has filename
-        silent update
-    elseif filereadable(@%) != 0
-        " Unless file exists
-        silent update
-    elseif line('$') != 1 && col('$') != 1
-        " Unless files isn't empty
+    if @% == "" || filereadable(@%) == 0 || line('$') == 1 && col('$') == 1 || &readonly || mode() == "c" || pumvisible()
+        " If the file has no name, is not readable, doesn't exist, is
+        " readonly, is currently in command mode, or the pum is visible don't
+        " autosave"
+        return
+    else
+        " Otherwise autosave"
         silent update
     endif
 endfunction
