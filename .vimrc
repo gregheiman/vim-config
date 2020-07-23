@@ -36,7 +36,7 @@ if has('win32') || has ('win64')
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 	endif
 elseif has('unix')
-    if has('mac') || had('macunix')
+    if has('mac') || has('macunix')
         if empty(glob('~/.vim/autoload/plug.vim'))
             silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
             \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
