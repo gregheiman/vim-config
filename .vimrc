@@ -36,7 +36,7 @@ if has('win32') || has ('win64')
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 	endif
 elseif has('unix')
-    if has('mac') || had('macunix')
+    if has('mac') || has('macunix')
         if empty(glob('~/.vim/autoload/plug.vim'))
             silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
             \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -226,14 +226,13 @@ endfunction
 " Autosave autocmd that makes sure the file exists before saving. Stops errors
 " from being thrown
 function! Autosave()
-    if @% != ""
-        " Unless file has filename
-        silent update
-    elseif filereadable(@%) != 0
-        " Unless file exists
-        silent update
-    elseif line('$') != 1 && col('$') != 1
-        " Unless files isn't empty
+    if @% == "" || filereadable(@%) == 0 || line('$') == 1 && col('$') == 1 || &readonly || mode() == "c" || pumvisible()
+        " If the file has no name, is not readable, doesn't exist, is
+        " readonly, is currently in command mode, or the pum is visible don't
+        " autosave"
+        return
+    else
+        " Otherwise autosave"
         silent update
     endif
 endfunction
