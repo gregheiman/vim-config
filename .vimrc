@@ -307,7 +307,7 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_silent_chdir = 1
 
 " Languages in which to disable polyglot
-let g:polyglot_disabled = ['python', 'markdown']
+let g:polyglot_disabled = ['Python', 'markdown']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config

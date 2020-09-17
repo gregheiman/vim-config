@@ -13,4 +13,5 @@ create them.
 
 ## General
 These languages should also be disabled inside of vim polyglot with the
-let:g:polyglot_disabled command. (Vim-Polyglot does not include a Java syntax file)
+let:g:polyglot_disabled command. (Vim-Polyglot does not include a Java syntax file)`
+
