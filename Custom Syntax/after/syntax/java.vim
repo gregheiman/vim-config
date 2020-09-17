@@ -375,3 +375,14 @@ syntax match Final '\<[A-Z][A-Z0-9]\+\%(_[A-Z0-9]\+\)*\>'
 highlight Final ctermfg=61
 
 syn match javaAnnotation "@\([_$a-zA-Z][_$a-zA-Z0-9]*\.\)*[_$a-zA-Z][_$a-zA-Z0-9]*\>"
+
+
+" Improve syntax highlighting for java code
+let g:java_highlight_functions = 1
+let g:java_highlight_all = 1
+let g:java_highlight_debug = 1
+let g:java_space_errors = 1
+let g:java_allow_cpp_keywords = 1
+highlight link javaScopeDecl Statement
+highlight link javaType Type
+highlight link javaDocTags PreProc

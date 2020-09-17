@@ -197,20 +197,6 @@ autocmd VimLeave * call SaveSessionIfExistsUponExit()
 " Sets the default splits to be to the right and below from default
 set splitright splitbelow
 
-" Autocmd for improving the syntax highlight for .java files
-autocmd FileType java * call JavaHighlightEnhancement()
-
-function! JavaHighlightEnhancement()
-    " Improve syntax highlighting for java code
-    let g:java_highlight_functions = 1
-    let g:java_highlight_all = 1
-    let g:java_highlight_debug = 1
-    let g:java_space_errors = 1
-    let g:java_allow_cpp_keywords = 1
-    highlight link javaScopeDecl Statement
-    highlight link javaType Type
-    highlight link javaDocTags PreProc
-endfunction
 
 " Check if the buffer is empty and determine how to open my vimrc
 function! CheckHowToOpenVimrc()
