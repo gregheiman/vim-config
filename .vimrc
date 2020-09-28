@@ -30,8 +30,14 @@ set noshowmode
 """"""""""""""""""""""""""""""""""""""""""
 " Checks if vim-plug is installed and if not automatically installs it
 if has('win32') || has ('win64')
+    " Chocolatey default install location
 	if empty(glob('C:/tools/vim/vim82/autoload/plug.vim'))
         silent !curl -fLo C:/tools/vim/vim82/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    " Default windows install location
+    elseif empty(glob('~/vim/vim82/autoload/plug.vim'))
+        silent !curl -fLo ~/vim/vim82/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 	endif
