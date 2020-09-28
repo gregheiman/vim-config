@@ -4,11 +4,10 @@ The purpose of this folder and the files within is to provide syntax files
 which I find to be better than Vim-Polyglot.
 
 ## Windows
-Take these files and replace the ones
-in "./vim/syntax", renaming the old ones as "oldsyntax.vim.bak".
+Symlink or place the whole after directory into your "/vimfiles/" directory
 
-## MacOS
-Place these files inside of "~/.vim/after/syntax/". If those folders don't exist
+## MacOS and Linux
+Symlink or place these files inside of "~/.vim/after/syntax/". If those folders don't exist
 create them.
 
 ## General
