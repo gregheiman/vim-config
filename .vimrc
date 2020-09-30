@@ -31,26 +31,21 @@ set noshowmode
 " Checks if vim-plug is installed and if not automatically installs it
 if has('win32') || has ('win64')
     " Chocolatey default install location
-	if empty(glob('C:/tools/vim/vim82/autoload/plug.vim'))
+	if empty(glob('C:/tools/vim/vim82/autoload/Plug.vim'))
         silent !curl -fLo C:/tools/vim/vim82/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-    " Default windows install location
-    elseif empty(glob('~/vim/vim82/autoload/plug.vim'))
-        silent !curl -fLo ~/vim/vim82/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-	endif
+    endif
 elseif has('unix')
     if has('mac') || has('macunix')
-        if empty(glob('~/.vim/autoload/plug.vim'))
+        if empty(glob('~/.vim/autoload/Plug.vim'))
             silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
             \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
             autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
         endif
     else
         " Linux distributions
-        if empty(glob('~/.vim/autoload/plug.vim'))
+        if empty(glob('~/.vim/autoload/Plug.vim'))
             silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
             \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
             autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -229,6 +224,33 @@ function! Autosave()
     endif
 endfunction
 
+" Safe for symbolic links
+let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+function! CheckIfVimrcHasGitPull()
+    " Change to the vim git directory
+    execute("cd C:/tools/vim")
+    " Execute a git fetch to update the tree
+    execute("silent !git fetch")
+
+    " Set an upstream and local variable that is a hash returned by git
+    let l:upstream = execute("silent !git rev-parse @{u}")
+    let l:local = execute("silent !git rev-parse @")
+    
+    " If the hashes match then the vimrc is updated 
+    if local ==? upstream
+        echo "Vimrc is up to date"
+    elseif local !=? upstream 
+        " Otherwise you need to update your vimrc
+        echo "You need to update your Vimrc"
+    else 
+        echo "Unable to confirm wether you need to update your Vimrc"
+    endif
+    
+    " Go back to the original startup directory
+    execute("cd -")
+endfunction
+
+autocmd VimEnter * call CheckIfVimrcHasGitPull()
 autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 
 """"""""""""""""""""""""""""""""""""""""""
