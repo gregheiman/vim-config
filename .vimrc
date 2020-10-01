@@ -238,29 +238,30 @@ function! CheckIfVimrcHasGitPull()
     
     "Execute a git fetch to update the tree
     execute("AsyncRun -post=execute(SetGitPullVariables()) git fetch")
-    
-    " Go back to the original startup directory
-    silent execute("lcd -")
+    return 
 endfunction 
 
 " Set the variables for checking if the Vimrc needs to be updated
 function! SetGitPullVariables()
+    silent execute("lcd " . s:vimrclocation)
+
     " Set an upstream and local variable that is a hash returned by git
-    let l:upstream = system("AsyncRun git rev-parse @{u}")
-    let l:local = system("AsyncRun git rev-parse @")
+    let l:upstream = system("git rev-parse @{u}")
+    let l:local = system("git rev-parse @")
     
     " If the hashes match then the vimrc is updated 
     if l:local ==? l:upstream
         echohl title | echo "Vimrc is up to date" | echohl None
-        return
     elseif l:local !=? l:upstream 
         " Otherwise you need to update your vimrc
         echohl WarningMsg | echo "You need to update your Vimrc" | echohl None
-        return
     else 
         echohl Error | echo "Unable to confirm wether you need to update your Vimrc" | echohl None
-        return
     endif
+    
+    " Go back to the original startup directory
+    silent execute("lcd ~")
+    return
 endfunction
 
 " Autocmd to check wether vimrc needs to be updated"
@@ -340,13 +341,6 @@ let g:rooter_resolve_links = 1
 
 " Setup fugitive's Gfetch and Gpush commands to use AsyncRun
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-if exists(':Make') == 2
-      noautocmd Make
-else
-      silent noautocmd make!
-      redraw!
-      return 'call fugitive#cwindow()'
-endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config
