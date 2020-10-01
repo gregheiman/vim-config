@@ -245,12 +245,12 @@ function! CheckIfVimrcHasGitPull()
     
     " If the hashes match then the vimrc is updated 
     if l:local ==? l:upstream
-        echo "Vimrc is up to date" 
+        echohl title | echo "Vimrc is up to date" | echohl None
     elseif l:local !=? l:upstream 
         " Otherwise you need to update your vimrc
-        echo "You need to update your Vimrc"
+        echohl WarningMsg | echo "You need to update your Vimrc" | echohl None
     else 
-        echo "Unable to confirm wether you need to update your Vimrc"
+        echohl Error | echo "Unable to confirm wether you need to update your Vimrc" | echohl None
     endif
     
     " Go back to the original startup directory
