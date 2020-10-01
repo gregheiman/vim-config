@@ -35,8 +35,8 @@ let g:polyglot_disabled = ['Python', 'markdown']
 " Checks if vim-plug is installed and if not automatically installs it
 if has('win32') || has ('win64')
     " Chocolatey default install location
-	if empty(glob('C:/tools/vim/vim82/autoload/plug.vim')) 
-        silent !curl -fLo C:/tools/vim/vim82/autoload/plug.vim --create-dirs
+	if empty(glob('~/vimfiles/autoload/plug.vim')) 
+        silent !curl -fLo ~/vimfiles/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
