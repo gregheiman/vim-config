@@ -103,8 +103,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 " Pretty complete language pack for better syntax highlighting
 Plug 'sheerun/vim-polyglot'
-" Add support for running build, run, and test tasks
-Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
+" Add support for running commands asynchronously
+Plug 'skywind3000/asyncrun.vim', { 'on': [ 'AsyncRun' ] }
 
 """""""""""""""""""""" 
 " Git Support
@@ -234,28 +234,34 @@ endfunction
 let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 function! CheckIfVimrcHasGitPull()
     " Change to the vim git directory
-    silent execute("lcd " . s:vimrclocation) 
+    execute("lcd " . s:vimrclocation) 
     
     "Execute a git fetch to update the tree
-    silent execute("Dispatch !git fetch")
-    
-    " Set an upstream and local variable that is a hash returned by git
-    let l:upstream = system("!git rev-parse @{u}")
-    let l:local = system("!git rev-parse @")
-    
-    " If the hashes match then the vimrc is updated 
-    if l:local ==? l:upstream
-        echohl title | echo "Vimrc is up to date" | echohl None
-    elseif l:local !=? l:upstream 
-        " Otherwise you need to update your vimrc
-        echohl WarningMsg | echo "You need to update your Vimrc" | echohl None
-    else 
-        echohl Error | echo "Unable to confirm wether you need to update your Vimrc" | echohl None
-    endif
+    execute("AsyncRun -post=execute(SetGitPullVariables()) git fetch")
     
     " Go back to the original startup directory
     silent execute("lcd -")
 endfunction 
+
+" Set the variables for checking if the Vimrc needs to be updated
+function! SetGitPullVariables()
+    " Set an upstream and local variable that is a hash returned by git
+    let l:upstream = system("AsyncRun git rev-parse @{u}")
+    let l:local = system("AsyncRun git rev-parse @")
+    
+    " If the hashes match then the vimrc is updated 
+    if l:local ==? l:upstream
+        echohl title | echo "Vimrc is up to date" | echohl None
+        return
+    elseif l:local !=? l:upstream 
+        " Otherwise you need to update your vimrc
+        echohl WarningMsg | echo "You need to update your Vimrc" | echohl None
+        return
+    else 
+        echohl Error | echo "Unable to confirm wether you need to update your Vimrc" | echohl None
+        return
+    endif
+endfunction
 
 " Autocmd to check wether vimrc needs to be updated"
 autocmd VimEnter * call CheckIfVimrcHasGitPull()
@@ -266,10 +272,10 @@ autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 " Custom Keybindings
 """"""""""""""""""""""""""""""""""""""""""
 " Set keybind for NERDTREE to Ctrl+o
-map <C-o> :NERDTreeToggle<CR>
+map <C-o> :silent NERDTreeToggle<CR>
 
 " Tagbar toggle keybinding to F6
-map <F6> :TagbarToggle<CR>
+map <F6> :silent TagbarToggle<CR>
 
 " Determine how to open vimrc before opening with F5
 map <F5> :call CheckHowToOpenVimrc()<CR>
@@ -278,7 +284,7 @@ map <F5> :call CheckHowToOpenVimrc()<CR>
 autocmd FileType python nnoremap <F7> :update<CR>:!python %<CR>
 
 " Assign F8 to compile the current c++ file with g++
-autocmd FileType cpp nnoremap <F8> :update<CR>:Dispatch g++ % -o %:r.exe<CR>:!%:r.exe<CR>
+autocmd FileType cpp nnoremap <F8> :update<CR>:AsyncRun g++ % -o %:r.exe<CR>:!%:r.exe<CR>
 
 " Assign F12 to reload my vimrc file so I don't have to restart upon making
 " changes
@@ -331,6 +337,16 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_silent_chdir = 1
 " Rooter won't resolve symbolic links by default
 let g:rooter_resolve_links = 1
+
+" Setup fugitive's Gfetch and Gpush commands to use AsyncRun
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+if exists(':Make') == 2
+      noautocmd Make
+else
+      silent noautocmd make!
+      redraw!
+      return 'call fugitive#cwindow()'
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config
