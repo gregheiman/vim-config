@@ -24,6 +24,10 @@ set wildmenu
 " Disable the mode display below statusline
 set noshowmode
 
+" Languages in which to disable polyglot
+" Needs to be before you load polyglot
+let g:polyglot_disabled = ['Python', 'markdown']
+
 " Plugins section
 """"""""""""""""""""""""""""""""""""""""""
 " START Vim Plug Configuration 
@@ -31,21 +35,21 @@ set noshowmode
 " Checks if vim-plug is installed and if not automatically installs it
 if has('win32') || has ('win64')
     " Chocolatey default install location
-	if empty(glob('C:/tools/vim/vim82/autoload/Plug.vim'))
+	if empty(glob('C:/tools/vim/vim82/autoload/plug.vim')) 
         silent !curl -fLo C:/tools/vim/vim82/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
 elseif has('unix')
     if has('mac') || has('macunix')
-        if empty(glob('~/.vim/autoload/Plug.vim'))
+        if empty(glob('~/.vim/autoload/plug.vim'))
             silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
             \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
             autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
         endif
     else
         " Linux distributions
-        if empty(glob('~/.vim/autoload/Plug.vim'))
+        if empty(glob('~/.vim/autoload/plug.vim'))
             silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
             \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
             autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -224,22 +228,25 @@ function! Autosave()
     endif
 endfunction
 
+" Finds the direcotry that the .vimrc is in
 " Safe for symbolic links
+" Needs to be outside of function in order to work correctly
 let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 function! CheckIfVimrcHasGitPull()
     " Change to the vim git directory
-    execute("cd C:/tools/vim")
-    " Execute a git fetch to update the tree
-    execute("silent !git fetch")
-
+    silent execute("lcd " . s:vimrclocation) 
+    
+    "Execute a git fetch to update the tree
+    silent execute("Dispatch !git fetch")
+    
     " Set an upstream and local variable that is a hash returned by git
-    let l:upstream = execute("silent !git rev-parse @{u}")
-    let l:local = execute("silent !git rev-parse @")
+    let l:upstream = system("!git rev-parse @{u}")
+    let l:local = system("!git rev-parse @")
     
     " If the hashes match then the vimrc is updated 
-    if local ==? upstream
-        echo "Vimrc is up to date"
-    elseif local !=? upstream 
+    if l:local ==? l:upstream
+        echo "Vimrc is up to date" 
+    elseif l:local !=? l:upstream 
         " Otherwise you need to update your vimrc
         echo "You need to update your Vimrc"
     else 
@@ -247,10 +254,12 @@ function! CheckIfVimrcHasGitPull()
     endif
     
     " Go back to the original startup directory
-    execute("cd -")
-endfunction
+    silent execute("lcd -")
+endfunction 
 
+" Autocmd to check wether vimrc needs to be updated"
 autocmd VimEnter * call CheckIfVimrcHasGitPull()
+
 autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -314,13 +323,14 @@ function! LightlineGitGutter()
   return printf('+%d ~%d -%d', l:added, l:modified, l:removed)
 endfunction
 
+" Set the patterns for rooter
+let g:rooter_patterns = ['.git', '.idea', 'src']
 " Set non-project directories to go to the files current directory
 let g:rooter_change_directory_for_non_project_files = 'current'
 " Rooter won't echo the current working directory
 let g:rooter_silent_chdir = 1
-
-" Languages in which to disable polyglot
-let g:polyglot_disabled = ['Python', 'markdown']
+" Rooter won't resolve symbolic links by default
+let g:rooter_resolve_links = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config
