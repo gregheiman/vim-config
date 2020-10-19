@@ -234,10 +234,10 @@ endfunction
 let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 function! CheckIfVimrcHasGitPull()
     " Change to the vim git directory
-    execute("lcd " . s:vimrclocation) 
+    silent execute("lcd " . s:vimrclocation) 
     
     "Execute a git fetch to update the tree
-    execute("AsyncRun -post=execute(SetGitPullVariables()) git fetch")
+    silent execute("AsyncRun -post=execute(SetGitPullVariables()) git fetch")
     return 
 endfunction 
 
@@ -251,12 +251,12 @@ function! SetGitPullVariables()
     
     " If the hashes match then the vimrc is updated 
     if l:local ==? l:upstream
-        echohl title | echo "Vimrc is up to date" | echohl None
+        echohl title | echom "Vimrc is up to date" | echohl None
     elseif l:local !=? l:upstream 
         " Otherwise you need to update your vimrc
-        echohl WarningMsg | echo "You need to update your Vimrc" | echohl None
+        echohl WarningMsg | echom "You need to update your Vimrc" | echohl None
     else 
-        echohl Error | echo "Unable to confirm wether you need to update your Vimrc" | echohl None
+        echohl Error | echom "Unable to confirm wether you need to update your Vimrc" | echohl None
     endif
     
     " Go back to the original startup directory
