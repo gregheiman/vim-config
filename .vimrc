@@ -26,7 +26,7 @@ set noshowmode
 
 " Languages in which to disable polyglot
 " Needs to be before you load polyglot
-let g:polyglot_disabled = ['Python', 'markdown']
+let g:polyglot_disabled = ['Python', 'markdown', 'Java']
 
 " Plugins section
 """"""""""""""""""""""""""""""""""""""""""
@@ -273,10 +273,10 @@ autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 " Custom Keybindings
 """"""""""""""""""""""""""""""""""""""""""
 " Set keybind for NERDTREE to Ctrl+o
-map <C-o> :silent NERDTreeToggle<CR>
+map <C-o> :NERDTreeToggle<CR>
 
 " Tagbar toggle keybinding to F6
-map <F6> :silent TagbarToggle<CR>
+map <F6> :TagbarToggle<CR>
 
 " Determine how to open vimrc before opening with F5
 map <F5> :call CheckHowToOpenVimrc()<CR>
