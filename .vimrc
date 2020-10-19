@@ -285,7 +285,9 @@ map <F5> :call CheckHowToOpenVimrc()<CR>
 autocmd FileType python nnoremap <F7> :update<CR>:!python %<CR>
 
 " Assign F8 to compile the current c++ file with g++
-autocmd FileType cpp nnoremap <F8> :update<CR>:AsyncRun g++ % -o %:r.exe<CR>:!%:r.exe<CR>
+autocmd FileType cpp nnoremap <F8> :update<CR>:silent AsyncRun -mode=terminal -focus=0 -rows=20 -post=echom\ "%:t\ Finished\ Compiling" g++ % -o %:r.exe<CR>
+" Assign F9 to run the current c++ file's executable that g++ created
+autocmd FileType cpp nnoremap <F9> :update<CR>:!%:r.exe<CR>
 
 " Assign F12 to reload my vimrc file so I don't have to restart upon making
 " changes
