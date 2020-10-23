@@ -285,7 +285,14 @@ map <F5> :call CheckHowToOpenVimrc()<CR>
 autocmd FileType python nnoremap <F7> :update<CR>:!python %<CR>
 
 " Assign F8 to compile the current c++ file with Clang
-autocmd FileType cpp nnoremap <F8> :update<CR>:silent AsyncRun -mode=terminal -focus=0 -rows=20 -post=echom\ "%:t\ Finished\ Compiling" clang++ -Wall % -o %:r.exe<CR>
+autocmd FileType cpp nnoremap <F8> :update<CR>:AsyncRun -mode=terminal -focus=0 -rows=20 -post=execute(ReportCppCompile()) clang++ -Wall % -o %:r.exe<CR>
+
+" Set highlight of the finished compiling message
+function! ReportCppCompile()
+    echohl ModeMsg | echom expand("%:t") . " Finished Compiling Check Terminal for Errors" | echohl None
+    return 
+endfunction
+
 " Assign F9 to run the current c++ file's executable that Clang created
 autocmd FileType cpp nnoremap <F9> :update<CR>:!%:r.exe<CR>
 
