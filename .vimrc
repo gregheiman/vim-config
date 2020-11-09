@@ -14,7 +14,7 @@ set renderoptions=type:directx
 set encoding=utf-8
 
 " Map leader to space
-map <Space> <Leader>
+let mapleader = "\<Space>"
 
 " Enable a fuzzy finder esque system for files
 set path=.,/usr/include,,.
@@ -26,7 +26,7 @@ set noshowmode
 
 " Languages in which to disable polyglot
 " Needs to be before you load polyglot
-let g:polyglot_disabled = ['Python', 'markdown', 'Java']
+let g:polyglot_disabled = ['Python', 'markdown', 'autoindent', 'sensible']
 
 " Plugins section
 """"""""""""""""""""""""""""""""""""""""""
@@ -237,7 +237,7 @@ function! CheckIfVimrcHasGitPull()
     silent execute("lcd " . s:vimrclocation) 
     
     "Execute a git fetch to update the tree
-    silent execute("AsyncRun -post=execute(SetGitPullVariables()) git fetch")
+    silent execute("AsyncRun -mode=terminal -pos=hide -post=execute(SetGitPullVariables()) git fetch")
     return 
 endfunction 
 
@@ -267,6 +267,7 @@ endfunction
 " Autocmd to check wether vimrc needs to be updated"
 autocmd VimEnter * call CheckIfVimrcHasGitPull()
 
+" Call autosave
 autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -281,24 +282,30 @@ map <F6> :TagbarToggle<CR>
 " Determine how to open vimrc before opening with F5
 map <F5> :call CheckHowToOpenVimrc()<CR>
 
-" Assign F7 to run the current python file
-autocmd FileType python nnoremap <F7> :update<CR>:!python %<CR>
+" Assign F8 to run the current Python file
+autocmd FileType python nnoremap <F8> :update<CR>:!python %<CR>
 
-" Assign F8 to compile the current c++ file with Clang
-autocmd FileType cpp nnoremap <F8> :update<CR>:AsyncRun -mode=terminal -focus=0 -rows=20 -post=execute(ReportCppCompile()) clang++ -Wall % -o %:r.exe<CR>
+" Assign F8 to compile the current C++ file with Clang
+autocmd FileType cpp nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 -rows=20 -post=execute(ReportCppCompile()) clang++ -Wall % -o %:r.exe<CR>
 
 " Set highlight of the finished compiling message
 function! ReportCppCompile()
-    echohl ModeMsg | echom expand("%:t") . " Finished Compiling Check Terminal for Errors" | echohl None
+    echohl ModeMsg | echom expand("%:t") . " Finished Compiling. Check Terminal for Errors" | echohl None
     return 
 endfunction
 
-" Assign F9 to run the current c++ file's executable that Clang created
+" Assign F9 to run the current C++ file's executable that Clang created
 autocmd FileType cpp nnoremap <F9> :update<CR>:!%:r.exe<CR>
+
+" Assign F8 to compile the current Java file
+autocmd FileType java nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 javac ./%<CR>
+
+" Assigns F9 to run the current Java file
+autocmd FileType java nnoremap <F9> :update<CR>:!java %:r<CR>
 
 " Assign F12 to reload my vimrc file so I don't have to restart upon making
 " changes
-map <F12> :so $MYVIMRC<CR>
+map <F12> :so $MYVIMRC<CR> | redraw
 
 " Keybinding for tabbing inside of visual mode selection
 vnoremap <Tab> >gv 
@@ -314,6 +321,9 @@ map <C-l> <C-w>l
 map <leader>n :bn<cr>
 map <leader>p :bp<cr>
 map <leader>d :bd<cr>
+
+" Local replace all instances of a variable
+nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Custom Plugin Config Options
@@ -347,6 +357,9 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_silent_chdir = 1
 " Rooter won't resolve symbolic links by default
 let g:rooter_resolve_links = 1
+
+" automatically set the AsyncRun quickfix window height
+let g:asyncrun_open = 10
 
 " Setup fugitive's Gfetch and Gpush commands to use AsyncRun
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
@@ -511,21 +524,18 @@ command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>d  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>a  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>a  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent> <leader>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <leader>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-" Remap for rename current word
-nnoremap <silent> <space>rn <Plug>(coc-rename)
+nnoremap <silent> <leader>p  :<C-u>CocListResume<CR>
