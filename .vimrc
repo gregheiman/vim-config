@@ -295,7 +295,7 @@ function! ReportCppCompile()
 endfunction
 
 " Assign F9 to run the current C++ file's executable that Clang created
-autocmd FileType cpp nnoremap <F9> :update<CR>:!%:r.exe<CR>
+autocmd FileType cpp nnoremap <F9> :update<CR>:!./%:r.exe<CR>
 
 " Assign F8 to compile the current Java file
 autocmd FileType java nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 javac ./%<CR>
