@@ -295,13 +295,23 @@ function! ReportCppCompile()
 endfunction
 
 " Assign F9 to run the current C++ file's executable that Clang created
-autocmd FileType cpp nnoremap <F9> :update<CR>:!./%:r.exe<CR>
+" Windows doesn't like the slash in front of the %:r.exe
+if has('win64') || has('win32')
+    autocmd FileType cpp nnoremap <F9> :update<CR>:!%:r.exe<CR>
+else
+    autocmd FileType cpp nnoremap <F9> :update<CR>:!./%:r.exe<CR>
+endif
 
 " Assign F8 to compile the current Java file
 autocmd FileType java nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 javac ./%<CR>
 
 " Assigns F9 to run the current Java file
-autocmd FileType java nnoremap <F9> :update<CR>:!java %:r<CR>
+" Windows doesn't like the slash in front of %:r
+if has('win64') || has('win32')
+    autocmd FileType java nnoremap <F9> :update<CR>:!java %:r<CR>
+else
+    autocmd FileType java nnoremap <F9> :update<CR>:!java ./%:r<CR>
+endif
 
 " Assign F12 to reload my vimrc file so I don't have to restart upon making
 " changes
@@ -410,7 +420,6 @@ let g:coc_global_extensions = [
     \ "coc-clangd", 
     \ "coc-xml", 
     \ "coc-vimlsp", 
-    \ "coc-spell-checker", 
     \ "coc-highlight", 
     \ "coc-tsserver", 
     \ "coc-markdownlint", 
