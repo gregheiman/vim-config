@@ -274,13 +274,16 @@ autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 " Custom Keybindings
 """"""""""""""""""""""""""""""""""""""""""
 " Set keybind for NERDTREE to Ctrl+o
-map <C-o> :NERDTreeToggle<CR>
+nnoremap <C-o> :NERDTreeToggle<CR>
+inoremap <C-o> :NERDTreeToggle<CR>
 
 " Tagbar toggle keybinding to F6
-map <F6> :TagbarToggle<CR>
+nnoremap <F6> :TagbarToggle<CR>
+inoremap <F6> :TagbarToggle<CR>
 
 " Determine how to open vimrc before opening with F5
-map <F5> :call CheckHowToOpenVimrc()<CR>
+nnoremap <F5> :call CheckHowToOpenVimrc()<CR>
+inoremap <F5> :call CheckHowToOpenVimrc()<CR>
 
 " Assign F8 to run the current Python file
 autocmd FileType python nnoremap <F8> :update<CR>:!python %<CR>
@@ -305,24 +308,25 @@ autocmd FileType java nnoremap <F9> :update<CR>:!java %:r<CR>
 
 " Assign F12 to reload my vimrc file so I don't have to restart upon making
 " changes
-map <F12> :so $MYVIMRC<CR> | redraw
+nnoremap <F12> :so $MYVIMRC<CR> | redraw
+inoremap <F12> :so $MYVIMRC<CR> | redraw
 
 " Keybinding for tabbing inside of visual mode selection
 vnoremap <Tab> >gv 
 vnoremap <S-Tab> <gv
 
 " Change split navigation keys
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k	
-map <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k	
+nnoremap <C-l> <C-w>l
 
 " Map next, previous, and delete buffer to leader p and leader n and leader d
-map <leader>n :bn<cr>
-map <leader>p :bp<cr>
-map <leader>d :bd<cr>
+nnoremap <leader>n :bn<cr>
+nnoremap <leader>p :bp<cr>
+nnoremap <leader>d :bd<cr>
 
-" Local replace all instances of a variable
+" Local replace all instances of a variable using Vim
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -403,6 +407,10 @@ let g:closetag_close_shortcut = '<leader>>'
 """""""""""""""""""""""""""""""""""""""""""""""
 " COC Config
 """"""""""""""""""""""""""""""""""""""""""""""
+" Next and previous selection are <C-J> and <C-K> respectively
+" For statusline integration with other plugins, checkout `:h coc-status`
+" Most keybinds are <leader>l__. The l made sense as in 'L'SP
+
 " COC List of Extensions
 let g:coc_global_extensions = [
     \ "coc-python", 
@@ -410,15 +418,12 @@ let g:coc_global_extensions = [
     \ "coc-clangd", 
     \ "coc-xml", 
     \ "coc-vimlsp", 
-    \ "coc-spell-checker", 
     \ "coc-highlight", 
     \ "coc-tsserver", 
     \ "coc-markdownlint", 
     \ "coc-eslint",
     \ "coc-json",
     \ ]
-" Next and previous selection are <C-J> and <C-K> respectively
-" For statusline integration with other plugins, checkout `:h coc-status`
 
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -455,33 +460,25 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
 
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+" Note coc#float#scroll works on neovim >= 0.4.3 or vim >= 8.2.0750
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -490,21 +487,6 @@ augroup mygroup
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Create mappings for function text object, requires document symbols feature of languageserver.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
 
 " Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
 nmap <silent> <C-TAB> <Plug>(coc-range-select)
@@ -517,25 +499,68 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OrganizeImports   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Use command Prettier for Prettier support
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <leader>d  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>lld  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <leader>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>lle  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <leader>a  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>lla  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>llo  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>lls  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <leader>j  :<C-u>CocNext<CR>
+nnoremap <silent> <leader>llj  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <leader>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <leader>lk  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <leader>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <leader>lp  :<C-u>CocListResume<CR>
+
+" Diagnostic keybinds
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Goto keybinds
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Documentation keybinds
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Formatting keybinds
+" Remap for format selected region
+xmap <leader>lf  <Plug>(coc-format-selected)
+nmap <leader>lf  <Plug>(coc-format-selected)
+
+" Codeaction keybinds
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>lap  <Plug>(coc-codeaction-selected)
+nmap <leader>lap  <Plug>(coc-codeaction-selected)
+" Remap for do codeAction of current line
+nmap <leader>lal  <Plug>(coc-codeaction)
+
+" Quickfix Keybinds
+" Fix autofix problem of current line
+nmap <leader>lqf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Rename Keybinds
+" This rename uses the language server to refactor rather than just grep like
+" the vim rename
+nmap <leader>lr  <Plug>(coc-rename)
