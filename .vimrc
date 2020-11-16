@@ -270,7 +270,9 @@ autocmd VimEnter * call CheckIfVimrcHasGitPull()
 " Call autosave
 autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 
-""""""""""""""""""""""""""""""""""""""""""
+set spell spelllang=en_us
+
+"""""""""""""""""""""""""""""""""""""""""
 " Custom Keybindings
 """"""""""""""""""""""""""""""""""""""""""
 " Set keybind for NERDTREE to Ctrl+o
