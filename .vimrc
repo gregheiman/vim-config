@@ -228,7 +228,7 @@ function! Autosave()
     endif
 endfunction
 
-" Finds the direcotry that the .vimrc is in
+" Finds the directory that the .vimrc is in
 " Safe for symbolic links
 " Needs to be outside of function in order to work correctly
 let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
@@ -264,7 +264,7 @@ function! SetGitPullVariables()
     return
 endfunction
 
-" Autocmd to check wether vimrc needs to be updated"
+" Autocmd to check whether vimrc needs to be updated"
 autocmd VimEnter * call CheckIfVimrcHasGitPull()
 
 " Call autosave
@@ -277,18 +277,22 @@ set spell spelllang=en_us
 """"""""""""""""""""""""""""""""""""""""""
 " Set keybind for NERDTREE to Ctrl+o
 nnoremap <C-o> :NERDTreeToggle<CR>
-inoremap <C-o> :NERDTreeToggle<CR>
+inoremap <C-o> <Esc>:NERDTreeToggle<CR>
 
 " Tagbar toggle keybinding to F6
 nnoremap <F6> :TagbarToggle<CR>
-inoremap <F6> :TagbarToggle<CR>
+inoremap <F6> <Esc>:TagbarToggle<CR>
 
 " Determine how to open vimrc before opening with F5
 nnoremap <F5> :call CheckHowToOpenVimrc()<CR>
-inoremap <F5> :call CheckHowToOpenVimrc()<CR>
+inoremap <F5> <Esc>:call CheckHowToOpenVimrc()<CR>
 
 " Assign F8 to run the current Python file
-autocmd FileType python nnoremap <F8> :update<CR>:!python %<CR>
+if has('win64') || has('win32')
+    autocmd FileType python nnoremap <F8> :update<CR>:!python %<CR>
+else
+    autocmd FileType python nnoremap <F8> :update<CR>:!python ./%<CR>
+endif
 
 " Assign F8 to compile the current C++ file with Clang
 autocmd FileType cpp nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 -rows=20 -post=execute(ReportCppCompile()) clang++ -Wall % -o %:r.exe<CR>
@@ -321,7 +325,7 @@ endif
 " Assign F12 to reload my vimrc file so I don't have to restart upon making
 " changes
 nnoremap <F12> :so $MYVIMRC<CR> | redraw
-inoremap <F12> :so $MYVIMRC<CR> | redraw
+inoremap <F12> <Esc>:so $MYVIMRC<CR> | redraw
 
 " Keybinding for tabbing inside of visual mode selection
 vnoremap <Tab> >gv 
@@ -377,7 +381,7 @@ let g:rooter_resolve_links = 1
 " automatically set the AsyncRun quickfix window height
 let g:asyncrun_open = 10
 
-" Setup fugitive's Gfetch and Gpush commands to use AsyncRun
+" Setup fugitive's Gfetch, Gpull, and Gpush commands to use AsyncRun
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
