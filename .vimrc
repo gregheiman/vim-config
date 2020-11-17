@@ -24,6 +24,9 @@ set wildmenu
 " Disable the mode display below statusline
 set noshowmode
 
+" OSX backspace fix
+set backspace=indent,eol,start
+
 " Languages in which to disable polyglot
 " Needs to be before you load polyglot
 let g:polyglot_disabled = ['Python', 'markdown', 'autoindent', 'sensible']
@@ -127,9 +130,6 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'morhetz/gruvbox'
 " Rainbow brackets and parenthesis
 Plug 'junegunn/rainbow_parentheses.vim', { 'on': 'RainbowParentheses' }
-
-" OSX backspace fix
-set backspace=indent,eol,start
 
 call plug#end()            " required
 filetype plugin indent on    " required
@@ -337,10 +337,26 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k	
 nnoremap <C-l> <C-w>l
 
-" Map next, previous, and delete buffer to leader p and leader n and leader d
-nnoremap <leader>n :bn<cr>
-nnoremap <leader>p :bp<cr>
-nnoremap <leader>d :bd<cr>
+" Change mappings of buffer commands
+" Start with <leader>b for buffer
+" buffer next
+nnoremap <leader>bn :bn<CR>
+" buffer previous
+nnoremap <leader>bp :bp<CR>
+" buffer delete
+nnoremap <leader>bd :bd<CR>
+" buffer go to
+nnoremap <leader>bg :call GoToSpecifiedBuffer()<CR>
+function! GoToSpecifiedBuffer()
+    " show list of buffers
+    execute("buffers")
+    " take in user input for which buffer they would like to go to
+    let l:bufferNum = input("Enter Buffer Number: ")
+    " go to that buffer
+    execute(":buffer " . bufferNum)
+endfunction
+" buffer list
+nnoremap <leader>bl :buffers<CR>
 
 " Local replace all instances of a variable using Vim
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
