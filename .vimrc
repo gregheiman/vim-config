@@ -236,13 +236,32 @@ function! CheckIfVimrcHasGitPull()
     " Change to the vim git directory
     silent execute("lcd " . s:vimrclocation) 
     
-    "Execute a git fetch to update the tree
-    silent execute("AsyncRun -mode=terminal -pos=hide -post=execute(SetGitPullVariables()) git fetch")
+    "silent execute("AsyncRun -mode=terminal -pos=hide -post=execute(SetGitPullVariables()) git fetch")
+    
+    " Execute a git fetch to update the tree
+    " Run windows command in cmd and linux in shell
+    if has("win32") || has("win64")
+        let l:fetchJob = job_start("cmd git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
+    else
+        let l:fetchJob = job_start("/bin/sh git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
+    endif 
+    
+    " Grab the status of the job
+    let l:gitFetchJobStatus = job_status(fetchJob)
+    " If unsuccessful let user know and stop job
+    if (l:gitFetchJobStatus == "fail" || l:gitFetchJobStatus == "dead")
+        echohl WarningMsg | echom "Vimrc git fetch failed with status " . l:gitFetchJobStatus | echohl None
+        let l:gitFetchJobStop = job_stop(fetchJob)
+    else
+        " Otherwise stop job and run SetGitPullVariables()
+        let l:gitFetchJobStop = job_stop(fetchJob)
+        let l:timer = timer_start(0, 'SetGitPullVariables') 
+    endif
     return 
 endfunction 
 
 " Set the variables for checking if the Vimrc needs to be updated
-function! SetGitPullVariables()
+function! SetGitPullVariables(timer)
     silent execute("lcd " . s:vimrclocation)
 
     " Set an upstream and local variable that is a hash returned by git
@@ -256,7 +275,7 @@ function! SetGitPullVariables()
         " Otherwise you need to update your vimrc
         echohl WarningMsg | echom "You need to update your Vimrc" | echohl None
     else 
-        echohl Error | echom "Unable to confirm wether you need to update your Vimrc" | echohl None
+        echohl Error | echom "Unable to confirm whether you need to update your Vimrc" | echohl None
     endif
     
     " Go back to the original startup directory
@@ -265,7 +284,10 @@ function! SetGitPullVariables()
 endfunction
 
 " Autocmd to check whether vimrc needs to be updated"
-autocmd VimEnter * call CheckIfVimrcHasGitPull()
+" Only runs if vim version > 8.0 as it uses async features
+if v:version >= 80 && has("job")
+    autocmd VimEnter * call CheckIfVimrcHasGitPull()
+endif
 
 " Call autosave
 autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
@@ -288,14 +310,10 @@ nnoremap <F5> :call CheckHowToOpenVimrc()<CR>
 inoremap <F5> <Esc>:call CheckHowToOpenVimrc()<CR>
 
 " Assign F8 to run the current Python file
-if has('win64') || has('win32')
-    autocmd FileType python nnoremap <F8> :update<CR>:!python %<CR>
-else
-    autocmd FileType python nnoremap <F8> :update<CR>:!python ./%<CR>
-endif
+autocmd FileType python nnoremap <F8> :update<CR>:!python %:p<CR>
 
 " Assign F8 to compile the current C++ file with Clang
-autocmd FileType cpp nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 -rows=20 -post=execute(ReportCppCompile()) clang++ -Wall % -o %:r.exe<CR>
+autocmd FileType cpp nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 -rows=20 -post=execute(ReportCppCompile()) clang++ -Wall % -o "%:r.exe"<CR>
 
 " Set highlight of the finished compiling message
 function! ReportCppCompile()
@@ -304,23 +322,13 @@ function! ReportCppCompile()
 endfunction
 
 " Assign F9 to run the current C++ file's executable that Clang created
-" Windows doesn't like the slash in front of the %:r.exe
-if has('win64') || has('win32')
-    autocmd FileType cpp nnoremap <F9> :update<CR>:!%:r.exe<CR>
-else
-    autocmd FileType cpp nnoremap <F9> :update<CR>:!./%:r.exe<CR>
-endif
+autocmd FileType cpp nnoremap <F9> :update<CR>:"!%:p:r:s,$,.exe<CR>
 
 " Assign F8 to compile the current Java file
 autocmd FileType java nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 javac ./%<CR>
 
 " Assigns F9 to run the current Java file
-" Windows doesn't like the slash in front of %:r
-if has('win64') || has('win32')
-    autocmd FileType java nnoremap <F9> :update<CR>:!java %:r<CR>
-else
-    autocmd FileType java nnoremap <F9> :update<CR>:!java ./%:r<CR>
-endif
+autocmd FileType java nnoremap <F9> :update<CR>:!java %:p:r<CR>
 
 " Assign F12 to reload my vimrc file so I don't have to restart upon making
 " changes
@@ -548,11 +556,11 @@ nnoremap <silent> <leader>llo  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent> <leader>lls  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <leader>llj  :<C-u>CocNext<CR>
+nnoremap <silent> <leader>lln  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <leader>lk  :<C-u>CocPrev<CR>
+nnoremap <silent> <leader>llp  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <leader>lp  :<C-u>CocListResume<CR>
+nnoremap <silent> <leader>llr  :<C-u>CocListResume<CR>
 
 " Diagnostic keybinds
 " Use `[g` and `]g` to navigate diagnostics
