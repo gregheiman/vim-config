@@ -236,8 +236,6 @@ function! CheckIfVimrcHasGitPull()
     " Change to the vim git directory
     silent execute("lcd " . s:vimrclocation) 
     
-    "silent execute("AsyncRun -mode=terminal -pos=hide -post=execute(SetGitPullVariables()) git fetch")
-    
     " Execute a git fetch to update the tree
     " Run windows command in cmd and linux in shell
     if has("win32") || has("win64")
@@ -249,13 +247,13 @@ function! CheckIfVimrcHasGitPull()
     " Grab the status of the job
     let l:gitFetchJobStatus = job_status(fetchJob)
     " If unsuccessful let user know and stop job
-    if (l:gitFetchJobStatus == "fail" || l:gitFetchJobStatus == "dead")
+    if (l:gitFetchJobStatus ==? "fail" || l:gitFetchJobStatus ==? "dead")
         echohl WarningMsg | echom "Vimrc git fetch failed with status " . l:gitFetchJobStatus | echohl None
         let l:gitFetchJobStop = job_stop(fetchJob)
     else
         " Otherwise stop job and run SetGitPullVariables()
         let l:gitFetchJobStop = job_stop(fetchJob)
-        let l:timer = timer_start(0, 'SetGitPullVariables') 
+        let l:timer = timer_start(0, 'SetGitPullVariables')
     endif
     return 
 endfunction 
@@ -284,14 +282,15 @@ function! SetGitPullVariables(timer)
 endfunction
 
 " Autocmd to check whether vimrc needs to be updated"
-" Only runs if vim version > 8.0 as it uses async features
-if v:version >= 80 && has("job")
+" Only runs if vim version >= 8.0 as it uses async features
+if v:version >= 80 && has("job") && has("timers")
     autocmd VimEnter * call CheckIfVimrcHasGitPull()
 endif
 
 " Call autosave
 autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 
+" Enable Vim's built in spell check and set the proper spellcheck language
 set spell spelllang=en_us
 
 """""""""""""""""""""""""""""""""""""""""
