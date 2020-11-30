@@ -232,38 +232,43 @@ endfunction
 " Safe for symbolic links
 " Needs to be outside of function in order to work correctly
 let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-function! CheckIfVimrcHasGitPull()
-    " Change to the vim git directory
+function! GitFetchVimrc()
+    " Change to the vimrc git directory
     silent execute("lcd " . s:vimrclocation) 
     
     " Execute a git fetch to update the tree
     " Run windows command in cmd and linux in shell
     if has("win32") || has("win64")
-        let l:fetchJob = job_start("cmd git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
+        let l:gitFetchJob = job_start("cmd git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
     else
-        let l:fetchJob = job_start("/bin/sh git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
+        let l:gitFetchJob = job_start("/bin/sh git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
     endif 
     
     " Grab the status of the job
-    let l:gitFetchJobStatus = job_status(fetchJob)
+    let l:gitFetchJobStatus = job_status(gitFetchJob)
     " If unsuccessful let user know and stop job
     if (l:gitFetchJobStatus ==? "fail" || l:gitFetchJobStatus ==? "dead")
         echohl WarningMsg | echom "Vimrc git fetch failed with status " . l:gitFetchJobStatus | echohl None
-        let l:gitFetchJobStop = job_stop(fetchJob)
+        call job_stop(gitFetchJob)
     else
-        " Otherwise stop job and run SetGitPullVariables()
-        let l:gitFetchJobStop = job_stop(fetchJob)
-        let l:timer = timer_start(0, 'SetGitPullVariables')
+        " Otherwise stop job and run CompareUpstreamAndLocalVimrcGitStatus()
+        call job_stop(gitFetchJob)
+        " Needs to be a timer because we are running a vimscript function
+        " https://vi.stackexchange.com/questions/27003/how-to-start-an-async-function-in-vim-8
+        let l:compareUpstreamAndLocalTimer = timer_start(0, 'CompareUpstreamAndLocalVimrcGitStatus')
     endif
     return 
 endfunction 
 
-" Set the variables for checking if the Vimrc needs to be updated
-function! SetGitPullVariables(timer)
+" Compare the local and upstream Git status
+function! CompareUpstreamAndLocalVimrcGitStatus(timer)
+    " change to the vimrc git directory
     silent execute("lcd " . s:vimrclocation)
 
     " Set an upstream and local variable that is a hash returned by git
+    " Upstream is the hash of the upstream commit
     let l:upstream = system("git rev-parse @{u}")
+    " Local is the hash of the current local commit
     let l:local = system("git rev-parse @")
     
     " If the hashes match then the vimrc is updated 
@@ -273,6 +278,7 @@ function! SetGitPullVariables(timer)
         " Otherwise you need to update your vimrc
         echohl WarningMsg | echom "You need to update your Vimrc" | echohl None
     else 
+        " Otherwise something went wrong
         echohl Error | echom "Unable to confirm whether you need to update your Vimrc" | echohl None
     endif
     
@@ -284,7 +290,7 @@ endfunction
 " Autocmd to check whether vimrc needs to be updated"
 " Only runs if vim version >= 8.0 as it uses async features
 if v:version >= 80 && has("job") && has("timers")
-    autocmd VimEnter * call CheckIfVimrcHasGitPull()
+    autocmd VimEnter * call GitFetchVimrc()
 endif
 
 " Call autosave
