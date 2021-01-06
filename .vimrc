@@ -29,7 +29,7 @@ set backspace=indent,eol,start
 
 " Languages in which to disable polyglot
 " Needs to be before you load polyglot
-let g:polyglot_disabled = ['Python', 'markdown', 'autoindent', 'sensible']
+let g:polyglot_disabled = ['markdown', 'autoindent', 'sensible', 'Python']
 
 " Plugins section
 """"""""""""""""""""""""""""""""""""""""""
@@ -108,8 +108,10 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'sheerun/vim-polyglot'
 " Add support for running commands asynchronously
 Plug 'skywind3000/asyncrun.vim', { 'on': [ 'AsyncRun' ] }
+" Adds LaTeX Utilities
+Plug 'lervag/vimtex', { 'for': ['tex'] }
 
-"""""""""""""""""""""" 
+""""""""""""""""""""""" 
 " Git Support
 """""""""""""""""""""""
 " General git wrapper
@@ -232,38 +234,43 @@ endfunction
 " Safe for symbolic links
 " Needs to be outside of function in order to work correctly
 let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-function! CheckIfVimrcHasGitPull()
-    " Change to the vim git directory
+function! GitFetchVimrc()
+    " Change to the vimrc git directory
     silent execute("lcd " . s:vimrclocation) 
     
     " Execute a git fetch to update the tree
     " Run windows command in cmd and linux in shell
     if has("win32") || has("win64")
-        let l:fetchJob = job_start("cmd git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
+        let l:gitFetchJob = job_start("cmd git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
     else
-        let l:fetchJob = job_start("/bin/sh git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
+        let l:gitFetchJob = job_start("/bin/sh git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
     endif 
     
     " Grab the status of the job
-    let l:gitFetchJobStatus = job_status(fetchJob)
+    let l:gitFetchJobStatus = job_status(gitFetchJob)
     " If unsuccessful let user know and stop job
-    if (l:gitFetchJobStatus == "fail" || l:gitFetchJobStatus == "dead")
+    if (l:gitFetchJobStatus ==? "fail" || l:gitFetchJobStatus ==? "dead")
         echohl WarningMsg | echom "Vimrc git fetch failed with status " . l:gitFetchJobStatus | echohl None
-        let l:gitFetchJobStop = job_stop(fetchJob)
+        call job_stop(gitFetchJob)
     else
-        " Otherwise stop job and run SetGitPullVariables()
-        let l:gitFetchJobStop = job_stop(fetchJob)
-        let l:timer = timer_start(0, 'SetGitPullVariables') 
+        " Otherwise stop job and run CompareUpstreamAndLocalVimrcGitStatus()
+        call job_stop(gitFetchJob)
+        " Needs to be a timer because we are running a vimscript function
+        " https://vi.stackexchange.com/questions/27003/how-to-start-an-async-function-in-vim-8
+        let l:compareUpstreamAndLocalTimer = timer_start(0, 'CompareUpstreamAndLocalVimrcGitStatus')
     endif
     return 
 endfunction 
 
-" Set the variables for checking if the Vimrc needs to be updated
-function! SetGitPullVariables(timer)
+" Compare the local and upstream Git status
+function! CompareUpstreamAndLocalVimrcGitStatus(timer)
+    " change to the vimrc git directory
     silent execute("lcd " . s:vimrclocation)
 
     " Set an upstream and local variable that is a hash returned by git
+    " Upstream is the hash of the upstream commit
     let l:upstream = system("git rev-parse @{u}")
+    " Local is the hash of the current local commit
     let l:local = system("git rev-parse @")
     
     " If the hashes match then the vimrc is updated 
@@ -273,6 +280,7 @@ function! SetGitPullVariables(timer)
         " Otherwise you need to update your vimrc
         echohl WarningMsg | echom "You need to update your Vimrc" | echohl None
     else 
+        " Otherwise something went wrong
         echohl Error | echom "Unable to confirm whether you need to update your Vimrc" | echohl None
     endif
     
@@ -282,14 +290,15 @@ function! SetGitPullVariables(timer)
 endfunction
 
 " Autocmd to check whether vimrc needs to be updated"
-" Only runs if vim version > 8.0 as it uses async features
-if v:version >= 80 && has("job")
-    autocmd VimEnter * call CheckIfVimrcHasGitPull()
+" Only runs if vim version >= 8.0 as it uses async features
+if v:version >= 80 && has("job") && has("timers")
+    autocmd VimEnter * call GitFetchVimrc()
 endif
 
 " Call autosave
 autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 
+" Enable Vim's built in spell check and set the proper spellcheck language
 set spell spelllang=en_us
 
 """""""""""""""""""""""""""""""""""""""""
@@ -320,7 +329,11 @@ function! ReportCppCompile()
 endfunction
 
 " Assign F9 to run the current C++ file's executable that Clang created
+<<<<<<< HEAD
 autocmd FileType cpp nnoremap <F9> :update<CR>:!%:p:r:s,$,.exe<CR>
+=======
+autocmd FileType cpp nnoremap <F9> :update<CR>:!%:p:r.exe<CR>
+>>>>>>> 9a98f89545b6fed61e47d239345c6dae6e4b76aa
 
 " Assign F8 to compile the current Java file
 autocmd FileType java nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 javac ./%<CR>
@@ -442,7 +455,12 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 let g:closetag_close_shortcut = '<leader>>'
 
-"""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""
+" VimTex Config
+"""""""""""""""""""""""""""""""""""""""""""""
+let g:tex_flavor='latex'
+
+""""""""""""""""""""""""""""""""""""""""""
 " COC Config
 """"""""""""""""""""""""""""""""""""""""""""""
 " Next and previous selection are <C-J> and <C-K> respectively
@@ -461,6 +479,7 @@ let g:coc_global_extensions = [
     \ "coc-markdownlint", 
     \ "coc-eslint",
     \ "coc-json",
+    \ "coc-vimtex",
     \ ]
 
 " if hidden is not set, TextEdit might fail.
