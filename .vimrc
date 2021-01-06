@@ -329,11 +329,7 @@ function! ReportCppCompile()
 endfunction
 
 " Assign F9 to run the current C++ file's executable that Clang created
-<<<<<<< HEAD
-autocmd FileType cpp nnoremap <F9> :update<CR>:!%:p:r:s,$,.exe<CR>
-=======
 autocmd FileType cpp nnoremap <F9> :update<CR>:!%:p:r.exe<CR>
->>>>>>> 9a98f89545b6fed61e47d239345c6dae6e4b76aa
 
 " Assign F8 to compile the current Java file
 autocmd FileType java nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 javac ./%<CR>
@@ -379,6 +375,9 @@ nnoremap <leader>bl :buffers<CR>
 
 " Local replace all instances of a variable using Vim
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+
+" Stop concealment of characters
+set conceallevel=0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Custom Plugin Config Options
@@ -456,9 +455,10 @@ let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 
 """""""""""""""""""""""""""""""""""""""""""""
-" VimTex Config
+" VimTex and LaTeX Config
 """""""""""""""""""""""""""""""""""""""""""""
 let g:tex_flavor='latex'
+let g:tex_conceal = ''
 
 """"""""""""""""""""""""""""""""""""""""""
 " COC Config
