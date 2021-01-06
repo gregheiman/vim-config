@@ -29,7 +29,7 @@ set backspace=indent,eol,start
 
 " Languages in which to disable polyglot
 " Needs to be before you load polyglot
-let g:polyglot_disabled = ['Python', 'markdown', 'autoindent', 'sensible']
+let g:polyglot_disabled = ['markdown', 'autoindent', 'sensible', 'Python']
 
 " Plugins section
 """"""""""""""""""""""""""""""""""""""""""
@@ -108,8 +108,10 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'sheerun/vim-polyglot'
 " Add support for running commands asynchronously
 Plug 'skywind3000/asyncrun.vim', { 'on': [ 'AsyncRun' ] }
+" Adds LaTeX Utilities
+Plug 'lervag/vimtex', { 'for': ['tex'] }
 
-"""""""""""""""""""""" 
+""""""""""""""""""""""" 
 " Git Support
 """""""""""""""""""""""
 " General git wrapper
@@ -327,7 +329,7 @@ function! ReportCppCompile()
 endfunction
 
 " Assign F9 to run the current C++ file's executable that Clang created
-autocmd FileType cpp nnoremap <F9> :update<CR>:"!%:p:r:s,$,.exe<CR>
+autocmd FileType cpp nnoremap <F9> :update<CR>:!%:p:r.exe<CR>
 
 " Assign F8 to compile the current Java file
 autocmd FileType java nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 javac ./%<CR>
@@ -449,7 +451,12 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 let g:closetag_close_shortcut = '<leader>>'
 
-"""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""
+" VimTex Config
+"""""""""""""""""""""""""""""""""""""""""""""
+let g:tex_flavor='latex'
+
+""""""""""""""""""""""""""""""""""""""""""
 " COC Config
 """"""""""""""""""""""""""""""""""""""""""""""
 " Next and previous selection are <C-J> and <C-K> respectively
@@ -468,6 +475,7 @@ let g:coc_global_extensions = [
     \ "coc-markdownlint", 
     \ "coc-eslint",
     \ "coc-json",
+    \ "coc-vimtex",
     \ ]
 
 " if hidden is not set, TextEdit might fail.
