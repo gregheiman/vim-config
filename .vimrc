@@ -236,8 +236,6 @@ function! CheckIfVimrcHasGitPull()
     " Change to the vim git directory
     silent execute("lcd " . s:vimrclocation) 
     
-    "silent execute("AsyncRun -mode=terminal -pos=hide -post=execute(SetGitPullVariables()) git fetch")
-    
     " Execute a git fetch to update the tree
     " Run windows command in cmd and linux in shell
     if has("win32") || has("win64")
@@ -322,7 +320,7 @@ function! ReportCppCompile()
 endfunction
 
 " Assign F9 to run the current C++ file's executable that Clang created
-autocmd FileType cpp nnoremap <F9> :update<CR>:"!%:p:r:s,$,.exe<CR>
+autocmd FileType cpp nnoremap <F9> :update<CR>:!%:p:r:s,$,.exe<CR>
 
 " Assign F8 to compile the current Java file
 autocmd FileType java nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 javac ./%<CR>
