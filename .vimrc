@@ -83,8 +83,8 @@ call plug#begin(plugDirectory)
 " Utility
 """""""""""""""""""""""
 " Add indent guides
-Plug 'Yggdroot/indentLine'
-" Auto closing"
+Plug 'nathanaelkane/vim-indent-guides'
+" Auto closing of delimiters such as (), [], and {}
 Plug 'jiangmiao/auto-pairs'
 " Auto close html and xml tags
 Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xhtml', 'javascript', 'jsx', 'xml'] }
@@ -96,8 +96,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'preservim/nerdcommenter'
 " Automatically set project directory (Works with Fugitive)
 Plug 'airblade/vim-rooter'
-" Add multiple cursors to Vim
-Plug 'terryma/vim-multiple-cursors'
 
 """"""""""""""""""""""" 
 " Generic Programming Support 
@@ -301,6 +299,9 @@ autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
 " Enable Vim's built in spell check and set the proper spellcheck language
 set spell spelllang=en_us
 
+" Stop concealment of characters
+set conceallevel=0
+
 """""""""""""""""""""""""""""""""""""""""
 " Custom Keybindings
 """"""""""""""""""""""""""""""""""""""""""
@@ -376,9 +377,6 @@ nnoremap <leader>bl :buffers<CR>
 " Local replace all instances of a variable using Vim
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
-" Stop concealment of characters
-set conceallevel=0
-
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Custom Plugin Config Options
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -417,6 +415,13 @@ let g:asyncrun_open = 10
 
 " Setup fugitive's Gfetch, Gpull, and Gpush commands to use AsyncRun
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+
+" Enable vim indent guides at startup
+let g:indent_guides_enable_on_vim_startup = 1
+" Set the level at which the indent guides start
+let g:indent_guides_start_level = 2
+" Set the width of the indent guides
+let g:indent_guides_guide_size = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config
@@ -457,8 +462,18 @@ let g:closetag_close_shortcut = '<leader>>'
 """""""""""""""""""""""""""""""""""""""""""""
 " VimTex and LaTeX Config
 """""""""""""""""""""""""""""""""""""""""""""
+" Set the default Tex flavor
 let g:tex_flavor='latex'
+" Stop any sort of concealing
 let g:tex_conceal = ''
+" Set the viewer options for all OS's
+if has('win32') || has('win64')
+    let g:vimtex_view_general_viewer = 'sumatrapdf'
+elseif has('macunix')
+    let g:vimtex_view_general_viewer = 'skim'
+else
+    let g:vimtex_view_general_viewer = 'zathura'
+endif
 
 """"""""""""""""""""""""""""""""""""""""""
 " COC Config
