@@ -95,6 +95,8 @@ You will need some tools to take advantage of some of the features in my .vimrc.
 automatically install)
 * MinGW-W64 or MinGW (Optional (Can use Clang as C compiler). 
 Windows Only. Windows port of GCC for compiling C files)
-* NodeJS, NPM, and Yarn (Optional. Used for web development)
+* NodeJS (Needed for COC packages)
+* NPM and Yarn (Optional. Helpful for web development)
 * ESLint (Optional. Helps with linting JS files.)
 
+### Check out Wiki for more specific information about setting up certain workflows.
