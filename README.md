@@ -98,5 +98,6 @@ Windows Only. Windows port of GCC for compiling C files)
 * NodeJS (Needed for COC packages)
 * NPM and Yarn (Optional. Helpful for web development)
 * ESLint (Optional. Helps with linting JS files.)
+* TexLive (Including latexmk) (Optional. Needed for working with LaTeX files.)
 
 ### Check out Wiki for more specific information about setting up certain workflows.
