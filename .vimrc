@@ -128,6 +128,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 " Gruvbox theme"
 Plug 'morhetz/gruvbox'
+" Seoul-256 Theme"
+Plug 'junegunn/seoul256.vim'
 " Rainbow brackets and parenthesis
 Plug 'junegunn/rainbow_parentheses.vim', { 'on': 'RainbowParentheses' }
 
@@ -180,10 +182,16 @@ set laststatus=2
 set cursorline
 
 " True colors support for terminal
-set termguicolors     
+if (has("termguicolors"))
+    set termguicolors
+else
+    " If Vim doesn't support true colors set 256 colors
+    set t_Co=256
+endif 
 
 " Set color theme
-colorscheme gruvbox
+let g:seoul256_background = 234
+colorscheme seoul256
 set background=dark
 
 " Autorun RainbowParentheses command upon opening a file
@@ -338,6 +346,12 @@ autocmd FileType java nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 ja
 " Assigns F9 to run the current Java file
 autocmd FileType java nnoremap <F9> :update<CR>:!java %:p:r<CR>
 
+" Assign F8 to compile the current LaTeX file
+autocmd FileType tex nnoremap <F8> :update<CR>:VimtexCompile<CR>
+
+" Assign F9 to view the current LaTeX file
+autocmd FileType tex nnoremap <F9> :update<CR>:VimtexView<CR>
+
 " Assign F12 to reload my vimrc file so I don't have to restart upon making
 " changes
 nnoremap <F12> :so $MYVIMRC<CR> | redraw
@@ -382,7 +396,7 @@ nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Set lightline theme and settings
 let g:lightline = {
-      \ 'colorscheme' : 'gruvbox',
+      \ 'colorscheme' : 'seoul256',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitGutterDiff', 'gitbranch', 'readonly', 'filename', 'modified'] ]
@@ -392,7 +406,7 @@ let g:lightline = {
       \   'gitGutterDiff': 'LightlineGitGutter',
       \ },
       \ }
-" Sees what changes have occurred in the current file
+"" Sees what changes have occurred in the current file
 function! LightlineGitGutter()
   if !get(g:, 'gitgutter_enabled', 0) || empty(FugitiveHead())
     return ''
@@ -422,6 +436,13 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
 " Set the width of the indent guides
 let g:indent_guides_guide_size = 1
+
+" Get rid of the banner at the top of netrw
+let g:netrw_banner = 0
+" Change netrw to be a tree style
+let g:netrw_liststyle = 3
+" Netrw opens files in previous window
+let g:netrw_browse_split = 4
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config
