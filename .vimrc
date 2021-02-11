@@ -209,9 +209,11 @@ endfunction
 
 autocmd VimLeave * call SaveSessionIfExistsUponExit()
 
+" Clean Tex file directory before exiting Vim
+autocmd FileType tex autocmd VimLeave * call execute("VimtexClean")
+
 " Sets the default splits to be to the right and below from default
 set splitright splitbelow
-
 
 " Check if the buffer is empty and determine how to open my vimrc
 function! CheckHowToOpenVimrc()
@@ -304,7 +306,7 @@ if v:version >= 80 && has("job") && has("timers")
 endif
 
 " Call autosave
-autocmd CursorHold,InsertLeave,InsertEnter,BufEnter * call Autosave()
+autocmd CursorHold,InsertLeave,InsertEnter,BufEnter,VimLeave * call Autosave()
 
 " Enable Vim's built in spell check and set the proper spellcheck language
 set spell spelllang=en_us
@@ -349,7 +351,7 @@ autocmd FileType java nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 ja
 autocmd FileType java nnoremap <F9> :update<CR>:!java %:p:r<CR>
 
 " Assign F8 to compile the current LaTeX file
-autocmd FileType tex nnoremap <F8> :update<CR>:VimtexCompile<CR>
+autocmd FileType tex nnoremap <F8> :update<CR>:VimtexCompileSS<CR>
 
 " Assign F9 to view the current LaTeX file
 autocmd FileType tex nnoremap <F9> :update<CR>:VimtexView<CR>
