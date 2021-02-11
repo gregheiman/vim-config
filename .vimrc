@@ -96,6 +96,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'preservim/nerdcommenter'
 " Automatically set project directory (Works with Fugitive)
 Plug 'airblade/vim-rooter'
+" Add snippet support
+Plug 'sirver/UltiSnips'
 
 """"""""""""""""""""""" 
 " Generic Programming Support 
@@ -391,6 +393,15 @@ nnoremap <leader>bl :buffers<CR>
 " Local replace all instances of a variable using Vim
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
+" Auto jump back to the last spelling mistake and fix it
+inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
+nnoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
+
+" UltiSnips keybind config
+let g:UltiSnipsExpandTrigger = '<c-]>'
+let g:UltiSnipsJumpForwardTrigger = '<c-]>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-[>'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Custom Plugin Config Options
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -443,6 +454,7 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 " Netrw opens files in previous window
 let g:netrw_browse_split = 4
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Closetag Config
