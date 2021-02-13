@@ -1,5 +1,5 @@
 """"""""""""""""""""""""""""""""""""""""""
-" Greg's Configuration
+" .vimrc
 """"""""""""""""""""""""""""""""""""""""""
 " Required to not be forced into vi mode
 set nocompatible
@@ -26,10 +26,6 @@ set noshowmode
 
 " OSX backspace fix
 set backspace=indent,eol,start
-
-" Languages in which to disable polyglot
-" Needs to be before you load polyglot
-let g:polyglot_disabled = ['markdown', 'autoindent', 'sensible', 'Python']
 
 " Plugins section
 """"""""""""""""""""""""""""""""""""""""""
@@ -84,30 +80,16 @@ call plug#begin(plugDirectory)
 """""""""""""""""""""""
 " Add indent guides
 Plug 'nathanaelkane/vim-indent-guides'
-" Auto closing of delimiters such as (), [], and {}
-Plug 'jiangmiao/auto-pairs'
-" Auto close html and xml tags
-Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xhtml', 'javascript', 'jsx', 'xml'] }
-" Easily surround and change quotes
-Plug 'tpope/vim-surround'
-" Preview Markdown files in browser
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'], 'on': ['MarkdownPreview'] }
-" Better commenting
-Plug 'preservim/nerdcommenter'
-" Automatically set project directory (Works with Fugitive)
-Plug 'airblade/vim-rooter'
 " Add snippet support
 Plug 'sirver/UltiSnips'
+" Add auto pair support for delimiters
+Plug 'tmsvg/pear-tree'
 
 """"""""""""""""""""""" 
 " Generic Programming Support 
 """""""""""""""""""""""
-" Code completion (Requires Node.js)
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-" Pretty complete language pack for better syntax highlighting
-Plug 'sheerun/vim-polyglot'
-" Add support for running commands asynchronously
-Plug 'skywind3000/asyncrun.vim', { 'on': [ 'AsyncRun' ] }
+" Allow builtin Vim completion with tab
+Plug 'ervandew/supertab'
 " Adds LaTeX Utilities
 Plug 'lervag/vimtex', { 'for': ['tex'] }
 
@@ -126,14 +108,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree', { 'on': [ 'NERDTree', 'NERDTreeToggle' ] }
 " Improved status bar
 Plug 'itchyny/lightline.vim'
-" Presents tags in a bar to the side (Requires Universal-Ctags)
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-" Gruvbox theme"
-Plug 'morhetz/gruvbox'
 " Seoul-256 Theme"
 Plug 'junegunn/seoul256.vim'
-" Rainbow brackets and parenthesis
-Plug 'junegunn/rainbow_parentheses.vim', { 'on': 'RainbowParentheses' }
 
 call plug#end()            " required
 filetype plugin indent on    " required
@@ -167,6 +143,12 @@ elseif has('macunix') || has('mac')
     set lines=999 columns=999
 endif
 
+" Enable omnicomplete
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+" Configure completion menu to work as expected
+set completeopt=menuone,noinsert
+
 " Show linenumbers
 set number relativenumber
 set ruler
@@ -176,6 +158,15 @@ set tabstop=4
 set shiftwidth=4
 set smarttab
 set expandtab
+
+" Set vim to go to the searched term
+set incsearch
+" Set searching to only be case sensitive when the first letter is capitalized
+set ignorecase
+set smartcase
+
+" Automatically set the working directory to the current working directory
+set autochdir
 
 " Always display the status line
 set laststatus=2
@@ -196,25 +187,78 @@ let g:seoul256_background = 234
 colorscheme seoul256
 set background=dark
 
-" Autorun RainbowParentheses command upon opening a file
-autocmd BufRead * RainbowParentheses
-
-" Automatically save Session.vim it one exists
-function! SaveSessionIfExistsUponExit()
-    if glob('./Session.vim') != ""
-        " If Session.vim exists save before exiting
-        silent mksession!
-    endif
-endfunction
-
-autocmd VimLeave * call SaveSessionIfExistsUponExit()
-
-" Clean Tex file directory before exiting Vim
-autocmd FileType tex autocmd VimLeave * call execute("VimtexClean")
-
 " Sets the default splits to be to the right and below from default
 set splitright splitbelow
 
+" Enable Vim's built in spell check and set the proper spellcheck language
+set spell spelllang=en_us
+
+" Autocmd to check whether vimrc needs to be updated"
+" Only runs if vim version >= 8.0 as it uses async features
+if v:version >= 80 && has("job") && has("timers")
+    autocmd VimEnter * call GitFetchVimrc()
+endif
+
+" Call autosave
+autocmd CursorHold,InsertLeave,InsertEnter,BufEnter,VimLeave * call Autosave()
+
+" Autosave session.vim file if it exists
+autocmd VimLeave * call SaveSessionIfExistsUponExit()
+
+"""""""""""""""""""""""""""""""""""""""""
+" Custom Keybindings
+""""""""""""""""""""""""""""""""""""""""""
+" Set keybind for NERDTREE to Ctrl+o
+nnoremap <C-o> :NERDTreeToggle<CR>
+inoremap <C-o> <Esc>:NERDTreeToggle<CR>
+
+" Determine how to open vimrc before opening with F5
+nnoremap <F5> :call CheckHowToOpenVimrc()<CR>
+inoremap <F5> <Esc>:call CheckHowToOpenVimrc()<CR>
+
+" Assign F12 to reload my vimrc file so I don't have to restart upon making
+" changes
+nnoremap <F12> :so $MYVIMRC<CR> | redraw
+inoremap <F12> <Esc>:so $MYVIMRC<CR> | redraw
+
+" Keybinding for tabbing inside of visual mode selection
+vnoremap <Tab> >gv 
+vnoremap <S-Tab> <gv
+
+" Change split navigation keys
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k	
+nnoremap <C-l> <C-w>l
+
+" Change mappings of buffer commands
+" Start with <leader>b for buffer
+" buffer next
+nnoremap <leader>bn :bn<CR>
+" buffer previous
+nnoremap <leader>bp :bp<CR>
+" buffer delete
+nnoremap <leader>bd :bd<CR>
+" buffer go to
+nnoremap <leader>bg :call GoToSpecifiedBuffer()<CR>
+" buffer list
+nnoremap <leader>bl :buffers<CR>
+
+" Local replace all instances of a variable using Vim
+nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+
+" Auto jump back to the last spelling mistake and fix it
+inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
+nnoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
+
+" UltiSnips keybind configuration
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom Vim functions
+"""""""""""""""""""""""""""""""""""""""""""""""""
 " Check if the buffer is empty and determine how to open my vimrc
 function! CheckHowToOpenVimrc()
     if @% == "" || filereadable(@%) == 0 || line('$') == 1 && col('$') == 1
@@ -299,88 +343,6 @@ function! CompareUpstreamAndLocalVimrcGitStatus(timer)
     return
 endfunction
 
-" Autocmd to check whether vimrc needs to be updated"
-" Only runs if vim version >= 8.0 as it uses async features
-if v:version >= 80 && has("job") && has("timers")
-    autocmd VimEnter * call GitFetchVimrc()
-endif
-
-" Call autosave
-autocmd CursorHold,InsertLeave,InsertEnter,BufEnter,VimLeave * call Autosave()
-
-" Enable Vim's built in spell check and set the proper spellcheck language
-set spell spelllang=en_us
-
-" Stop concealment of characters
-set conceallevel=0
-
-"""""""""""""""""""""""""""""""""""""""""
-" Custom Keybindings
-""""""""""""""""""""""""""""""""""""""""""
-" Set keybind for NERDTREE to Ctrl+o
-nnoremap <C-o> :NERDTreeToggle<CR>
-inoremap <C-o> <Esc>:NERDTreeToggle<CR>
-
-" Tagbar toggle keybinding to F6
-nnoremap <F6> :TagbarToggle<CR>
-inoremap <F6> <Esc>:TagbarToggle<CR>
-
-" Determine how to open vimrc before opening with F5
-nnoremap <F5> :call CheckHowToOpenVimrc()<CR>
-inoremap <F5> <Esc>:call CheckHowToOpenVimrc()<CR>
-
-" Assign F8 to run the current Python file
-autocmd FileType python nnoremap <F8> :update<CR>:!python %:p<CR>
-
-" Assign F8 to compile the current C++ file with Clang
-autocmd FileType cpp nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 -rows=20 -post=execute(ReportCppCompile()) clang++ -Wall % -o "%:r.exe"<CR>
-
-" Set highlight of the finished compiling message
-function! ReportCppCompile()
-    echohl ModeMsg | echom expand("%:t") . " Finished Compiling. Check Terminal for Errors" | echohl None
-    return 
-endfunction
-
-" Assign F9 to run the current C++ file's executable that Clang created
-autocmd FileType cpp nnoremap <F9> :update<CR>:!%:p:r.exe<CR>
-
-" Assign F8 to compile the current Java file
-autocmd FileType java nnoremap <F8> :update<CR>:AsyncRun -mode=async -focus=0 javac ./%<CR>
-
-" Assigns F9 to run the current Java file
-autocmd FileType java nnoremap <F9> :update<CR>:!java %:p:r<CR>
-
-" Assign F8 to compile the current LaTeX file
-autocmd FileType tex nnoremap <F8> :update<CR>:VimtexCompileSS<CR>
-
-" Assign F9 to view the current LaTeX file
-autocmd FileType tex nnoremap <F9> :update<CR>:VimtexView<CR>
-
-" Assign F12 to reload my vimrc file so I don't have to restart upon making
-" changes
-nnoremap <F12> :so $MYVIMRC<CR> | redraw
-inoremap <F12> <Esc>:so $MYVIMRC<CR> | redraw
-
-" Keybinding for tabbing inside of visual mode selection
-vnoremap <Tab> >gv 
-vnoremap <S-Tab> <gv
-
-" Change split navigation keys
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k	
-nnoremap <C-l> <C-w>l
-
-" Change mappings of buffer commands
-" Start with <leader>b for buffer
-" buffer next
-nnoremap <leader>bn :bn<CR>
-" buffer previous
-nnoremap <leader>bp :bp<CR>
-" buffer delete
-nnoremap <leader>bd :bd<CR>
-" buffer go to
-nnoremap <leader>bg :call GoToSpecifiedBuffer()<CR>
 function! GoToSpecifiedBuffer()
     " show list of buffers
     execute("buffers")
@@ -389,20 +351,14 @@ function! GoToSpecifiedBuffer()
     " go to that buffer
     execute(":buffer " . bufferNum)
 endfunction
-" buffer list
-nnoremap <leader>bl :buffers<CR>
 
-" Local replace all instances of a variable using Vim
-nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
-
-" Auto jump back to the last spelling mistake and fix it
-inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
-nnoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
-
-" UltiSnips keybind config
-let g:UltiSnipsExpandTrigger = '<c-]>'
-let g:UltiSnipsJumpForwardTrigger = '<c-]>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-[>'
+" Automatically save Session.vim it one exists
+function! SaveSessionIfExistsUponExit()
+    if glob('./Session.vim') != ""
+        " If Session.vim exists save before exiting
+        silent mksession!
+    endif
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Custom Plugin Config Options
@@ -428,21 +384,6 @@ function! LightlineGitGutter()
   return printf('+%d ~%d -%d', l:added, l:modified, l:removed)
 endfunction
 
-" Set the patterns for rooter
-let g:rooter_patterns = ['.git', '.idea', 'src']
-" Set non-project directories to go to the files current directory
-let g:rooter_change_directory_for_non_project_files = 'current'
-" Rooter won't echo the current working directory
-let g:rooter_silent_chdir = 1
-" Rooter won't resolve symbolic links by default
-let g:rooter_resolve_links = 1
-
-" automatically set the AsyncRun quickfix window height
-let g:asyncrun_open = 10
-
-" Setup fugitive's Gfetch, Gpull, and Gpush commands to use AsyncRun
-command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-
 " Enable vim indent guides at startup
 let g:indent_guides_enable_on_vim_startup = 1
 " Set the level at which the indent guides start
@@ -450,49 +391,20 @@ let g:indent_guides_start_level = 2
 " Set the width of the indent guides
 let g:indent_guides_guide_size = 1
 
-" Get rid of the banner at the top of netrw
-let g:netrw_banner = 0
-" Change netrw to be a tree style
-let g:netrw_liststyle = 3
-" Netrw opens files in previous window
-let g:netrw_browse_split = 4
+" Set Super Tab to be context aware
+let g:SuperTabDefaultCompletionType = "context"
+" Set the default mode for when there is no set context
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Closetag Config
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" filenames like *.xml, *.html, *.xhtml, ...
-" These are the file extensions where this plugin is enabled.
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js'
-
-" filenames like *.xml, *.xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js'
-
-" filetypes like xml, html, xhtml, ...
-" These are the file types where this plugin is enabled.
-let g:closetag_filetypes = 'html,xhtml,phtml,javascript'
-
-" filetypes like xml, xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-let g:closetag_xhtml_filetypes = 'xhtml,jsx,javascript'
-
-" integer value [0|1]
-" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
-let g:closetag_emptyTags_caseSensitive = 1
-
-" dict
-" Disables auto-close if not in a "valid" region (based on filetype)
-let g:closetag_regions = {
-    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-    \ 'javascript.jsx': 'jsxRegion',
+" Auto close tags with Pear Tree (Have to include the defaults)
+let g:pear_tree_pairs = {
+    \   '(': {'closer': ')'},
+    \   '[': {'closer': ']'},
+    \   '{': {'closer': '}'},
+    \   "'": {'closer': "'"},
+    \   '"': {'closer': '"'},
+    \ '<*>': {'closer': '</*>'}
     \ }
-
-" Shortcut for closing tags, default is '>'
-let g:closetag_shortcut = '>'
-
-" Add > at current position without closing the current tag, default is ''
-let g:closetag_close_shortcut = '<leader>>'
 
 """""""""""""""""""""""""""""""""""""""""""""
 " VimTex and LaTeX Config
@@ -509,165 +421,3 @@ elseif has('macunix')
 else
     let g:vimtex_view_general_viewer = 'zathura'
 endif
-
-""""""""""""""""""""""""""""""""""""""""""
-" COC Config
-""""""""""""""""""""""""""""""""""""""""""""""
-" Next and previous selection are <C-J> and <C-K> respectively
-" For statusline integration with other plugins, checkout `:h coc-status`
-" Most keybinds are <leader>l__. The l made sense as in 'L'SP
-
-" COC List of Extensions
-let g:coc_global_extensions = [
-    \ "coc-python", 
-    \ "coc-java", 
-    \ "coc-clangd", 
-    \ "coc-xml", 
-    \ "coc-vimlsp", 
-    \ "coc-highlight", 
-    \ "coc-tsserver", 
-    \ "coc-markdownlint", 
-    \ "coc-eslint",
-    \ "coc-json",
-    \ "coc-vimtex",
-    \ ]
-
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-" Note coc#float#scroll works on neovim >= 0.4.3 or vim >= 8.2.0750
-nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <C-TAB> <Plug>(coc-range-select)
-xmap <silent> <C-TAB> <Plug>(coc-range-select)
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OrganizeImports   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Use command Prettier for Prettier support
-command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <leader>lld  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <leader>lle  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <leader>lla  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <leader>llo  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <leader>lls  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <leader>lln  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <leader>llp  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <leader>llr  :<C-u>CocListResume<CR>
-
-" Diagnostic keybinds
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Goto keybinds
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Documentation keybinds
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Formatting keybinds
-" Remap for format selected region
-xmap <leader>lf  <Plug>(coc-format-selected)
-nmap <leader>lf  <Plug>(coc-format-selected)
-
-" Codeaction keybinds
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>lap  <Plug>(coc-codeaction-selected)
-nmap <leader>lap  <Plug>(coc-codeaction-selected)
-" Remap for do codeAction of current line
-nmap <leader>lal  <Plug>(coc-codeaction)
-
-" Quickfix Keybinds
-" Fix autofix problem of current line
-nmap <leader>lqf  <Plug>(coc-fix-current)
-
-" Create mappings for function text object, requires document symbols feature of languageserver.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
-" Rename Keybinds
-" This rename uses the language server to refactor rather than just grep like
-" the vim rename
-nmap <leader>lr  <Plug>(coc-rename)
