@@ -1,7 +1,8 @@
 """"""""""""""""""""""""""""""""""""""""""
 " Vimrc
-" <zo> opens the folds
-" <za> closes the folds
+" <zo> opens the fold
+" <zc> closes the fold
+" <za> toggles the fold
 " <zd> deletes the entire fold
 """"""""""""""""""""""""""""""""""""""""""
 "{{{ " Plugins Section
@@ -429,8 +430,7 @@ let g:pear_tree_pairs = {
     \   '{': {'closer': '}'},
     \   "'": {'closer': "'"},
     \   '"': {'closer': '"'},
-    \ '<*>': {'closer': '</*>'},
-    \ '*/': {'closer': '*/'}
+    \ '\*/': {'closer': '\*/'}
     \ }
 "}}}
 
