@@ -11,7 +11,7 @@
 " Checks if vim-plug is installed and if not automatically installs it
 if has('win32') || has ('win64')
     " Chocolatey default install location
-	if empty(glob('~/vimfiles/autoload/plug.vim')) 
+    if empty(glob('~/vimfiles/autoload/plug.vim')) 
         silent !curl -fLo ~/vimfiles/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -67,7 +67,7 @@ Plug 'tmsvg/pear-tree'
 """""""""""""""""""""""
 " Allow builtin Vim completion with tab
 Plug 'ervandew/supertab'
-" Adds LaTeX Utilities
+" Adds LATEX Utilities
 Plug 'lervag/vimtex', { 'for': ['tex'] }
 
 """"""""""""""""""""""" 
@@ -152,8 +152,24 @@ endif
 " Enable omnicomplete
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
+" Stop messages in the command line
+set shortmess+=c
 " Configure completion menu to work as expected
-set completeopt=menuone,noinsert
+set completeopt=menu,menuone,noinsert
+" Have the completion menu automatically pop up as you type
+function! s:skinny_insert(char)
+    if !pumvisible() && !exists('s:skinny_complete') &&
+            \ getline('.')[col('.') - 2].a:char =~# '\k\k'
+    let s:skinny_complete = 1
+    noautocmd call feedkeys("\<C-n>\<C-p>", "nt")
+  endif
+endfunction
+
+augroup SkinnyAutoComplete
+    autocmd!
+    autocmd InsertCharPre * call <SID>skinny_insert(v:char)
+    autocmd CompleteDone * if exists('s:skinny_complete') | unlet s:skinny_complete | endif
+augroup END
 
 " Show linenumbers
 set number relativenumber
@@ -210,6 +226,10 @@ autocmd CursorHold,InsertLeave,InsertEnter,BufEnter,VimLeave * call Autosave()
 
 " Autosave session.vim file if it exists
 autocmd VimLeave * call SaveSessionIfExistsUponExit()
+
+" Automatically open quickfix window after issuing :make command
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 "}}}
 
 "{{{ " Custom Keybindings
@@ -235,7 +255,7 @@ vnoremap < <gv
 " Change split navigation keys
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k	
+nnoremap <C-k> <C-w>k   
 nnoremap <C-l> <C-w>l
 
 " Change mappings of buffer commands
@@ -256,7 +276,6 @@ nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
 " Auto jump back to the last spelling mistake and fix it
 inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
-nnoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
 
 " UltiSnips keybind configuration
 let g:UltiSnipsExpandTrigger = '<tab>'
