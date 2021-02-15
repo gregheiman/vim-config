@@ -1,0 +1,25 @@
+# Look for C snippets as well
+extends c
+
+# Snippet for for loop
+snippet for "Create for loop" 
+for ($1; $2; $3) {
+	$4
+}$0
+endsnippet
+
+# Snippet to create main function
+snippet main "Create main function"
+int main() {
+	$0
+
+	return 1;
+}
+endsnippet
+
+# Snippet to create class
+snippet class "Create class"
+class $1 {
+	$0
+};
+endsnippet

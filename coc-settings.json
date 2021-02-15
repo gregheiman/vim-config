@@ -1,4 +1,0 @@
-{ 
-    "python.jediEnabled": true,
-    "clangd.semanticHighlighting": true
-}

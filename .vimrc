@@ -1,33 +1,10 @@
 """"""""""""""""""""""""""""""""""""""""""
-" .vimrc
+" Vimrc
+" <zo> opens the folds
+" <za> closes the folds
+" <zd> deletes the entire fold
 """"""""""""""""""""""""""""""""""""""""""
-" Required to not be forced into vi mode
-set nocompatible
-
-" Enable syntax, the mouse, and no line wrapping
-syntax on
-set mouse=a
-set nowrap
-
-" Set rendering option for brighter colors and ligatures
-set renderoptions=type:directx
-set encoding=utf-8
-
-" Map leader to space
-let mapleader = "\<Space>"
-
-" Enable a fuzzy finder esque system for files
-set path=.,/usr/include,,.
-set path+=**
-set wildmenu
-
-" Disable the mode display below statusline
-set noshowmode
-
-" OSX backspace fix
-set backspace=indent,eol,start
-
-" Plugins section
+"{{{ " Plugins Section
 """"""""""""""""""""""""""""""""""""""""""
 " START Vim Plug Configuration 
 """"""""""""""""""""""""""""""""""""""""""
@@ -114,10 +91,39 @@ Plug 'junegunn/seoul256.vim'
 call plug#end()            " required
 filetype plugin indent on    " required
 """" END Vim Plug Configuration 
+"}}}"
 
+"{{{ " Vim Configuration Settings
 """""""""""""""""""""""""""""""""""""
-" Vim Config Settings
-"""""""""""""""""""""""""""""""""""""
+" Required to not be forced into vi mode
+set nocompatible
+
+" Enable syntax, the mouse, and no line wrapping
+syntax on
+set mouse=a
+set nowrap
+
+" Set rendering option for brighter colors and ligatures
+set renderoptions=type:directx
+set encoding=utf-8
+
+" Map leader to space
+let mapleader = "\<Space>"
+
+" Enable a fuzzy finder esque system for files
+set path=.,/usr/include,,.
+set path+=**
+set wildmenu
+
+" Disable the mode display below statusline
+set noshowmode
+
+" OSX backspace fix
+set backspace=indent,eol,start
+
+" Set fold method
+set foldmethod=marker
+
 " Set Font and size
 if has('win32') || has('win64')
     if glob("C:/DELL") != ""
@@ -166,7 +172,7 @@ set ignorecase
 set smartcase
 
 " Automatically set the working directory to the current working directory
-set autochdir
+autocmd BufEnter * silent! lcd %:p:h
 
 " Always display the status line
 set laststatus=2
@@ -204,9 +210,9 @@ autocmd CursorHold,InsertLeave,InsertEnter,BufEnter,VimLeave * call Autosave()
 
 " Autosave session.vim file if it exists
 autocmd VimLeave * call SaveSessionIfExistsUponExit()
+"}}}
 
-"""""""""""""""""""""""""""""""""""""""""
-" Custom Keybindings
+"{{{ " Custom Keybindings
 """"""""""""""""""""""""""""""""""""""""""
 " Set keybind for NERDTREE to Ctrl+o
 nnoremap <C-o> :NERDTreeToggle<CR>
@@ -221,9 +227,10 @@ inoremap <F5> <Esc>:call CheckHowToOpenVimrc()<CR>
 nnoremap <F12> :so $MYVIMRC<CR> | redraw
 inoremap <F12> <Esc>:so $MYVIMRC<CR> | redraw
 
-" Keybinding for tabbing inside of visual mode selection
-vnoremap <Tab> >gv 
-vnoremap <S-Tab> <gv
+" Keybinding for tabbing inside of visual mode selection to automatically
+" re-select the visual selection 
+vnoremap > >gv 
+vnoremap < <gv
 
 " Change split navigation keys
 nnoremap <C-h> <C-w>h
@@ -255,9 +262,9 @@ nnoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+"}}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom Vim functions
+"{{{ " Custom Vim Functions
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Check if the buffer is empty and determine how to open my vimrc
 function! CheckHowToOpenVimrc()
@@ -359,9 +366,9 @@ function! SaveSessionIfExistsUponExit()
         silent mksession!
     endif
 endfunction
+"}}}
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom Plugin Config Options
+"{{{ " Custom Plugin Configuration Options
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Set lightline theme and settings
 let g:lightline = {
@@ -403,11 +410,12 @@ let g:pear_tree_pairs = {
     \   '{': {'closer': '}'},
     \   "'": {'closer': "'"},
     \   '"': {'closer': '"'},
-    \ '<*>': {'closer': '</*>'}
+    \ '<*>': {'closer': '</*>'},
+    \ '*/': {'closer': '*/'}
     \ }
+"}}}
 
-"""""""""""""""""""""""""""""""""""""""""""""
-" VimTex and LaTeX Config
+ "{{{ " VimTex and LaTeX Configuration
 """""""""""""""""""""""""""""""""""""""""""""
 " Set the default Tex flavor
 let g:tex_flavor='latex'
@@ -421,3 +429,4 @@ elseif has('macunix')
 else
     let g:vimtex_view_general_viewer = 'zathura'
 endif
+"}}}
