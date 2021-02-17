@@ -17,20 +17,12 @@ if has('win32') || has ('win64')
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
-elseif has('unix')
-    if has('mac') || has('macunix')
-        if empty(glob('~/.vim/autoload/plug.vim'))
-            silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-            autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-        endif
-    else
-        " Linux distributions
-        if empty(glob('~/.vim/autoload/plug.vim'))
-            silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-            autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-        endif
+else
+    " *nix distributions
+    if empty(glob('~/.vim/autoload/plug.vim'))
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
 endif
 
@@ -40,13 +32,9 @@ filetype off                  " required
 " Check for OS system in order to start vim-plug in
 if has('win32') || has('win64')
     let g:plugDirectory = '~/vimfiles/plugged'
-elseif has('unix')
-    if has('macunix') || has('mac')
-        let g:plugDirectory = '~/.vim/plugged'
-    else
-        " Linux distributions
-        let g:plugDirectory = '~/.vim/plugged'     
-    endif
+else
+    " *nix distributions
+    let g:plugDirectory = '~/.vim/plugged'     
 endif
 
 call plug#begin(plugDirectory)
@@ -66,16 +54,16 @@ Plug 'tmsvg/pear-tree'
 """"""""""""""""""""""" 
 " Generic Programming Support 
 """""""""""""""""""""""
-" Allow builtin Vim completion with tab
+" Allow context aware completion with tab
 Plug 'ervandew/supertab'
-" Adds LATEX Utilities
+" Adds LaTeX Utilities
 Plug 'lervag/vimtex', { 'for': ['tex'] }
 
 """"""""""""""""""""""" 
 " Git Support
 """""""""""""""""""""""
-" General git wrapper
-Plug 'tpope/vim-fugitive'
+" Show git branch in statusline
+Plug 'itchyny/vim-gitbranch'
 " Git icons in gutter
 Plug 'airblade/vim-gitgutter'
 
@@ -111,9 +99,9 @@ set encoding=utf-8
 " Map leader to space
 let mapleader = "\<Space>"
 
-" Enable a fuzzy finder esque system for files
-set path=.,/usr/include,,.
-set path+=**
+" Add specific common directories for vim to search recursively with :find
+set path+=src/**,config/**
+" Vim will show a menu with matches for commands
 set wildmenu
 
 " Disable the mode display below statusline
@@ -151,26 +139,11 @@ elseif has('macunix') || has('mac')
 endif
 
 " Enable omnicomplete
-filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 " Stop messages in the command line
 set shortmess+=c
 " Configure completion menu to work as expected
-set completeopt=menu,menuone,noinsert
-" Have the completion menu automatically pop up as you type
-function! s:skinny_insert(char)
-    if !pumvisible() && !exists('s:skinny_complete') &&
-            \ getline('.')[col('.') - 2].a:char =~# '\k\k'
-    let s:skinny_complete = 1
-    noautocmd call feedkeys("\<C-n>\<C-p>", "nt")
-  endif
-endfunction
-
-augroup SkinnyAutoComplete
-    autocmd!
-    autocmd InsertCharPre * call <SID>skinny_insert(v:char)
-    autocmd CompleteDone * if exists('s:skinny_complete') | unlet s:skinny_complete | endif
-augroup END
+set completeopt=menuone,noinsert
 
 " Show linenumbers
 set number relativenumber
@@ -187,9 +160,6 @@ set incsearch
 " Set searching to only be case sensitive when the first letter is capitalized
 set ignorecase
 set smartcase
-
-" Automatically set the working directory to the current working directory
-autocmd BufEnter * silent! lcd %:p:h
 
 " Always display the status line
 set laststatus=2
@@ -216,28 +186,62 @@ set splitright splitbelow
 " Enable Vim's built in spell check and set the proper spellcheck language
 set spell spelllang=en_us
 
+"}}}
+
+"{{{ " Auto Commands
 " Autocmd to check whether vimrc needs to be updated"
 " Only runs if vim version >= 8.0 as it uses async features
 if v:version >= 80 && has("job") && has("timers")
-    autocmd VimEnter * call GitFetchVimrc()
+    augroup CheckVimrc
+        autocmd!
+        autocmd VimEnter * call GitFetchVimrc()
+    augroup END
 endif
 
-" Call autosave
-autocmd CursorHold,InsertLeave,InsertEnter,BufEnter,VimLeave * call Autosave()
+" Set the working directory to the git directory if there is one present
+" otherwise set the working directory to the directory of the current file
+augroup SetWorkingDirectory
+    autocmd!
+    autocmd BufReadPost * call SetWorkingDirectory()
+augroup END
+
+" Automatically open completion menu 
+augroup SkinnyAutoComplete
+    autocmd!
+    autocmd InsertCharPre * call <SID>skinny_insert(v:char)
+    autocmd CompleteDone * if exists('s:skinny_complete') | unlet s:skinny_complete | endif
+augroup END
+
+augroup Autosave
+    autocmd!
+    " Call autosave
+    autocmd CursorHold,InsertLeave,InsertEnter,BufEnter,VimLeave * call Autosave()
+    autocmd BufWritePost * call UpdateTagsFileIfExists()
+augroup END
 
 " Autosave session.vim file if it exists
-autocmd VimLeave * call SaveSessionIfExistsUponExit()
+augroup SaveSessionIfExistsUponExit
+    autocmd!
+    autocmd VimLeave * call SaveSessionIfExistsUponExit()
+augroup END
 
-" Automatically open quickfix window after issuing :make command
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
+augroup MakeFiles
+    autocmd!
+    " Automatically run the make command whenever you :write a file
+    autocmd BufWritePost *.cpp,*.py silent make! | silent redraw!
+
+    " Automatically open quickfix window after issuing :make command
+    autocmd QuickFixCmdPost [^l]* nested cwindow
+    autocmd QuickFixCmdPost    l* nested lwindow
+augroup END
+
 "}}}
 
 "{{{ " Custom Keybindings
 """"""""""""""""""""""""""""""""""""""""""
 " Set keybind for NERDTREE to Ctrl+o
-nnoremap <C-o> :NERDTreeToggle<CR>
-inoremap <C-o> <Esc>:NERDTreeToggle<CR>
+nnoremap <silent> <C-o> :NERDTreeToggle<CR>
+inoremap <silent> <C-o> <Esc>:NERDTreeToggle<CR>
 
 " Determine how to open vimrc before opening with F5
 nnoremap <F5> :call CheckHowToOpenVimrc()<CR>
@@ -248,8 +252,7 @@ inoremap <F5> <Esc>:call CheckHowToOpenVimrc()<CR>
 nnoremap <F12> :so $MYVIMRC<CR> | redraw
 inoremap <F12> <Esc>:so $MYVIMRC<CR> | redraw
 
-" Keybinding for tabbing inside of visual mode selection to automatically
-" re-select the visual selection 
+" Keybinding for tabbing visual mode selection to automatically re-select the visual selection 
 vnoremap > >gv 
 vnoremap < <gv
 
@@ -282,6 +285,7 @@ inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
 "}}}
 
 "{{{ " Custom Vim Functions
@@ -386,6 +390,48 @@ function! SaveSessionIfExistsUponExit()
         silent mksession!
     endif
 endfunction
+
+" If in a Git repo, sets the working directory to its root,
+" or if not, to the directory of the current file.
+function! SetWorkingDirectory()
+    " Default to the current file's directory (resolving symlinks.)
+    let current_file = expand('%:p')
+    if getftype(current_file) == 'link'
+        let current_file = resolve(current_file)
+    endif
+    exe ':lcd' . fnamemodify(current_file, ':h')
+
+    " Get the path to `.git` if we're inside a Git repo.
+    " Works both when inside a worktree, or inside an internal `.git` folder.
+    silent let git_dir = system('git rev-parse --git-dir')[:-2]
+    " Check whether the command output starts with 'fatal'; if it does, we're not inside a Git repo.
+    let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
+    " If we're inside a Git repo, change the working directory to its root.
+    if empty(is_not_git_dir)
+        " Expand path -> Remove trailing slash -> Remove trailing `.git`.
+        exe ':lcd' . fnamemodify(git_dir, ':p:h:h')
+    endif
+endfunction
+
+" Have the completion menu automatically pop up as you type
+function! s:skinny_insert(char)
+    if !pumvisible() && !exists('s:skinny_complete') &&
+            \ getline('.')[col('.') - 2].a:char =~# '\k\k'
+    let s:skinny_complete = 1
+    noautocmd call feedkeys("\<C-n>\<C-p>", "nt")
+  endif
+endfunction
+
+" Automatically update tags file if it exists
+function! UpdateTagsFileIfExists()
+    if glob('./tags') != ""
+        " If tags files exists update file
+        silent !ctags -R --exclude=node_modules --exclude=.git --exclude=.idea
+    endif
+endfunction
+" Command to make tags file inside vim
+command! Mkctags silent exe '!ctags -R --exclude=node_modules --exclude=.git --exclude=.idea' | silent exe 'redraw!'
+
 "}}}
 
 "{{{ " Custom Plugin Configuration Options
@@ -398,13 +444,13 @@ let g:lightline = {
       \             [ 'gitGutterDiff', 'gitbranch', 'readonly', 'filename', 'modified'] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
+      \   'gitbranch': 'gitbranch#name',
       \   'gitGutterDiff': 'LightlineGitGutter',
       \ },
       \ }
-"" Sees what changes have occurred in the current file
+" Sees what changes have occurred in the current file
 function! LightlineGitGutter()
-  if !get(g:, 'gitgutter_enabled', 0) || empty(FugitiveHead())
+  if !get(g:, 'gitgutter_enabled', 0)
     return ''
   endif
   let [ l:added, l:modified, l:removed ] = GitGutterGetHunkSummary()
@@ -423,7 +469,7 @@ let g:SuperTabDefaultCompletionType = "context"
 " Set the default mode for when there is no set context
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
-" Auto close tags with Pear Tree (Have to include the defaults)
+" Custom pairs to auto close with Pear Tree (Have to include the defaults)
 let g:pear_tree_pairs = {
     \   '(': {'closer': ')'},
     \   '[': {'closer': ']'},
@@ -432,6 +478,7 @@ let g:pear_tree_pairs = {
     \   '"': {'closer': '"'},
     \ '\*/': {'closer': '\*/'}
     \ }
+
 "}}}
 
  "{{{ " VimTex and LaTeX Configuration
@@ -448,4 +495,5 @@ elseif has('macunix')
 else
     let g:vimtex_view_general_viewer = 'zathura'
 endif
+
 "}}}

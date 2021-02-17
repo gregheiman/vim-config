@@ -38,7 +38,7 @@
 "
 " All the options above can be switched on together.
 "
-"   let python_highlight_all = 1
+let python_highlight_all = 1
 "
 
 " For version 5.x: Clear all syntax items.
