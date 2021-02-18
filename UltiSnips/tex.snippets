@@ -13,14 +13,14 @@ def env(name):
 endglobal
 
 # Snippet to create both begin and end blocks
-snippet beg "begin{} / end{}" bA
+snippet beg "begin{} / end{}" b
 \begin{$1}
 	$0
 \end{$1}
 endsnippet
 
 # Snippet to fill in boiler plate at beginning
-snippet article "documentclass{article}" bA
+snippet article "documentclass{article}" b
 \documentclass[$1]{article}
 
 \title{$2}
@@ -34,14 +34,19 @@ $0
 
 endsnippet
 
+# Snippet to create an emphasized part of text
+snippet "emph" "emph" ri
+\emph{$1}$0
+endsnippet
+
 # Snippet to add inline math
 priority 100
-snippet mk "Math" wA
-$${1}$$0
+snippet mk "Math" w
+$${1}$ $0
 endsnippet
 
 # Snippet to add display line math
-snippet dm "Math" wA
+snippet dm "Math" w
 $$
 	$1
 $$$0 
@@ -102,5 +107,24 @@ context "math()"
 priority 10
 snippet "lim" "lim" riA
 \lim_{$0}
+endsnippet
+
+# Snippets for settings math Greek characters
+context "math()"
+priority 10
+snippet "theta" "theta" riA
+\theta$0
+endsnippet
+
+context "math()"
+priority 10
+snippet "pi" "pi" riA
+\pi$0
+endsnippet
+
+context "math()"
+priority 10
+snippet "Delta" "Delta" riA
+\Delta$0
 endsnippet
 

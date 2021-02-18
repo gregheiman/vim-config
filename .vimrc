@@ -74,8 +74,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree', { 'on': [ 'NERDTree', 'NERDTreeToggle' ] }
 " Improved status bar
 Plug 'itchyny/lightline.vim'
-" Seoul-256 Theme"
-Plug 'junegunn/seoul256.vim'
+" Gruvbox theme
+Plug 'morhetz/gruvbox'
 
 call plug#end()            " required
 filetype plugin indent on    " required
@@ -176,9 +176,10 @@ else
 endif 
 
 " Set color theme
-let g:seoul256_background = 234
-colorscheme seoul256
+colorscheme gruvbox
 set background=dark
+" Set Gruvbox to show misspelled words correctly
+hi SpellBad cterm=underline ctermfg=167
 
 " Sets the default splits to be to the right and below from default
 set splitright splitbelow
@@ -438,7 +439,7 @@ command! Mkctags silent exe '!ctags -R --exclude=node_modules --exclude=.git --e
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Set lightline theme and settings
 let g:lightline = {
-      \ 'colorscheme' : 'seoul256',
+      \ 'colorscheme' : 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitGutterDiff', 'gitbranch', 'readonly', 'filename', 'modified'] ]

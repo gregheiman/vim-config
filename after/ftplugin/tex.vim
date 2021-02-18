@@ -1,8 +1,10 @@
 " Assign F8 to compile the current LaTeX file
 nnoremap <F8> :update<CR>:VimtexCompileSS<CR>
+inoremap <F8> <Esc>:update<CR>:VimtexCompileSS<CR><i>
 
 " Assign F9 to view the current LaTeX file
 nnoremap <F9> :update<CR>:VimtexView<CR>
+inoremap <F9> <Esc>:update<CR>:VimtexView<CR><i>
 
-" Clean Tex file directory before exiting Vim
-autocmd VimLeave * call execute("VimtexClean")
+" Compile and clean tex files before exiting
+autocmd VimLeave * call execute("VimtexCompileSS") || call execute("VimtexClean")
