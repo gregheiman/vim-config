@@ -7,4 +7,4 @@ nnoremap <F9> :update<CR>:VimtexView<CR>
 inoremap <F9> <Esc>:update<CR>:VimtexView<CR><i>
 
 " Compile and clean tex files before exiting
-autocmd VimLeave * call execute("VimtexCompileSS") || call execute("VimtexClean")
+autocmd VimLeave * call execute("VimtexCompileSS") | call execute("VimtexClean")
