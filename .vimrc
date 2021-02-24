@@ -8,7 +8,6 @@
 "{{{ " Plugins Section
 """"""""""""""""""""""""""""""""""""""""""
 " START Vim Plug Configuration 
-""""""""""""""""""""""""""""""""""""""""""
 " Checks if vim-plug is installed and if not automatically installs it
 if has('win32') || has ('win64')
     " Chocolatey default install location
@@ -127,7 +126,7 @@ elseif has('unix')
         set guifont=Fira_Code:h12
     else
         " Linux distributions
-        set guifont=firacode    
+        set guifont=Iosevka:h12
     endif
 endif
 
@@ -147,7 +146,9 @@ set completeopt=menuone,noinsert
 
 " Show linenumbers
 set number relativenumber
+" Show line number and column number
 set ruler
+
 
 " Set Proper 4 Space Tabs
 set tabstop=4
@@ -169,6 +170,10 @@ set cursorline
 
 " True colors support for terminal
 if (has("termguicolors"))
+    " Fix alacritty and vim not showing colorschemes right (Prob. a Vim issue)
+    if &term == "alacritty"
+        let &term = "xterm-256color"
+    endif
     set termguicolors
 else
     " If Vim doesn't support true colors set 256 colors
@@ -178,7 +183,7 @@ endif
 " Set color theme
 colorscheme gruvbox
 set background=dark
-" Set Gruvbox to show misspelled words correctly
+" Set Gruvbox to show misspelled words as red with an underline
 hi SpellBad cterm=underline ctermfg=167
 
 " Sets the default splits to be to the right and below from default
@@ -470,6 +475,8 @@ let g:SuperTabDefaultCompletionType = "context"
 " Set the default mode for when there is no set context
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
+" Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
+let g:pear_tree_repeatable_expand = 0
 " Custom pairs to auto close with Pear Tree (Have to include the defaults)
 let g:pear_tree_pairs = {
     \   '(': {'closer': ')'},
