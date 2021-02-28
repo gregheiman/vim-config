@@ -1,9 +1,9 @@
 """"""""""""""""""""""""""""""""""""""""""
 " Vimrc
-" <zo> opens the fold
-" <zc> closes the fold
-" <za> toggles the fold
-" <zd> deletes the entire fold
+" <zo> Opens the fold
+" <zc> Closes the fold
+" <za> Toggles the fold
+" <zd> Deletes the entire fold
 """"""""""""""""""""""""""""""""""""""""""
 "{{{ " Plugins Section
 """"""""""""""""""""""""""""""""""""""""""
@@ -45,8 +45,6 @@ call plug#begin(plugDirectory)
 """""""""""""""""""""""
 " Add indent guides
 Plug 'nathanaelkane/vim-indent-guides'
-" Add snippet support
-Plug 'sirver/UltiSnips'
 " Add auto pair support for delimiters
 Plug 'tmsvg/pear-tree'
 
@@ -55,26 +53,24 @@ Plug 'tmsvg/pear-tree'
 """""""""""""""""""""""
 " Allow context aware completion with tab
 Plug 'ervandew/supertab'
-" Adds LaTeX Utilities
-Plug 'lervag/vimtex', { 'for': ['tex'] }
+" Add snippet support
+Plug 'sirver/UltiSnips'
 
 """"""""""""""""""""""" 
 " Git Support
 """""""""""""""""""""""
-" Show git branch in statusline
-Plug 'itchyny/vim-gitbranch'
+" Git wrapper
+Plug 'tpope/vim-fugitive'
 " Git icons in gutter
 Plug 'airblade/vim-gitgutter'
 
 """""""""""""""""""""""
 " Theme / Interface
 """""""""""""""""""""""
-" Side file tree
-Plug 'preservim/nerdtree', { 'on': [ 'NERDTree', 'NERDTreeToggle' ] }
 " Improved status bar
 Plug 'itchyny/lightline.vim'
-" Gruvbox theme
-Plug 'morhetz/gruvbox'
+" Jellybeans theme
+Plug 'nanotech/jellybeans.vim'
 
 call plug#end()            " required
 filetype plugin indent on    " required
@@ -92,13 +88,15 @@ set mouse=a
 set nowrap
 
 " Set rendering option for brighter colors and ligatures
-set renderoptions=type:directx
+if !has('nvim')
+    set renderoptions=type:directx
+endif
 set encoding=utf-8
 
 " Map leader to space
 let mapleader = "\<Space>"
 
-" Add specific common directories for vim to search recursively with :find
+" Add specific common directories for Vim to search recursively with :find
 set path+=src/**,config/**
 " Vim will show a menu with matches for commands
 set wildmenu
@@ -116,18 +114,14 @@ set foldmethod=marker
 if has('win32') || has('win64')
     if glob("C:/DELL") != ""
         " Set the font for my Dell XPS 13
-        set guifont=Fira_Code:h8
+        set guifont=Iosevka:h8
     else
         " Set the font for my desktop
-        set guifont=Fira_Code:h10
+        set guifont=Iosevka:h10
     endif
 elseif has('unix')
-    if has('macunix') || has('mac')
-        set guifont=Fira_Code:h12
-    else
-        " Linux distributions
+        " *nix distributions
         set guifont=Iosevka:h12
-    endif
 endif
 
 " Start Vim fullscreen
@@ -149,14 +143,13 @@ set number relativenumber
 " Show line number and column number
 set ruler
 
-
-" Set Proper 4 Space Tabs
+" Set proper 4 space tabs
 set tabstop=4
 set shiftwidth=4
 set smarttab
 set expandtab
 
-" Set vim to go to the searched term
+" Set Vim to go to the searched term
 set incsearch
 " Set searching to only be case sensitive when the first letter is capitalized
 set ignorecase
@@ -170,8 +163,8 @@ set cursorline
 
 " True colors support for terminal
 if (has("termguicolors"))
-    " Fix alacritty and vim not showing colorschemes right (Prob. a Vim issue)
-    if &term == "alacritty"
+    " Fix alacritty and Vim not showing colorschemes right (Prob. a Vim issue)
+    if !has('nvim') && &term == "alacritty"
         let &term = "xterm-256color"
     endif
     set termguicolors
@@ -181,10 +174,8 @@ else
 endif 
 
 " Set color theme
-colorscheme gruvbox
+colorscheme jellybeans
 set background=dark
-" Set Gruvbox to show misspelled words as red with an underline
-hi SpellBad cterm=underline ctermfg=167
 
 " Sets the default splits to be to the right and below from default
 set splitright splitbelow
@@ -195,7 +186,7 @@ set spell spelllang=en_us
 "}}}
 
 "{{{ " Auto Commands
-" Autocmd to check whether vimrc needs to be updated"
+" Autocmd to check whether vimrc needs to be updated
 " Only runs if vim version >= 8.0 as it uses async features
 if v:version >= 80 && has("job") && has("timers")
     augroup CheckVimrc
@@ -208,7 +199,7 @@ endif
 " otherwise set the working directory to the directory of the current file
 augroup SetWorkingDirectory
     autocmd!
-    autocmd BufReadPost * call SetWorkingDirectory()
+    autocmd BufEnter * call SetWorkingDirectory()
 augroup END
 
 " Automatically open completion menu 
@@ -221,21 +212,20 @@ augroup END
 augroup Autosave
     autocmd!
     " Call autosave
-    autocmd CursorHold,InsertLeave,InsertEnter,BufEnter,VimLeave * call Autosave()
-    autocmd BufWritePost * call UpdateTagsFileIfExists()
+    autocmd CursorHold,CursorHoldI,InsertLeave,InsertEnter,BufLeave,VimLeave * call Autosave()
+    autocmd BufWritePost * if glob("./tags") != "" | silent !ctags -R --exclude=node_modules --exclude=.git --exclude=.idea | endif
 augroup END
 
 " Autosave session.vim file if it exists
 augroup SaveSessionIfExistsUponExit
     autocmd!
-    autocmd VimLeave * call SaveSessionIfExistsUponExit()
+    autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif
 augroup END
 
 augroup MakeFiles
     autocmd!
     " Automatically run the make command whenever you :write a file
     autocmd BufWritePost *.cpp,*.py silent make! | silent redraw!
-
     " Automatically open quickfix window after issuing :make command
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost    l* nested lwindow
@@ -246,17 +236,17 @@ augroup END
 "{{{ " Custom Keybindings
 """"""""""""""""""""""""""""""""""""""""""
 " Set keybind for NERDTREE to Ctrl+o
-nnoremap <silent> <C-o> :NERDTreeToggle<CR>
-inoremap <silent> <C-o> <Esc>:NERDTreeToggle<CR>
+nnoremap <silent> <C-o> :Explore<CR>
+inoremap <silent> <C-o> <Esc>:Explore<CR>
 
 " Determine how to open vimrc before opening with F5
-nnoremap <F5> :call CheckHowToOpenVimrc()<CR>
-inoremap <F5> <Esc>:call CheckHowToOpenVimrc()<CR>
+nnoremap <silent> <F5> :call CheckHowToOpenVimrc()<CR>
+inoremap <silent> <F5> <Esc>:call CheckHowToOpenVimrc()<CR>
 
 " Assign F12 to reload my vimrc file so I don't have to restart upon making
 " changes
-nnoremap <F12> :so $MYVIMRC<CR> | redraw
-inoremap <F12> <Esc>:so $MYVIMRC<CR> | redraw
+nnoremap <silent> <F12> :so $MYVIMRC<CR> | redraw
+inoremap <silent> <F12> <Esc>:so $MYVIMRC<CR> | redraw
 
 " Keybinding for tabbing visual mode selection to automatically re-select the visual selection 
 vnoremap > >gv 
@@ -277,7 +267,7 @@ nnoremap <leader>bp :bp<CR>
 " buffer delete
 nnoremap <leader>bd :bd<CR>
 " buffer go to
-nnoremap <leader>bg :call GoToSpecifiedBuffer()<CR>
+nnoremap <silent> <leader>bg :call GoToSpecifiedBuffer()<CR>
 " buffer list
 nnoremap <leader>bl :buffers<CR>
 
@@ -294,7 +284,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 "}}}
 
-"{{{ " Custom Vim Functions
+"{{{ " Custom Vim Functions and Commands
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Check if the buffer is empty and determine how to open my vimrc
 function! CheckHowToOpenVimrc()
@@ -324,28 +314,44 @@ endfunction
 " Finds the directory that the .vimrc is in
 " Safe for symbolic links
 " Needs to be outside of function in order to work correctly
-let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+if !has("nvim")
+    let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+else 
+    let s:vimrclocation = "~/.vim/.vimrc"
+endif
 function! GitFetchVimrc()
     " Change to the vimrc git directory
     silent execute("lcd " . s:vimrclocation) 
     
     " Execute a git fetch to update the tree
     " Run windows command in cmd and linux in shell
-    if has("win32") || has("win64")
+    if has("win32") || has("win64") && !has('nvim')
         let l:gitFetchJob = job_start("cmd git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
-    else
+    elseif !has('nvim')
         let l:gitFetchJob = job_start("/bin/sh git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
+    else 
+        let l:gitFetchJob = jobstart("/bin/sh git fetch")
     endif 
     
     " Grab the status of the job
-    let l:gitFetchJobStatus = job_status(gitFetchJob)
+    if !has('nvim')
+        let l:gitFetchJobStatus = job_status(gitFetchJob)
+    endif
+
     " If unsuccessful let user know and stop job
     if (l:gitFetchJobStatus ==? "fail" || l:gitFetchJobStatus ==? "dead")
         echohl WarningMsg | echom "Vimrc git fetch failed with status " . l:gitFetchJobStatus | echohl None
-        call job_stop(gitFetchJob)
+        call job_stop(l:gitFetchJob)
+    elseif has('nvim') && (l:gitFetchJob != 1)
+        echohl WarningMsg | echom "Vimrc git fetch failed with status " . l:gitFetchJobStatus | echohl None
+        call jobstop(l:gitFetchJob)
     else
         " Otherwise stop job and run CompareUpstreamAndLocalVimrcGitStatus()
-        call job_stop(gitFetchJob)
+        if !has('nvim')
+            call job_stop(gitFetchJob)
+        else
+            call jobstop(gitFetchJob)
+        endif
         " Needs to be a timer because we are running a vimscript function
         " https://vi.stackexchange.com/questions/27003/how-to-start-an-async-function-in-vim-8
         let l:compareUpstreamAndLocalTimer = timer_start(0, 'CompareUpstreamAndLocalVimrcGitStatus')
@@ -389,23 +395,20 @@ function! GoToSpecifiedBuffer()
     execute(":buffer " . bufferNum)
 endfunction
 
-" Automatically save Session.vim it one exists
-function! SaveSessionIfExistsUponExit()
-    if glob('./Session.vim') != ""
-        " If Session.vim exists save before exiting
-        silent mksession!
-    endif
-endfunction
-
 " If in a Git repo, sets the working directory to its root,
 " or if not, to the directory of the current file.
 function! SetWorkingDirectory()
+    " Stops fugitive from throwing error on :Gdiff
+    if bufname('fugitive') != ""
+        return
+    endif
+
     " Default to the current file's directory (resolving symlinks.)
     let current_file = expand('%:p')
     if getftype(current_file) == 'link'
         let current_file = resolve(current_file)
     endif
-    exe ':lcd' . fnamemodify(current_file, ':h')
+    exe ':lcd' . fnameescape(fnamemodify(current_file, ':h'))
 
     " Get the path to `.git` if we're inside a Git repo.
     " Works both when inside a worktree, or inside an internal `.git` folder.
@@ -415,7 +418,7 @@ function! SetWorkingDirectory()
     " If we're inside a Git repo, change the working directory to its root.
     if empty(is_not_git_dir)
         " Expand path -> Remove trailing slash -> Remove trailing `.git`.
-        exe ':lcd' . fnamemodify(git_dir, ':p:h:h')
+        exe ':lcd' . fnameescape(fnamemodify(git_dir, ':p:h:h'))
     endif
 endfunction
 
@@ -428,13 +431,6 @@ function! s:skinny_insert(char)
   endif
 endfunction
 
-" Automatically update tags file if it exists
-function! UpdateTagsFileIfExists()
-    if glob('./tags') != ""
-        " If tags files exists update file
-        silent !ctags -R --exclude=node_modules --exclude=.git --exclude=.idea
-    endif
-endfunction
 " Command to make tags file inside vim
 command! Mkctags silent exe '!ctags -R --exclude=node_modules --exclude=.git --exclude=.idea' | silent exe 'redraw!'
 
@@ -442,15 +438,22 @@ command! Mkctags silent exe '!ctags -R --exclude=node_modules --exclude=.git --e
 
 "{{{ " Custom Plugin Configuration Options
 """"""""""""""""""""""""""""""""""""""""""""""""""
+" Get rid of banner in netrw
+let g:netrw_banner = 0
+" Set netrw to open in tree setup
+let g:netrw_liststyle = 3
+" Netrw will change working directory every new file
+let g:netrw_keepdir = 0
+
 " Set lightline theme and settings
 let g:lightline = {
-      \ 'colorscheme' : 'gruvbox',
+      \ 'colorscheme' : 'jellybeans',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitGutterDiff', 'gitbranch', 'readonly', 'filename', 'modified'] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'gitbranch#name',
+      \   'gitbranch': 'fugitive#head',
       \   'gitGutterDiff': 'LightlineGitGutter',
       \ },
       \ }
@@ -477,31 +480,5 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
-" Custom pairs to auto close with Pear Tree (Have to include the defaults)
-let g:pear_tree_pairs = {
-    \   '(': {'closer': ')'},
-    \   '[': {'closer': ']'},
-    \   '{': {'closer': '}'},
-    \   "'": {'closer': "'"},
-    \   '"': {'closer': '"'},
-    \ '\*/': {'closer': '\*/'}
-    \ }
-
-"}}}
-
- "{{{ " VimTex and LaTeX Configuration
-"""""""""""""""""""""""""""""""""""""""""""""
-" Set the default Tex flavor
-let g:tex_flavor='latex'
-" Stop any sort of concealing
-let g:tex_conceal = ''
-" Set the viewer options for all OS's
-if has('win32') || has('win64')
-    let g:vimtex_view_general_viewer = 'sumatrapdf'
-elseif has('macunix')
-    let g:vimtex_view_general_viewer = 'skim'
-else
-    let g:vimtex_view_general_viewer = 'zathura'
-endif
 
 "}}}

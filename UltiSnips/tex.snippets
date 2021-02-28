@@ -1,14 +1,20 @@
 # Add context to snippets
 global !p
+texMathZones = ['texMathZone'+x for x in ['A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'V', 'W', 'X', 'Y', 'Z']]
+# If you have http://www.drchip.org/astronaut/vim/vbafiles/amsmath.vba.gz,
+# you want to add:
+# texMathZones += ['texMathZone'+x for x in ['E', 'ES', 'F', 'FS', 'G', 'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS', 'L', 'LS']]
+texIgnoreMathZones = ['texMathText']
+
+texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
+texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
+
 def math():
-    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
-
-def comment():
-    return vim.eval('vimtex#syntax#in_comment()') == '1'
-
-def env(name):
-    [x,y] = vim.eval("vimtex#env#is_inside('" + name + "')")
-    return x != '0' and x != '0'
+    synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
+    if not set(texIgnoreMathZoneIds).isdisjoint(synstackids):
+        return False
+    return not set(texMathZoneIds).isdisjoint(synstackids)
+    # isdisjoint() can short-circuit as soon as a match is found
 
 endglobal
 
@@ -37,6 +43,11 @@ endsnippet
 # Snippet to create an emphasized part of text
 snippet "emph" "emph" ri
 \emph{$1}$0
+endsnippet
+
+# Snippet for bolding text
+snippet "bold" "bold" ri
+\textbf{$1}$0
 endsnippet
 
 # Snippet to add inline math
