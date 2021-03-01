@@ -183,12 +183,15 @@ set splitright splitbelow
 " Enable Vim's built in spell check and set the proper spellcheck language
 set spell spelllang=en_us
 
+" Set the global tex flavor
+let g:tex_flavor='latex'
+
 "}}}
 
 "{{{ " Auto Commands
 " Autocmd to check whether vimrc needs to be updated
 " Only runs if vim version >= 8.0 as it uses async features
-if v:version >= 80 && has("job") && has("timers")
+if (v:version >= 80 && has("job") && has("timers")) || has('nvim')
     augroup CheckVimrc
         autocmd!
         autocmd VimEnter * call GitFetchVimrc()
@@ -314,11 +317,7 @@ endfunction
 " Finds the directory that the .vimrc is in
 " Safe for symbolic links
 " Needs to be outside of function in order to work correctly
-if !has("nvim")
-    let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-else 
-    let s:vimrclocation = "~/.vim/.vimrc"
-endif
+let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 function! GitFetchVimrc()
     " Change to the vimrc git directory
     silent execute("lcd " . s:vimrclocation) 
@@ -339,11 +338,11 @@ function! GitFetchVimrc()
     endif
 
     " If unsuccessful let user know and stop job
-    if (l:gitFetchJobStatus ==? "fail" || l:gitFetchJobStatus ==? "dead")
+    if !has('nvim') && (l:gitFetchJobStatus ==? "fail" || l:gitFetchJobStatus ==? "dead")
         echohl WarningMsg | echom "Vimrc git fetch failed with status " . l:gitFetchJobStatus | echohl None
         call job_stop(l:gitFetchJob)
-    elseif has('nvim') && (l:gitFetchJob != 1)
-        echohl WarningMsg | echom "Vimrc git fetch failed with status " . l:gitFetchJobStatus | echohl None
+    elseif has('nvim') && (l:gitFetchJob < 1)
+        echohl WarningMsg | echom "Vimrc git fetch failed with status " . l:gitFetchJob | echohl None
         call jobstop(l:gitFetchJob)
     else
         " Otherwise stop job and run CompareUpstreamAndLocalVimrcGitStatus()

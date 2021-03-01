@@ -1,6 +1,3 @@
-" Set the global tex flavor
-let g:tex_flavor='latex'
-
 " Set make program to latexmk pdf output
 set makeprg=latexmk\ -pdf\ %:p
 
