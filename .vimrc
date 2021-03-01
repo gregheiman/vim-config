@@ -228,12 +228,8 @@ augroup END
 augroup MakeFiles
     autocmd!
     " Automatically run the make command whenever you :write a file
-<<<<<<< HEAD
     autocmd BufWritePost *.cpp,*.py,*.java silent make! | silent redraw!
-
-=======
     autocmd BufWritePost *.cpp,*.py silent make! | silent redraw!
->>>>>>> 48b1b12405a3b90dc9477e5683ff5c8296c3d559
     " Automatically open quickfix window after issuing :make command
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost    l* nested lwindow
