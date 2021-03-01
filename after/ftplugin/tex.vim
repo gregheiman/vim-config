@@ -50,6 +50,12 @@ nnoremap <silent> <F9> :update<CR>:call TexView()<CR>
 inoremap <silent> <F9> <Esc>:update<CR>:call TexView()<CR><i>
 
 " Compile and clean tex files before exiting
+<<<<<<< HEAD
+autocmd VimLeave *.tex call execute("VimtexCompileSS") | call execute("VimtexClean")
+
+" Compile after writing
+autocmd BufWritePost *.tex call execute("VimtexCompileSS")
+=======
 autocmd VimLeave * call execute("make") | call execute("TexClean")
 
 " View the current .tex file's pdf file if there is one
@@ -71,3 +77,4 @@ function! TexView()
 endfunction
 " Clean the tex directory
 command! TexClean silent execute '!latexmk -c' | silent execute 'redraw!' | echo "Cleaned the directory"
+>>>>>>> 48b1b12405a3b90dc9477e5683ff5c8296c3d559
