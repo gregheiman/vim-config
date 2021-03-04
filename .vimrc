@@ -326,12 +326,19 @@ function! GitFetchVimrc()
     
     " Execute a git fetch to update the tree
     " Run windows command in cmd and linux in shell
-    if has("win32") || has("win64") && !has('nvim')
-        let l:gitFetchJob = job_start("cmd git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
-    elseif !has('nvim')
-        let l:gitFetchJob = job_start("/bin/sh git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
-    else 
-        let l:gitFetchJob = jobstart("/bin/sh git fetch")
+    if has("win32") || has("win64")
+        if !has('nvim')
+            let l:gitFetchJob = job_start("cmd git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
+        else
+            let l:gitFetchJob = jobstart("cmd git fetch")
+        endif
+    else
+        " *nix systems 
+        if !has('nvim') 
+            let l:gitFetchJob = job_start("/bin/sh git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
+        else
+            let l:gitFetchJob = jobstart("/bin/sh git fetch")
+        endif
     endif 
     
     " Grab the status of the job
