@@ -110,6 +110,9 @@ set backspace=indent,eol,start
 " Set fold method
 set foldmethod=marker
 
+" Set tags file
+set tags="./tags"
+
 " Set Font and size
 if has('win32') || has('win64')
     if glob("C:/DELL") != ""
@@ -146,14 +149,12 @@ set ruler
 " Set proper 4 space tabs
 set tabstop=4
 set shiftwidth=4
-set smarttab
-set expandtab
+set smarttab expandtab
 
 " Set Vim to go to the searched term
 set incsearch
 " Set searching to only be case sensitive when the first letter is capitalized
-set ignorecase
-set smartcase
+set ignorecase smartcase
 
 " Always display the status line
 set laststatus=2
@@ -216,7 +217,7 @@ augroup Autosave
     autocmd!
     " Call autosave
     autocmd CursorHold,CursorHoldI,InsertLeave,InsertEnter,BufLeave,VimLeave * call Autosave()
-    autocmd BufWritePost * if glob("./tags") != "" | silent !ctags -R --exclude=node_modules --exclude=.git --exclude=.idea | endif
+    autocmd BufWritePost * if glob("./tags") != "" | call UpdateTagsFile() | endif
 augroup END
 
 " Autosave session.vim file if it exists
@@ -240,8 +241,8 @@ augroup END
 "{{{ " Custom Keybindings
 """"""""""""""""""""""""""""""""""""""""""
 " Set keybind for NERDTREE to Ctrl+o
-nnoremap <silent> <C-o> :Explore<CR>
-inoremap <silent> <C-o> <Esc>:Explore<CR>
+nnoremap <silent> <C-o> :call ToggleNetrw()<CR>
+inoremap <silent> <C-o> <Esc>:call ToggleNetrw()<CR>
 
 " Determine how to open vimrc before opening with F5
 nnoremap <silent> <F5> :call CheckHowToOpenVimrc()<CR>
@@ -431,8 +432,69 @@ function! s:skinny_insert(char)
   endif
 endfunction
 
+function! UpdateTagsFile()
+    " Rename old tags file and set vim to use that
+    " While new tags file is being generated
+    let s:currentTagsFile=expand("%p:h") . "/tags"
+    call rename(s:currentTagsFile, "old-tags")
+    set tags="./old-tags"
+    
+    " Create new tags file. Uses ~/.config/ctags/.ctags config file
+    if has('win64') || has('win32')
+        if !has('nvim')
+            let l:createNewTagsJob = job_start("cmd ctags -R")
+        else 
+            let l:createNewTagsJob = jobstart("cmd ctags -R")
+        endif
+    else
+        " *nix distributions
+        if !has('nvim')
+            let l:createNewTagsJob = job_start("/bin/sh ctags -R")
+        else 
+            let l:createNewTagsJob = jobstart("/bin/sh ctags -R")
+        endif
+    endif
+
+    " Get job status if not using Nvim
+    if !has('nvim') | let l:newTagsJobStatus = job_status(l:createNewTagsJob) | endif 
+
+    if !has('nvim') && (l:newTagsJobStatus ==? "fail" || l:newTagsJobStatus ==? "dead")
+        echohl WarningMsg | echom "Tags file failed to be created with status " . l:newTagsJobStatus| echohl None
+        call job_stop(l:createNewTagsJob)
+    elseif has('nvim') && (l:createNewTagsJob < 1)
+        echohl WarningMsg | echom "Tags file failed to be created with status " . l:createNewTagsJob | echohl None
+        call jobstop(l:createNewTagsJob)
+    else 
+        " If job does not report fail status
+        if !has('nvim') 
+            call job_stop(l:createNewTagsJob) 
+        else 
+            call jobstop(l:createNewTagsJob) 
+        endif
+        echohl title | echom "Tags file was updated successfully" | echohl None
+    endif 
+        
+    " Delete old tags file and reset tags
+    set tags="./tags"
+    call delete("./old-tags")
+endfunction
 " Command to make tags file inside vim
-command! Mkctags silent exe '!ctags -R --exclude=node_modules --exclude=.git --exclude=.idea' | silent exe 'redraw!'
+command! Mkctags silent exe '!ctags -R' | silent exe 'redraw!'
+
+" Toggle Netrw window open and close with the same key
+function! ToggleNetrw()
+    " Save current position to go back to
+    let b:windowpos = winsaveview()
+    
+    if &filetype != "netrw"
+        silent Explore
+    else
+        " Return to previous file
+        silent Rexplore
+        " Reset view
+        call winrestview(b:windowpos)
+    endif
+endfunction
 
 "}}}
 
@@ -450,15 +512,20 @@ let g:lightline = {
       \ 'colorscheme' : 'jellybeans',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitGutterDiff', 'gitbranch', 'readonly', 'filename', 'modified'] ]
+      \             [ 'gitQuickDiff', 'gitbranch', 'readonly', 'filename', 'modified'] ],
+      \   'right': [ ['lineinfo'], 
+      \            ['fileformat', 'fileencoding', 'filetype'] ],
+      \ },
+      \ 'component': {
+      \  'lineinfo': "%{line('.') . '/' . line('$')}",
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head',
-      \   'gitGutterDiff': 'LightlineGitGutter',
+      \   'gitQuickDiff': 'GitQuickDiff',
       \ },
       \ }
 " Sees what changes have occurred in the current file
-function! LightlineGitGutter()
+function! GitQuickDiff()
   if !get(g:, 'gitgutter_enabled', 0)
     return ''
   endif
