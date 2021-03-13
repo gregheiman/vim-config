@@ -21,7 +21,6 @@ choco install vim
     ```
 
     * .vimrc -- your main Vim folder (For chocolatey C:/tools/vim)
-    * coc-settings.json -> your vimfiles folder (Default ~/vimfiles/)
     * /after/ directory -> your vimfiles folder
     * /autoload/ directory -> your vimfiles folder
 4. Start Vim.
@@ -43,10 +42,9 @@ choco install vim
     ln -s Link Target
     ```
 
-    * .vimrc -- your main Vim folder (For chocolatey C:/tools/vim)
-    * coc-settings.json -> your vimfiles folder (Default ~/vimfiles/)
-    * /after/ directory -> your vimfiles folder
-    * /autoload/ directory -> your vimfiles folder
+    * .vimrc -- your main Vim folder (~/.vim)
+    * /after/ directory -> your .vim folder
+    * /autoload/ directory -> your .vim folder
 4. Start MacVim.
 5. Start Vim.
     * Vim-Plug shouldn't have to be installed (It's in the /autoload/ directory). 
@@ -67,10 +65,9 @@ choco install vim
     ln -s Link Target
     ```
 
-    * .vimrc -- your main Vim folder (For chocolatey C:/tools/vim)
-    * coc-settings.json -> your vimfiles folder (Default ~/vimfiles/)
-    * /after/ directory -> your vimfiles folder
-    * /autoload/ directory -> your vimfiles folder
+    * .vimrc -- your main Vim folder (~/.vim)
+    * /after/ directory -> your .vim folder
+    * /autoload/ directory -> your .vim folder
 4. Start Vim.
 5. Start Vim.
     * Vim-Plug shouldn't have to be installed (It's in the /autoload/ directory). 
@@ -86,18 +83,21 @@ You will need some tools to take advantage of some of the features in my .vimrc.
 
 **Tools include:**
 
-* Git (Needed in order to clone and maintain your .vimrc)
-* LLVM (Includes Clang for compiling C files and Clangd language server)
-* Python (Needed to run Python files)
+* Git (Needed in order to clone and maintain .vimrc)
+* Python (Needed to run UltiSnips and Python files)
+
+**Optional Dependencies:**
+
+* Universal-Ctags or Exuberent-Ctags (Needed for tagging files)
+* LLVM (Includes Clang for compiling C files)
 * Java JDK (Needed to run Java files)
-* Universal-Ctags (Needed in order for Tagbar to work and for tagging files)
-* CURL (This one must be installed beforehand in order for Vim-Plug to
-automatically install)
 * MinGW-W64 or MinGW (Optional (Can use Clang as C compiler). 
 Windows Only. Windows port of GCC for compiling C files)
 * NodeJS (Needed for COC packages)
 * NPM and Yarn (Optional. Helpful for web development)
 * ESLint (Optional. Helps with linting JS files.)
 * TexLive (Including latexmk) (Optional. Needed for working with LaTeX files.)
+* CURL (This one must be installed beforehand in order for Vim-Plug to
+automatically install)
 
 ### Check out Wiki for more specific information about setting up certain workflows.
