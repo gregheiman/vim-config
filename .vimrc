@@ -109,7 +109,7 @@ set backspace=indent,eol,start
 set foldmethod=marker
 
 " Set tags file
-set tags=./tags
+set tags=./tags,tags
 
 " Set Font and size
 if has('win32') || has('win64')
@@ -453,9 +453,9 @@ function! UpdateTagsFile()
 
     " Rename old tags file and set vim to use that
     " While new tags file is being generated
-    let s:currentTagsFile=expand("%p:h") . "/tags"
+    let s:currentTagsFile=expand("%:p:h") . "/tags"
     call rename(s:currentTagsFile, "old-tags")
-    set tags=./old-tags
+    set tags=./old-tags,old-tags
     
     " Create new tags file. Uses ~/.config/ctags/.ctags config file
     if has('win64') || has('win32')
@@ -488,7 +488,7 @@ function! UpdateTagsFile()
     endif 
         
     " Delete old tags file and reset tags
-    set tags=./tags
+    set tags=./tags,tags
     call delete("./old-tags")
 endfunction
 " Command to make tags file inside vim
