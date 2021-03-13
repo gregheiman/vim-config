@@ -118,8 +118,13 @@ if has('win32') || has('win64')
         set guifont=Iosevka:h8
     else
         " Set the font for my desktop
+<<<<<<< HEAD
+        set guifont=Iosevka:h11
+    endif 
+=======
         set guifont=Iosevka:h10
     endif
+>>>>>>> 2a891cf6067fb1bf46142af84ce932a4a7a857b8
 elseif has('unix')
         " *nix distributions
         set guifont=Iosevka:h12
@@ -196,6 +201,7 @@ if (v:version >= 80 && has("job") && has("timers")) || has('nvim')
         autocmd VimEnter * call GitFetchVimrc()
     augroup END
 endif
+
 
 " Set the working directory to the git directory if there is one present
 " otherwise set the working directory to the directory of the current file
