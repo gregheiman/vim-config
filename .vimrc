@@ -53,8 +53,6 @@ Plug 'tmsvg/pear-tree'
 """""""""""""""""""""""
 " Allow context aware completion with tab
 Plug 'ervandew/supertab'
-" Add snippet support
-Plug 'sirver/UltiSnips'
 
 """"""""""""""""""""""" 
 " Git Support
@@ -111,7 +109,7 @@ set backspace=indent,eol,start
 set foldmethod=marker
 
 " Set tags file
-set tags="./tags"
+set tags=./tags
 
 " Set Font and size
 if has('win32') || has('win64')
@@ -216,8 +214,11 @@ augroup END
 augroup Autosave
     autocmd!
     " Call autosave
-    autocmd CursorHold,CursorHoldI,InsertLeave,InsertEnter,BufLeave,VimLeave * call Autosave()
-    autocmd BufWritePost * if glob("./tags") != "" | call UpdateTagsFile() | endif
+    autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call Autosave()
+    if (v:version >= 80 && has("job")) || has('nvim')
+        " Update tags file if one is present
+        autocmd BufWritePost * if glob("./tags") != "" | call UpdateTagsFile() | endif
+    endif 
 augroup END
 
 " Autosave session.vim file if it exists
@@ -230,7 +231,6 @@ augroup MakeFiles
     autocmd!
     " Automatically run the make command whenever you :write a file
     autocmd BufWritePost *.cpp,*.py,*.java silent make! | silent redraw!
-    autocmd BufWritePost *.cpp,*.py silent make! | silent redraw!
     " Automatically open quickfix window after issuing :make command
     autocmd QuickFixCmdPost [^l]* nested cwindow
     autocmd QuickFixCmdPost    l* nested lwindow
@@ -263,8 +263,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k   
 nnoremap <C-l> <C-w>l
 
-" Change mappings of buffer commands
-" Start with <leader>b for buffer
+" Change mappings of buffer commands. Start with <leader>b for buffer
 " buffer next
 nnoremap <leader>bn :bn<CR>
 " buffer previous
@@ -282,10 +281,9 @@ nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 " Auto jump back to the last spelling mistake and fix it
 inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
 
-" UltiSnips keybind configuration
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+" Jump forward and backward to placeholders in abbreviations
+inoremap <C-j> <Esc>/<++><CR><Esc>cf>
+inoremap <C-k> <Esc>?<++><CR><Esc>cf>
 
 "}}}
 
@@ -321,6 +319,12 @@ endfunction
 " Needs to be outside of function in order to work correctly
 let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 function! GitFetchVimrc()
+    " Make sure git exists on the system
+    if !executable("git")
+        echohl Error | redraw | echom "Git not found on system. Can't check Vimrc." | echohl None
+        finish
+    endif 
+
     " Change to the vimrc git directory
     silent execute("lcd " . s:vimrclocation) 
     
@@ -330,14 +334,14 @@ function! GitFetchVimrc()
         if !has('nvim')
             let l:gitFetchJob = job_start("cmd git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
         else
-            let l:gitFetchJob = jobstart("cmd git fetch")
+            let l:gitFetchJob = jobstart("git fetch")
         endif
     else
         " *nix systems 
         if !has('nvim') 
             let l:gitFetchJob = job_start("/bin/sh git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
         else
-            let l:gitFetchJob = jobstart("/bin/sh git fetch")
+            let l:gitFetchJob = jobstart("git fetch")
         endif
     endif 
     
@@ -348,10 +352,10 @@ function! GitFetchVimrc()
 
     " If unsuccessful let user know and stop job
     if !has('nvim') && (l:gitFetchJobStatus ==? "fail" || l:gitFetchJobStatus ==? "dead")
-        echohl WarningMsg | echom "Vimrc git fetch failed with status " . l:gitFetchJobStatus | echohl None
+        echohl WarningMsg | redraw | echom "Vimrc git fetch failed with status " . l:gitFetchJobStatus | echohl None
         call job_stop(l:gitFetchJob)
     elseif has('nvim') && (l:gitFetchJob < 1)
-        echohl WarningMsg | echom "Vimrc git fetch failed with status " . l:gitFetchJob | echohl None
+        echohl WarningMsg | redraw | echom "Vimrc git fetch failed with status " . l:gitFetchJob | echohl None
         call jobstop(l:gitFetchJob)
     else
         " Otherwise stop job and run CompareUpstreamAndLocalVimrcGitStatus()
@@ -380,13 +384,13 @@ function! CompareUpstreamAndLocalVimrcGitStatus(timer)
     
     " If the hashes match then the vimrc is updated 
     if l:local ==? l:upstream
-        echohl title | echom "Vimrc is up to date" | echohl None
+        echohl title | redraw | echom "Vimrc is up to date" | echohl None
     elseif l:local !=? l:upstream 
         " Otherwise you need to update your vimrc
-        echohl WarningMsg | echom "You need to update your Vimrc" | echohl None
+        echohl WarningMsg | redraw | echom "You need to update your Vimrc" | echohl None
     else 
         " Otherwise something went wrong
-        echohl Error | echom "Unable to confirm whether you need to update your Vimrc" | echohl None
+        echohl Error | redraw | echom "Unable to confirm whether you need to update your Vimrc" | echohl None
     endif
     
     " Go back to the original startup directory
@@ -440,25 +444,31 @@ function! s:skinny_insert(char)
 endfunction
 
 function! UpdateTagsFile()
+    " Make sure Ctags exists on the system
+    if !executable("ctags")
+        echohl WarningMsg | redraw | echom "Could not execute ctags" | echohl None
+        finish
+    endif 
+
     " Rename old tags file and set vim to use that
     " While new tags file is being generated
     let s:currentTagsFile=expand("%p:h") . "/tags"
     call rename(s:currentTagsFile, "old-tags")
-    set tags="./old-tags"
+    set tags=./old-tags
     
     " Create new tags file. Uses ~/.config/ctags/.ctags config file
     if has('win64') || has('win32')
         if !has('nvim')
             let l:createNewTagsJob = job_start("cmd ctags -R")
         else 
-            let l:createNewTagsJob = jobstart("cmd ctags -R")
+            let l:createNewTagsJob = jobstart("ctags -R")
         endif
     else
         " *nix distributions
         if !has('nvim')
             let l:createNewTagsJob = job_start("/bin/sh ctags -R")
         else 
-            let l:createNewTagsJob = jobstart("/bin/sh ctags -R")
+            let l:createNewTagsJob = jobstart("ctags -R")
         endif
     endif
 
@@ -466,23 +476,18 @@ function! UpdateTagsFile()
     if !has('nvim') | let l:newTagsJobStatus = job_status(l:createNewTagsJob) | endif 
 
     if !has('nvim') && (l:newTagsJobStatus ==? "fail" || l:newTagsJobStatus ==? "dead")
-        echohl WarningMsg | echom "Tags file failed to be created with status " . l:newTagsJobStatus| echohl None
+        echohl WarningMsg | redraw | echom "Tags file failed to be created with status " . l:newTagsJobStatus| echohl None
         call job_stop(l:createNewTagsJob)
     elseif has('nvim') && (l:createNewTagsJob < 1)
-        echohl WarningMsg | echom "Tags file failed to be created with status " . l:createNewTagsJob | echohl None
+        echohl WarningMsg | redraw | echom "Tags file failed to be created with status " . l:createNewTagsJob | echohl None
         call jobstop(l:createNewTagsJob)
     else 
         " If job does not report fail status
-        if !has('nvim') 
-            call job_stop(l:createNewTagsJob) 
-        else 
-            call jobstop(l:createNewTagsJob) 
-        endif
-        echohl title | echom "Tags file was updated successfully" | echohl None
+        echohl title | redraw | echom "Tags file was updated successfully" | echohl None
     endif 
         
     " Delete old tags file and reset tags
-    set tags="./tags"
+    set tags=./tags
     call delete("./old-tags")
 endfunction
 " Command to make tags file inside vim
@@ -503,6 +508,10 @@ function! ToggleNetrw()
     endif
 endfunction
 
+function! Eatchar(pat)
+    let c = nr2char(getchar(0))
+    return (c =~ a:pat) ? '' : c
+endfunction
 "}}}
 
 "{{{ " Custom Plugin Configuration Options
@@ -517,6 +526,8 @@ let g:netrw_keepdir = 0
 " Set lightline theme and settings
 let g:lightline = {
       \ 'colorscheme' : 'jellybeans',
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitQuickDiff', 'gitbranch', 'readonly', 'filename', 'modified'] ],
@@ -537,7 +548,10 @@ function! GitQuickDiff()
     return ''
   endif
   let [ l:added, l:modified, l:removed ] = GitGutterGetHunkSummary()
-  return printf('+%d ~%d -%d', l:added, l:modified, l:removed)
+  if (l:added == 0) && (l:modified == 0) && (l:removed == 0)
+      return '' | silent call lighline#update()
+  endif 
+  return printf('+%d ~%d -%d', l:added, l:modified, l:removed) | silent call lighline#update()
 endfunction
 
 " Enable vim indent guides at startup

@@ -71,3 +71,52 @@ function! TexView()
 endfunction
 " Clean the tex directory
 command! TexClean silent execute '!latexmk -c' | silent execute 'redraw!' | echo "Cleaned the directory"
+
+" Abbreviations
+" Article boilerplate
+iabbrev article \documentclass[letterpaper,12pt]{article}<CR><CR>\title{<++>}<CR>\author{<++>}<CR>\date{<++>}<CR><CR>\begin{document}<CR>\maketitle<CR><++><CR>\end{document}<Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Begin and end boilerplate
+iabbrev beg \begin{<++>}<CR><++><CR>\end{<++>}<ESC>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Itemize begin boilerplate
+iabbrev begitem \begin{itemize}<CR><++><CR><BS><BS>\end{itemize}<ESC>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" 2 column table boilerplate
+iabbrev 2ctable \begin{center}<CR>\begin{tabular}{\|c\|c\|}<CR><++><CR>\end{tabular}<CR>\end{center}<Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Table boilerplate
+iabbrev table \begin{center}<CR>\begin{tabular}{<++>}<CR><++><CR>\end{tabular}<CR>\end{center}<Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Italicize words
+iabbrev emph \emph{<++>}<++><Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Bold words
+iabbrev bold \textbf{<++>}<++><Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+
+" Math Abbreviations
+" Inline math
+iabbrev mk $<++>$<++><Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Line math
+iabbrev dm $$<CR><Tab><++><CR><BS>$$<Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Vector
+iabbrev vec \vec{<v++>}<++><Esc>/<v++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Square Root
+iabbrev #r ^2<C-R>=Eatchar('\s')<CR>
+" Cube Root
+iabbrev #c ^3<C-R>=Eatchar('\s')<CR>
+" Superscript
+iabbrev #S ^{<S++>}<++><Esc>/<S++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>>
+" Subscript
+iabbrev #s _{<s++>}<++><Esc>/<s++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Fraction
+iabbrev frac \frac{<f++>}{<++>}<++><Esc>/<f++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Hat
+iabbrev hat \hat{<h++>}<++><Esc>/<h++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Limit
+iabbrev lim \lim_{<l++>}<++><Esc>/<l++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Summation
+iabbrev sum \sum{<u++>}^{<++>}<Esc>/<u++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+
+" Symbol Abbreviations
+" Lower case theta
+iabbrev theta \theta<Left><Right><C-R>=Eatchar('\s')<CR>
+" Lower case pi
+iabbrev pi \pi<Left><Right><C-R>=Eatchar('\s')<CR>
+" Upper case delta
+iabbrev Delta \Delta<Left><Right><C-R>=Eatchar('\s')<CR>
+
