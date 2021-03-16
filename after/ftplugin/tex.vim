@@ -1,5 +1,5 @@
 " Set make program to latexmk pdf output
-set makeprg=latexmk\ -pdf\ %:p
+set makeprg=latexmk\ -pdf\ -output-directory=%:p:h\ %:p
 
 " https://github.com/lervag/vimtex/blob/98327bfe0e599bf580e61cfaa6216c8d4177b23d/compiler/latexmk.vim
 setlocal errorformat=%-P**%f
@@ -35,15 +35,14 @@ setlocal errorformat+=%+WPackage\ titlesec\ Warning:\ %m
 setlocal errorformat+=%-C(titlesec)%m
 setlocal errorformat+=%-G%.%#
 
-" Assign F8 to compile the current LaTeX file
-nnoremap <silent> <F8> :update<CR>:silent make<CR>
-inoremap <silent> <F8> <Esc>:update<CR>:silent make<CR><i>
-
-augroup make_errors
-    autocmd!
-    " Shows the quickfix window if there are errors after making
-    autocmd QuickFixCmdPost *make* cwindow
-augroup END
+if exists('g:autoloaded_dispatch')
+    " Assign F8 to compile the current LaTeX file
+    nnoremap <silent> <F8> :update<CR>:Make!<CR>
+    inoremap <silent> <F8> <Esc>:update<CR>:Make!<CR><i>
+else
+    nnoremap <silent> <F8> :update<CR>:silent make<CR>
+    inoremap <silent> <F8> <Esc>:update<CR>:silent make<CR><i>
+endif 
 
 " Assign F9 to view the current LaTeX file
 nnoremap <silent> <F9> :update<CR>:call TexView()<CR>
@@ -76,23 +75,23 @@ command! TexClean silent execute '!latexmk -c' | silent execute 'redraw!' | echo
 " Article boilerplate
 iabbrev article \documentclass[letterpaper,12pt]{article}<CR><CR>\title{<++>}<CR>\author{<++>}<CR>\date{<++>}<CR><CR>\begin{document}<CR>\maketitle<CR><++><CR>\end{document}<Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Begin and end boilerplate
-iabbrev beg \begin{<++>}<CR><++><CR>\end{<++>}<ESC>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev beg \begin{<beg++>}<CR><++><CR>\end{<++>}<ESC>/<beg++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Itemize begin boilerplate
-iabbrev begitem \begin{itemize}<CR><++><CR><BS><BS>\end{itemize}<ESC>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev begitem \begin{itemize}<CR><i++><CR><BS><BS>\end{itemize}<ESC>/<i++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " 2 column table boilerplate
-iabbrev 2ctable \begin{center}<CR>\begin{tabular}{\|c\|c\|}<CR><++><CR>\end{tabular}<CR>\end{center}<Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev 2ctable \begin{center}<CR>\begin{tabular}{\|c\|c\|}<CR><2c++><CR>\end{tabular}<CR>\end{center}<Esc>/<2c++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Table boilerplate
-iabbrev table \begin{center}<CR>\begin{tabular}{<++>}<CR><++><CR>\end{tabular}<CR>\end{center}<Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev table \begin{center}<CR>\begin{tabular}{<ta++>}<CR><++><CR>\end{tabular}<CR>\end{center}<Esc>/<ta++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Italicize words
-iabbrev emph \emph{<++>}<++><Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev emph \emph{<e++>}<++><Esc>/<e++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Bold words
-iabbrev bold \textbf{<++>}<++><Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev bold \textbf{<b++>}<++><Esc>/<b++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 
 " Math Abbreviations
 " Inline math
-iabbrev mk $<++>$<++><Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev mk $<m++>$<++><Esc>/<m++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Line math
-iabbrev dm $$<CR><Tab><++><CR><BS>$$<Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev dm $$<CR><Tab><d++><CR><BS>$$<Esc>/<d++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Vector
 iabbrev vec \vec{<v++>}<++><Esc>/<v++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Square Root

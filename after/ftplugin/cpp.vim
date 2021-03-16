@@ -1,11 +1,22 @@
 " Set the program that is called with :make
 set makeprg=clang++\ -Wall\ %:p\ -o\ %:r.exe
 
-" Assign F8 to compile the current C++ file with Clang
-nnoremap <F8> :update<CR>:make<CR><C-w><Up>
+if exists('g:autoloaded_dispatch')
+    " Assign F8 to compile the current C++ file with Clang
+    nnoremap <F8> :update<CR>:Make!<CR><C-w><Up>
+else 
+    nnoremap <F8> :update<CR>:make<CR><C-w><Up>
+endif 
 
 " Assign F9 to run the current C++ file's executable that Clang created
 nnoremap <F9> :update<CR>:!%:p:r.exe<CR>
+
+if exists('g:autoloaded_dispatch')
+    " Automatically run the Make command upon writing a cpp file
+    autocmd BufWritePost *.cpp Make!
+else 
+    autocmd BufWritePost *.cpp silent make! | silent redraw!
+endif 
 
 " Abbreviations
 iabbrev main int<Space>main()<Space>{}<Left><CR><CR>return<Space>1;<Up><Tab><C-R>=Eatchar('\s')<CR>

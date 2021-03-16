@@ -53,6 +53,8 @@ Plug 'tmsvg/pear-tree'
 """""""""""""""""""""""
 " Allow context aware completion with tab
 Plug 'ervandew/supertab'
+" Allow for async make command
+Plug 'tpope/vim-dispatch'
 
 """"""""""""""""""""""" 
 " Git Support
@@ -191,7 +193,6 @@ if (v:version >= 80 && has("job") && has("timers")) || has('nvim')
     augroup END
 endif
 
-
 " Set the working directory to the git directory if there is one present
 " otherwise set the working directory to the directory of the current file
 augroup SetWorkingDirectory
@@ -224,12 +225,10 @@ augroup END
 
 augroup MakeFiles
     autocmd!
-    " Automatically run the make command whenever you :write a file
-    autocmd BufWritePost *.cpp,*.py,*.java silent make! | silent redraw!
-    " Automatically open quickfix window after issuing :make command
-    autocmd QuickFixCmdPost [^l]* nested cwindow
-    autocmd QuickFixCmdPost    l* nested lwindow
-augroup END
+    " Automatically open quickfix window and refocus last window if errors are present after a :make command
+    autocmd QuickFixCmdPost *make* cwindow
+    autocmd QuickFixCmdPost <c-w><c-p>
+   augroup END
 
 "}}}
 
@@ -562,17 +561,20 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 let g:pear_tree_repeatable_expand = 0
 
 " Change the default Git Gutter characters
-let g:gitgutter_sign_added ='██'
-let g:gitgutter_sign_modified ='██'
-let g:gitgutter_sign_removed = '██'
-let g:gitgutter_sign_removed_first_line = '██'
-let g:gitgutter_sign_removed_above_and_below = '██'
-let g:gitgutter_sign_modified_removed = '██'
+let g:gitgutter_sign_added ='▌'
+let g:gitgutter_sign_modified ='▌'
+let g:gitgutter_sign_removed = '▌'
+let g:gitgutter_sign_removed_first_line = '▌'
+let g:gitgutter_sign_removed_above_and_below = '▌'
+let g:gitgutter_sign_modified_removed = '▌'
 " Set the sign column to be the same color as the line number
 highlight! link SignColumn LineNr
 " Set the color of the git gutter icons
 highlight GitGutterAdd guifg=#70b950
 highlight GitGutterChange guifg=#8fbfdc
 highlight GitGutterDelete guifg=#902020
+
+" Get rid of vim-dispatch default keybinds
+let g:dispatch_no_maps = 1
 
 "}}}
