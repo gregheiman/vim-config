@@ -243,10 +243,9 @@ inoremap <silent> <C-o> <Esc>:call ToggleNetrw()<CR>
 nnoremap <silent> <F5> :call CheckHowToOpenVimrc()<CR>
 inoremap <silent> <F5> <Esc>:call CheckHowToOpenVimrc()<CR>
 
-" Assign F12 to reload my vimrc file so I don't have to restart upon making
-" changes
-nnoremap <silent> <F12> :so $MYVIMRC<CR> | redraw
-inoremap <silent> <F12> <Esc>:so $MYVIMRC<CR> | redraw
+" Assign F12 to reload the current file
+nnoremap <silent> <F12> :so %<CR> | redraw
+inoremap <silent> <F12> <Esc>:so %<CR> | redraw
 
 " Keybinding for tabbing visual mode selection to automatically re-select the visual selection 
 vnoremap > >gv 
