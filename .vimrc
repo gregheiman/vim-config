@@ -141,18 +141,12 @@ set completeopt=menuone,noinsert
 
 " Show linenumbers
 set number relativenumber
-" Show line number and column number
-set ruler
 
 " Set proper 4 space tabs
-set tabstop=4
-set shiftwidth=4
-set smarttab expandtab
+set tabstop=4 shiftwidth=4 smarttab expandtab
 
-" Set Vim to go to the searched term
-set incsearch
-" Set searching to only be case sensitive when the first letter is capitalized
-set ignorecase smartcase
+" Set Vim to go to the searched term. Set searching to only be case sensitive when the first letter is capitalized
+set incsearch nohlsearch ignorecase smartcase
 
 " Always display the status line
 set laststatus=2
@@ -530,10 +524,8 @@ let g:lightline = {
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' },
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitQuickDiff', 'gitbranch', 'readonly', 'filename', 'modified'] ],
-      \   'right': [ ['lineinfo'], 
-      \            ['fileformat', 'fileencoding', 'filetype'] ],
+      \   'left': [ [ 'mode', 'paste' ], [ 'gitQuickDiff', 'gitbranch', 'readonly', 'filename', 'modified'] ],
+      \   'right': [ ['lineinfo'], ['fileformat', 'fileencoding', 'filetype'] ],
       \ },
       \ 'component': {
       \  'lineinfo': "%{line('.') . '/' . line('$')}",
@@ -569,5 +561,13 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
+
+" Change the default Git Gutter characters
+let g:gitgutter_sign_added ='██'
+let g:gitgutter_sign_modified ='██'
+let g:gitgutter_sign_removed = '██'
+let g:gitgutter_sign_removed_first_line = '██'
+let g:gitgutter_sign_removed_above_and_below = '██'
+let g:gitgutter_sign_modified_removed = '██'
 
 "}}}
