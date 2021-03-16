@@ -569,5 +569,11 @@ let g:gitgutter_sign_removed = '██'
 let g:gitgutter_sign_removed_first_line = '██'
 let g:gitgutter_sign_removed_above_and_below = '██'
 let g:gitgutter_sign_modified_removed = '██'
+" Set the sign column to be the same color as the line number
+highlight! link SignColumn LineNr
+" Set the color of the git gutter icons
+highlight GitGutterAdd guifg=#70b950
+highlight GitGutterChange guifg=#8fbfdc
+highlight GitGutterDelete guifg=#902020
 
 "}}}
