@@ -413,7 +413,7 @@ function! SetWorkingDirectory()
     if getftype(current_file) == 'link'
         let current_file = resolve(current_file)
     endif
-    exe ':lcd' . fnameescape(fnamemodify(current_file, ':h'))
+    exe ':lcd ' . fnameescape(fnamemodify(current_file, ':h'))
 
     " Get the path to `.git` if we're inside a Git repo.
     " Works both when inside a worktree, or inside an internal `.git` folder.
@@ -423,7 +423,7 @@ function! SetWorkingDirectory()
     " If we're inside a Git repo, change the working directory to its root.
     if empty(is_not_git_dir)
         " Expand path -> Remove trailing slash -> Remove trailing `.git`.
-        exe ':lcd' . fnameescape(fnamemodify(git_dir, ':p:h:h'))
+        exe ':lcd ' . fnameescape(fnamemodify(git_dir, ':p:h:h'))
     endif
 endfunction
 
