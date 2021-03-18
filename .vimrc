@@ -5,28 +5,10 @@
 " <za> Toggles the fold
 " <zd> Deletes the entire fold
 """"""""""""""""""""""""""""""""""""""""""
-"{{{ " Plugins Section
+"{{{ " Plugins
 """"""""""""""""""""""""""""""""""""""""""
 " START Vim Plug Configuration 
-" Checks if vim-plug is installed and if not automatically installs it
-if has('win32') || has ('win64')
-    " Chocolatey default install location
-    if empty(glob('~/vimfiles/autoload/plug.vim')) 
-        silent !curl -fLo ~/vimfiles/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-    endif
-else
-    " *nix distributions
-    if empty(glob('~/.vim/autoload/plug.vim'))
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-    endif
-endif
-
-" Disable file type for vim plug
-filetype off                  " required
+filetype off " REQUIRED Disable file type for vim plug.
 
 " Check for OS system in order to start vim-plug in
 if has('win32') || has('win64')
@@ -36,80 +18,47 @@ else
     let g:plugDirectory = '~/.vim/plugged'     
 endif
 
-call plug#begin(plugDirectory)
+call plug#begin(plugDirectory) " REQUIRED
 
-""""""""""""""""""""""""
 " Plugins
-""""""""""""""""""""""""
-" Utility
-"""""""""""""""""""""""
-" Add indent guides
-Plug 'nathanaelkane/vim-indent-guides'
-" Add auto pair support for delimiters
-Plug 'tmsvg/pear-tree'
+Plug 'nathanaelkane/vim-indent-guides' " Add indent guides
+Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
+Plug 'ervandew/supertab' " Allow context aware completion with tab
+Plug 'tpope/vim-fugitive' " Git wrapper
+Plug 'airblade/vim-gitgutter' " Git icons in gutter
+Plug 'itchyny/lightline.vim' " Improved status bar
+Plug 'nanotech/jellybeans.vim' " Jellybeans theme
 
-""""""""""""""""""""""" 
-" Generic Programming Support 
-"""""""""""""""""""""""
-" Allow context aware completion with tab
-Plug 'ervandew/supertab'
-
-""""""""""""""""""""""" 
-" Git Support
-"""""""""""""""""""""""
-" Git wrapper
-Plug 'tpope/vim-fugitive'
-" Git icons in gutter
-Plug 'airblade/vim-gitgutter'
-
-"""""""""""""""""""""""
-" Theme / Interface
-"""""""""""""""""""""""
-" Improved status bar
-Plug 'itchyny/lightline.vim'
-" Jellybeans theme
-Plug 'nanotech/jellybeans.vim'
-
-call plug#end()            " required
-filetype plugin indent on    " required
+call plug#end() " REQUIRED
+filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
 "}}}"
 
 "{{{ " Vim Configuration Settings
 """""""""""""""""""""""""""""""""""""
-" Required to not be forced into vi mode
-set nocompatible
+set nocompatible " Required to not be forced into vi mode
 
-" Enable syntax, the mouse, and no line wrapping
-syntax on
-set mouse=a
-set nowrap
+syntax on " Enable syntax 
+set mouse=a " Enable the mouse
+set nowrap " No line wrapping
 
-" Set rendering option for brighter colors and ligatures
-if !has('nvim')
-    set renderoptions=type:directx
-endif
+" Set rendering option for brighter colors and ligatures (GUI)
+if !has('nvim') | set renderoptions=type:directx | endif
 set encoding=utf-8
 
-" Map leader to space
-let mapleader = "\<Space>"
+let mapleader = "\<Space>" " Map leader to space
 
 " Add specific common directories for Vim to search recursively with :find
 set path+=src/**,config/**
-" Vim will show a menu with matches for commands
-set wildmenu
+set wildmenu " Vim will show a menu with matches for commands
 
-" Disable the mode display below statusline
-set noshowmode
+set noshowmode " Disable the mode display below statusline
 
-" OSX backspace fix
-set backspace=indent,eol,start
+set backspace=indent,eol,start " Better backspace
 
-" Set fold method
-set foldmethod=marker
+set foldmethod=marker " Set fold method
 
-" Set tags file
-set tags=./tags,tags
+set tags=./tags,tags " Set default tags file location
 
 " Set Font and size
 if has('win32') || has('win64')
@@ -117,11 +66,9 @@ if has('win32') || has('win64')
         " Set the font for my Dell XPS 13
         set guifont=Iosevka:h8
     else
-        " Set the font for my desktop
         set guifont=Iosevka:h11
     endif 
 elseif has('unix')
-        " *nix distributions
         set guifont=Iosevka:h12
 endif
 
@@ -132,27 +79,19 @@ elseif has('macunix') || has('mac')
     set lines=999 columns=999
 endif
 
-" Enable omnicomplete
-set omnifunc=syntaxcomplete#Complete
-" Stop messages in the command line
-set shortmess+=c
-" Configure completion menu to work as expected
-set completeopt=menuone,noinsert
+set omnifunc=syntaxcomplete#Complete " Enable omnicomplete
+set shortmess+=c " Stop messages in the command line
+set completeopt=menuone,noinsert " Configure completion menu to work as expected
 
-" Show linenumbers
-set number relativenumber
+set number relativenumber " Show linenumbers relative to current line
 
-" Set proper 4 space tabs
-set tabstop=4 shiftwidth=4 smarttab expandtab
+set tabstop=4 shiftwidth=4 smarttab expandtab " Set proper 4 space tabs
 
-" Set Vim to go to the searched term. Set searching to only be case sensitive when the first letter is capitalized
-set incsearch nohlsearch ignorecase smartcase
+set incsearch nohlsearch ignorecase smartcase " Set searching to only be case sensitive when the first letter is capitalized
 
-" Always display the status line
-set laststatus=2
+set laststatus=2 " Always display the status line
 
-" Enable highlighting of the current line
-set cursorline
+set cursorline " Enable highlighting of the current line
 
 " True colors support for terminal
 if (has("termguicolors"))
@@ -166,18 +105,14 @@ else
     set t_Co=256
 endif 
 
-" Set color theme
-colorscheme jellybeans
+colorscheme jellybeans " Set color theme
 set background=dark
 
-" Sets the default splits to be to the right and below from default
-set splitright splitbelow
+set splitright splitbelow " Sets the default splits to be to the right and below from default
 
-" Enable Vim's built in spell check and set the proper spellcheck language
-set spell spelllang=en_us
+set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spellcheck language
 
-" Set the global tex flavor
-let g:tex_flavor='latex'
+let g:tex_flavor='latex' " Set the global tex flavor
 
 "}}}
 
@@ -210,8 +145,7 @@ augroup Autosave
     " Call autosave
     autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call Autosave()
     if (v:version >= 80 && has("job")) || has('nvim')
-        " Update tags file if one is present
-        autocmd BufWritePost * if glob("./tags") != "" | call UpdateTagsFile() | endif
+        autocmd BufWritePost * if glob("./tags") != "" | call UpdateTagsFile() | endif " Update tags file if one is present
     endif 
 augroup END
 
@@ -226,7 +160,7 @@ augroup MakeFiles
     " Automatically open quickfix window and refocus last window if errors are present after a :make command
     autocmd QuickFixCmdPost *make* cwindow
     autocmd QuickFixCmdPost <C-w><C-p>
-   augroup END
+augroup END
 
 "}}}
 
@@ -283,11 +217,9 @@ inoremap <C-k> <Esc>?<++><CR><Esc>cf>
 " Check if the buffer is empty and determine how to open my vimrc
 function! CheckHowToOpenVimrc()
     if @% == "" || filereadable(@%) == 0 || line('$') == 1 && col('$') == 1
-        " If the buffer is empty open vimrc fullscreen 
-        e $MYVIMRC
+        e $MYVIMRC " If the buffer is empty open vimrc fullscreen 
     else
-        " Otherwise open vimrc in a vertical split
-        vsp $MYVIMRC
+        vsp $MYVIMRC " Otherwise open vimrc in a vertical split
     endif
 endfunction
 
@@ -295,13 +227,11 @@ endfunction
 " from being thrown
 function! Autosave()
     if @% == "" || filereadable(@%) == 0 || line('$') == 1 && col('$') == 1 || &readonly || mode() == "c" || pumvisible()
-        " If the file has no name, is not readable, doesn't exist, is
-        " readonly, is currently in command mode, or the pum is visible don't
-        " autosave"
+        " If the file has no name, is not readable, doesn't exist, is readonly, is currently in command mode, or the pum 
+        " is visible don't autosave
         return
     else
-        " Otherwise autosave"
-        silent update
+        silent update " Otherwise autosave
     endif
 endfunction
 
@@ -320,7 +250,6 @@ function! GitFetchVimrc()
     silent execute("lcd " . s:vimrclocation) 
     
     " Execute a git fetch to update the tree
-    " Run windows command in cmd and linux in shell
     if has("win32") || has("win64")
         if !has('nvim')
             let l:gitFetchJob = job_start("cmd git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
@@ -337,9 +266,7 @@ function! GitFetchVimrc()
     endif 
     
     " Grab the status of the job
-    if !has('nvim')
-        let l:gitFetchJobStatus = job_status(gitFetchJob)
-    endif
+    if !has('nvim') | let l:gitFetchJobStatus = job_status(gitFetchJob) | endif
 
     " If unsuccessful let user know and stop job
     if !has('nvim') && (l:gitFetchJobStatus ==? "fail" || l:gitFetchJobStatus ==? "dead")
@@ -349,12 +276,7 @@ function! GitFetchVimrc()
         echohl WarningMsg | redraw | echom "Vimrc git fetch failed with status " . l:gitFetchJob | echohl None
         call jobstop(l:gitFetchJob)
     else
-        " Otherwise stop job and run CompareUpstreamAndLocalVimrcGitStatus()
-        if !has('nvim')
-            call job_stop(gitFetchJob)
-        else
-            call jobstop(gitFetchJob)
-        endif
+        " Run CompareUpstreamAndLocalVimrcGitStatus()
         " Needs to be a timer because we are running a vimscript function
         " https://vi.stackexchange.com/questions/27003/how-to-start-an-async-function-in-vim-8
         let l:compareUpstreamAndLocalTimer = timer_start(0, 'CompareUpstreamAndLocalVimrcGitStatus')
@@ -364,14 +286,11 @@ endfunction
 
 " Compare the local and upstream Git status
 function! CompareUpstreamAndLocalVimrcGitStatus(timer)
-    " change to the vimrc git directory
-    silent execute("lcd " . s:vimrclocation)
+    silent execute("lcd " . s:vimrclocation) " Change to the vimrc git directory
 
     " Set an upstream and local variable that is a hash returned by git
-    " Upstream is the hash of the upstream commit
-    let l:upstream = system("git rev-parse @{u}")
-    " Local is the hash of the current local commit
-    let l:local = system("git rev-parse @")
+    let l:upstream = system("git rev-parse @{u}") " Upstream is the hash of the upstream commit
+    let l:local = system("git rev-parse @") " Local is the hash of the current local commit
     
     " If the hashes match then the vimrc is updated 
     if l:local ==? l:upstream
@@ -384,18 +303,14 @@ function! CompareUpstreamAndLocalVimrcGitStatus(timer)
         echohl Error | redraw | echom "Unable to confirm whether you need to update your Vimrc" | echohl None
     endif
     
-    " Go back to the original startup directory
-    silent execute("lcd ~")
+    silent execute("lcd ~") " Go back to the original startup directory
     return
 endfunction
 
 function! GoToSpecifiedBuffer()
-    " show list of buffers
-    execute("buffers")
-    " take in user input for which buffer they would like to go to
-    let l:bufferNum = input("Enter Buffer Number: ")
-    " go to that buffer
-    execute(":buffer " . bufferNum)
+    execute("buffers") " Show list of buffers
+    let l:bufferNum = input("Enter Buffer Number: ") " Take in user input for which buffer they would like to go to
+    execute(":buffer " . bufferNum) " Go to that buffer
 endfunction
 
 " If in a Git repo, sets the working directory to its root,
@@ -486,33 +401,29 @@ command! Mkctags silent exe '!ctags -R' | silent exe 'redraw!'
 
 " Toggle Netrw window open and close with the same key
 function! ToggleNetrw()
-    " Save current position to go back to
-    let b:windowpos = winsaveview()
+    let b:windowpos = winsaveview() " Save current position to go back to
     
     if &filetype != "netrw"
         silent Explore
     else
-        " Return to previous file
-        silent Rexplore
-        " Reset view
-        call winrestview(b:windowpos)
+        silent Rexplore " Return to previous file
+        call winrestview(b:windowpos) " Reset view
     endif
 endfunction
 
+" Eat spaces (or any other char) for abbreviations
 function! Eatchar(pat)
     let c = nr2char(getchar(0))
     return (c =~ a:pat) ? '' : c
 endfunction
+
 "}}}
 
 "{{{ " Custom Plugin Configuration Options
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Get rid of banner in netrw
-let g:netrw_banner = 0
-" Set netrw to open in tree setup
-let g:netrw_liststyle = 3
-" Netrw will change working directory every new file
-let g:netrw_keepdir = 0
+let g:netrw_banner = 0 " Get rid of banner in netrw
+let g:netrw_liststyle = 3 " Set netrw to open in tree setup
+let g:netrw_keepdir = 0 " Netrw will change working directory every new file
 
 " Set lightline theme and settings
 let g:lightline = {
@@ -543,17 +454,12 @@ function! GitQuickDiff()
   return printf('+%d ~%d -%d', l:added, l:modified, l:removed) | silent call lighline#update()
 endfunction
 
-" Enable vim indent guides at startup
-let g:indent_guides_enable_on_vim_startup = 1
-" Set the level at which the indent guides start
-let g:indent_guides_start_level = 2
-" Set the width of the indent guides
-let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1 " Enable vim indent guides at startup
+let g:indent_guides_start_level = 2 " Set the level at which the indent guides start
+let g:indent_guides_guide_size = 1 " Set the width of the indent guides
 
-" Set Super Tab to be context aware
-let g:SuperTabDefaultCompletionType = "context"
-" Set the default mode for when there is no set context
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "context" " Set Super Tab to be context aware
+let g:SuperTabContextDefaultCompletionType = "<c-n>" " Set the default mode for when there is no set context
 
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
