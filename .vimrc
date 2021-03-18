@@ -64,7 +64,7 @@ set tags=./tags,tags " Set default tags file location
 if has('win32') || has('win64')
     if glob("C:/DELL") != ""
         " Set the font for my Dell XPS 13
-        set guifont=Iosevka:h8
+        set guifont=Iosevka:h10
     else
         set guifont=Iosevka:h11
     endif 
