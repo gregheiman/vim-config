@@ -53,8 +53,6 @@ Plug 'tmsvg/pear-tree'
 """""""""""""""""""""""
 " Allow context aware completion with tab
 Plug 'ervandew/supertab'
-" Allow for async make command
-Plug 'tpope/vim-dispatch'
 
 """"""""""""""""""""""" 
 " Git Support
@@ -227,7 +225,7 @@ augroup MakeFiles
     autocmd!
     " Automatically open quickfix window and refocus last window if errors are present after a :make command
     autocmd QuickFixCmdPost *make* cwindow
-    autocmd QuickFixCmdPost <c-w><c-p>
+    autocmd QuickFixCmdPost <C-w><C-p>
    augroup END
 
 "}}}
@@ -573,8 +571,5 @@ highlight! link SignColumn LineNr
 highlight GitGutterAdd guifg=#70b950
 highlight GitGutterChange guifg=#8fbfdc
 highlight GitGutterDelete guifg=#902020
-
-" Get rid of vim-dispatch default keybinds
-let g:dispatch_no_maps = 1
 
 "}}}

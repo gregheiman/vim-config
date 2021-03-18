@@ -1,5 +1,9 @@
 " Set make program to latexmk pdf output
-set makeprg=latexmk\ -pdf\ -output-directory=%:p:h\ %:p
+if executable('rubber')
+    set makeprg=rubber\ --inplace\ --ps\ --pdf\ %:p
+elseif executable('latexmk')
+    set makeprg=latexmk\ -pdf\ -output-directory=%:p:h\ %:p
+endif 
 
 " https://github.com/lervag/vimtex/blob/98327bfe0e599bf580e61cfaa6216c8d4177b23d/compiler/latexmk.vim
 setlocal errorformat=%-P**%f
@@ -69,7 +73,11 @@ function! TexView()
     endif
 endfunction
 " Clean the tex directory
-command! TexClean silent execute '!latexmk -c' | silent execute 'redraw!' | echo "Cleaned the directory"
+if executable('rubber')
+    command! TexClean silent execute '!rubber --clean' expand("%:p") | silent execute 'redraw!' | echo "Cleaned the directory"
+elseif executable('latexmk')
+    command! TexClean silent execute '!latexmk -c' | silent execute 'redraw!' | echo "Cleaned the directory"
+endif 
 
 " Abbreviations
 " Article boilerplate
@@ -99,9 +107,9 @@ iabbrev #r ^2<C-R>=Eatchar('\s')<CR>
 " Cube Root
 iabbrev #c ^3<C-R>=Eatchar('\s')<CR>
 " Superscript
-iabbrev #S ^{<S++>}<++><Esc>/<S++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>>
+iabbrev #S ^{<S++>}<++><Esc>/<S++><CR><Esc>/<S++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>>
 " Subscript
-iabbrev #s _{<s++>}<++><Esc>/<s++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev #s _{<s++>}<++><Esc>/<s++><CR><Esc>/<s++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Fraction
 iabbrev frac \frac{<f++>}{<++>}<++><Esc>/<f++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Hat
