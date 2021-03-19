@@ -83,7 +83,7 @@ set omnifunc=syntaxcomplete#Complete " Enable omnicomplete
 set shortmess+=c " Stop messages in the command line
 set completeopt=menuone,noinsert " Configure completion menu to work as expected
 
-set number relativenumber " Show linenumbers relative to current line
+set number " Show linenumbers relative to current line
 
 set tabstop=4 shiftwidth=4 smarttab expandtab " Set proper 4 space tabs
 
@@ -166,9 +166,9 @@ augroup END
 
 "{{{ " Custom Keybindings
 """"""""""""""""""""""""""""""""""""""""""
-" Set keybind for NERDTREE to Ctrl+o
-nnoremap <silent> <C-o> :call ToggleNetrw()<CR>
-inoremap <silent> <C-o> <Esc>:call ToggleNetrw()<CR>
+" Toggle Netrw
+nnoremap <silent> <leader>o :call ToggleNetrw()<CR>
+inoremap <silent> <leader>o <Esc>:call ToggleNetrw()<CR>
 
 " Determine how to open vimrc before opening with F5
 nnoremap <silent> <F5> :call CheckHowToOpenVimrc()<CR>
@@ -201,7 +201,7 @@ nnoremap <silent> <leader>bg :call GoToSpecifiedBuffer()<CR>
 nnoremap <leader>bl :buffers<CR>
 
 " Local replace all instances of a variable using Vim
-nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+nnoremap <leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
 " Auto jump back to the last spelling mistake and fix it
 inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
