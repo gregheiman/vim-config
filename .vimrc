@@ -26,6 +26,7 @@ Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'ervandew/supertab' " Allow context aware completion with tab
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'airblade/vim-gitgutter' " Git icons in gutter
+if has('nvim') | Plug 'norcalli/nvim-colorizer.lua' | endif " Show colors represented by color codes
 Plug 'itchyny/lightline.vim' " Improved status bar
 Plug 'nanotech/jellybeans.vim' " Jellybeans theme
 
@@ -167,8 +168,8 @@ augroup END
 "{{{ " Custom Keybindings
 """"""""""""""""""""""""""""""""""""""""""
 " Toggle Netrw
-nnoremap <silent> <leader>o :call ToggleNetrw()<CR>
-inoremap <silent> <leader>o <Esc>:call ToggleNetrw()<CR>
+nnoremap <silent> <C-o> :call ToggleNetrw()<CR>
+inoremap <silent> <C-o> <Esc>:call ToggleNetrw()<CR>
 
 " Determine how to open vimrc before opening with F5
 nnoremap <silent> <F5> :call CheckHowToOpenVimrc()<CR>
@@ -454,7 +455,7 @@ function! GitQuickDiff()
   return printf('+%d ~%d -%d', l:added, l:modified, l:removed) | silent call lighline#update()
 endfunction
 
-let g:indent_guides_enable_on_vim_startup = 1 " Enable vim indent guides at startup
+let g:indent_guides_enable_on_vim_startup = 1 " Enable indent guides at startup
 let g:indent_guides_start_level = 2 " Set the level at which the indent guides start
 let g:indent_guides_guide_size = 1 " Set the width of the indent guides
 
@@ -477,5 +478,9 @@ highlight! link SignColumn LineNr
 highlight GitGutterAdd guifg=#70b950
 highlight GitGutterChange guifg=#8fbfdc
 highlight GitGutterDelete guifg=#902020
+
+if has('nvim') 
+    lua require'colorizer'.setup() " Load colorizer for every filetype 
+endif
 
 "}}}
