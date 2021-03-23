@@ -286,7 +286,8 @@ endfunction
 
 " Compare the local and upstream Git status
 function! CompareUpstreamAndLocalVimrcGitStatus(timer)
-    silent execute("lcd " . s:vimrclocation) " Change to the vimrc git directory
+    " Change to the vimrc git directory
+    silent execute("lcd " . s:vimrclocation) 
 
     " Set an upstream and local variable that is a hash returned by git
     let l:upstream = system("git rev-parse @{u}") " Upstream is the hash of the upstream commit
@@ -302,8 +303,8 @@ function! CompareUpstreamAndLocalVimrcGitStatus(timer)
         " Otherwise something went wrong
         echohl Error | redraw | echom "Unable to confirm whether you need to update your Vimrc" | echohl None
     endif
-    
-    silent execute("lcd ~") " Go back to the original startup directory
+    " Go back to the original startup directory
+    silent execute("lcd ~") 
     return
 endfunction
 
