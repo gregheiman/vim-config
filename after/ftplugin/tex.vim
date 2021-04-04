@@ -1,4 +1,4 @@
-" Set make program to latexmk pdf output
+" Set make program to rubber or latexmk pdf output
 if executable('rubber')
     set makeprg=rubber\ --inplace\ --ps\ --pdf\ %:p
 elseif executable('latexmk')
@@ -39,14 +39,8 @@ setlocal errorformat+=%+WPackage\ titlesec\ Warning:\ %m
 setlocal errorformat+=%-C(titlesec)%m
 setlocal errorformat+=%-G%.%#
 
-if exists('g:autoloaded_dispatch')
-    " Assign F8 to compile the current LaTeX file
-    nnoremap <silent> <F8> :update<CR>:Make!<CR>
-    inoremap <silent> <F8> <Esc>:update<CR>:Make!<CR><i>
-else
-    nnoremap <silent> <F8> :update<CR>:silent make<CR>
-    inoremap <silent> <F8> <Esc>:update<CR>:silent make<CR><i>
-endif 
+nnoremap <silent> <F8> :update<CR>:silent make<CR>
+inoremap <silent> <F8> <Esc>:update<CR>:silent make<CR><i>
 
 " Assign F9 to view the current LaTeX file
 nnoremap <silent> <F9> :update<CR>:call TexView()<CR>

@@ -21,12 +21,14 @@ endif
 call plug#begin(plugDirectory) " REQUIRED
 
 " Plugins
+Plug 'lifepillar/vim-mucomplete' " Extend Vim's completion
+Plug 'dense-analysis/ale' " Asynchronous linting
+Plug 'natebosch/vim-lsc' " Simple Vimscript LSP support
 Plug 'nathanaelkane/vim-indent-guides' " Add indent guides
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
-Plug 'ervandew/supertab' " Allow context aware completion with tab
+if has('nvim') | Plug 'norcalli/nvim-colorizer.lua' | endif " Show colors represented by color codes
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'airblade/vim-gitgutter' " Git icons in gutter
-if has('nvim') | Plug 'norcalli/nvim-colorizer.lua' | endif " Show colors represented by color codes
 Plug 'itchyny/lightline.vim' " Improved status bar
 Plug 'nanotech/jellybeans.vim' " Jellybeans theme
 
@@ -63,12 +65,7 @@ set tags=./tags,tags " Set default tags file location
 
 " Set Font and size
 if has('win32') || has('win64')
-    if glob("C:/DELL") != ""
-        " Set the font for my Dell XPS 13
-        set guifont=Iosevka:h10
-    else
         set guifont=Iosevka:h11
-    endif 
 elseif has('unix')
         set guifont=Iosevka:h12
 endif
@@ -82,9 +79,9 @@ endif
 
 set omnifunc=syntaxcomplete#Complete " Enable omnicomplete
 set shortmess+=c " Stop messages in the command line
-set completeopt=menuone,noinsert " Configure completion menu to work as expected
+set completeopt=menuone,noinsert,noselect " Configure completion menu to work as expected
 
-set number " Show linenumbers relative to current line
+set number " Show line numbers
 
 set tabstop=4 shiftwidth=4 smarttab expandtab " Set proper 4 space tabs
 
@@ -113,6 +110,8 @@ set splitright splitbelow " Sets the default splits to be to the right and below
 
 set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spellcheck language
 
+set noswapfile " Don't create swap files
+
 let g:tex_flavor='latex' " Set the global tex flavor
 
 "}}}
@@ -123,7 +122,7 @@ let g:tex_flavor='latex' " Set the global tex flavor
 if (v:version >= 80 && has("job") && has("timers")) || has('nvim')
     augroup CheckVimrc
         autocmd!
-        autocmd VimEnter * call GitFetchVimrc()
+        autocmd VimEnter * call functions#GitFetchVimrc()
     augroup END
 endif
 
@@ -131,29 +130,21 @@ endif
 " otherwise set the working directory to the directory of the current file
 augroup SetWorkingDirectory
     autocmd!
-    autocmd BufEnter * call SetWorkingDirectory()
-augroup END
-
-" Automatically open completion menu 
-augroup SkinnyAutoComplete
-    autocmd!
-    autocmd InsertCharPre * call <SID>skinny_insert(v:char)
-    autocmd CompleteDone * if exists('s:skinny_complete') | unlet s:skinny_complete | endif
+    autocmd BufEnter * call functions#SetWorkingDirectory()
 augroup END
 
 augroup Autosave
     autocmd!
     " Call autosave
-    autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call Autosave()
+    autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
     if (v:version >= 80 && has("job")) || has('nvim')
-        autocmd BufWritePost * if glob("./tags") != "" | call UpdateTagsFile() | endif " Update tags file if one is present
+        autocmd BufWritePost * if glob("./tags") != "" | call functions#UpdateTagsFile() | endif " Update tags file if one is present
     endif 
 augroup END
 
-" Autosave session.vim file if it exists
 augroup SaveSessionIfExistsUponExit
     autocmd!
-    autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif
+    autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif " Autosave session.vim file if it exists
 augroup END
 
 augroup MakeFiles
@@ -165,15 +156,15 @@ augroup END
 
 "}}}
 
-"{{{ " Custom Keybindings
+"{{{ " Custom Keybindings and Commands
 """"""""""""""""""""""""""""""""""""""""""
 " Toggle Netrw
-nnoremap <silent> <C-o> :call ToggleNetrw()<CR>
-inoremap <silent> <C-o> <Esc>:call ToggleNetrw()<CR>
+nnoremap <silent> <C-e> :call functions#ToggleNetrw()<CR>
+inoremap <silent> <C-e> <Esc>:call functions#ToggleNetrw()<CR>
 
 " Determine how to open vimrc before opening with F5
-nnoremap <silent> <F5> :call CheckHowToOpenVimrc()<CR>
-inoremap <silent> <F5> <Esc>:call CheckHowToOpenVimrc()<CR>
+nnoremap <silent> <F5> :call functions#CheckHowToOpenVimrc()<CR>
+inoremap <silent> <F5> <Esc>:call functions#CheckHowToOpenVimrc()<CR>
 
 " Assign F12 to reload the current file
 nnoremap <silent> <F12> :so %<CR> | redraw
@@ -197,7 +188,7 @@ nnoremap <leader>bp :bp<CR>
 " buffer delete
 nnoremap <leader>bd :bd<CR>
 " buffer go to
-nnoremap <silent> <leader>bg :call GoToSpecifiedBuffer()<CR>
+nnoremap <silent> <leader>bg :call functions#GoToSpecifiedBuffer()<CR>
 " buffer list
 nnoremap <leader>bl :buffers<CR>
 
@@ -211,207 +202,8 @@ inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
 inoremap <C-j> <Esc>/<++><CR><Esc>cf>
 inoremap <C-k> <Esc>?<++><CR><Esc>cf>
 
-"}}}
-
-"{{{ " Custom Vim Functions and Commands
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" Check if the buffer is empty and determine how to open my vimrc
-function! CheckHowToOpenVimrc()
-    if @% == "" || filereadable(@%) == 0 || line('$') == 1 && col('$') == 1
-        e $MYVIMRC " If the buffer is empty open vimrc fullscreen 
-    else
-        vsp $MYVIMRC " Otherwise open vimrc in a vertical split
-    endif
-endfunction
-
-" Autosave autocmd that makes sure the file exists before saving. Stops errors
-" from being thrown
-function! Autosave()
-    if @% == "" || filereadable(@%) == 0 || line('$') == 1 && col('$') == 1 || &readonly || mode() == "c" || pumvisible()
-        " If the file has no name, is not readable, doesn't exist, is readonly, is currently in command mode, or the pum 
-        " is visible don't autosave
-        return
-    else
-        silent update " Otherwise autosave
-    endif
-endfunction
-
-" Finds the directory that the .vimrc is in
-" Safe for symbolic links
-" Needs to be outside of function in order to work correctly
-let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-function! GitFetchVimrc()
-    " Make sure git exists on the system
-    if !executable("git")
-        echohl Error | redraw | echom "Git not found on system. Can't check Vimrc." | echohl None
-        finish
-    endif 
-
-    " Change to the vimrc git directory
-    silent execute("lcd " . s:vimrclocation) 
-    
-    " Execute a git fetch to update the tree
-    if has("win32") || has("win64")
-        if !has('nvim')
-            let l:gitFetchJob = job_start("cmd git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
-        else
-            let l:gitFetchJob = jobstart("git fetch")
-        endif
-    else
-        " *nix systems 
-        if !has('nvim') 
-            let l:gitFetchJob = job_start("/bin/sh git fetch", {"in_io": "null", "out_io": "null", "err_io": "null"})
-        else
-            let l:gitFetchJob = jobstart("git fetch")
-        endif
-    endif 
-    
-    " Grab the status of the job
-    if !has('nvim') | let l:gitFetchJobStatus = job_status(gitFetchJob) | endif
-
-    " If unsuccessful let user know and stop job
-    if !has('nvim') && (l:gitFetchJobStatus ==? "fail" || l:gitFetchJobStatus ==? "dead")
-        echohl WarningMsg | redraw | echom "Vimrc git fetch failed with status " . l:gitFetchJobStatus | echohl None
-        call job_stop(l:gitFetchJob)
-    elseif has('nvim') && (l:gitFetchJob < 1)
-        echohl WarningMsg | redraw | echom "Vimrc git fetch failed with status " . l:gitFetchJob | echohl None
-        call jobstop(l:gitFetchJob)
-    else
-        " Run CompareUpstreamAndLocalVimrcGitStatus()
-        " Needs to be a timer because we are running a vimscript function
-        " https://vi.stackexchange.com/questions/27003/how-to-start-an-async-function-in-vim-8
-        let l:compareUpstreamAndLocalTimer = timer_start(0, 'CompareUpstreamAndLocalVimrcGitStatus')
-    endif
-    return 
-endfunction 
-
-" Compare the local and upstream Git status
-function! CompareUpstreamAndLocalVimrcGitStatus(timer)
-    " Change to the vimrc git directory
-    silent execute("lcd " . s:vimrclocation) 
-
-    " Set an upstream and local variable that is a hash returned by git
-    let l:upstream = system("git rev-parse @{u}") " Upstream is the hash of the upstream commit
-    let l:local = system("git rev-parse @") " Local is the hash of the current local commit
-    
-    " If the hashes match then the vimrc is updated 
-    if l:local ==? l:upstream
-        echohl title | redraw | echom "Vimrc is up to date" | echohl None
-    elseif l:local !=? l:upstream 
-        " Otherwise you need to update your vimrc
-        echohl WarningMsg | redraw | echom "You need to update your Vimrc" | echohl None
-    else 
-        " Otherwise something went wrong
-        echohl Error | redraw | echom "Unable to confirm whether you need to update your Vimrc" | echohl None
-    endif
-    " Go back to the original startup directory
-    silent execute("lcd ~") 
-    return
-endfunction
-
-function! GoToSpecifiedBuffer()
-    execute("buffers") " Show list of buffers
-    let l:bufferNum = input("Enter Buffer Number: ") " Take in user input for which buffer they would like to go to
-    execute(":buffer " . bufferNum) " Go to that buffer
-endfunction
-
-" If in a Git repo, sets the working directory to its root,
-" or if not, to the directory of the current file.
-function! SetWorkingDirectory()
-    " Stops fugitive from throwing error on :Gdiff
-    if bufname('fugitive') != ""
-        return
-    endif
-
-    " Default to the current file's directory (resolving symlinks.)
-    let current_file = expand('%:p')
-    if getftype(current_file) == 'link'
-        let current_file = resolve(current_file)
-    endif
-    exe ':lcd ' . fnameescape(fnamemodify(current_file, ':h'))
-
-    " Get the path to `.git` if we're inside a Git repo.
-    " Works both when inside a worktree, or inside an internal `.git` folder.
-    silent let git_dir = system('git rev-parse --git-dir')[:-2]
-    " Check whether the command output starts with 'fatal'; if it does, we're not inside a Git repo.
-    let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
-    " If we're inside a Git repo, change the working directory to its root.
-    if empty(is_not_git_dir)
-        " Expand path -> Remove trailing slash -> Remove trailing `.git`.
-        exe ':lcd ' . fnameescape(fnamemodify(git_dir, ':p:h:h'))
-    endif
-endfunction
-
-" Have the completion menu automatically pop up as you type
-function! s:skinny_insert(char)
-    if !pumvisible() && !exists('s:skinny_complete') &&
-            \ getline('.')[col('.') - 2].a:char =~# '\k\k'
-    let s:skinny_complete = 1
-    noautocmd call feedkeys("\<C-n>\<C-p>", "nt")
-  endif
-endfunction
-
-function! UpdateTagsFile()
-    " Make sure Ctags exists on the system
-    if !executable("ctags")
-        echohl WarningMsg | redraw | echom "Could not execute ctags" | echohl None
-        finish
-    endif 
-
-    " Rename old tags file and set vim to use that
-    " While new tags file is being generated
-    let s:currentTagsFile=expand("%:p:h") . "/tags"
-    call rename(s:currentTagsFile, "old-tags")
-    set tags=./old-tags,old-tags
-    
-    " Create new tags file. Uses ~/.config/ctags/.ctags config file
-    if has('win64') || has('win32')
-        if !has('nvim')
-            let l:createNewTagsJob = job_start("cmd ctags -R")
-        else 
-            let l:createNewTagsJob = jobstart("ctags -R")
-        endif
-    else
-        " *nix distributions
-        if !has('nvim')
-            let l:createNewTagsJob = job_start("/bin/sh ctags -R")
-        else 
-            let l:createNewTagsJob = jobstart("ctags -R")
-        endif
-    endif
-
-    " Get job status if not using Nvim
-    if !has('nvim') | let l:newTagsJobStatus = job_status(l:createNewTagsJob) | endif 
-
-    if !has('nvim') && (l:newTagsJobStatus ==? "fail" || l:newTagsJobStatus ==? "dead")
-        echohl WarningMsg | redraw | echom "Tags file failed to be created with status " . l:newTagsJobStatus| echohl None
-        call job_stop(l:createNewTagsJob)
-    elseif has('nvim') && (l:createNewTagsJob < 1)
-        echohl WarningMsg | redraw | echom "Tags file failed to be created with status " . l:createNewTagsJob | echohl None
-        call jobstop(l:createNewTagsJob)
-    else 
-        " If job does not report fail status
-        echohl title | redraw | echom "Tags file was updated successfully" | echohl None
-    endif 
-        
-    " Delete old tags file and reset tags
-    set tags=./tags,tags
-    call delete("./old-tags")
-endfunction
 " Command to make tags file inside vim
 command! Mkctags silent exe '!ctags -R' | silent exe 'redraw!'
-
-" Toggle Netrw window open and close with the same key
-function! ToggleNetrw()
-    let b:windowpos = winsaveview() " Save current position to go back to
-    
-    if &filetype != "netrw"
-        silent Explore
-    else
-        silent Rexplore " Return to previous file
-        call winrestview(b:windowpos) " Reset view
-    endif
-endfunction
 
 " Eat spaces (or any other char) for abbreviations
 function! Eatchar(pat)
@@ -425,11 +217,9 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner = 0 " Get rid of banner in netrw
 let g:netrw_liststyle = 3 " Set netrw to open in tree setup
-let g:netrw_keepdir = 0 " Netrw will change working directory every new file
-
+let g:netrw_keepdir = 0 " Netrw will change working directory every new file 
 " Set lightline theme and settings
-let g:lightline = {
-      \ 'colorscheme' : 'jellybeans',
+let g:lightline = { 'colorscheme' : 'jellybeans',
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' },
       \ 'active': {
@@ -444,7 +234,7 @@ let g:lightline = {
       \   'gitQuickDiff': 'GitQuickDiff',
       \ },
       \ }
-" Sees what changes have occurred in the current file
+" Show summary of changes in the current file 
 function! GitQuickDiff()
   if !get(g:, 'gitgutter_enabled', 0)
     return ''
@@ -460,28 +250,49 @@ let g:indent_guides_enable_on_vim_startup = 1 " Enable indent guides at startup
 let g:indent_guides_start_level = 2 " Set the level at which the indent guides start
 let g:indent_guides_guide_size = 1 " Set the width of the indent guides
 
-let g:SuperTabDefaultCompletionType = "context" " Set Super Tab to be context aware
-let g:SuperTabContextDefaultCompletionType = "<c-n>" " Set the default mode for when there is no set context
+let g:mucomplete#enable_auto_at_startup = 1 " Auto open completion menu
+inoremap <silent> <plug>(MUcompleteFwdKey) <right>
+imap <right> <plug>(MUcompleteCycFwd)
+inoremap <silent> <plug>(MUcompleteBwdKey) <left>
+imap <left> <plug>(MUcompleteCycBwd)
 
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
 
-" Change the default Git Gutter characters
+if has('nvim') " Load colorizer for every filetype 
+    lua require'colorizer'.setup() 
+endif
+
+" Git Gutter Customization
 let g:gitgutter_sign_added ='▌'
 let g:gitgutter_sign_modified ='▌'
 let g:gitgutter_sign_removed = '▌'
 let g:gitgutter_sign_removed_first_line = '▌'
 let g:gitgutter_sign_removed_above_and_below = '▌'
 let g:gitgutter_sign_modified_removed = '▌'
-" Set the sign column to be the same color as the line number
 highlight! link SignColumn LineNr
-" Set the color of the git gutter icons
 highlight GitGutterAdd guifg=#70b950
 highlight GitGutterChange guifg=#8fbfdc
 highlight GitGutterDelete guifg=#902020
 
-if has('nvim') 
-    lua require'colorizer'.setup() " Load colorizer for every filetype 
-endif
+" ALE Customization
+highlight ALEErrorSign guifg=#902020
+highlight ALEWarningSign guifg=#fad06a
+
+" Vim-LSC Customization
+let g:lsc_auto_map = v:true " Override keybindings when vim-lsc is enabled for buffer
+let g:lsc_enable_diagnostics = v:false " ALE has better linting
+let g:lsc_server_commands = {
+    \ 'cpp': {
+        \ 'command': 'clangd --background-index --log=error',
+        \ 'suppress_stderr': v:true
+    \},
+    \ 'tex': {
+        \ 'command': 'texlab --quiet'
+    \},
+    \ 'python': {
+        \ 'command' : 'pyls'
+    \},
+\}
 
 "}}}
