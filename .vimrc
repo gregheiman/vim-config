@@ -22,8 +22,8 @@ call plug#begin(plugDirectory) " REQUIRED
 
 " Plugins
 Plug 'lifepillar/vim-mucomplete' " Extend Vim's completion
-Plug 'dense-analysis/ale' " Asynchronous linting
-Plug 'natebosch/vim-lsc' " Simple Vimscript LSP support
+Plug 'dense-analysis/ale' " Asynchronous linting and fixing
+Plug 'natebosch/vim-lsc' " Simple LSP support
 Plug 'nathanaelkane/vim-indent-guides' " Add indent guides
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 if has('nvim') | Plug 'norcalli/nvim-colorizer.lua' | endif " Show colors represented by color codes
@@ -80,6 +80,7 @@ endif
 set omnifunc=syntaxcomplete#Complete " Enable omnicomplete
 set shortmess+=c " Stop messages in the command line
 set completeopt=menuone,noinsert,noselect " Configure completion menu to work as expected
+set pumheight=25 " Set maximum height for popup menu
 
 set number " Show line numbers
 
@@ -251,6 +252,8 @@ let g:indent_guides_start_level = 2 " Set the level at which the indent guides s
 let g:indent_guides_guide_size = 1 " Set the width of the indent guides
 
 let g:mucomplete#enable_auto_at_startup = 1 " Auto open completion menu
+let g:mucomplete#completion_delay = 700 " Delay mucomplete to let LSP work
+let g:mucomplete#reopen_immediately = 0 " Delay mucomplete to let LSP work
 inoremap <silent> <plug>(MUcompleteFwdKey) <right>
 imap <right> <plug>(MUcompleteCycFwd)
 inoremap <silent> <plug>(MUcompleteBwdKey) <left>
@@ -279,19 +282,24 @@ highlight GitGutterDelete guifg=#902020
 highlight ALEErrorSign guifg=#902020
 highlight ALEWarningSign guifg=#fad06a
 
-" Vim-LSC Customization
+" Vim-lsc Customization
 let g:lsc_auto_map = v:true " Override keybindings when vim-lsc is enabled for buffer
 let g:lsc_enable_diagnostics = v:false " ALE has better linting
 let g:lsc_server_commands = {
     \ 'cpp': {
-        \ 'command': 'clangd --background-index --log=error',
-        \ 'suppress_stderr': v:true
+        \ 'command': 'clangd --background-index --cross-file-rename --header-insertion=iwyu',
+        \ 'suppress_stderr': v:true,
     \},
     \ 'tex': {
-        \ 'command': 'texlab --quiet'
+        \ 'command': 'texlab',
     \},
     \ 'python': {
-        \ 'command' : 'pyls'
+        \ 'command' : 'pyls',
+    \},
+    \ 'java': {
+        \ 'command': '~/Programs/jdt_language_server -data' . getcwd(),
+        \ 'supress_stderr': v:true,
+        \ 'log_level': 'Warning',
     \},
 \}
 
