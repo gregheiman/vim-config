@@ -188,4 +188,3 @@ function! functions#ToggleNetrw()
         call winrestview(b:windowpos) " Reset view
     endif
 endfunction
-

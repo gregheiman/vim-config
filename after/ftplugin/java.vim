@@ -1,5 +1,5 @@
 " Assign makeprg
-set makeprg=javac\ ./%:p
+set makeprg=javac\ -cp\ "."\ %:p
 
 " Assign F8 to compile the current Java file
 nnoremap <F8> :update<CR>:silent make<CR>

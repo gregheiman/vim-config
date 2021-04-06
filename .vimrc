@@ -76,7 +76,6 @@ let g:tex_flavor='latex' " Set the global tex flavor
 
 "{{{ " Auto Commands
 " Autocmd to check whether vimrc needs to be updated
-" Only runs if vim version >= 8.0 as it uses async features
 if (v:version >= 80 && has("job") && has("timers")) || has('nvim')
     augroup CheckVimrc
         autocmd!
@@ -161,7 +160,8 @@ let g:netrw_banner = 0 " Get rid of banner in netrw
 let g:netrw_liststyle = 3 " Set netrw to open in tree setup
 let g:netrw_keepdir = 0 " Netrw will change working directory every new file
 " Status line
-highlight link StatusColor LineNr
+highlight! link StatusLine LineNr
+highlight! link TabLine LineNr
 let g:currentmode={
        \ 'n'  : 'NORMAL',
        \ 'v'  : 'VISUAL',
@@ -172,10 +172,10 @@ let g:currentmode={
        \ 'Rv' : 'V·Replace',
        \ 'c'  : 'Command',
        \}
-set statusline+=%#StatusColor#
-set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\|
+set statusline= " Clear the status line
+set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\| 
 set statusline+=\ %t\ \\|
-set statusline+=\ %m%r%h%w
+set statusline+=\ %(\%m%r%h%w%)
 set statusline+=%=
 set statusline+=%y
 set statusline+=\ \\|\ %{&enc}

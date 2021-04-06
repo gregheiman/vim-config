@@ -6,6 +6,9 @@ nnoremap <F8> :update<CR>:silent make<CR>
 " Assign F9 to run the current C++ file's executable that Clang created
 nnoremap <F9> :update<CR>:!%:p:r.exe<CR>
 
+" Set omnifunc to the included C omni-complete file
+setlocal omnifunc=ccomplete#Complete
+
 " Abbreviations
 iabbrev main int<Space>main()<Space>{}<Left><CR><CR>return<Space>1;<Up><Tab><C-R>=Eatchar('\s')<CR>
 iabbrev #i #include<<i++>><++><Esc>/<i++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
