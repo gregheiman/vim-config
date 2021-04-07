@@ -181,6 +181,7 @@ let g:netrw_keepdir = 0 " Netrw will change working directory every new file
 
 " Status line
 highlight! link StatusLine LineNr
+highlight StatusLineNC cterm=reverse gui=reverse
 highlight! link TabLine LineNr
 let g:currentmode={
        \ 'n'  : 'NORMAL',
@@ -217,6 +218,7 @@ imap <left> <plug>(MUcompleteCycBwd)
 let g:pear_tree_repeatable_expand = 0
 
 " ALE Customization
+highlight! link SignColumn LineNr
 highlight ALEErrorSign guifg=#902020
 highlight ALEWarningSign guifg=#fad06a
 
