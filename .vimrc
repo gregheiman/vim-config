@@ -6,14 +6,13 @@ filetype off " REQUIRED Disable file type for vim plug.
 if has('win32') || has('win64')
     let g:plugDirectory = '~/vimfiles/plugged'
 else
-    " *nix distributions
     let g:plugDirectory = '~/.vim/plugged'     
 endif
 call plug#begin(plugDirectory) " REQUIRED
 " Plugins
 Plug 'lifepillar/vim-mucomplete' " Extend Vim's completion
 Plug 'natebosch/vim-lsc' " Simple vimscript LSP support
-Plug 'dense-analysis/ale' " Asynchronous linting
+Plug 'dense-analysis/ale' " Asynchronous linting and fixing
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'nanotech/jellybeans.vim' " Jellybeans theme
 call plug#end() " REQUIRED
@@ -27,20 +26,32 @@ set nocompatible " Required to not be forced into vi mode
 syntax on " Enable syntax 
 set mouse=a " Enable the mouse
 set nowrap " No line wrapping
-
-" Set rendering option for brighter colors and ligatures (GUI)
-if !has('nvim') | set renderoptions=type:directx | endif
-
-set encoding=utf-8
-let mapleader = "\<Space>" " Map leader to space
-
-" Add specific common directories for Vim to search recursively with :find
-set path+=src/**,config/**,app/**
+set encoding=utf-8 " Set default encoding
+set path+=src/**,config/**,app/** " Add specific common directories for Vim to search recursively with :find
 set wildmenu " Vim will show a menu with matches for commands
 set noshowmode " Disable the mode display below statusline
 set backspace=indent,eol,start " Better backspace
 set foldmethod=marker " Set fold method
 set tags=./tags,tags " Set default tags file location
+set omnifunc=syntaxcomplete#Complete " Enable omnicomplete
+set shortmess+=c " Stop messages in the command line
+set completeopt=menuone,noinsert,noselect " Configure completion menu to work as expected
+set pumheight=25 " Set maximum height for popup menu
+set number " Show line numbers
+set tabstop=4 shiftwidth=4 smarttab expandtab " Set proper 4 space tabs
+set incsearch nohlsearch ignorecase smartcase " Set searching to only be case sensitive when the first letter is capitalized
+set laststatus=2 " Always display the status line
+set cursorline " Enable highlighting of the current line
+set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
+set splitright splitbelow " Sets the default splits to be to the right and below from default
+set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spellcheck language
+set noswapfile " Don't create swap files
+colorscheme jellybeans " Set color theme
+let mapleader = "\<Space>" " Map leader to space
+let g:tex_flavor='latex' " Set the global tex flavor
+
+" Set rendering option for brighter colors and ligatures (GUI)
+if !has('nvim') | set renderoptions=type:directx | endif
 
 " Set Font and size
 if has('win32') || has('win64')
@@ -56,17 +67,7 @@ elseif has('macunix') || has('mac')
     set lines=999 columns=999
 endif
 
-set omnifunc=syntaxcomplete#Complete " Enable omnicomplete
-set shortmess+=c " Stop messages in the command line
-set completeopt=menuone,noinsert,noselect " Configure completion menu to work as expected
-set pumheight=25 " Set maximum height for popup menu
-
-set number " Show line numbers
-set tabstop=4 shiftwidth=4 smarttab expandtab " Set proper 4 space tabs
-set incsearch nohlsearch ignorecase smartcase " Set searching to only be case sensitive when the first letter is capitalized
-set laststatus=2 " Always display the status line
-set cursorline " Enable highlighting of the current line
-
+" Set true colors if supported. If not default to 256 colors
 if (has("termguicolors"))
     " Fix alacritty and Vim not showing colorschemes right (Prob. a Vim issue)
     if !has('nvim') && &term == "alacritty"
@@ -76,13 +77,6 @@ if (has("termguicolors"))
 else
     set t_Co=256
 endif 
-
-colorscheme jellybeans " Set color theme
-set background=dark
-set splitright splitbelow " Sets the default splits to be to the right and below from default
-set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spellcheck language
-set noswapfile " Don't create swap files
-let g:tex_flavor='latex' " Set the global tex flavor
 "}}}
 
 "{{{ " Auto Commands
@@ -116,6 +110,10 @@ augroup MakeFiles
     " Automatically open quickfix window and refocus last window if errors are present after a :make command
     autocmd QuickFixCmdPost *make* cwindow
     autocmd QuickFixCmdPost <C-w><C-p>
+augroup END
+augroup GitBranch
+    autocmd!
+    autocmd BufNewFile,BufReadPost,BufEnter * call functions#GetGitBranch() " Retrieve git branch for statusline
 augroup END
 "}}}
 
@@ -180,6 +178,7 @@ endfunction
 let g:netrw_banner = 0 " Get rid of banner in netrw
 let g:netrw_liststyle = 3 " Set netrw to open in tree setup
 let g:netrw_keepdir = 0 " Netrw will change working directory every new file
+
 " Status line
 highlight! link StatusLine LineNr
 highlight! link TabLine LineNr
@@ -195,6 +194,7 @@ let g:currentmode={
        \}
 set statusline= " Clear the status line
 set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\| 
+set statusline+=%{functions#GitBranchStatusLine()}
 set statusline+=\ %t\ \\|
 set statusline+=\ %(\%m%r%h%w%)
 set statusline+=%=
@@ -202,6 +202,7 @@ set statusline+=%y
 set statusline+=\ \\|\ %{&enc}
 set statusline+=\ \\|\ %l/%L
 set statusline+=\ 
+
 " Mucomplete configuration
 let g:mucomplete#chains = {
 	    \ 'default' : ['path', 'omni', 'tags', 'incl', 'dict', 'uspl'],
@@ -211,11 +212,14 @@ inoremap <silent> <plug>(MUcompleteFwdKey) <right>
 imap <right> <plug>(MUcompleteCycFwd)
 inoremap <silent> <plug>(MUcompleteBwdKey) <left>
 imap <left> <plug>(MUcompleteCycBwd)
+
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
+
 " ALE Customization
 highlight ALEErrorSign guifg=#902020
 highlight ALEWarningSign guifg=#fad06a
+
 " Vim-lsc Customization
 let g:lsc_auto_map = v:true " Override keybindings when vim-lsc is enabled for buffer
 let g:lsc_enable_diagnostics = v:false " ALE has better linting
@@ -228,7 +232,7 @@ let g:lsc_server_commands = {
         \ 'command': 'texlab',
     \},
     \ 'python': {
-        \ 'command' : 'pyls',
+        \ 'command': 'pyls',
     \},
     \ 'java': {
         \ 'command': '~/Programs/jdt_language_server -data' . getcwd(),

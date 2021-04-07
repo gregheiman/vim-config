@@ -179,12 +179,33 @@ endfunction
 
 " Toggle Netrw window open and close with the same key
 function! functions#ToggleNetrw()
-    let b:windowpos = winsaveview() " Save current position to go back to
-    
     if &filetype != "netrw"
+        let b:windowpos = winsaveview() " Save current position to go back to
         silent Explore
     else
         silent Rexplore " Return to previous file
         call winrestview(b:windowpos) " Reset view
+    endif
+endfunction
+
+" Function to display Git branch in statusline
+function! functions#GitBranchStatusLine()
+    if executable('git')
+        if exists("b:git_branch")
+            return b:git_branch
+        else
+            return ''
+        endif
+    endif
+endfunction
+" Function to retrieve Git branch from the repository
+function! functions#GetGitBranch()
+    if executable('git')
+        let l:is_git_dir = trim(system('git rev-parse --is-inside-work-tree'))
+        if l:is_git_dir is# 'true'
+            let b:git_branch = " " . trim(system('git rev-parse --abbrev-ref HEAD')) . " |"
+        else
+            let b:git_branch = ''
+        endif 
     endif
 endfunction
