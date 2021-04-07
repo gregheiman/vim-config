@@ -2,7 +2,7 @@
 if executable('rubber')
     set makeprg=rubber\ --inplace\ --ps\ --pdf\ %:p
 elseif executable('latexmk')
-    set makeprg=latexmk\ -pdf\ -output-directory=%:p:h\ %:p
+    set makeprg=latexmk\ -ps\ -pdf\ -pdfps\ %
 endif 
 
 " https://github.com/lervag/vimtex/blob/98327bfe0e599bf580e61cfaa6216c8d4177b23d/compiler/latexmk.vim
@@ -52,14 +52,20 @@ autocmd VimLeave * call execute("make") | call execute("TexClean")
 " View the current .tex file's pdf file if there is one
 function! TexView()
     let s:texCurrentPDFFile = expand('%:t:r') . ".pdf"
-
     if glob(s:texCurrentPDFFile) != ""
-        if has('unix')
+        if has('unix') && executable('zathura')
             let s:command = printf('zathura ' . s:texCurrentPDFFile)
             if !has('nvim')
                 let s:zathuraOpen = job_start(s:command)
             else
                 let s:zathuraOpen = jobstart(s:command)
+            endif
+        elseif has('win32') || has('win64') && executable('sumatrapdf')
+            let s:command = printf('sumatrapdf ' . s:texCurrentPDFFile)
+            if !has('nvim')
+                let s:sumatraOpen = job_start(s:command)
+            else
+                let s:sumatraOpen = jobstart(s:command)
             endif
         endif
     else 
