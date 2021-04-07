@@ -183,32 +183,25 @@ let g:netrw_keepdir = 0 " Netrw will change working directory every new file
 highlight! link StatusLine LineNr
 highlight StatusLineNC cterm=reverse gui=reverse
 highlight! link TabLine LineNr
-let g:currentmode={
-       \ 'n'  : 'NORMAL',
-       \ 'v'  : 'VISUAL',
-       \ 'V'  : 'V·Line',
-       \ "\<C-V>" : 'V·Block',
-       \ 'i'  : 'INSERT',
-       \ 'R'  : 'R',
-       \ 'Rv' : 'V·Replace',
-       \ 'c'  : 'Command',
-       \}
+let g:currentmode={'n'  : 'NORMAL', 'v'  : 'VISUAL', 'V'  : 'V·Line', "\<C-V>" : 'V·Block',
+                    \ 'i'  : 'INSERT', 'R'  : 'R', 'Rv' : 'V·Replace', 'c'  : 'Command',}
 set statusline= " Clear the status line
-set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\| 
-set statusline+=%{functions#GitBranchStatusLine()}
-set statusline+=\ %t\ \\|
-set statusline+=\ %(\%m%r%h%w%)
-set statusline+=%=
-set statusline+=%y
-set statusline+=\ \\|\ %{&enc}
-set statusline+=\ \\|\ %l/%L
-set statusline+=\ 
+set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\| " Mode
+set statusline+=%{functions#GitBranchStatusLine()} " Git branch
+set statusline+=\ %t\ \\| " File name
+set statusline+=\ %(\%m%r%h%w%) " Modified, Read-only, help display
+set statusline+=%= " Right align
+set statusline+=%y " File format
+set statusline+=\ \\|\ %{&enc} " Encoding
+set statusline+=\ \\|\ %l/%L " Current line/Total lines
+set statusline+=\  " Extra space at the end
 
 " Mucomplete configuration
 let g:mucomplete#chains = {
 	    \ 'default' : ['path', 'omni', 'tags', 'incl', 'dict', 'uspl'],
 	    \ 'vim'     : ['path', 'cmd', 'keyn']
 	    \ }
+let g:mucomplete#reopen_immediately = 0
 inoremap <silent> <plug>(MUcompleteFwdKey) <right>
 imap <right> <plug>(MUcompleteCycFwd)
 inoremap <silent> <plug>(MUcompleteBwdKey) <left>
@@ -223,7 +216,8 @@ highlight ALEErrorSign guifg=#902020
 highlight ALEWarningSign guifg=#fad06a
 
 " Vim-lsc Customization
-let g:lsc_auto_map = v:true " Override keybindings when vim-lsc is enabled for buffer
+let g:lsc_auto_map = {'defaults': v:true, 'Completion': 'omnifunc'} " Override keybindings when vim-lsc is enabled for buffer
+let g:lsc_enable_autocomplete = v:false " Disable autocomplete till I hit TAB
 let g:lsc_enable_diagnostics = v:false " ALE has better linting
 let g:lsc_server_commands = {
     \ 'cpp': {

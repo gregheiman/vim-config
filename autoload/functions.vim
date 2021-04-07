@@ -204,6 +204,9 @@ function! functions#GetGitBranch()
         let l:is_git_dir = trim(system('git rev-parse --is-inside-work-tree'))
         if l:is_git_dir is# 'true'
             let b:git_branch = " " . trim(system('git rev-parse --abbrev-ref HEAD')) . " |"
+            if strlen(b:git_branch) > 50
+                let b:git_branch = ''
+            endif
         else
             let b:git_branch = ''
         endif 
