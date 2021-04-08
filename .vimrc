@@ -11,8 +11,8 @@ endif
 call plug#begin(plugDirectory) " REQUIRED
 " Plugins
 Plug 'lifepillar/vim-mucomplete' " Extend Vim's completion
-Plug 'natebosch/vim-lsc' " Simple vimscript LSP support
 Plug 'dense-analysis/ale' " Asynchronous linting and fixing
+Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'nanotech/jellybeans.vim' " Jellybeans theme
 call plug#end() " REQUIRED
@@ -201,7 +201,6 @@ let g:mucomplete#chains = {
 	    \ 'default' : ['path', 'omni', 'tags', 'incl', 'dict', 'uspl'],
 	    \ 'vim'     : ['path', 'cmd', 'keyn']
 	    \ }
-let g:mucomplete#reopen_immediately = 0
 inoremap <silent> <plug>(MUcompleteFwdKey) <right>
 imap <right> <plug>(MUcompleteCycFwd)
 inoremap <silent> <plug>(MUcompleteBwdKey) <left>
@@ -214,26 +213,4 @@ let g:pear_tree_repeatable_expand = 0
 highlight! link SignColumn LineNr
 highlight ALEErrorSign guifg=#902020
 highlight ALEWarningSign guifg=#fad06a
-
-" Vim-lsc Customization
-let g:lsc_auto_map = {'defaults': v:true, 'Completion': 'omnifunc'} " Override keybindings when vim-lsc is enabled for buffer
-let g:lsc_enable_autocomplete = v:false " Disable autocomplete till I hit TAB
-let g:lsc_enable_diagnostics = v:false " ALE has better linting
-let g:lsc_server_commands = {
-    \ 'cpp': {
-        \ 'command': 'clangd --background-index --cross-file-rename --header-insertion=iwyu',
-        \ 'suppress_stderr': v:true,
-    \},
-    \ 'tex': {
-        \ 'command': 'texlab',
-    \},
-    \ 'python': {
-        \ 'command': 'pyls',
-    \},
-    \ 'java': {
-        \ 'command': '~/Programs/jdt_language_server -data' . getcwd(),
-        \ 'supress_stderr': v:true,
-        \ 'log_level': 'Warning',
-    \},
-\}
 "}}}

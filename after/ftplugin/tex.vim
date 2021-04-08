@@ -96,15 +96,17 @@ iabbrev emph \emph{<e++>}<++><Esc>/<e++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 iabbrev bold \textbf{<b++>}<++><Esc>/<b++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 
 " Math Abbreviations
+" Add text inside of math
+iabbrev textrm \textrm{<rm++>}<++><Esc>/<rm++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Inline math
 iabbrev mk $<m++>$<++><Esc>/<m++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Line math
-iabbrev dm $$<CR><Tab><d++><CR><BS>$$<Esc>/<d++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev dm \[\]<++><Esc>bf[a<CR><CR><Up><Tab><C-R>=Eatchar('\s')<CR>
 " Vector
 iabbrev vec \vec{<v++>}<++><Esc>/<v++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
-" Square Root
+" Square
 iabbrev #r ^2<C-R>=Eatchar('\s')<CR>
-" Cube Root
+" Cube
 iabbrev #c ^3<C-R>=Eatchar('\s')<CR>
 " Superscript
 iabbrev #S ^{<S++>}<++><Esc>/<S++><CR><Esc>/<S++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>>
@@ -117,7 +119,11 @@ iabbrev hat \hat{<h++>}<++><Esc>/<h++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Limit
 iabbrev lim \lim_{<l++>}<++><Esc>/<l++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Summation
-iabbrev sum \sum{<u++>}^{<++>}<Esc>/<u++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev summ \sum_{<u++>}^{<++>}<Esc>/<u++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Integral
+iabbrev inte \int_<in++>^<++><Esc>/<in++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+" Square root
+iabbrev sqrt \sqrt{<sq++>}<++><Esc>/<sq++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 
 " Symbol Abbreviations
 " Lower case theta
