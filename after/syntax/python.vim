@@ -43,11 +43,11 @@ let python_highlight_all = 1
 
 " For version 5.x: Clear all syntax items.
 " For version 6.x: Quit when a syntax file was already loaded.
-if version < 600
-  syntax clear
-elseif exists("b:current_syntax")
-  finish
-endif
+"if version < 600
+"  syntax clear
+"elseif exists("b:current_syntax")
+"  finish
+"endif
 
 " We need nocompatible mode in order to continue lines with backslashes.
 " Original setting will be restored.

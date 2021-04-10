@@ -1,3 +1,6 @@
+" Set omnifunc
+set omnifunc=python3complete#Complete
+
 " Assign makeprg
 set makeprg=python3\ ./%:p
 
