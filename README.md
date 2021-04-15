@@ -72,23 +72,14 @@ choco install vim
 ## Dependencies
 Good development tools to have.
 
-**Tools include:**
+**Required Dependencies:**
 
 * Git (Needed in order to clone and maintain .vimrc)
 
 **Optional Dependencies:**
 
 * Universal-Ctags or Exuberent-Ctags (Tagging files)
-* Java JDK (Compile and run Java files)
-* LLVM (Includes Clang for compiling C files)
-* MinGW-W64 or MinGW (Windows port of GCC for compiling C files)
-* NPM and Yarn (Helpful for web development)
-* ESLint (JS Linter)
-* TexLive (Needed for working with LaTeX files)
-* Rubber or Latexmk (Compiles Tex files)
-* Various LSP servers (If LSP servers are desired they will need to be installed)
-    * For C and C++ files clangd is recommended (Part of LLVM)
-    * For Python files pyls is recommended
-    * For Tex files texlab is recommended
+* Ripgrep (Faster grepping)
+* Language specific compilers, linters, and checkers (Reference Wiki for recommendations)
 
 ### Check out Wiki for more specific information about setting up certain workflows.
