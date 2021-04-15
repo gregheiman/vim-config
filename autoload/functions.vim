@@ -212,3 +212,67 @@ function! functions#GetGitBranch()
         endif 
     endif
 endfunction
+
+" Function that lets the user decide the scope of :grep
+function! functions#GrepOperator(type, ...)
+    let saved_unnamed_register = @@
+
+    if a:type ==# 'v'
+        normal! `<v`>y
+    elseif a:type ==# 'char'
+        normal! `[v`]y
+    else
+        return
+    endif
+
+    let l:grepPreference = input("1. Project Wide \n2. Only in files of the same type \n3. Only in current file's folder \n4. Only in current file \nSelect Method of Grep for pattern \"" . expand(@@) . "\": ")
+
+    if (l:grepPreference == 1) " Project wide
+        if executable('rg')
+            silent execute "grep! " . shellescape(expand(@@)) . " "
+        else 
+            silent execute "grep! -R" . shellescape(expand(@@)) . " ."
+        endif
+            silent execute "copen"
+    elseif (l:grepPreference == 2) " Files of the same type (eg. *.java)
+        let b:current_filetype = &ft
+        if executable('rg')
+            silent execute "grep! " . shellescape(expand(@@)) . " -t " . b:current_filetype
+        else 
+            silent execute "grep! -R" . shellescape(expand(@@)) . " --include=*." . b:current_filetype
+        endif
+            silent execute "copen"
+    elseif (l:grepPreference == 3) " Files in the current file's folder
+        let b:current_folder = expand('%:p:h')
+        if executable('rg')
+            silent execute "grep! " . shellescape(expand(@@)) . " " . b:current_folder 
+        else 
+            silent execute "grep! -R" . shellescape(expand(@@)) . " " . b:current_folder
+        endif
+            silent execute "copen"
+    elseif (l:grepPreference == 4) " Only in the current file
+        if executable('rg')
+            silent execute "grep! " . shellescape(expand(@@)) . " %"
+        else 
+            silent execute "grep! " . shellescape(expand(@@)) . " %"
+        endif
+            silent execute "copen"
+    else
+        echohl WarningMsg | echo "\nPlease enter in a valid option" | echohl None
+        return
+    endif
+    
+    if (a:0 > 0)
+        if (a:1 == 1) " Replace the grepped word
+            call functions#ReplaceGrep(@@)
+        endif
+    endif
+
+    let @@ = saved_unnamed_register
+endfunction
+" Function to replace Greped pattern
+function! functions#ReplaceGrep(PatternToReplace)
+    let l:replace = input("What would you like to replace \"" . expand(a:PatternToReplace). "\" with? ")
+    execute "cdo %s/\\<" . expand(a:PatternToReplace) . "\\>/" . expand(l:replace) . "/gc"
+    return
+endfunction

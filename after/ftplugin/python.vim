@@ -1,5 +1,5 @@
 " Set omnifunc
-set omnifunc=python3complete#Complete
+if has("nvim") | set omnifunc=python3complete#Complete | endif
 
 " Assign makeprg
 set makeprg=python3\ ./%:p

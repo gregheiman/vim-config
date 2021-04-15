@@ -22,10 +22,11 @@ function! java#DetectMaven()
             \%+C%.%#
         " Assigns F9 to run the current mvn project
         nnoremap <F9> :update<CR>:!mvn exec:java<CR>
+
         echohl title | redraw | echom "Maven project detected" | echohl None
     else 
         " Assign default makeprg
-        set makeprg=javac\ -cp\ "."\ %:p
+        set makeprg=javac\ %:p
         " Assigns F9 to run the current Java file
         nnoremap <F9> :update<CR>:!java %:p:r<CR>
     endif
@@ -37,3 +38,5 @@ autocmd BufEnter,BufNewFile,BufReadPost * silent call java#DetectMaven()
 " Assign F8 to compile the current Java file
 nnoremap <F8> :update<CR>:silent make<CR>
 
+" Setup :find command
+set path^=src/**,target/**,config/**

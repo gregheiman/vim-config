@@ -27,7 +27,7 @@ syntax on " Enable syntax
 set mouse=a " Enable the mouse
 set nowrap " No line wrapping
 set encoding=utf-8 " Set default encoding
-set path+=src/**,config/**,app/** " Add specific common directories for Vim to search recursively with :find
+set path-=/usr/include " Remove /usr/include form path. Included for C langs. in ftplugin
 set wildmenu " Vim will show a menu with matches for commands
 set noshowmode " Disable the mode display below statusline
 set backspace=indent,eol,start " Better backspace
@@ -42,10 +42,10 @@ set tabstop=4 shiftwidth=4 smarttab expandtab " Set proper 4 space tabs
 set incsearch nohlsearch ignorecase smartcase " Set searching to only be case sensitive when the first letter is capitalized
 set laststatus=2 " Always display the status line
 set cursorline " Enable highlighting of the current line
-set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
 set splitright splitbelow " Sets the default splits to be to the right and below from default
 set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spellcheck language
 set noswapfile " Don't create swap files
+set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
 colorscheme jellybeans " Set color theme
 let mapleader = "\<Space>" " Map leader to space
 let g:tex_flavor='latex' " Set the global tex flavor
@@ -76,7 +76,12 @@ if (has("termguicolors"))
     set termguicolors
 else
     set t_Co=256
-endif 
+endif
+
+if executable('rg') " Use ripgrep if available
+    set grepprg=rg\ --vimgrep\ $*
+    set grepformat^=%f:%l:%c:%m 
+endif
 "}}}
 
 "{{{ " Auto Commands
@@ -109,7 +114,6 @@ augroup MakeFiles
     autocmd!
     " Automatically open quickfix window and refocus last window if errors are present after a :make command
     autocmd QuickFixCmdPost *make* cwindow
-    autocmd QuickFixCmdPost <C-w><C-p>
 augroup END
 augroup GitBranch
     autocmd!
@@ -126,10 +130,6 @@ inoremap <silent> <C-e> <Esc>:call functions#ToggleNetrw()<CR>
 " Determine how to open vimrc before opening with F5
 nnoremap <silent> <F5> :call functions#CheckHowToOpenVimrc()<CR>
 inoremap <silent> <F5> <Esc>:call functions#CheckHowToOpenVimrc()<CR>
-
-" Assign F12 to reload the current file
-nnoremap <silent> <F12> :so %<CR> | redraw
-inoremap <silent> <F12> <Esc>:so %<CR> | redraw
 
 " Keybinding for tabbing visual mode selection to automatically re-select the visual selection 
 vnoremap > >gv 
@@ -153,8 +153,13 @@ nnoremap <silent> <leader>bg :call functions#GoToSpecifiedBuffer()<CR>
 " buffer list
 nnoremap <leader>bl :buffers<CR>
 
+" Project wide search
+nnoremap <leader>f :set operatorfunc=functions#GrepOperator<CR>g@
+vnoremap <leader>f :<C-u>call functions#GrepOperator(visualmode())<CR>
 " Local replace all instances of a variable using Vim
 nnoremap <leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+" Project wide replace
+vnoremap <leader>R :<C-u>call functions#GrepOperator(visualmode(), '1')<CR>
 
 " Auto jump back to the last spelling mistake and fix it
 inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
@@ -163,8 +168,18 @@ inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
 inoremap <C-j> <Esc>/<++><CR><Esc>cf>
 inoremap <C-k> <Esc>?<++><CR><Esc>cf>
 
+" Set bindings for jumping to errors in the loclist and quickfix list
+nnoremap ]l :lnext<CR>
+nnoremap [l :lprev<CR>
+nnoremap ]L :lfirst<CR>
+nnoremap [L :llast<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [q :cprev<CR>
+nnoremap ]Q :cfirst<CR>
+nnoremap [Q :clast<CR>
+
 " Command to make tags file inside vim
-command! Mkctags silent exe '!ctags -R' | silent exe 'redraw!'
+command! -nargs=0 -bar Mkctags silent exe '!ctags -R' | silent exe 'redraw!'
 
 " Eat spaces (or any other char) for abbreviations
 function! Eatchar(pat)
@@ -176,7 +191,6 @@ endfunction
 "{{{ " Custom Plugin Configuration Options
 """"""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner = 0 " Get rid of banner in netrw
-let g:netrw_liststyle = 3 " Set netrw to open in tree setup
 let g:netrw_keepdir = 0 " Netrw will change working directory every new file
 
 " Status line
@@ -184,7 +198,7 @@ highlight! link StatusLine LineNr
 highlight StatusLineNC cterm=reverse gui=reverse
 highlight! link TabLine LineNr
 let g:currentmode={'n'  : 'NORMAL', 'v'  : 'VISUAL', 'V'  : 'V·Line', "\<C-V>" : 'V·Block',
-                    \ 'i'  : 'INSERT', 'R'  : 'R', 'Rv' : 'V·Replace', 'c'  : 'Command',}
+                    \ 'i'  : 'INSERT', 'R'  : 'R', 'Rv' : 'V·Replace', 'c'  : 'Command', 'r' : 'Replace'}
 set statusline= " Clear the status line
 set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\| " Mode
 set statusline+=%{functions#GitBranchStatusLine()} " Git branch
@@ -212,5 +226,5 @@ let g:pear_tree_repeatable_expand = 0
 " ALE Customization
 highlight! link SignColumn LineNr
 highlight ALEErrorSign guifg=#902020
-highlight ALEWarningSign guifg=#fad06a
+highlight ALEWarningSign guifg=#fad07a
 "}}}
