@@ -1,3 +1,6 @@
+" Set omnifunc
+set omnifunc=htmlcomplete#Complete
+
 " Auto close brackets in html files (must include defaults)
 let b:pear_tree_pairs = {
 \ '(': {'closer': ')'},

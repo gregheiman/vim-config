@@ -67,6 +67,8 @@ function! TexView()
             else
                 let s:sumatraOpen = jobstart(s:command)
             endif
+        else
+            echo "Could not find program to open .pdf file."
         endif
     else 
         echo "Could not find PDF file to open"
