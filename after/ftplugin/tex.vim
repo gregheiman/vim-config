@@ -39,15 +39,15 @@ setlocal errorformat+=%+WPackage\ titlesec\ Warning:\ %m
 setlocal errorformat+=%-C(titlesec)%m
 setlocal errorformat+=%-G%.%#
 
-nnoremap <silent> <F8> :update<CR>:silent make<CR>
-inoremap <silent> <F8> <Esc>:update<CR>:silent make<CR><i>
+nnoremap <silent> <F8> :call TexCompile()<CR>
+inoremap <silent> <F8> <Esc>:call TexCompile()<CR>a
 
 " Assign F9 to view the current LaTeX file
 nnoremap <silent> <F9> :update<CR>:call TexView()<CR>
-inoremap <silent> <F9> <Esc>:update<CR>:call TexView()<CR><i>
+inoremap <silent> <F9> <Esc>:update<CR>:call TexView()<CR>a
 
 " Compile and clean tex files before exiting
-autocmd VimLeave * call execute("make") | call execute("TexClean")
+autocmd VimLeave * call execute(TexCompile()) | call execute("TexClean")
 
 " View the current .tex file's pdf file if there is one
 function! TexView()
@@ -80,6 +80,16 @@ if executable('rubber')
 elseif executable('latexmk')
     command! TexClean silent execute '!latexmk -c' | silent execute 'redraw!' | echo "Cleaned the directory"
 endif 
+" Only compile if tex file is present
+function! TexCompile()
+    if glob('*.tex') != ""
+        execute("update")
+        silent execute("make")
+    else
+        echohl WarningMsg | "No Tex file present. Will not compile." | echohl None
+    endif
+    return
+endfunction
 
 " Abbreviations
 " Article boilerplate
@@ -103,7 +113,7 @@ iabbrev textrm \textrm{<rm++>}<++><Esc>/<rm++><CR><Esc>cf><C-R>=Eatchar('\s')<CR
 " Inline math
 iabbrev mk $<m++>$<++><Esc>/<m++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Line math
-iabbrev dm \[\]<++><Esc>bf[a<CR><CR><Up><Tab><C-R>=Eatchar('\s')<CR>
+iabbrev dm \[\]<++><Esc>bf[a<CR><CR><Up><Tab><Tab><Tab><Tab><C-R>=Eatchar('\s')<CR>
 " Vector
 iabbrev vec \vec{<v++>}<++><Esc>/<v++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Square

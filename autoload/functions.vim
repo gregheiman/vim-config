@@ -140,7 +140,7 @@ function! functions#UpdateTagsFile()
     " While new tags file is being generated
     let s:currentTagsFile=expand("%:p:h") . "/tags"
     call rename(s:currentTagsFile, "old-tags")
-    set tags=./old-tags,old-tags
+    set tags^=./old-tags,old-tags
     
     " Create new tags file. Uses ~/.config/ctags/.ctags config file
     if has('win64') || has('win32')
@@ -173,7 +173,7 @@ function! functions#UpdateTagsFile()
     endif 
         
     " Delete old tags file and reset tags
-    set tags=./tags,tags
+    set tags-=./old-tags,old-tags
     call delete("./old-tags")
 endfunction
 
@@ -213,48 +213,66 @@ function! functions#GetGitBranch()
     endif
 endfunction
 
-" Function that lets the user decide the scope of :grep
+" Function that lets the user decide what to grep through visual selection
 function! functions#GrepOperator(type, ...)
     let saved_unnamed_register = @@
 
     if a:type ==# 'v'
+        " Yanks the last visual selection
         normal! `<v`>y
+        " Determines grep scope
+        if (a:0 > 0)
+            call functions#DetermineGrep(@@, a:1)
+        else
+            call functions#DetermineGrep(@@)
+        endif
+        " Cleans the register
+        let @@ = saved_unnamed_register
     elseif a:type ==# 'char'
+        " Yanks the motion
         normal! `[v`]y
+        if (a:0 > 0)
+            call functions#DetermineGrep(@@, a:1)
+        else
+            call functions#DetermineGrep(@@)
+        endif
+        let @@ = saved_unnamed_register
     else
         return
     endif
-
-    let l:grepPreference = input("1. Project Wide \n2. Only in files of the same type \n3. Only in current file's folder \n4. Only in current file \nSelect Method of Grep for pattern \"" . expand(@@) . "\": ")
+endfunction
+" Determine the scope of :grep
+function! functions#DetermineGrep(word, ...)
+    let l:grepPreference = input("1. Project Wide \n2. Only in files of the same type \n3. Only in current file's folder \n4. Only in current file \nSelect Method of Grep for pattern \"" . expand(a:word) . "\": ")
 
     if (l:grepPreference == 1) " Project wide
         if executable('rg')
-            silent execute "grep! " . shellescape(expand(@@)) . " "
+            silent execute "grep! " . shellescape(expand(a:word)) . " "
         else 
-            silent execute "grep! -R" . shellescape(expand(@@)) . " ."
+            silent execute "grep! -R" . shellescape(expand(a:word)) . " ."
         endif
             silent execute "copen"
     elseif (l:grepPreference == 2) " Files of the same type (eg. *.java)
         let b:current_filetype = &ft
         if executable('rg')
-            silent execute "grep! " . shellescape(expand(@@)) . " -t " . b:current_filetype
+            silent execute "grep! " . shellescape(expand(a:word)) . " -t " . b:current_filetype
         else 
-            silent execute "grep! -R" . shellescape(expand(@@)) . " --include=*." . b:current_filetype
+            silent execute "grep! -R" . shellescape(expand(a:word)) . " --include=*." . b:current_filetype
         endif
             silent execute "copen"
     elseif (l:grepPreference == 3) " Files in the current file's folder
         let b:current_folder = expand('%:p:h')
         if executable('rg')
-            silent execute "grep! " . shellescape(expand(@@)) . " " . b:current_folder 
+            silent execute "grep! " . shellescape(expand(a:word)) . " " . b:current_folder 
         else 
-            silent execute "grep! -R" . shellescape(expand(@@)) . " " . b:current_folder
+            silent execute "grep! -R" . shellescape(expand(a:word)) . " " . b:current_folder
         endif
             silent execute "copen"
     elseif (l:grepPreference == 4) " Only in the current file
         if executable('rg')
-            silent execute "grep! " . shellescape(expand(@@)) . " %"
+            silent execute "grep! " . shellescape(expand(a:word)) . " %"
         else 
-            silent execute "grep! " . shellescape(expand(@@)) . " %"
+            silent execute "grep! " . shellescape(expand(a:word)) . " %"
         endif
             silent execute "copen"
     else
@@ -262,13 +280,11 @@ function! functions#GrepOperator(type, ...)
         return
     endif
     
-    if (a:0 > 0)
+    if (a:0 > 0) " If optional arugments are present
         if (a:1 == 1) " Replace the grepped word
-            call functions#ReplaceGrep(@@)
+            call functions#ReplaceGrep(a:word)
         endif
     endif
-
-    let @@ = saved_unnamed_register
 endfunction
 " Function to replace Greped pattern
 function! functions#ReplaceGrep(PatternToReplace)
