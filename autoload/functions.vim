@@ -106,7 +106,7 @@ endfunction
 " or if not, to the directory of the current file.
 function! functions#SetWorkingDirectory()
     " Stops fugitive from throwing error on :Gdiff
-    if bufname('fugitive') != ""
+    if bufname('fugitive') != "" || bufname('term') != ""
         return
     endif
 

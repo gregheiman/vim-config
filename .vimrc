@@ -12,13 +12,13 @@ call plug#begin(plugDirectory) " REQUIRED
 " The Big Stuff
 Plug 'lifepillar/vim-mucomplete' " Extend Vim's completion
 Plug 'dense-analysis/ale' " Asynchronous linting and fixing
-Plug 'natebosch/vim-lsc' " Vimscript LSP client
+Plug 'natebosch/vim-lsc', {'on': ['LSCEnable', 'LSClientEnable']} " Vimscript LSP client
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'gruvbox-community/gruvbox' " Gruvbox theme
 " The Little Additions
-Plug 'junegunn/goyo.vim' " Some peace and quiet
-Plug 'junegunn/limelight.vim' " Highlight only current codeblock
+Plug 'junegunn/goyo.vim', {'on': ['Goyo', 'Goyo!']} " Some peace and quiet
+Plug 'junegunn/limelight.vim', {'on': ['LimeLight', 'Limelight!' , 'Limelight!!']} " Highlight only current codeblock
 Plug 'tpope/vim-surround' " Easy surrounding of current selection
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
@@ -47,12 +47,24 @@ set splitright splitbelow " Change default vsp and sp directions
 set laststatus=2 " Always display the status line
 set cursorline " Enable highlighting of the current line
 set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spellcheck language
-set noswapfile " Don't create swap files
+set noswapfile undofile backup " No swaps. Persistent undo, create backups
+set undodir=~/.vim-undo// backupdir=~/.vim-backup// " Save backups and undo files to constant location
+set colorcolumn=80 " Create line at 80 character mark
 set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
-colorscheme gruvbox " Set color theme
-let mapleader = "\<Space>" " Map leader to space
+nnoremap <Space> <Nop> 
+let mapleader="\<Space>" " Map leader to space
 let g:tex_flavor='latex' " Set the global tex flavor
-let b:m1=matchadd('ErrorMsg', '\%>80v.\+', -1) " Highlight characters past 80
+" Set custom highlights. Stops plugins from messing with colors
+augroup Highlight
+    autocmd!
+    autocmd ColorScheme * highlight! link SignColumn LineNr
+    autocmd ColorScheme * highlight! link ALEErrorSign GruvboxRed
+    autocmd ColorScheme * highlight! link ALEWarningSign GruvboxYellow
+    autocmd ColorScheme * highlight! link StatusLine LineNr
+    autocmd ColorScheme * highlight StatusLineNC cterm=reverse gui=reverse
+    autocmd ColorScheme * highlight! link TabLine LineNr
+augroup END
+colorscheme gruvbox " Set color theme
 
 " Set Font and size
 if has('win32') || has('win64')
@@ -125,8 +137,8 @@ endif
 "{{{ " Custom Keybindings and Commands
 """"""""""""""""""""""""""""""""""""""""""
 " Toggle Netrw
-nnoremap <silent> <C-e> :call functions#ToggleNetrw()<CR>
-inoremap <silent> <C-e> <Esc>:call functions#ToggleNetrw()<CR>
+nnoremap <silent> <F1> :call functions#ToggleNetrw()<CR>
+inoremap <silent> <F1> <Esc>:call functions#ToggleNetrw()<CR>
 
 " Keybinding for tabbing visual mode selection to automatically re-select the visual selection 
 vnoremap > >gv 
@@ -167,17 +179,22 @@ inoremap <C-j> <Esc>/<++><CR><Esc>cf>
 inoremap <C-k> <Esc>?<++><CR><Esc>cf>
 
 " Set bindings for jumping to errors in the loclist and quickfix list
-nnoremap ]l :lnext<CR>
-nnoremap [l :lprev<CR>
-nnoremap [L :lfirst<CR>
-nnoremap ]L :llast<CR>
-nnoremap ]q :cnext<CR>
-nnoremap [q :cprev<CR>
-nnoremap [Q :cfirst<CR>
-nnoremap ]Q :clast<CR>
+nnoremap <silent> ]l :lnext<CR>
+nnoremap <silent> [l :lprev<CR>
+nnoremap <silent> [L :lfirst<CR>
+nnoremap <silent> ]L :llast<CR>
+nnoremap <silent> ]q :cnext<CR>
+nnoremap <silent> [q :cprev<CR>
+nnoremap <silent> [Q :cfirst<CR>
+nnoremap <silent> ]Q :clast<CR>
 
-" Command to make tags file inside vim
+" Set Escape to leave terminal mode
+tnoremap <ESC> <C-\><C-n>
+
+" Command to make tags file inside Vim
 command! -nargs=0 -bar Mkctags silent exe '!ctags -R' | silent exe 'redraw!'
+" Auto split the terminal and open it in current directory
+command! -nargs=0 -bar Term let $VIM_DIR=expand('%:p:h') | silent exe 'sp' | silent exe 'term' | silent exe 'cd $VIM_DIR'
 
 " Eat spaces (or any other char) for abbreviations
 function! Eatchar(pat)
@@ -192,11 +209,10 @@ let g:netrw_banner = 0 " Get rid of banner in netrw
 let g:netrw_keepdir = 0 " Netrw will change working directory every new file
 
 " Status line
-highlight! link StatusLine LineNr
-highlight StatusLineNC cterm=reverse gui=reverse
-highlight! link TabLine LineNr
-let g:currentmode={'n'  : 'NORMAL', 'v'  : 'VISUAL', 'V'  : 'V·Line', "\<C-V>" : 'V·Block',
-                    \ 'i'  : 'INSERT', 'R'  : 'R', 'Rv' : 'V·Replace', 'c'  : 'Command', 'r' : 'Replace'}
+let g:currentmode={'n'  : 'NORMAL', 'v'  : 'VISUAL', 'V'  : 'V·Line', 
+                    \ "\<C-V>" : 'V·Block', 'i'  : 'INSERT', 'R'  : 'R', 
+                    \ 'Rv' : 'V·Replace', 'c'  : 'Command', 'r' : 'Replace', 
+                    \ 't': 'Terminal'}
 set statusline= " Clear the status line
 set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\| " Mode
 set statusline+=%{functions#GitBranchStatusLine()} " Git branch
@@ -227,17 +243,15 @@ let g:goyo_width = 90
 let g:goyo_linenr = 1 " Show line numbers
 autocmd! User GoyoEnter nested execute("Limelight")
 autocmd! User GoyoLeave nested execute("Limelight!")
-    
-" ALE Customization
-highlight! link SignColumn LineNr
-highlight! link ALEErrorSign GruvboxRed
-highlight! link ALEWarningSign GruvboxYellow
 
 " Vim-lsc Customization
-let g:lsc_auto_map = {'defaults': v:true, 'Completion': 'omnifunc'} " Override keybindings when vim-lsc is enabled for buffer
-let g:lsc_enable_autocomplete = v:false " Disable autocomplete till I hit TAB
+" Enable LSC omnifunc on LSC enable
+command! LSCEnable execute("LSClientEnable") . execute("set omnifunc=lsc#complete#complete") . execute("MUcompleteAutoOn")
+" Renable user configurations for completion on LSC disable
+command! LSCDisable execute("LSClientDisable") . execute("MUcompleteAutoOff") . execute("runtime .vimrc") . execute("runtime /after/ftplugin/" . &ft . ".vim") 
 let g:lsc_enable_diagnostics = v:false " ALE has better linting
-let g:lsc_server_enabled = v:false
+let g:lsc_enable_autocomplete = v:false " Disable autocomplete till I hit TAB
+let g:lsc_auto_map = {'defaults': v:true, 'Completion': ''} " Override keybindings when vim-lsc is enabled for buffer
 let g:lsc_server_commands = {
     \ 'cpp': {
         \ 'command': 'clangd --background-index --cross-file-rename --header-insertion=iwyu',
