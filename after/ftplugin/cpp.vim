@@ -20,7 +20,7 @@ nnoremap <F9> :update<CR>:!%:p:r.exe<CR>
 setlocal omnifunc=ccomplete#Complete
 
 " Set up :find
-set path^=/usr/include,./src,./resources
+set path^=src/**,resources/**,/usr/include,
 setlocal suffixesadd+=.cpp,.cc,.h,.hpp
 
 " Abbreviations
