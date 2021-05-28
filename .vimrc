@@ -4,21 +4,17 @@
 filetype off " REQUIRED Disable file type for vim plug.
 " Check for OS system in order to start vim-plug in
 if has('win32') || has('win64')
-    let g:plugDirectory = '~/vimfiles/plugged'
+    let g:plugDirectory = 'C:/Users/heimangreg/vimfiles/plugged'
 else
     let g:plugDirectory = '~/.vim/plugged'     
 endif
 call plug#begin(plugDirectory) " REQUIRED
 " The Big Stuff
-Plug 'lifepillar/vim-mucomplete' " Extend Vim's completion
-Plug 'dense-analysis/ale' " Asynchronous linting and fixing
-Plug 'natebosch/vim-lsc', {'on': ['LSCEnable', 'LSClientEnable']} " Vimscript LSP client
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'gruvbox-community/gruvbox' " Gruvbox theme
 " The Little Additions
-Plug 'junegunn/goyo.vim', {'on': ['Goyo', 'Goyo!']} " Some peace and quiet
-Plug 'junegunn/limelight.vim', {'on': ['LimeLight', 'Limelight!' , 'Limelight!!']} " Highlight only current codeblock
 Plug 'tpope/vim-surround' " Easy surrounding of current selection
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
@@ -48,7 +44,7 @@ set laststatus=2 " Always display the status line
 set cursorline " Enable highlighting of the current line
 set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spellcheck language
 set noswapfile undofile backup " No swaps. Persistent undo, create backups
-set undodir=~/.vim-undo// backupdir=~/.vim-backup// " Save backups and undo files to constant location
+set undodir=C:/Users/heimangreg/.vim-undo// backupdir=C:/Users/heimangreg/.vim-backup// " Save backups and undo files to constant location
 set colorcolumn=80 " Create line at 80 character mark
 set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
 nnoremap <Space> <Nop> 
@@ -101,21 +97,21 @@ if has("autocmd")
     if (v:version >= 80 && has("job") && has("timers")) || has('nvim')
         augroup CheckVimrc
             autocmd!
-            autocmd VimEnter * call functions#GitFetchVimrc()
+            "autocmd VimEnter * call functions#GitFetchVimrc()
         augroup END
     endif
     " Set the working directory to the git directory if there is one present
     " otherwise set the working directory to the directory of the current file
     augroup SetWorkingDirectory
         autocmd!
-        autocmd BufEnter * call functions#SetWorkingDirectory()
+        "autocmd BufEnter * call functions#SetWorkingDirectory()
     augroup END
     augroup Autosave
         autocmd!
         " Call autosave
         autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
         if (v:version >= 80 && has("job")) || has('nvim')
-            autocmd BufWritePost * if glob("./tags") != "" | call functions#UpdateTagsFile() | endif " Update tags file if one is present
+            "autocmd BufWritePost * if glob("./tags") != "" | call functions#UpdateTagsFile() | endif " Update tags file if one is present
         endif 
     augroup END
     augroup SaveSessionIfExistsUponExit
@@ -224,53 +220,10 @@ set statusline+=\ \\|\ %{&enc} " Encoding
 set statusline+=\ \\|\ %l/%L " Current line/Total lines
 set statusline+=\  " Extra space at the end
 
-" Mucomplete configuration
-let g:mucomplete#always_use_completeopt = 1 " Respect the completeopt
-let g:mucomplete#chains = {
-	    \ 'default' : ['path', 'omni', 'tags', 'incl', 'dict', 'uspl'],
-	    \ 'vim'     : ['path', 'cmd', 'keyp']
-	    \ }
-inoremap <silent> <plug>(MUcompleteFwdKey) <right>
-imap <right> <plug>(MUcompleteCycFwd)
-inoremap <silent> <plug>(MUcompleteBwdKey) <left>
-imap <left> <plug>(MUcompleteCycBwd)
 
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
 
-" Goyo customization
-let g:goyo_width = 90
-let g:goyo_linenr = 1 " Show line numbers
-autocmd! User GoyoEnter nested execute("Limelight")
-autocmd! User GoyoLeave nested execute("Limelight!")
+let g:gutentags_ctags_executable = "C:/Users/heimangreg/Universal-Ctags/ctags.exe"
 
-" Vim-lsc Customization
-" Enable LSC omnifunc on LSC enable
-command! LSCEnable execute("LSClientEnable") . execute("set omnifunc=lsc#complete#complete") . execute("MUcompleteAutoOn")
-" Renable user configurations for completion on LSC disable
-command! LSCDisable execute("LSClientDisable") . execute("MUcompleteAutoOff") . execute("runtime .vimrc") . execute("runtime /after/ftplugin/" . &ft . ".vim") 
-let g:lsc_enable_diagnostics = v:false " ALE has better linting
-let g:lsc_enable_autocomplete = v:false " Disable autocomplete till I hit TAB
-let g:lsc_auto_map = {'defaults': v:true, 'Completion': ''} " Override keybindings when vim-lsc is enabled for buffer
-let g:lsc_server_commands = {
-    \ 'cpp': {
-        \ 'command': 'clangd --background-index --cross-file-rename --header-insertion=iwyu',
-        \ 'suppress_stderr': v:true,
-        \ 'enabled': v:false,
-    \},
-    \ 'tex': {
-        \ 'command': 'texlab',
-        \ 'enabled': v:false,
-    \},
-    \ 'python': {
-        \ 'command': 'pyls',
-        \ 'enabled': v:false,
-    \},
-    \ 'java': {
-        \ 'command': '~/Programs/jdt_language_server -data' . getcwd(),
-        \ 'supress_stderr': v:true,
-        \ 'log_level': 'Warning',
-        \ 'enabled': v:false,
-    \},
-\}
 "}}}
