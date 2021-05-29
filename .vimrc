@@ -9,12 +9,11 @@ else
     let g:plugDirectory = '~/.vim/plugged'     
 endif
 call plug#begin(plugDirectory) " REQUIRED
-" The Big Stuff
 Plug 'tpope/vim-fugitive' " Git wrapper
+Plug 'airblade/vim-rooter' " Find project root automatically
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
 Plug 'gruvbox-community/gruvbox' " Gruvbox theme
-" The Little Additions
 Plug 'tpope/vim-surround' " Easy surrounding of current selection
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
@@ -224,6 +223,10 @@ set statusline+=\  " Extra space at the end
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
 
+" Gutentags configuration
 let g:gutentags_ctags_executable = "C:/Users/heimangreg/Universal-Ctags/ctags.exe"
+
+" Rooter configuration
+let g:rooter_silent_chdir = 1
 
 "}}}
