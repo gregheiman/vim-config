@@ -9,11 +9,13 @@ else
     let g:plugDirectory = '~/.vim/plugged'     
 endif
 call plug#begin(plugDirectory) " REQUIRED
+Plug 'tpope/vim-dispatch' " Asychronous make
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'airblade/vim-rooter' " Find project root automatically
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
+Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
-Plug 'gruvbox-community/gruvbox' " Gruvbox theme
+Plug 'andreypopp/vim-colors-plain' " Monochrome theme
 Plug 'tpope/vim-surround' " Easy surrounding of current selection
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
@@ -51,81 +53,82 @@ let mapleader="\<Space>" " Map leader to space
 let g:tex_flavor='latex' " Set the global tex flavor
 " Set custom highlights. Stops plugins from messing with colors
 augroup Highlight
-    autocmd!
-    autocmd ColorScheme * highlight! link SignColumn LineNr
-    autocmd ColorScheme * highlight! link ALEErrorSign GruvboxRed
-    autocmd ColorScheme * highlight! link ALEWarningSign GruvboxYellow
-    autocmd ColorScheme * highlight! link StatusLine LineNr
-    autocmd ColorScheme * highlight StatusLineNC cterm=reverse gui=reverse
-    autocmd ColorScheme * highlight! link TabLine LineNr
+autocmd!
+autocmd ColorScheme * highlight! Normal guibg=#222222
+autocmd ColorScheme * highlight! link SignColumn LineNr
+autocmd ColorScheme * highlight! link StatusLine LineNr
+autocmd ColorScheme * highlight StatusLineNC cterm=reverse gui=reverse
+autocmd ColorScheme * highlight! link TabLine LineNr
 augroup END
-colorscheme gruvbox " Set color theme
+colorscheme plain " Set color theme
 
 " Set Font and size
 if has('win32') || has('win64')
-    set guifont=Iosevka:h11
+set guifont=Iosevka:h11
 elseif has('unix')
-    set guifont=Iosevka:h12
+set guifont=Iosevka:h12
 endif
 
 " Start Vim fullscreen
 if has('win32') || has('win64') 
-    autocmd GUIEnter * simalt ~x
+autocmd GUIEnter * simalt ~x
 endif
 
 " Set true colors if supported. If not default to 256 colors
 if (has("termguicolors"))
-    " Fix alacritty and Vim not showing colorschemes right (Prob. a Vim issue)
-    if !has('nvim') && &term == "alacritty"
-        let &term = "xterm-256color"
-    endif
-    set termguicolors
+" Fix alacritty and Vim not showing colorschemes right (Prob. a Vim issue)
+if !has('nvim') && &term == "alacritty"
+let &term = "xterm-256color"
+endif
+set termguicolors
 else
-    set t_Co=256
+set t_Co=256
 endif
 
-if executable('rg') " Use ripgrep if available
-    set grepprg=rg\ --vimgrep\ $*
-    set grepformat^=%f:%l:%c:%m 
+set grepprg=C:/Users/heimangreg/ripgrep/rg.exe\ --vimgrep\ $*
+set grepformat^=%f:%l:%c:%m 
+
+if (has('clipboard'))
+    set clipboard=unnamedplus
 endif
 "}}}
 
 "{{{ " Auto Commands
 if has("autocmd")
-    " Autocmd to check whether vimrc needs to be updated
-    if (v:version >= 80 && has("job") && has("timers")) || has('nvim')
-        augroup CheckVimrc
-            autocmd!
-            "autocmd VimEnter * call functions#GitFetchVimrc()
-        augroup END
-    endif
-    " Set the working directory to the git directory if there is one present
-    " otherwise set the working directory to the directory of the current file
-    augroup SetWorkingDirectory
-        autocmd!
-        "autocmd BufEnter * call functions#SetWorkingDirectory()
-    augroup END
-    augroup Autosave
-        autocmd!
-        " Call autosave
-        autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
-        if (v:version >= 80 && has("job")) || has('nvim')
-            "autocmd BufWritePost * if glob("./tags") != "" | call functions#UpdateTagsFile() | endif " Update tags file if one is present
-        endif 
-    augroup END
-    augroup SaveSessionIfExistsUponExit
-        autocmd!
-        autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif " Autosave session.vim file if it exists
-    augroup END
-    augroup MakeFiles
-        autocmd!
-        " Automatically open quickfix window and refocus last window if errors are present after a :make command
-        autocmd QuickFixCmdPost *make* cwindow
-    augroup END
-    augroup GitBranch
-        autocmd!
-        autocmd BufNewFile,BufReadPost,BufEnter * call functions#GetGitBranch() " Retrieve git branch for statusline
-    augroup END
+" Autocmd to check whether vimrc needs to be updated
+if (v:version >= 80 && has("job") && has("timers")) || has('nvim')
+augroup CheckVimrc
+autocmd!
+"autocmd VimEnter * call functions#GitFetchVimrc()
+augroup END
+endif
+" Set the working directory to the git directory if there is one present
+" otherwise set the working directory to the directory of the current file
+augroup SetWorkingDirectory
+autocmd!
+"autocmd BufEnter * call functions#SetWorkingDirectory()
+augroup END
+augroup Autosave
+autocmd!
+" Call autosave
+autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
+if (v:version >= 80 && has("job")) || has('nvim')
+"autocmd BufWritePost * if glob("./tags") != "" | call functions#UpdateTagsFile() | endif " Update tags file if one is present
+endif 
+augroup END
+augroup SaveSessionIfExistsUponExit
+autocmd!
+autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif " Autosave session.vim file if it exists
+augroup END
+augroup MakeFiles
+autocmd!
+" Automatically open quickfix window and refocus last window if errors are present after a :make command
+"autocmd QuickFixCmdPost *make* cwindow
+augroup END
+augroup GitBranch
+autocmd!
+autocmd BufNewFile,BufReadPost,BufEnter * call functions#GetGitBranch() " Retrieve git branch for statusline
+augroup END
 endif
 "}}}
 
@@ -193,8 +196,8 @@ command! -nargs=0 -bar Term let $VIM_DIR=expand('%:p:h') | silent exe 'sp' | sil
 
 " Eat spaces (or any other char) for abbreviations
 function! Eatchar(pat)
-    let c = nr2char(getchar(0))
-    return (c =~ a:pat) ? '' : c
+let c = nr2char(getchar(0))
+return (c =~ a:pat) ? '' : c
 endfunction
 "}}}
 
@@ -210,23 +213,36 @@ let g:currentmode={'n'  : 'NORMAL', 'v'  : 'VISUAL', 'V'  : 'V·Line',
                     \ 't': 'Terminal'}
 set statusline= " Clear the status line
 set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\| " Mode
-set statusline+=%{functions#GitBranchStatusLine()} " Git branch
+set statusline+=\ %{fugitive#head()}\ \\| " Git branch
 set statusline+=\ %t\ \\| " File name
 set statusline+=\ %(\%m%r%h%w%) " Modified, Read-only, help display
 set statusline+=%= " Right align
-set statusline+=%y " File format
+set statusline+=%Y " File format
+set statusline+=\ \\|\ %{&ff} " Line endings
 set statusline+=\ \\|\ %{&enc} " Encoding
 set statusline+=\ \\|\ %l/%L " Current line/Total lines
 set statusline+=\  " Extra space at the end
 
+" Mucomplete configuration
+let g:mucomplete#always_use_completeopt = 1
+let g:mucomplete#chains = {
+        \ 'default' : ['path', 'omni', 'tags', 'incl'],
+        \ 'vim'     : ['path', 'cmd', 'keyp'],
+        \ }
+inoremap <silent> <plug>(MUcompleteFwdKey) <right>
+imap <right> <plug>(MUcompleteCycFwd)
+inoremap <silent> <plug>(MUcompleteBwdKey) <left>
+imap <left> <plug>(MUcompleteCycBwd)
 
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
 
 " Gutentags configuration
 let g:gutentags_ctags_executable = "C:/Users/heimangreg/Universal-Ctags/ctags.exe"
-
+let g:gutentags_ctags_extra_args = [
+    \ '--tag-relative=yes',
+    \ '--fields=+ailmnS',
+    \]
 " Rooter configuration
 let g:rooter_silent_chdir = 1
-
 "}}}

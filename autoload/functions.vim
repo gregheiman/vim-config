@@ -246,35 +246,19 @@ function! functions#DetermineGrep(word, ...)
     let l:grepPreference = input("1. Project Wide \n2. Only in files of the same type \n3. Only in current file's folder \n4. Only in current file \nSelect Method of Grep for pattern \"" . expand(a:word) . "\": ")
 
     if (l:grepPreference == 1) " Project wide
-        if executable('rg')
-            silent execute "grep! " . shellescape(expand(a:word)) . " "
-        else 
-            silent execute "grep! -R" . shellescape(expand(a:word)) . " ."
-        endif
-            silent execute "copen"
+        silent execute "grep! " . shellescape(expand(a:word)) . " "
+        silent execute "copen"
     elseif (l:grepPreference == 2) " Files of the same type (eg. *.java)
         let b:current_filetype = &ft
-        if executable('rg')
-            silent execute "grep! " . shellescape(expand(a:word)) . " -t " . b:current_filetype
-        else 
-            silent execute "grep! -R" . shellescape(expand(a:word)) . " --include=*." . b:current_filetype
-        endif
-            silent execute "copen"
+        silent execute "grep! " . shellescape(expand(a:word)) . " -t " . b:current_filetype
+        silent execute "copen"
     elseif (l:grepPreference == 3) " Files in the current file's folder
         let b:current_folder = expand('%:p:h')
-        if executable('rg')
-            silent execute "grep! " . shellescape(expand(a:word)) . " " . b:current_folder 
-        else 
-            silent execute "grep! -R" . shellescape(expand(a:word)) . " " . b:current_folder
-        endif
-            silent execute "copen"
+        silent execute "grep! " . shellescape(expand(a:word)) . " " . b:current_folder 
+        silent execute "copen"
     elseif (l:grepPreference == 4) " Only in the current file
-        if executable('rg')
-            silent execute "grep! " . shellescape(expand(a:word)) . " %"
-        else 
-            silent execute "grep! " . shellescape(expand(a:word)) . " %"
-        endif
-            silent execute "copen"
+        silent execute "grep! " . shellescape(expand(a:word)) . " %"
+        silent execute "copen"
     else
         echohl WarningMsg | echo "\nPlease enter in a valid option" | echohl None
         return
