@@ -1,0 +1,42 @@
+*java.text.Normalizer.Form* *Normalizer.Form* This enum provides constants of the four Unicode normalization forms
+ that are des
+
+public static final enumNormalizer.Form
+  extends    |java.lang.Enum|
+
+|java.text.Normalizer.Form_Description|
+|java.text.Normalizer.Form_Fields|
+|java.text.Normalizer.Form_Constructors|
+|java.text.Normalizer.Form_Methods|
+
+================================================================================================================================
+
+*java.text.Normalizer.Form_Methods*
+|java.text.Normalizer.Form.valueOf(String)|
+|java.text.Normalizer.Form.values()|
+
+*java.text.Normalizer.Form_Description*
+
+This enum provides constants of the four Unicode normalization forms that are described in 
+
+Unicode Standard Annex #15 Unicode Normalization Forms and two methods to access them. 
+
+
+
+*java.text.Normalizer.Form.valueOf(String)*
+
+public static |java.text.Normalizer.Form| valueOf(java.lang.String name)
+
+
+
+
+
+*java.text.Normalizer.Form.values()*
+
+public static |java.text.Normalizer.Form|[] values()
+
+
+
+
+
+

@@ -1,0 +1,96 @@
+*java.awt.peer.DesktopPeer* *DesktopPeer* The DesktopPeer interface provides methods for the operation
+ of open, edit, print, br
+
+public interface interface DesktopPeer
+
+
+|java.awt.peer.DesktopPeer_Description|
+|java.awt.peer.DesktopPeer_Fields|
+|java.awt.peer.DesktopPeer_Constructors|
+|java.awt.peer.DesktopPeer_Methods|
+
+================================================================================================================================
+
+*java.awt.peer.DesktopPeer_Methods*
+|java.awt.peer.DesktopPeer.browse(URI)|Launches the user default browser to display the given URI.
+|java.awt.peer.DesktopPeer.edit(File)|Launches the associated editor and opens the given file for editing.
+|java.awt.peer.DesktopPeer.isSupported(Desktop.Action)|Returns whether the given action is supported on the current platform.
+|java.awt.peer.DesktopPeer.mail(URI)|Launches the mail composing window of the user default mail client,   filling the message 
+|java.awt.peer.DesktopPeer.open(File)|Launches the associated application to open the given file.
+|java.awt.peer.DesktopPeer.print(File)|Prints the given file with the native desktop printing facility, using   the associated 
+
+*java.awt.peer.DesktopPeer_Description*
+
+The DesktopPeer interface provides methods for the operation of open, edit, print, browse and mail with the given URL or file, 
+by launching the associated application. 
+
+Each platform has an implementation class for this interface. 
+
+
+
+*java.awt.peer.DesktopPeer.browse(URI)*
+
+public void browse(java.net.URI url)
+  throws |java.io.IOException|
+         
+Launches the user default browser to display the given URI. 
+
+
+    uri - the given URI. 
+
+*java.awt.peer.DesktopPeer.edit(File)*
+
+public void edit(java.io.File file)
+  throws |java.io.IOException|
+         
+Launches the associated editor and opens the given file for editing. The associated editor is registered to be the default 
+editor for the file type of the given file. 
+
+
+    file - the given file. 
+
+*java.awt.peer.DesktopPeer.isSupported(Desktop.Action)*
+
+public boolean isSupported(java.awt.Desktop.Action action)
+
+Returns whether the given action is supported on the current platform. 
+
+
+    action - the action type to be tested if it's supported on the current platform. 
+
+    Returns: true if the given action is supported on the current platform; false otherwise. 
+
+*java.awt.peer.DesktopPeer.mail(URI)*
+
+public void mail(java.net.URI mailtoURL)
+  throws |java.io.IOException|
+         
+Launches the mail composing window of the user default mail client, filling the message fields including to, cc, etc, with the 
+values specified by the given mailto URL. 
+
+
+    uri - represents a mailto URL with specified values of the message. The syntax of mailto URL is defined by RFC2368: The mailto URL 
+       scheme 
+
+*java.awt.peer.DesktopPeer.open(File)*
+
+public void open(java.io.File file)
+  throws |java.io.IOException|
+         
+Launches the associated application to open the given file. The associated application is registered to be the default file 
+viewer for the file type of the given file. 
+
+
+    file - the given file. 
+
+*java.awt.peer.DesktopPeer.print(File)*
+
+public void print(java.io.File file)
+  throws |java.io.IOException|
+         
+Prints the given file with the native desktop printing facility, using the associated application's print command. 
+
+
+    file - the given file. 
+
+

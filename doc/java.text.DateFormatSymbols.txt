@@ -1,0 +1,330 @@
+*java.text.DateFormatSymbols* *DateFormatSymbols* DateFormatSymbols is a public class for encapsulating
+ localizable date-time f
+
+public class DateFormatSymbols
+  extends    |java.lang.Object|
+  implements |java.io.Serializable|
+             |java.lang.Cloneable|
+
+|java.text.DateFormatSymbols_Description|
+|java.text.DateFormatSymbols_Fields|
+|java.text.DateFormatSymbols_Constructors|
+|java.text.DateFormatSymbols_Methods|
+
+================================================================================================================================
+
+*java.text.DateFormatSymbols_Constructors*
+|java.text.DateFormatSymbols()|Construct a DateFormatSymbols object by loading format data from  resources for the default loca
+|java.text.DateFormatSymbols(Locale)|Construct a DateFormatSymbols object by loading format data from  resources for the given 
+
+*java.text.DateFormatSymbols_Methods*
+|java.text.DateFormatSymbols.clone()|Overrides Cloneable
+|java.text.DateFormatSymbols.equals(Object)|Override equals
+|java.text.DateFormatSymbols.getAmPmStrings()|Gets ampm strings.
+|java.text.DateFormatSymbols.getAvailableLocales()|Returns an array of all locales for which the  getInstance methods of this c
+|java.text.DateFormatSymbols.getEras()|Gets era strings.
+|java.text.DateFormatSymbols.getInstance()|Gets the DateFormatSymbols instance for the default   locale.
+|java.text.DateFormatSymbols.getInstance(Locale)|Gets the DateFormatSymbols instance for the specified   locale.
+|java.text.DateFormatSymbols.getLocalPatternChars()|Gets localized date-time pattern characters.
+|java.text.DateFormatSymbols.getMonths()|Gets month strings.
+|java.text.DateFormatSymbols.getShortMonths()|Gets short month strings.
+|java.text.DateFormatSymbols.getShortWeekdays()|Gets short weekday strings.
+|java.text.DateFormatSymbols.getWeekdays()|Gets weekday strings.
+|java.text.DateFormatSymbols.getZoneStrings()|Gets time zone strings.
+|java.text.DateFormatSymbols.hashCode()|Override hashCode.
+|java.text.DateFormatSymbols.setAmPmStrings(String[])|Sets ampm strings.
+|java.text.DateFormatSymbols.setEras(String[])|Sets era strings.
+|java.text.DateFormatSymbols.setLocalPatternChars(String)|Sets localized date-time pattern characters.
+|java.text.DateFormatSymbols.setMonths(String[])|Sets month strings.
+|java.text.DateFormatSymbols.setShortMonths(String[])|Sets short month strings.
+|java.text.DateFormatSymbols.setShortWeekdays(String[])|Sets short weekday strings.
+|java.text.DateFormatSymbols.setWeekdays(String[])|Sets weekday strings.
+|java.text.DateFormatSymbols.setZoneStrings(String[][])|Sets time zone strings.
+
+*java.text.DateFormatSymbols_Description*
+
+DateFormatSymbols is a public class for encapsulating localizable date-time formatting data, such as the names of the months, 
+the names of the days of the week, and the time zone data. DateFormat and SimpleDateFormat both use DateFormatSymbols to 
+encapsulate this information. 
+
+Typically you shouldn't use DateFormatSymbols directly. Rather, you are encouraged to create a date-time formatter with the 
+DateFormat class's factory methods: getTimeInstance, getDateInstance, or getDateTimeInstance. These methods automatically 
+create a DateFormatSymbols for the formatter so that you don't have to. After the formatter is created, you may modify its 
+format pattern using the setPattern method. For more information about creating formatters using DateFormat's factory methods, 
+see (|java.text.DateFormat|) . 
+
+If you decide to create a date-time formatter with a specific format pattern for a specific locale, you can do so with: 
+
+
+
+new SimpleDateFormat(aPattern, DateFormatSymbols.getInstance(aLocale)). 
+
+
+
+DateFormatSymbols objects are cloneable. When you obtain a DateFormatSymbols object, feel free to modify the date-time 
+formatting data. For instance, you can replace the localized date-time format pattern characters with the ones that you feel 
+easy to remember. Or you can change the representative cities to your favorite ones. 
+
+New DateFormatSymbols subclasses may be added to support SimpleDateFormat for date-time formatting for additional locales. 
+
+
+
+*java.text.DateFormatSymbols()*
+
+public DateFormatSymbols()
+
+Construct a DateFormatSymbols object by loading format data from resources for the default locale. This constructor can only 
+construct instances for the locales supported by the Java runtime environment, not for those supported by installed 
+DateFormatSymbolsProvider(|java.text.spi.DateFormatSymbolsProvider|) implementations. For full locale coverage, use the 
+getInstance(|java.text.DateFormatSymbols|) method. 
+
+
+*java.text.DateFormatSymbols(Locale)*
+
+public DateFormatSymbols(java.util.Locale locale)
+
+Construct a DateFormatSymbols object by loading format data from resources for the given locale. This constructor can only 
+construct instances for the locales supported by the Java runtime environment, not for those supported by installed 
+DateFormatSymbolsProvider(|java.text.spi.DateFormatSymbolsProvider|) implementations. For full locale coverage, use the 
+getInstance(|java.text.DateFormatSymbols|) method. 
+
+
+*java.text.DateFormatSymbols.clone()*
+
+public |java.lang.Object| clone()
+
+Overrides Cloneable 
+
+
+
+*java.text.DateFormatSymbols.equals(Object)*
+
+public boolean equals(java.lang.Object obj)
+
+Override equals 
+
+
+
+*java.text.DateFormatSymbols.getAmPmStrings()*
+
+public |java.lang.String|[] getAmPmStrings()
+
+Gets ampm strings. For example: "AM" and "PM". 
+
+
+
+    Returns: the ampm strings. 
+
+*java.text.DateFormatSymbols.getAvailableLocales()*
+
+public static |java.util.Locale|[] getAvailableLocales()
+
+Returns an array of all locales for which the getInstance methods of this class can return localized instances. The returned 
+array represents the union of locales supported by the Java runtime and by installed 
+DateFormatSymbolsProvider(|java.text.spi.DateFormatSymbolsProvider|) implementations. It must contain at least a Locale 
+instance equal to Locale.US(|java.util.Locale|) . 
+
+
+
+    Returns: An array of locales for which localized DateFormatSymbols instances are available. 
+
+*java.text.DateFormatSymbols.getEras()*
+
+public |java.lang.String|[] getEras()
+
+Gets era strings. For example: "AD" and "BC". 
+
+
+
+    Returns: the era strings. 
+
+*java.text.DateFormatSymbols.getInstance()*
+
+public static final |java.text.DateFormatSymbols| getInstance()
+
+Gets the DateFormatSymbols instance for the default locale. This method provides access to DateFormatSymbols instances for 
+locales supported by the Java runtime itself as well as for those supported by installed 
+DateFormatSymbolsProvider(|java.text.spi.DateFormatSymbolsProvider|) implementations. 
+
+
+
+    Returns: a DateFormatSymbols instance. 
+
+*java.text.DateFormatSymbols.getInstance(Locale)*
+
+public static final |java.text.DateFormatSymbols| getInstance(java.util.Locale locale)
+
+Gets the DateFormatSymbols instance for the specified locale. This method provides access to DateFormatSymbols instances for 
+locales supported by the Java runtime itself as well as for those supported by installed 
+DateFormatSymbolsProvider(|java.text.spi.DateFormatSymbolsProvider|) implementations. 
+
+
+    locale - the given locale. 
+
+    Returns: a DateFormatSymbols instance. 
+
+*java.text.DateFormatSymbols.getLocalPatternChars()*
+
+public |java.lang.String| getLocalPatternChars()
+
+Gets localized date-time pattern characters. For example: 'u', 't', etc. 
+
+
+
+    Returns: the localized date-time pattern characters. 
+
+*java.text.DateFormatSymbols.getMonths()*
+
+public |java.lang.String|[] getMonths()
+
+Gets month strings. For example: "January", "February", etc. 
+
+
+
+    Returns: the month strings. 
+
+*java.text.DateFormatSymbols.getShortMonths()*
+
+public |java.lang.String|[] getShortMonths()
+
+Gets short month strings. For example: "Jan", "Feb", etc. 
+
+
+
+    Returns: the short month strings. 
+
+*java.text.DateFormatSymbols.getShortWeekdays()*
+
+public |java.lang.String|[] getShortWeekdays()
+
+Gets short weekday strings. For example: "Sun", "Mon", etc. 
+
+
+
+    Returns: the short weekday strings. Use Calendar.SUNDAY, Calendar.MONDAY, etc. to index the result array. 
+
+*java.text.DateFormatSymbols.getWeekdays()*
+
+public |java.lang.String|[] getWeekdays()
+
+Gets weekday strings. For example: "Sunday", "Monday", etc. 
+
+
+
+    Returns: the weekday strings. Use Calendar.SUNDAY, Calendar.MONDAY, etc. to index the result array. 
+
+*java.text.DateFormatSymbols.getZoneStrings()*
+
+public |java.lang.String|[][] getZoneStrings()
+
+Gets time zone strings. Use of this method is discouraged; use TimeZone.getDisplayName()(|java.util.TimeZone|) instead. 
+
+The value returned is a two-dimensional array of strings of size n by m, where m is at least 5. Each of the n rows is an entry 
+containing the localized names for a single TimeZone. Each such row contains (with i ranging from 0..n-1): 
+
+zoneStrings[i][0] - time zone ID zoneStrings[i][1] - long name of zone in standard time zoneStrings[i][2] - short name of zone 
+in standard time zoneStrings[i][3] - long name of zone in daylight saving time zoneStrings[i][4] - short name of zone in 
+daylight saving time 
+
+The zone ID is not localized; it's one of the valid IDs of the TimeZone(|java.util.TimeZone|) class that are not custom IDs. 
+All other entries are localized names. If a zone does not implement daylight saving time, the daylight saving time names should 
+not be used. 
+
+If setZoneStrings(|java.text.DateFormatSymbols|) has been called on this DateFormatSymbols instance, then the strings provided 
+by that call are returned. Otherwise, the returned array contains names provided by the Java runtime and by installed 
+TimeZoneNameProvider(|java.util.spi.TimeZoneNameProvider|) implementations. 
+
+
+
+    Returns: the time zone strings. 
+
+*java.text.DateFormatSymbols.hashCode()*
+
+public int hashCode()
+
+Override hashCode. Generates a hash code for the DateFormatSymbols object. 
+
+
+
+*java.text.DateFormatSymbols.setAmPmStrings(String[])*
+
+public void setAmPmStrings(java.lang.String[] newAmpms)
+
+Sets ampm strings. For example: "AM" and "PM". 
+
+
+    newAmpms - the new ampm strings. 
+
+*java.text.DateFormatSymbols.setEras(String[])*
+
+public void setEras(java.lang.String[] newEras)
+
+Sets era strings. For example: "AD" and "BC". 
+
+
+    newEras - the new era strings. 
+
+*java.text.DateFormatSymbols.setLocalPatternChars(String)*
+
+public void setLocalPatternChars(java.lang.String newLocalPatternChars)
+
+Sets localized date-time pattern characters. For example: 'u', 't', etc. 
+
+
+    newLocalPatternChars - the new localized date-time pattern characters. 
+
+*java.text.DateFormatSymbols.setMonths(String[])*
+
+public void setMonths(java.lang.String[] newMonths)
+
+Sets month strings. For example: "January", "February", etc. 
+
+
+    newMonths - the new month strings. 
+
+*java.text.DateFormatSymbols.setShortMonths(String[])*
+
+public void setShortMonths(java.lang.String[] newShortMonths)
+
+Sets short month strings. For example: "Jan", "Feb", etc. 
+
+
+    newShortMonths - the new short month strings. 
+
+*java.text.DateFormatSymbols.setShortWeekdays(String[])*
+
+public void setShortWeekdays(java.lang.String[] newShortWeekdays)
+
+Sets short weekday strings. For example: "Sun", "Mon", etc. 
+
+
+    newShortWeekdays - the new short weekday strings. The array should be indexed by Calendar.SUNDAY, Calendar.MONDAY, etc. 
+
+*java.text.DateFormatSymbols.setWeekdays(String[])*
+
+public void setWeekdays(java.lang.String[] newWeekdays)
+
+Sets weekday strings. For example: "Sunday", "Monday", etc. 
+
+
+    newWeekdays - the new weekday strings. The array should be indexed by Calendar.SUNDAY, Calendar.MONDAY, etc. 
+
+*java.text.DateFormatSymbols.setZoneStrings(String[][])*
+
+public void setZoneStrings(java.lang.String[][] newZoneStrings)
+
+Sets time zone strings. The argument must be a two-dimensional array of strings of size n by m, where m is at least 5. Each of 
+the n rows is an entry containing the localized names for a single TimeZone. Each such row contains (with i ranging from 
+0..n-1): 
+
+zoneStrings[i][0] - time zone ID zoneStrings[i][1] - long name of zone in standard time zoneStrings[i][2] - short name of zone 
+in standard time zoneStrings[i][3] - long name of zone in daylight saving time zoneStrings[i][4] - short name of zone in 
+daylight saving time 
+
+The zone ID is not localized; it's one of the valid IDs of the TimeZone(|java.util.TimeZone|) class that are not custom IDs. 
+All other entries are localized names. 
+
+
+    newZoneStrings - the new time zone strings. 
+
+

@@ -1,0 +1,185 @@
+*java.awt.geom.Path2D.Double* *Path2D.Double* TheDoubleclass defines a geometric path with
+ coordinates stored in double precisi
+
+public static class Path2D.Double
+  extends    |java.awt.geom.Path2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.Path2D.Double_Description|
+|java.awt.geom.Path2D.Double_Fields|
+|java.awt.geom.Path2D.Double_Constructors|
+|java.awt.geom.Path2D.Double_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.Path2D.Double_Constructors*
+|java.awt.geom.Path2D.Double()|Constructs a new empty double precisionPath2Dobject  with a default winding rule of#WIND_NON_ZER
+|java.awt.geom.Path2D.Double(int)|Constructs a new empty double precisionPath2Dobject  with the specified winding rule to contr
+|java.awt.geom.Path2D.Double(int,int)|Constructs a new empty double precisionPath2Dobject  with the specified winding rule and 
+|java.awt.geom.Path2D.Double(Shape)|Constructs a new double precisionPath2Dobject  from an arbitraryShapeobject.
+|java.awt.geom.Path2D.Double(Shape,AffineTransform)|Constructs a new double precisionPath2Dobject  from an arbitraryShapeobject
+
+*java.awt.geom.Path2D.Double_Methods*
+|java.awt.geom.Path2D.Double.append(PathIterator,boolean)|
+|java.awt.geom.Path2D.Double.clone()|Creates a new object of the same class as this object.
+|java.awt.geom.Path2D.Double.curveTo(double,double,double,double,double,double)|
+|java.awt.geom.Path2D.Double.getBounds2D()|
+|java.awt.geom.Path2D.Double.getPathIterator(AffineTransform)|
+|java.awt.geom.Path2D.Double.lineTo(double,double)|
+|java.awt.geom.Path2D.Double.moveTo(double,double)|
+|java.awt.geom.Path2D.Double.quadTo(double,double,double,double)|
+|java.awt.geom.Path2D.Double.transform(AffineTransform)|
+
+*java.awt.geom.Path2D.Double_Description*
+
+TheDoubleclass defines a geometric path with coordinates stored in double precision floating point. 
+
+
+
+*java.awt.geom.Path2D.Double()*
+
+public Path2D.Double()
+
+Constructs a new empty double precisionPath2Dobject with a default winding rule of (|java.awt.geom.Path2D.Double|) . 
+
+
+*java.awt.geom.Path2D.Double(int)*
+
+public Path2D.Double(int rule)
+
+Constructs a new empty double precisionPath2Dobject with the specified winding rule to control operations that require the 
+interior of the path to be defined. 
+
+    rule - the winding rule 
+
+*java.awt.geom.Path2D.Double(int,int)*
+
+public Path2D.Double(
+  int rule,
+  int initialCapacity)
+
+Constructs a new empty double precisionPath2Dobject with the specified winding rule and the specified initial capacity to store 
+path segments. This number is an initial guess as to how many path segments are in the path, but the storage is expanded as 
+needed to store whatever path segments are added to this path. 
+
+    rule - the winding rule 
+    initialCapacity - the estimate for the number of path segments in the path 
+
+*java.awt.geom.Path2D.Double(Shape)*
+
+public Path2D.Double(java.awt.Shape s)
+
+Constructs a new double precisionPath2Dobject from an arbitrary (|java.awt.Shape|) object. All of the initial geometry and the 
+winding rule for this path are taken from the specifiedShapeobject. 
+
+    s - the specified {@code Shape} object 
+
+*java.awt.geom.Path2D.Double(Shape,AffineTransform)*
+
+public Path2D.Double(
+  java.awt.Shape s,
+  java.awt.geom.AffineTransform at)
+
+Constructs a new double precisionPath2Dobject from an arbitrary (|java.awt.Shape|) object, transformed by an 
+(|java.awt.geom.AffineTransform|) object. All of the initial geometry and the winding rule for this path are taken from the 
+specifiedShapeobject and transformed by the specifiedAffineTransformobject. 
+
+    s - the specified {@code Shape} object 
+    at - the specified {@code AffineTransform} object 
+
+*java.awt.geom.Path2D.Double.append(PathIterator,boolean)*
+
+public final void append(
+  java.awt.geom.PathIterator pi,
+  boolean connect)
+
+
+
+
+
+*java.awt.geom.Path2D.Double.clone()*
+
+public final |java.lang.Object| clone()
+
+Creates a new object of the same class as this object. 
+
+
+
+    Returns: a clone of this instance. 
+
+*java.awt.geom.Path2D.Double.curveTo(double,double,double,double,double,double)*
+
+public final synchronized void curveTo(
+  double x1,
+  double y1,
+  double x2,
+  double y2,
+  double x3,
+  double y3)
+
+
+
+
+
+*java.awt.geom.Path2D.Double.getBounds2D()*
+
+public final synchronized |java.awt.geom.Rectangle2D| getBounds2D()
+
+
+
+
+
+*java.awt.geom.Path2D.Double.getPathIterator(AffineTransform)*
+
+public |java.awt.geom.PathIterator| getPathIterator(java.awt.geom.AffineTransform at)
+
+The iterator for this class is not multi-threaded safe, which means that thePath2Dclass does not guarantee that modifications 
+to the geometry of thisPath2Dobject do not affect any iterations of that geometry that are already in process. 
+
+
+    at - an {@code AffineTransform} 
+
+    Returns: a new {@code PathIterator} that iterates along the boundary of this {@code Shape} and provides access to the geometry of this 
+             {@code Shape}'s outline 
+
+*java.awt.geom.Path2D.Double.lineTo(double,double)*
+
+public final synchronized void lineTo(
+  double x,
+  double y)
+
+
+
+
+
+*java.awt.geom.Path2D.Double.moveTo(double,double)*
+
+public final synchronized void moveTo(
+  double x,
+  double y)
+
+
+
+
+
+*java.awt.geom.Path2D.Double.quadTo(double,double,double,double)*
+
+public final synchronized void quadTo(
+  double x1,
+  double y1,
+  double x2,
+  double y2)
+
+
+
+
+
+*java.awt.geom.Path2D.Double.transform(AffineTransform)*
+
+public final void transform(java.awt.geom.AffineTransform at)
+
+
+
+
+
+

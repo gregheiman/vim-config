@@ -1,0 +1,209 @@
+*java.awt.geom.Rectangle2D.Float* *Rectangle2D.Float* The Float class defines a rectangle specified in float
+ coordinates.
+
+public static class Rectangle2D.Float
+  extends    |java.awt.geom.Rectangle2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.Rectangle2D.Float_Description|
+|java.awt.geom.Rectangle2D.Float_Fields|
+|java.awt.geom.Rectangle2D.Float_Constructors|
+|java.awt.geom.Rectangle2D.Float_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.Rectangle2D.Float_Fields*
+|float_java.awt.geom.Rectangle2D.Float.height|
+|float_java.awt.geom.Rectangle2D.Float.width|
+|float_java.awt.geom.Rectangle2D.Float.x|
+|float_java.awt.geom.Rectangle2D.Float.y|
+
+*java.awt.geom.Rectangle2D.Float_Constructors*
+|java.awt.geom.Rectangle2D.Float()|Constructs a new Rectangle2D, initialized to  location (0.0,0.0) and size (0.0,0.0).
+|java.awt.geom.Rectangle2D.Float(float,float,float,float)|Constructs and initializes a Rectangle2D   from the specified float c
+
+*java.awt.geom.Rectangle2D.Float_Methods*
+|java.awt.geom.Rectangle2D.Float.createIntersection(Rectangle2D)|
+|java.awt.geom.Rectangle2D.Float.createUnion(Rectangle2D)|
+|java.awt.geom.Rectangle2D.Float.getBounds2D()|
+|java.awt.geom.Rectangle2D.Float.getHeight()|
+|java.awt.geom.Rectangle2D.Float.getWidth()|
+|java.awt.geom.Rectangle2D.Float.getX()|
+|java.awt.geom.Rectangle2D.Float.getY()|
+|java.awt.geom.Rectangle2D.Float.isEmpty()|
+|java.awt.geom.Rectangle2D.Float.outcode(double,double)|
+|java.awt.geom.Rectangle2D.Float.setRect(double,double,double,double)|
+|java.awt.geom.Rectangle2D.Float.setRect(float,float,float,float)|Sets the location and size of this Rectangle2D  to the specif
+|java.awt.geom.Rectangle2D.Float.setRect(Rectangle2D)|
+|java.awt.geom.Rectangle2D.Float.toString()|Returns the String representation of this  Rectangle2D.
+
+*java.awt.geom.Rectangle2D.Float_Description*
+
+The Float class defines a rectangle specified in float coordinates. 
+
+
+
+*float_java.awt.geom.Rectangle2D.Float.height*
+
+The height of this Rectangle2D. 
+
+
+*float_java.awt.geom.Rectangle2D.Float.width*
+
+The width of this Rectangle2D. 
+
+
+*float_java.awt.geom.Rectangle2D.Float.x*
+
+The X coordinate of this Rectangle2D. 
+
+
+*float_java.awt.geom.Rectangle2D.Float.y*
+
+The Y coordinate of this Rectangle2D. 
+
+
+
+*java.awt.geom.Rectangle2D.Float()*
+
+public Rectangle2D.Float()
+
+Constructs a new Rectangle2D, initialized to location (0.0,0.0) and size (0.0,0.0). 
+
+
+*java.awt.geom.Rectangle2D.Float(float,float,float,float)*
+
+public Rectangle2D.Float(
+  float x,
+  float y,
+  float w,
+  float h)
+
+Constructs and initializes a Rectangle2D from the specified float coordinates. 
+
+    x - the X coordinate of the upper-left corner of the newly constructed Rectangle2D 
+    y - the Y coordinate of the upper-left corner of the newly constructed Rectangle2D 
+    w - the width of the newly constructed Rectangle2D 
+    h - the height of the newly constructed Rectangle2D 
+
+*java.awt.geom.Rectangle2D.Float.createIntersection(Rectangle2D)*
+
+public |java.awt.geom.Rectangle2D| createIntersection(java.awt.geom.Rectangle2D r)
+
+
+
+
+
+*java.awt.geom.Rectangle2D.Float.createUnion(Rectangle2D)*
+
+public |java.awt.geom.Rectangle2D| createUnion(java.awt.geom.Rectangle2D r)
+
+
+
+
+
+*java.awt.geom.Rectangle2D.Float.getBounds2D()*
+
+public |java.awt.geom.Rectangle2D| getBounds2D()
+
+
+
+
+
+*java.awt.geom.Rectangle2D.Float.getHeight()*
+
+public double getHeight()
+
+
+
+
+
+*java.awt.geom.Rectangle2D.Float.getWidth()*
+
+public double getWidth()
+
+
+
+
+
+*java.awt.geom.Rectangle2D.Float.getX()*
+
+public double getX()
+
+
+
+
+
+*java.awt.geom.Rectangle2D.Float.getY()*
+
+public double getY()
+
+
+
+
+
+*java.awt.geom.Rectangle2D.Float.isEmpty()*
+
+public boolean isEmpty()
+
+
+
+
+
+*java.awt.geom.Rectangle2D.Float.outcode(double,double)*
+
+public int outcode(
+  double x,
+  double y)
+
+
+
+
+
+*java.awt.geom.Rectangle2D.Float.setRect(double,double,double,double)*
+
+public void setRect(
+  double x,
+  double y,
+  double w,
+  double h)
+
+
+
+
+
+*java.awt.geom.Rectangle2D.Float.setRect(float,float,float,float)*
+
+public void setRect(
+  float x,
+  float y,
+  float w,
+  float h)
+
+Sets the location and size of this Rectangle2D to the specified float values. 
+
+
+    x - the X coordinate of the upper-left corner of this Rectangle2D 
+    y - the Y coordinate of the upper-left corner of this Rectangle2D 
+    w - the width of this Rectangle2D 
+    h - the height of this Rectangle2D 
+
+*java.awt.geom.Rectangle2D.Float.setRect(Rectangle2D)*
+
+public void setRect(java.awt.geom.Rectangle2D r)
+
+
+
+
+
+*java.awt.geom.Rectangle2D.Float.toString()*
+
+public |java.lang.String| toString()
+
+Returns the String representation of this Rectangle2D. 
+
+
+
+    Returns: a String representing this Rectangle2D. 
+
+

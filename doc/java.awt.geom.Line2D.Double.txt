@@ -1,0 +1,163 @@
+*java.awt.geom.Line2D.Double* *Line2D.Double* A line segment specified with double coordinates.
+
+public static class Line2D.Double
+  extends    |java.awt.geom.Line2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.Line2D.Double_Description|
+|java.awt.geom.Line2D.Double_Fields|
+|java.awt.geom.Line2D.Double_Constructors|
+|java.awt.geom.Line2D.Double_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.Line2D.Double_Fields*
+|double_java.awt.geom.Line2D.Double.x1|
+|double_java.awt.geom.Line2D.Double.x2|
+|double_java.awt.geom.Line2D.Double.y1|
+|double_java.awt.geom.Line2D.Double.y2|
+
+*java.awt.geom.Line2D.Double_Constructors*
+|java.awt.geom.Line2D.Double()|Constructs and initializes a Line with coordinates (0, 0) -> (0, 0).
+|java.awt.geom.Line2D.Double(double,double,double,double)|Constructs and initializes a Line2D from the  specified coordinates.
+|java.awt.geom.Line2D.Double(Point2D,Point2D)|Constructs and initializes a Line2D from the  specified Point2D objects.
+
+*java.awt.geom.Line2D.Double_Methods*
+|java.awt.geom.Line2D.Double.getBounds2D()|
+|java.awt.geom.Line2D.Double.getP1()|
+|java.awt.geom.Line2D.Double.getP2()|
+|java.awt.geom.Line2D.Double.getX1()|
+|java.awt.geom.Line2D.Double.getX2()|
+|java.awt.geom.Line2D.Double.getY1()|
+|java.awt.geom.Line2D.Double.getY2()|
+|java.awt.geom.Line2D.Double.setLine(double,double,double,double)|
+
+*java.awt.geom.Line2D.Double_Description*
+
+A line segment specified with double coordinates. 
+
+
+
+*double_java.awt.geom.Line2D.Double.x1*
+
+The X coordinate of the start point of the line segment. 
+
+
+*double_java.awt.geom.Line2D.Double.x2*
+
+The X coordinate of the end point of the line segment. 
+
+
+*double_java.awt.geom.Line2D.Double.y1*
+
+The Y coordinate of the start point of the line segment. 
+
+
+*double_java.awt.geom.Line2D.Double.y2*
+
+The Y coordinate of the end point of the line segment. 
+
+
+
+*java.awt.geom.Line2D.Double()*
+
+public Line2D.Double()
+
+Constructs and initializes a Line with coordinates (0, 0) -> (0, 0). 
+
+
+*java.awt.geom.Line2D.Double(double,double,double,double)*
+
+public Line2D.Double(
+  double x1,
+  double y1,
+  double x2,
+  double y2)
+
+Constructs and initializes a Line2D from the specified coordinates. 
+
+    x1 - the X coordinate of the start point 
+    y1 - the Y coordinate of the start point 
+    x2 - the X coordinate of the end point 
+    y2 - the Y coordinate of the end point 
+
+*java.awt.geom.Line2D.Double(Point2D,Point2D)*
+
+public Line2D.Double(
+  java.awt.geom.Point2D p1,
+  java.awt.geom.Point2D p2)
+
+Constructs and initializes a Line2D from the specified Point2D objects. 
+
+    p1 - the start Point2D of this line segment 
+    p2 - the end Point2D of this line segment 
+
+*java.awt.geom.Line2D.Double.getBounds2D()*
+
+public |java.awt.geom.Rectangle2D| getBounds2D()
+
+
+
+
+
+*java.awt.geom.Line2D.Double.getP1()*
+
+public |java.awt.geom.Point2D| getP1()
+
+
+
+
+
+*java.awt.geom.Line2D.Double.getP2()*
+
+public |java.awt.geom.Point2D| getP2()
+
+
+
+
+
+*java.awt.geom.Line2D.Double.getX1()*
+
+public double getX1()
+
+
+
+
+
+*java.awt.geom.Line2D.Double.getX2()*
+
+public double getX2()
+
+
+
+
+
+*java.awt.geom.Line2D.Double.getY1()*
+
+public double getY1()
+
+
+
+
+
+*java.awt.geom.Line2D.Double.getY2()*
+
+public double getY2()
+
+
+
+
+
+*java.awt.geom.Line2D.Double.setLine(double,double,double,double)*
+
+public void setLine(
+  double x1,
+  double y1,
+  double x2,
+  double y2)
+
+
+
+
+
+

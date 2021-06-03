@@ -1,0 +1,39 @@
+*java.awt.MultipleGradientPaint.ColorSpaceType* *MultipleGradientPaint.ColorSpaceType* The color space in which to perform the g
+
+public static final enumMultipleGradientPaint.ColorSpaceType
+  extends    |java.lang.Enum|
+
+|java.awt.MultipleGradientPaint.ColorSpaceType_Description|
+|java.awt.MultipleGradientPaint.ColorSpaceType_Fields|
+|java.awt.MultipleGradientPaint.ColorSpaceType_Constructors|
+|java.awt.MultipleGradientPaint.ColorSpaceType_Methods|
+
+================================================================================================================================
+
+*java.awt.MultipleGradientPaint.ColorSpaceType_Methods*
+|java.awt.MultipleGradientPaint.ColorSpaceType.valueOf(String)|
+|java.awt.MultipleGradientPaint.ColorSpaceType.values()|
+
+*java.awt.MultipleGradientPaint.ColorSpaceType_Description*
+
+The color space in which to perform the gradient interpolation. 
+
+
+
+*java.awt.MultipleGradientPaint.ColorSpaceType.valueOf(String)*
+
+public static |java.awt.MultipleGradientPaint.ColorSpaceType| valueOf(java.lang.String name)
+
+
+
+
+
+*java.awt.MultipleGradientPaint.ColorSpaceType.values()*
+
+public static |java.awt.MultipleGradientPaint.ColorSpaceType|[] values()
+
+
+
+
+
+

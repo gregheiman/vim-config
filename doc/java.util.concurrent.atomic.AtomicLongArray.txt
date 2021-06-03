@@ -1,0 +1,232 @@
+*java.util.concurrent.atomic.AtomicLongArray* *AtomicLongArray* Alongarray in which elements may be updated atomically.
+
+public class AtomicLongArray
+  extends    |java.lang.Object|
+  implements |java.io.Serializable|
+
+|java.util.concurrent.atomic.AtomicLongArray_Description|
+|java.util.concurrent.atomic.AtomicLongArray_Fields|
+|java.util.concurrent.atomic.AtomicLongArray_Constructors|
+|java.util.concurrent.atomic.AtomicLongArray_Methods|
+
+================================================================================================================================
+
+*java.util.concurrent.atomic.AtomicLongArray_Constructors*
+|java.util.concurrent.atomic.AtomicLongArray(int)|Creates a new AtomicLongArray of given length.
+|java.util.concurrent.atomic.AtomicLongArray(long[])|Creates a new AtomicLongArray with the same length as, and  all elements c
+
+*java.util.concurrent.atomic.AtomicLongArray_Methods*
+|java.util.concurrent.atomic.AtomicLongArray.addAndGet(int,long)|Atomically adds the given value to the element at indexi.
+|java.util.concurrent.atomic.AtomicLongArray.compareAndSet(int,long,long)|Atomically sets the value to the given updated value 
+|java.util.concurrent.atomic.AtomicLongArray.decrementAndGet(int)|Atomically decrements by one the element at indexi.
+|java.util.concurrent.atomic.AtomicLongArray.get(int)|Gets the current value at positioni.
+|java.util.concurrent.atomic.AtomicLongArray.getAndAdd(int,long)|Atomically adds the given value to the element at indexi.
+|java.util.concurrent.atomic.AtomicLongArray.getAndDecrement(int)|Atomically decrements by one the element at indexi.
+|java.util.concurrent.atomic.AtomicLongArray.getAndIncrement(int)|Atomically increments by one the element at indexi.
+|java.util.concurrent.atomic.AtomicLongArray.getAndSet(int,long)|Atomically sets the element at positionito the given value  an
+|java.util.concurrent.atomic.AtomicLongArray.incrementAndGet(int)|Atomically increments by one the element at indexi.
+|java.util.concurrent.atomic.AtomicLongArray.lazySet(int,long)|Eventually sets the element at positionito the given value.
+|java.util.concurrent.atomic.AtomicLongArray.length()|Returns the length of the array.
+|java.util.concurrent.atomic.AtomicLongArray.set(int,long)|Sets the element at positionito the given value.
+|java.util.concurrent.atomic.AtomicLongArray.toString()|Returns the String representation of the current values of array.
+|java.util.concurrent.atomic.AtomicLongArray.weakCompareAndSet(int,long,long)|Atomically sets the value to the given updated va
+
+*java.util.concurrent.atomic.AtomicLongArray_Description*
+
+Alongarray in which elements may be updated atomically. See the (|java.util.concurrent.atomic|) package specification for 
+description of the properties of atomic variables. 
+
+
+
+*java.util.concurrent.atomic.AtomicLongArray(int)*
+
+public AtomicLongArray(int length)
+
+Creates a new AtomicLongArray of given length. 
+
+    length - the length of the array 
+
+*java.util.concurrent.atomic.AtomicLongArray(long[])*
+
+public AtomicLongArray(long[] array)
+
+Creates a new AtomicLongArray with the same length as, and all elements copied from, the given array. 
+
+    array - the array to copy elements from 
+
+*java.util.concurrent.atomic.AtomicLongArray.addAndGet(int,long)*
+
+public long addAndGet(
+  int i,
+  long delta)
+
+Atomically adds the given value to the element at indexi. 
+
+
+    i - the index 
+    delta - the value to add 
+
+    Returns: the updated value 
+
+*java.util.concurrent.atomic.AtomicLongArray.compareAndSet(int,long,long)*
+
+public final boolean compareAndSet(
+  int i,
+  long expect,
+  long update)
+
+Atomically sets the value to the given updated value if the current value==the expected value. 
+
+
+    i - the index 
+    expect - the expected value 
+    update - the new value 
+
+    Returns: true if successful. False return indicates that the actual value was not equal to the expected value. 
+
+*java.util.concurrent.atomic.AtomicLongArray.decrementAndGet(int)*
+
+public final long decrementAndGet(int i)
+
+Atomically decrements by one the element at indexi. 
+
+
+    i - the index 
+
+    Returns: the updated value 
+
+*java.util.concurrent.atomic.AtomicLongArray.get(int)*
+
+public final long get(int i)
+
+Gets the current value at positioni. 
+
+
+    i - the index 
+
+    Returns: the current value 
+
+*java.util.concurrent.atomic.AtomicLongArray.getAndAdd(int,long)*
+
+public final long getAndAdd(
+  int i,
+  long delta)
+
+Atomically adds the given value to the element at indexi. 
+
+
+    i - the index 
+    delta - the value to add 
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicLongArray.getAndDecrement(int)*
+
+public final long getAndDecrement(int i)
+
+Atomically decrements by one the element at indexi. 
+
+
+    i - the index 
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicLongArray.getAndIncrement(int)*
+
+public final long getAndIncrement(int i)
+
+Atomically increments by one the element at indexi. 
+
+
+    i - the index 
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicLongArray.getAndSet(int,long)*
+
+public final long getAndSet(
+  int i,
+  long newValue)
+
+Atomically sets the element at positionito the given value and returns the old value. 
+
+
+    i - the index 
+    newValue - the new value 
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicLongArray.incrementAndGet(int)*
+
+public final long incrementAndGet(int i)
+
+Atomically increments by one the element at indexi. 
+
+
+    i - the index 
+
+    Returns: the updated value 
+
+*java.util.concurrent.atomic.AtomicLongArray.lazySet(int,long)*
+
+public final void lazySet(
+  int i,
+  long newValue)
+
+Eventually sets the element at positionito the given value. 
+
+
+    i - the index 
+    newValue - the new value 
+
+*java.util.concurrent.atomic.AtomicLongArray.length()*
+
+public final int length()
+
+Returns the length of the array. 
+
+
+
+    Returns: the length of the array 
+
+*java.util.concurrent.atomic.AtomicLongArray.set(int,long)*
+
+public final void set(
+  int i,
+  long newValue)
+
+Sets the element at positionito the given value. 
+
+
+    i - the index 
+    newValue - the new value 
+
+*java.util.concurrent.atomic.AtomicLongArray.toString()*
+
+public |java.lang.String| toString()
+
+Returns the String representation of the current values of array. 
+
+
+
+    Returns: the String representation of the current values of array. 
+
+*java.util.concurrent.atomic.AtomicLongArray.weakCompareAndSet(int,long,long)*
+
+public final boolean weakCompareAndSet(
+  int i,
+  long expect,
+  long update)
+
+Atomically sets the value to the given updated value if the current value==the expected value. 
+
+May fail spuriously and does not provide ordering guarantees, so is only rarely an appropriate alternative tocompareAndSet. 
+
+
+    i - the index 
+    expect - the expected value 
+    update - the new value 
+
+    Returns: true if successful. 
+
+

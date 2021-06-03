@@ -1,0 +1,45 @@
+*java.text.spi.DecimalFormatSymbolsProvider* *DecimalFormatSymbolsProvider* An abstract class for service providers that
+ provid
+
+public abstract class DecimalFormatSymbolsProvider
+  extends    |java.util.spi.LocaleServiceProvider|
+
+|java.text.spi.DecimalFormatSymbolsProvider_Description|
+|java.text.spi.DecimalFormatSymbolsProvider_Fields|
+|java.text.spi.DecimalFormatSymbolsProvider_Constructors|
+|java.text.spi.DecimalFormatSymbolsProvider_Methods|
+
+================================================================================================================================
+
+*java.text.spi.DecimalFormatSymbolsProvider_Constructors*
+|java.text.spi.DecimalFormatSymbolsProvider()|Sole constructor.
+
+*java.text.spi.DecimalFormatSymbolsProvider_Methods*
+|java.text.spi.DecimalFormatSymbolsProvider.getInstance(Locale)|Returns a new DecimalFormatSymbols instance for the   specified
+
+*java.text.spi.DecimalFormatSymbolsProvider_Description*
+
+An abstract class for service providers that provide instances of the DecimalFormatSymbols(|java.text.DecimalFormatSymbols|) 
+class. 
+
+
+
+*java.text.spi.DecimalFormatSymbolsProvider()*
+
+protected DecimalFormatSymbolsProvider()
+
+Sole constructor. (For invocation by subclass constructors, typically implicit.) 
+
+
+*java.text.spi.DecimalFormatSymbolsProvider.getInstance(Locale)*
+
+public abstract |java.text.DecimalFormatSymbols| getInstance(java.util.Locale locale)
+
+Returns a new DecimalFormatSymbols instance for the specified locale. 
+
+
+    locale - the desired locale 
+
+    Returns: a DecimalFormatSymbols instance. 
+
+

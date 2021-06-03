@@ -1,0 +1,84 @@
+*java.text.spi.NumberFormatProvider* *NumberFormatProvider* An abstract class for service providers that
+ provide concrete imple
+
+public abstract class NumberFormatProvider
+  extends    |java.util.spi.LocaleServiceProvider|
+
+|java.text.spi.NumberFormatProvider_Description|
+|java.text.spi.NumberFormatProvider_Fields|
+|java.text.spi.NumberFormatProvider_Constructors|
+|java.text.spi.NumberFormatProvider_Methods|
+
+================================================================================================================================
+
+*java.text.spi.NumberFormatProvider_Constructors*
+|java.text.spi.NumberFormatProvider()|Sole constructor.
+
+*java.text.spi.NumberFormatProvider_Methods*
+|java.text.spi.NumberFormatProvider.getCurrencyInstance(Locale)|Returns a new NumberFormat instance which formats   monetary va
+|java.text.spi.NumberFormatProvider.getIntegerInstance(Locale)|Returns a new NumberFormat instance which formats   integer valu
+|java.text.spi.NumberFormatProvider.getNumberInstance(Locale)|Returns a new general-purpose NumberFormat instance for   the spe
+|java.text.spi.NumberFormatProvider.getPercentInstance(Locale)|Returns a new NumberFormat instance which formats   percentage v
+
+*java.text.spi.NumberFormatProvider_Description*
+
+An abstract class for service providers that provide concrete implementations of the NumberFormat(|java.text.NumberFormat|) 
+class. 
+
+
+
+*java.text.spi.NumberFormatProvider()*
+
+protected NumberFormatProvider()
+
+Sole constructor. (For invocation by subclass constructors, typically implicit.) 
+
+
+*java.text.spi.NumberFormatProvider.getCurrencyInstance(Locale)*
+
+public abstract |java.text.NumberFormat| getCurrencyInstance(java.util.Locale locale)
+
+Returns a new NumberFormat instance which formats monetary values for the specified locale. 
+
+
+    locale - the desired locale. 
+
+    Returns: a currency formatter 
+
+*java.text.spi.NumberFormatProvider.getIntegerInstance(Locale)*
+
+public abstract |java.text.NumberFormat| getIntegerInstance(java.util.Locale locale)
+
+Returns a new NumberFormat instance which formats integer values for the specified locale. The returned number format is 
+configured to round floating point numbers to the nearest integer using half-even rounding (see 
+HALF_EVEN(|java.math.RoundingMode|) ) for formatting, and to parse only the integer part of an input string (see 
+isParseIntegerOnly(|java.text.NumberFormat|) ). 
+
+
+    locale - the desired locale 
+
+    Returns: a number format for integer values 
+
+*java.text.spi.NumberFormatProvider.getNumberInstance(Locale)*
+
+public abstract |java.text.NumberFormat| getNumberInstance(java.util.Locale locale)
+
+Returns a new general-purpose NumberFormat instance for the specified locale. 
+
+
+    locale - the desired locale 
+
+    Returns: a general-purpose number formatter 
+
+*java.text.spi.NumberFormatProvider.getPercentInstance(Locale)*
+
+public abstract |java.text.NumberFormat| getPercentInstance(java.util.Locale locale)
+
+Returns a new NumberFormat instance which formats percentage values for the specified locale. 
+
+
+    locale - the desired locale 
+
+    Returns: a percent formatter 
+
+

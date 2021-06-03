@@ -1,0 +1,41 @@
+*java.awt.Dialog.ModalExclusionType* *Dialog.ModalExclusionType* Any top-level window can be marked not to be blocked by modal
+ 
+
+public static final enumDialog.ModalExclusionType
+  extends    |java.lang.Enum|
+
+|java.awt.Dialog.ModalExclusionType_Description|
+|java.awt.Dialog.ModalExclusionType_Fields|
+|java.awt.Dialog.ModalExclusionType_Constructors|
+|java.awt.Dialog.ModalExclusionType_Methods|
+
+================================================================================================================================
+
+*java.awt.Dialog.ModalExclusionType_Methods*
+|java.awt.Dialog.ModalExclusionType.valueOf(String)|
+|java.awt.Dialog.ModalExclusionType.values()|
+
+*java.awt.Dialog.ModalExclusionType_Description*
+
+Any top-level window can be marked not to be blocked by modal dialogs. This is called "modal exclusion". This enum specifies 
+the possible modal exclusion types. 
+
+
+
+*java.awt.Dialog.ModalExclusionType.valueOf(String)*
+
+public static |java.awt.Dialog.ModalExclusionType| valueOf(java.lang.String name)
+
+
+
+
+
+*java.awt.Dialog.ModalExclusionType.values()*
+
+public static |java.awt.Dialog.ModalExclusionType|[] values()
+
+
+
+
+
+

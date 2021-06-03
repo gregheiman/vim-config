@@ -1,0 +1,673 @@
+*java.awt.font.TextAttribute* *TextAttribute* The TextAttribute class defines attribute keys and
+ attribute values used for text
+
+public final class TextAttribute
+  extends    |java.text.AttributedCharacterIterator.Attribute|
+
+|java.awt.font.TextAttribute_Description|
+|java.awt.font.TextAttribute_Fields|
+|java.awt.font.TextAttribute_Constructors|
+|java.awt.font.TextAttribute_Methods|
+
+================================================================================================================================
+
+*java.awt.font.TextAttribute_Fields*
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.BACKGROUND|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.BIDI_EMBEDDING|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.CHAR_REPLACEMENT|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.FAMILY|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.FONT|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.FOREGROUND|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.INPUT_METHOD_HIGHLIGHT|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.INPUT_METHOD_UNDERLINE|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.JUSTIFICATION|
+|java.lang.Float_java.awt.font.TextAttribute.JUSTIFICATION_FULL|
+|java.lang.Float_java.awt.font.TextAttribute.JUSTIFICATION_NONE|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.KERNING|
+|java.lang.Integer_java.awt.font.TextAttribute.KERNING_ON|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.LIGATURES|
+|java.lang.Integer_java.awt.font.TextAttribute.LIGATURES_ON|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.NUMERIC_SHAPING|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.POSTURE|
+|java.lang.Float_java.awt.font.TextAttribute.POSTURE_OBLIQUE|
+|java.lang.Float_java.awt.font.TextAttribute.POSTURE_REGULAR|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.RUN_DIRECTION|
+|java.lang.Boolean_java.awt.font.TextAttribute.RUN_DIRECTION_LTR|
+|java.lang.Boolean_java.awt.font.TextAttribute.RUN_DIRECTION_RTL|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.SIZE|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.STRIKETHROUGH|
+|java.lang.Boolean_java.awt.font.TextAttribute.STRIKETHROUGH_ON|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.SUPERSCRIPT|
+|java.lang.Integer_java.awt.font.TextAttribute.SUPERSCRIPT_SUB|
+|java.lang.Integer_java.awt.font.TextAttribute.SUPERSCRIPT_SUPER|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.SWAP_COLORS|
+|java.lang.Boolean_java.awt.font.TextAttribute.SWAP_COLORS_ON|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.TRACKING|
+|java.lang.Float_java.awt.font.TextAttribute.TRACKING_LOOSE|
+|java.lang.Float_java.awt.font.TextAttribute.TRACKING_TIGHT|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.TRANSFORM|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.UNDERLINE|
+|java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_LOW_DASHED|
+|java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_LOW_DOTTED|
+|java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_LOW_GRAY|
+|java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_LOW_ONE_PIXEL|
+|java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_LOW_TWO_PIXEL|
+|java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_ON|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.WEIGHT|
+|java.lang.Float_java.awt.font.TextAttribute.WEIGHT_BOLD|
+|java.lang.Float_java.awt.font.TextAttribute.WEIGHT_DEMIBOLD|
+|java.lang.Float_java.awt.font.TextAttribute.WEIGHT_DEMILIGHT|
+|java.lang.Float_java.awt.font.TextAttribute.WEIGHT_EXTRA_LIGHT|
+|java.lang.Float_java.awt.font.TextAttribute.WEIGHT_EXTRABOLD|
+|java.lang.Float_java.awt.font.TextAttribute.WEIGHT_HEAVY|
+|java.lang.Float_java.awt.font.TextAttribute.WEIGHT_LIGHT|
+|java.lang.Float_java.awt.font.TextAttribute.WEIGHT_MEDIUM|
+|java.lang.Float_java.awt.font.TextAttribute.WEIGHT_REGULAR|
+|java.lang.Float_java.awt.font.TextAttribute.WEIGHT_SEMIBOLD|
+|java.lang.Float_java.awt.font.TextAttribute.WEIGHT_ULTRABOLD|
+|java.awt.font.TextAttribute_java.awt.font.TextAttribute.WIDTH|
+|java.lang.Float_java.awt.font.TextAttribute.WIDTH_CONDENSED|
+|java.lang.Float_java.awt.font.TextAttribute.WIDTH_EXTENDED|
+|java.lang.Float_java.awt.font.TextAttribute.WIDTH_REGULAR|
+|java.lang.Float_java.awt.font.TextAttribute.WIDTH_SEMI_CONDENSED|
+|java.lang.Float_java.awt.font.TextAttribute.WIDTH_SEMI_EXTENDED|
+
+*java.awt.font.TextAttribute_Constructors*
+|java.awt.font.TextAttribute(String)|Constructs a TextAttribute with the specified name.
+
+*java.awt.font.TextAttribute_Methods*
+|java.awt.font.TextAttribute.readResolve()|Resolves instances being deserialized to the predefined constants.
+
+*java.awt.font.TextAttribute_Description*
+
+The TextAttribute class defines attribute keys and attribute values used for text rendering. 
+
+TextAttribute instances are used as attribute keys to identify attributes in Font(|java.awt.Font|) , 
+TextLayout(|java.awt.font.TextLayout|) , AttributedCharacterIterator(|java.text.AttributedCharacterIterator|) , and other 
+classes handling text attributes. Other constants defined in this class can be used as attribute values. 
+
+For each text attribute, the documentation provides: 
+
+the type of its value, the relevant predefined constants, if any the default effect if the attribute is absent the valid values 
+if there are limitations a description of the effect. 
+
+Values 
+
+The values of attributes must always be immutable. Where value limitations are given, any value outside of that set is reserved 
+for future use; the value will be treated as the default. The value null is treated the same as the default value and results 
+in the default behavior. If the value is not of the proper type, the attribute will be ignored. The identity of the value does 
+not matter, only the actual value. For example, TextAttribute.WEIGHT_BOLD and new Float(2.0) indicate the same WEIGHT. 
+Attribute values of type Number (used for WEIGHT, WIDTH, POSTURE, SIZE, JUSTIFICATION, and TRACKING) can vary along their 
+natural range and are not restricted to the predefined constants. Number.floatValue() is used to get the actual value from the 
+Number. The values for WEIGHT, WIDTH, and POSTURE are interpolated by the system, which can select the 'nearest available' font 
+or use other techniques to approximate the user's request. 
+
+
+
+Summary of attributes 
+
+
+
+Key Value Type Principal Constants Default Value 
+
+(|java.awt.font.TextAttribute|) String See Font DIALOG(|java.awt.Font|) , DIALOG_INPUT(|java.awt.Font|) , 
+SERIF(|java.awt.Font|) , SANS_SERIF(|java.awt.Font|) , and MONOSPACED(|java.awt.Font|) . 
+
+"Default" (use platform default) 
+
+(|java.awt.font.TextAttribute|) Number WEIGHT_REGULAR, WEIGHT_BOLD WEIGHT_REGULAR 
+
+(|java.awt.font.TextAttribute|) Number WIDTH_CONDENSED, WIDTH_REGULAR,WIDTH_EXTENDED WIDTH_REGULAR 
+
+(|java.awt.font.TextAttribute|) Number POSTURE_REGULAR, POSTURE_OBLIQUE POSTURE_REGULAR 
+
+(|java.awt.font.TextAttribute|) Number none 12.0 
+
+(|java.awt.font.TextAttribute|) (|java.awt.font.TransformAttribute|) See TransformAttribute 
+IDENTITY(|java.awt.font.TransformAttribute|) TransformAttribute.IDENTITY 
+
+(|java.awt.font.TextAttribute|) Integer SUPERSCRIPT_SUPER, SUPERSCRIPT_SUB 0 (use the standard glyphs and metrics) 
+
+(|java.awt.font.TextAttribute|) (|java.awt.Font|) none null (do not override font resolution) 
+
+(|java.awt.font.TextAttribute|) (|java.awt.font.GraphicAttribute|) none null (draw text using font glyphs) 
+
+(|java.awt.font.TextAttribute|) (|java.awt.Paint|) none null (use current graphics paint) 
+
+(|java.awt.font.TextAttribute|) (|java.awt.Paint|) none null (do not render background) 
+
+(|java.awt.font.TextAttribute|) Integer UNDERLINE_ON -1 (do not render underline) 
+
+(|java.awt.font.TextAttribute|) Boolean STRIKETHROUGH_ON false (do not render strikethrough) 
+
+(|java.awt.font.TextAttribute|) Boolean RUN_DIRECTION_LTRRUN_DIRECTION_RTL null (use (|java.text.Bidi|) standard default) 
+
+(|java.awt.font.TextAttribute|) Integer none 0 (use base line direction) 
+
+(|java.awt.font.TextAttribute|) Number JUSTIFICATION_FULL JUSTIFICATION_FULL 
+
+(|java.awt.font.TextAttribute|) (|java.awt.im.InputMethodHighlight|) , (|java.text.Annotation|) (see class) null (do not apply 
+input highlighting) 
+
+(|java.awt.font.TextAttribute|) Integer UNDERLINE_LOW_ONE_PIXEL,UNDERLINE_LOW_TWO_PIXEL -1 (do not render underline) 
+
+(|java.awt.font.TextAttribute|) Boolean SWAP_COLORS_ON false (do not swap colors) 
+
+(|java.awt.font.TextAttribute|) (|java.awt.font.NumericShaper|) none null (do not shape digits) 
+
+(|java.awt.font.TextAttribute|) Integer KERNING_ON 0 (do not request kerning) 
+
+(|java.awt.font.TextAttribute|) Integer LIGATURES_ON 0 (do not form optional ligatures) 
+
+(|java.awt.font.TextAttribute|) Number TRACKING_LOOSE, TRACKING_TIGHT 0 (do not add tracking) 
+
+
+
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.BACKGROUND*
+
+Attribute key for the paint used to render the background of the text. Values are instances of Paint. The default value is 
+null, indicating that the background should not be rendered. 
+
+The logical bounds of the text will be filled using this Paint, and then the text will be rendered on top of it (but see 
+(|java.awt.font.TextAttribute|) ). 
+
+The visual bounds of the text is extended to include the logical bounds, if necessary. The outline is not affected. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.BIDI_EMBEDDING*
+
+Attribute key for the embedding level of the text. Values are instances of Integer. The default value is null, indicating that 
+the the Bidirectional algorithm should run without explicit embeddings. 
+
+Positive values 1 through 61 are embedding levels, negative values -1 through -61 are override levels. The value 0 means that 
+the base line direction is used. These levels are passed in the embedding levels array to the (|java.text.Bidi|) constructor. 
+
+Note: When this attribute is present anywhere in a paragraph, then any Unicode bidi control characters (RLO, LRO, RLE, LRE, and 
+PDF) in the paragraph are disregarded, and runs of text where this attribute is not present are treated as though it were 
+present and had the value 0. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.CHAR_REPLACEMENT*
+
+Attribute key for a user-defined glyph to display in lieu of the font's standard glyph for a character. Values are intances of 
+GraphicAttribute. The default value is null, indicating that the standard glyphs provided by the font should be used. 
+
+This attribute is used to reserve space for a graphic or other component embedded in a line of text. It is required for correct 
+positioning of 'inline' components within a line when bidirectional reordering (see (|java.text.Bidi|) ) is performed. Each 
+character (Unicode code point) will be rendered using the provided GraphicAttribute. Typically, the characters to which this 
+attribute is applied should be uFFFC. 
+
+The GraphicAttribute determines the logical and visual bounds of the text; the actual Font values are ignored. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.FAMILY*
+
+Attribute key for the font name. Values are instances of String. The default value is "Default", which causes the platform 
+default font family to be used. 
+
+The Font class defines constants for the logical font names DIALOG(|java.awt.Font|) , DIALOG_INPUT(|java.awt.Font|) , 
+SANS_SERIF(|java.awt.Font|) , SERIF(|java.awt.Font|) , and MONOSPACED(|java.awt.Font|) . 
+
+This defines the value passed as name to the Font constructor. Both logical and physical font names are allowed. If a font with 
+the requested name is not found, the default font is used. 
+
+Note: This attribute is unfortunately misnamed, as it specifies the face name and not just the family. Thus values such as 
+"Lucida Sans Bold" will select that face if it exists. Note, though, that if the requested face does not exist, the default 
+will be used with regular weight. The "Bold" in the name is part of the face name, not a separate request that the font's 
+weight be bold. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.FONT*
+
+Attribute key used to provide the font to use to render text. Values are instances of (|java.awt.Font|) . The default value is 
+null, indicating that normal resolution of a Font from attributes should be performed. 
+
+TextLayout and AttributedCharacterIterator work in terms of Maps of TextAttributes. Normally, all the attributes are examined 
+and used to select and configure a Font instance. If a FONT attribute is present, though, its associated Font will be used. 
+This provides a way for users to override the resolution of font attributes into a Font, or force use of a particular Font 
+instance. This also allows users to specify subclasses of Font in cases where a Font can be subclassed. 
+
+FONT is used for special situations where clients already have a Font instance but still need to use Map-based APIs. Typically, 
+there will be no other attributes in the Map except the FONT attribute. With Map-based APIs the common case is to specify all 
+attributes individually, so FONT is not needed or desireable. 
+
+However, if both FONT and other attributes are present in the Map, the rendering system will merge the attributes defined in 
+the Font with the additional attributes. This merging process classifies TextAttributes into two groups. One group, the 
+'primary' group, is considered fundamental to the selection and metric behavior of a font. These attributes are FAMILY, WEIGHT, 
+WIDTH, POSTURE, SIZE, TRANSFORM, SUPERSCRIPT, and TRACKING. The other group, the 'secondary' group, consists of all other 
+defined attributes, with the exception of FONT itself. 
+
+To generate the new Map, first the Font is obtained from the FONT attribute, and all of its attributes extracted into a new 
+Map. Then only the secondary attributes from the original Map are added to those in the new Map. Thus the values of primary 
+attributes come solely from the Font, and the values of secondary attributes originate with the Font but can be overridden by 
+other values in the Map. 
+
+Note:Font's Map-based constructor and deriveFont methods do not process the FONT attribute, as these are used to create new 
+Font objects. Instead, Font.getFont(Map)(|java.awt.Font|) should be used to handle the FONT attribute. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.FOREGROUND*
+
+Attribute key for the paint used to render the text. Values are instances of Paint. The default value is null, indicating that 
+the Paint set on the Graphics2D at the time of rendering is used. 
+
+Glyphs will be rendered using this Paint regardless of the Paint value set on the Graphics (but see 
+(|java.awt.font.TextAttribute|) ). 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.INPUT_METHOD_HIGHLIGHT*
+
+Attribute key for input method highlight styles. 
+
+Values are instances of (|java.awt.im.InputMethodHighlight|) or (|java.text.Annotation|) . The default value is null, which 
+means that input method styles should not be applied before rendering. 
+
+If adjacent runs of text with the same InputMethodHighlight need to be rendered separately, the InputMethodHighlights should be 
+wrapped in Annotation instances. 
+
+Input method highlights are used while text is being composed by an input method. Text editing components should retain them 
+even if they generally only deal with unstyled text, and make them available to the drawing routines. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.INPUT_METHOD_UNDERLINE*
+
+Attribute key for input method underlines. Values are instances of Integer. The default value is -1, which means no underline. 
+
+Several constant values are provided, see (|java.awt.font.TextAttribute|) , (|java.awt.font.TextAttribute|) , 
+(|java.awt.font.TextAttribute|) , (|java.awt.font.TextAttribute|) , and (|java.awt.font.TextAttribute|) . 
+
+This may be used in conjunction with (|java.awt.font.TextAttribute|) if desired. The primary purpose is for use by input 
+methods. Other use of these underlines for simple ornamentation might confuse users. 
+
+The input method underline affects both the visual bounds and the outline of the text. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.JUSTIFICATION*
+
+Attribute key for the justification of a paragraph. Values are instances of Number. The default value is 1, indicating that 
+justification should use the full width provided. Values are pinned to the range [0..1]. 
+
+The constants (|java.awt.font.TextAttribute|) and (|java.awt.font.TextAttribute|) are provided. 
+
+Specifies the fraction of the extra space to use when justification is requested on a TextLayout. For example, if the line is 
+50 points wide and it is requested to justify to 70 points, a value of 0.75 will pad to use three-quarters of the remaining 
+space, or 15 points, so that the resulting line will be 65 points in length. 
+
+Note: This should have the same value for all the text in a paragraph, otherwise the behavior is undetermined. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.JUSTIFICATION_FULL*
+
+Justify the line to the full requested width. This is the default value for JUSTIFICATION. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.JUSTIFICATION_NONE*
+
+Do not allow the line to be justified. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.KERNING*
+
+Attribute key to request kerning. Values are instances of Integer. The default value is 0, which does not request kerning. 
+
+The constant value (|java.awt.font.TextAttribute|) is provided. 
+
+The default advances of single characters are not appropriate for some character sequences, for example "To" or "AWAY". Without 
+kerning the adjacent characters appear to be separated by too much space. Kerning causes selected sequences of characters to be 
+spaced differently for a more pleasing visual appearance. 
+
+
+*java.lang.Integer_java.awt.font.TextAttribute.KERNING_ON*
+
+Request standard kerning. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.LIGATURES*
+
+Attribute key for enabling optional ligatures. Values are instances of Integer. The default value is 0, which means do not use 
+optional ligatures. 
+
+The constant value (|java.awt.font.TextAttribute|) is defined. 
+
+Ligatures required by the writing system are always enabled. 
+
+
+*java.lang.Integer_java.awt.font.TextAttribute.LIGATURES_ON*
+
+Request standard optional ligatures. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.NUMERIC_SHAPING*
+
+Attribute key for converting ASCII decimal digits to other decimal ranges. Values are instances of 
+(|java.awt.font.NumericShaper|) . The default is null, which means do not perform numeric shaping. 
+
+When a numeric shaper is defined, the text is first processed by the shaper before any other analysis of the text is performed. 
+
+Note: This should have the same value for all the text in the paragraph, otherwise the behavior is undetermined. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.POSTURE*
+
+Attribute key for the posture of a font. Values are instances of Number. The default value is POSTURE_REGULAR. 
+
+Two constant values are provided, (|java.awt.font.TextAttribute|) and (|java.awt.font.TextAttribute|) . The value 
+POSTURE_OBLIQUE corresponds to the style value Font.ITALIC as passed to the Font constructor. 
+
+The value is roughly the slope of the stems of the font, expressed as the run over the rise. Positive values lean right. 
+
+The system can interpolate the provided value. 
+
+This will affect the font's italic angle as returned by Font.getItalicAngle. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.POSTURE_OBLIQUE*
+
+The standard italic posture. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.POSTURE_REGULAR*
+
+The standard posture, upright. This is the default value for POSTURE. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.RUN_DIRECTION*
+
+Attribute key for the run direction of the line. Values are instances of Boolean. The default value is null, which indicates 
+that the standard Bidi algorithm for determining run direction should be used with the value (|java.text.Bidi|) . 
+
+The constants (|java.awt.font.TextAttribute|) and (|java.awt.font.TextAttribute|) are provided. 
+
+This determines the value passed to the (|java.text.Bidi|) constructor to select the primary direction of the text in the 
+paragraph. 
+
+Note: This attribute should have the same value for all the text in a paragraph, otherwise the behavior is undetermined. 
+
+
+*java.lang.Boolean_java.awt.font.TextAttribute.RUN_DIRECTION_LTR*
+
+Left-to-right run direction. 
+
+
+*java.lang.Boolean_java.awt.font.TextAttribute.RUN_DIRECTION_RTL*
+
+Right-to-left run direction. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.SIZE*
+
+Attribute key for the font size. Values are instances of Number. The default value is 12pt. 
+
+This corresponds to the size parameter to the Font constructor. 
+
+Very large or small sizes will impact rendering performance, and the rendering system might not render text at these sizes. 
+Negative sizes are illegal and result in the default size. 
+
+Note that the appearance and metrics of a 12pt font with a 2x transform might be different than that of a 24 point font with no 
+transform. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.STRIKETHROUGH*
+
+Attribute key for strikethrough. Values are instances of Boolean. The default value is false, which means no strikethrough. 
+
+The constant value (|java.awt.font.TextAttribute|) is provided. 
+
+The strikethrough affects both the visual bounds and the outline of the text. 
+
+
+*java.lang.Boolean_java.awt.font.TextAttribute.STRIKETHROUGH_ON*
+
+A single strikethrough. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.SUPERSCRIPT*
+
+Attribute key for superscripting and subscripting. Values are instances of Integer. The default value is 0, which means that no 
+superscript or subscript is used. 
+
+Two constant values are provided, see (|java.awt.font.TextAttribute|) and (|java.awt.font.TextAttribute|) . These have the 
+values 1 and -1 respectively. Values of greater magnitude define greater levels of superscript or subscripting, for example, 2 
+corresponds to super-superscript, 3 to super-super-superscript, and similarly for negative values and subscript, up to a level 
+of 7 (or -7). Values beyond this range are reserved; behavior is platform-dependent. 
+
+SUPERSCRIPT can impact the ascent and descent of a font. The ascent and descent can never become negative, however. 
+
+
+*java.lang.Integer_java.awt.font.TextAttribute.SUPERSCRIPT_SUB*
+
+Standard subscript. 
+
+
+*java.lang.Integer_java.awt.font.TextAttribute.SUPERSCRIPT_SUPER*
+
+Standard superscript. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.SWAP_COLORS*
+
+Attribute key for swapping foreground and background Paints. Values are instances of Boolean. The default value is false, which 
+means do not swap colors. 
+
+The constant value (|java.awt.font.TextAttribute|) is defined. 
+
+If the (|java.awt.font.TextAttribute|) attribute is set, its Paint will be used as the background, otherwise the Paint 
+currently on the Graphics will be used. If the (|java.awt.font.TextAttribute|) attribute is set, its Paint will be used as the 
+foreground, otherwise the system will find a contrasting color to the (resolved) background so that the text will be visible. 
+
+
+*java.lang.Boolean_java.awt.font.TextAttribute.SWAP_COLORS_ON*
+
+Swap foreground and background. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.TRACKING*
+
+Attribute key to control tracking. Values are instances of Number. The default value is 0, which means no additional tracking. 
+
+The constant values (|java.awt.font.TextAttribute|) and (|java.awt.font.TextAttribute|) are provided. 
+
+The tracking value is multiplied by the font point size and passed through the font transform to determine an additional amount 
+to add to the advance of each glyph cluster. Positive tracking values will inhibit formation of optional ligatures. Tracking 
+values are typically between -0.1 and 0.3; values outside this range are generally not desireable. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.TRACKING_LOOSE*
+
+Perform loose tracking. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.TRACKING_TIGHT*
+
+Perform tight tracking. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.TRANSFORM*
+
+Attribute key for the transform of a font. Values are instances of TransformAttribute. The default value is 
+TransformAttribute.IDENTITY. 
+
+The TransformAttribute class defines the constant IDENTITY(|java.awt.font.TransformAttribute|) . 
+
+This corresponds to the transform passed to Font.deriveFont(AffineTransform). Since that transform is mutable and TextAttribute 
+values must not be, the TransformAttribute wrapper class is used. 
+
+The primary intent is to support scaling and skewing, though other effects are possible. 
+
+Some transforms will cause the baseline to be rotated and/or shifted. The text and the baseline are transformed together so 
+that the text follows the new baseline. For example, with text on a horizontal baseline, the new baseline follows the direction 
+of the unit x vector passed through the transform. Text metrics are measured against this new baseline. So, for example, with 
+other things being equal, text rendered with a rotated TRANSFORM and an unrotated TRANSFORM will measure as having the same 
+ascent, descent, and advance. 
+
+In styled text, the baselines for each such run are aligned one after the other to potentially create a non-linear baseline for 
+the entire run of text. For more information, see (|java.awt.font.TextLayout|) . 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.UNDERLINE*
+
+Attribute key for underline. Values are instances of Integer. The default value is -1, which means no underline. 
+
+The constant value (|java.awt.font.TextAttribute|) is provided. 
+
+The underline affects both the visual bounds and the outline of the text. 
+
+
+*java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_LOW_DASHED*
+
+Single pixel dashed low underline. 
+
+
+*java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_LOW_DOTTED*
+
+Single pixel dotted low underline. 
+
+
+*java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_LOW_GRAY*
+
+Double pixel gray low underline. 
+
+
+*java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_LOW_ONE_PIXEL*
+
+Single pixel solid low underline. 
+
+
+*java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_LOW_TWO_PIXEL*
+
+Double pixel solid low underline. 
+
+
+*java.lang.Integer_java.awt.font.TextAttribute.UNDERLINE_ON*
+
+Standard underline. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.WEIGHT*
+
+Attribute key for the weight of a font. Values are instances of Number. The default value is WEIGHT_REGULAR. 
+
+Several constant values are provided, see (|java.awt.font.TextAttribute|) , (|java.awt.font.TextAttribute|) , 
+(|java.awt.font.TextAttribute|) , (|java.awt.font.TextAttribute|) , (|java.awt.font.TextAttribute|) , 
+(|java.awt.font.TextAttribute|) , (|java.awt.font.TextAttribute|) , (|java.awt.font.TextAttribute|) , 
+(|java.awt.font.TextAttribute|) , (|java.awt.font.TextAttribute|) , and (|java.awt.font.TextAttribute|) . The value WEIGHT_BOLD 
+corresponds to the style value Font.BOLD as passed to the Font constructor. 
+
+The value is roughly the ratio of the stem width to that of the regular weight. 
+
+The system can interpolate the provided value. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WEIGHT_BOLD*
+
+The standard bold weight. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WEIGHT_DEMIBOLD*
+
+A moderately lighter weight than WEIGHT_BOLD. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WEIGHT_DEMILIGHT*
+
+An intermediate weight between WEIGHT_LIGHT and WEIGHT_STANDARD. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WEIGHT_EXTRA_LIGHT*
+
+The lightest predefined weight. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WEIGHT_EXTRABOLD*
+
+An extra heavy weight. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WEIGHT_HEAVY*
+
+A moderately heavier weight than WEIGHT_BOLD. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WEIGHT_LIGHT*
+
+The standard light weight. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WEIGHT_MEDIUM*
+
+An intermediate weight between WEIGHT_REGULAR and WEIGHT_BOLD. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WEIGHT_REGULAR*
+
+The standard weight. This is the default value for WEIGHT. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WEIGHT_SEMIBOLD*
+
+A moderately heavier weight than WEIGHT_REGULAR. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WEIGHT_ULTRABOLD*
+
+The heaviest predefined weight. 
+
+
+*java.awt.font.TextAttribute_java.awt.font.TextAttribute.WIDTH*
+
+Attribute key for the width of a font. Values are instances of Number. The default value is WIDTH_REGULAR. 
+
+Several constant values are provided, see (|java.awt.font.TextAttribute|) , (|java.awt.font.TextAttribute|) , 
+(|java.awt.font.TextAttribute|) , (|java.awt.font.TextAttribute|) , (|java.awt.font.TextAttribute|) . 
+
+The value is roughly the ratio of the advance width to that of the regular width. 
+
+The system can interpolate the provided value. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WIDTH_CONDENSED*
+
+The most condensed predefined width. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WIDTH_EXTENDED*
+
+The most extended predefined width. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WIDTH_REGULAR*
+
+The standard width. This is the default value for WIDTH. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WIDTH_SEMI_CONDENSED*
+
+A moderately condensed width. 
+
+
+*java.lang.Float_java.awt.font.TextAttribute.WIDTH_SEMI_EXTENDED*
+
+A moderately extended width. 
+
+
+
+*java.awt.font.TextAttribute(String)*
+
+protected TextAttribute(java.lang.String name)
+
+Constructs a TextAttribute with the specified name. 
+
+    name - the attribute name to assign to this TextAttribute 
+
+*java.awt.font.TextAttribute.readResolve()*
+
+protected |java.lang.Object| readResolve()
+  throws |java.io.InvalidObjectException|
+         
+Resolves instances being deserialized to the predefined constants. 
+
+
+
+

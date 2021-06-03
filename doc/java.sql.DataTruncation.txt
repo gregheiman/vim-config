@@ -1,0 +1,128 @@
+*java.sql.DataTruncation* *DataTruncation* An exception  thrown as a DataTruncation exception
+ (on writes) or reported as a 
+ Da
+
+public class DataTruncation
+  extends    |java.sql.SQLWarning|
+
+|java.sql.DataTruncation_Description|
+|java.sql.DataTruncation_Fields|
+|java.sql.DataTruncation_Constructors|
+|java.sql.DataTruncation_Methods|
+
+================================================================================================================================
+
+*java.sql.DataTruncation_Constructors*
+|java.sql.DataTruncation(int,boolean,boolean,int,int)|Creates a DataTruncation object  with the SQLState initialized  to 01004 
+|java.sql.DataTruncation(int,boolean,boolean,int,int,Throwable)|Creates a DataTruncation object  with the SQLState initialized 
+
+*java.sql.DataTruncation_Methods*
+|java.sql.DataTruncation.getDataSize()|Gets the number of bytes of data that should have been transferred.
+|java.sql.DataTruncation.getIndex()|Retrieves the index of the column or parameter that was truncated.
+|java.sql.DataTruncation.getParameter()|Indicates whether the value truncated was a parameter value or  a column value.
+|java.sql.DataTruncation.getRead()|Indicates whether or not the value was truncated on a read.
+|java.sql.DataTruncation.getTransferSize()|Gets the number of bytes of data actually transferred.
+
+*java.sql.DataTruncation_Description*
+
+An exception thrown as a DataTruncation exception (on writes) or reported as a DataTruncation warning (on reads) when a data 
+values is unexpectedly truncated for reasons other than its having execeeded MaxFieldSize. 
+
+The SQLstate for a DataTruncation during read is 01004. The SQLstate for a DataTruncation during write is 22001. 
+
+
+
+*java.sql.DataTruncation(int,boolean,boolean,int,int)*
+
+public DataTruncation(
+  int index,
+  boolean parameter,
+  boolean read,
+  int dataSize,
+  int transferSize)
+
+Creates a DataTruncation object with the SQLState initialized to 01004 when read is set to true and 22001 when read is set to 
+false, the reason set to "Data truncation", the vendor code set to 0, and the other fields set to the given values. The cause 
+is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    index - The index of the parameter or column value 
+    parameter - true if a parameter value was truncated 
+    read - true if a read was truncated 
+    dataSize - the original size of the data 
+    transferSize - the size after truncation 
+
+*java.sql.DataTruncation(int,boolean,boolean,int,int,Throwable)*
+
+public DataTruncation(
+  int index,
+  boolean parameter,
+  boolean read,
+  int dataSize,
+  int transferSize,
+  java.lang.Throwable cause)
+
+Creates a DataTruncation object with the SQLState initialized to 01004 when read is set to true and 22001 when read is set to 
+false, the reason set to "Data truncation", the vendor code set to 0, and the other fields set to the given values. 
+
+    index - The index of the parameter or column value 
+    parameter - true if a parameter value was truncated 
+    read - true if a read was truncated 
+    dataSize - the original size of the data 
+    transferSize - the size after truncation 
+    cause - the underlying reason for this DataTruncation (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.DataTruncation.getDataSize()*
+
+public int getDataSize()
+
+Gets the number of bytes of data that should have been transferred. This number may be approximate if data conversions were 
+being performed. The value may be -1 if the size is unknown. 
+
+
+
+    Returns: the number of bytes of data that should have been transferred 
+
+*java.sql.DataTruncation.getIndex()*
+
+public int getIndex()
+
+Retrieves the index of the column or parameter that was truncated. 
+
+This may be -1 if the column or parameter index is unknown, in which case the parameter and read fields should be ignored. 
+
+
+
+    Returns: the index of the truncated paramter or column value 
+
+*java.sql.DataTruncation.getParameter()*
+
+public boolean getParameter()
+
+Indicates whether the value truncated was a parameter value or a column value. 
+
+
+
+    Returns: true if the value truncated was a parameter; false if it was a column value 
+
+*java.sql.DataTruncation.getRead()*
+
+public boolean getRead()
+
+Indicates whether or not the value was truncated on a read. 
+
+
+
+    Returns: true if the value was truncated when read from the database; false if the data was truncated on a write 
+
+*java.sql.DataTruncation.getTransferSize()*
+
+public int getTransferSize()
+
+Gets the number of bytes of data actually transferred. The value may be -1 if the size is unknown. 
+
+
+
+    Returns: the number of bytes of data actually transferred 
+
+

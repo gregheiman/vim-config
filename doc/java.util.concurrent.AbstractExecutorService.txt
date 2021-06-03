@@ -1,0 +1,153 @@
+*java.util.concurrent.AbstractExecutorService* *AbstractExecutorService* Provides default implementations ofExecutorServiceexecu
+
+public abstract class AbstractExecutorService
+  extends    |java.lang.Object|
+  implements |java.util.concurrent.ExecutorService|
+
+|java.util.concurrent.AbstractExecutorService_Description|
+|java.util.concurrent.AbstractExecutorService_Fields|
+|java.util.concurrent.AbstractExecutorService_Constructors|
+|java.util.concurrent.AbstractExecutorService_Methods|
+
+================================================================================================================================
+
+*java.util.concurrent.AbstractExecutorService_Constructors*
+|java.util.concurrent.AbstractExecutorService()|
+
+*java.util.concurrent.AbstractExecutorService_Methods*
+|java.util.concurrent.AbstractExecutorService.invokeAll(Collection<?extendsCallable<T>>)|
+|java.util.concurrent.AbstractExecutorService.invokeAll(Collection<?extendsCallable<T>>,long,TimeUnit)|
+|java.util.concurrent.AbstractExecutorService.invokeAny(Collection<?extendsCallable<T>>)|
+|java.util.concurrent.AbstractExecutorService.invokeAny(Collection<?extendsCallable<T>>,long,TimeUnit)|
+|java.util.concurrent.AbstractExecutorService.newTaskFor(Callable<T>)|Returns a RunnableFuture for the given callable task.
+|java.util.concurrent.AbstractExecutorService.newTaskFor(Runnable,T)|Returns a RunnableFuture for the given runnable and defaul
+|java.util.concurrent.AbstractExecutorService.submit(Callable<T>)|
+|java.util.concurrent.AbstractExecutorService.submit(Runnable)|
+|java.util.concurrent.AbstractExecutorService.submit(Runnable,T)|
+
+*java.util.concurrent.AbstractExecutorService_Description*
+
+Provides default implementations of (|java.util.concurrent.ExecutorService|) execution methods. This class implements the 
+submit, invokeAny and invokeAll methods using a (|java.util.concurrent.RunnableFuture|) returned by newTaskFor, which defaults 
+to the (|java.util.concurrent.FutureTask|) class provided in this package. For example, the implementation of submit(Runnable) 
+creates an associated RunnableFuture that is executed and returned. Subclasses may override the newTaskFor methods to return 
+RunnableFuture implementations other than FutureTask. 
+
+Extension example. Here is a sketch of a class that customizes (|java.util.concurrent.ThreadPoolExecutor|) to use a CustomTask 
+class instead of the default FutureTask: 
+
+public class CustomThreadPoolExecutor extends ThreadPoolExecutor { 
+
+static class CustomTask<V> implements RunnableFuture<V> {...} 
+
+protected <V> RunnableFuture<V> newTaskFor(Callable<V> c) { return new CustomTask<V>(c); } protected <V> RunnableFuture<V> 
+newTaskFor(Runnable r, V v) { return new CustomTask<V>(r, v); } // ... add constructors, etc. } 
+
+
+
+*java.util.concurrent.AbstractExecutorService()*
+
+public AbstractExecutorService()
+
+
+
+
+*java.util.concurrent.AbstractExecutorService.invokeAll(Collection<?extendsCallable<T>>)*
+
+public |java.util.List|<Future<T>> invokeAll(java.util.Collection<? extends java.util.concurrent.Callable<T>> tasks)
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.AbstractExecutorService.invokeAll(Collection<?extendsCallable<T>>,long,TimeUnit)*
+
+public |java.util.List|<Future<T>> invokeAll(
+  java.util.Collection<? extends java.util.concurrent.Callable<T>> tasks,
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.AbstractExecutorService.invokeAny(Collection<?extendsCallable<T>>)*
+
+public |T| invokeAny(java.util.Collection<? extends java.util.concurrent.Callable<T>> tasks)
+  throws |java.util.concurrent.ExecutionException|
+         |java.lang.InterruptedException|
+         
+
+
+
+
+*java.util.concurrent.AbstractExecutorService.invokeAny(Collection<?extendsCallable<T>>,long,TimeUnit)*
+
+public |T| invokeAny(
+  java.util.Collection<? extends java.util.concurrent.Callable<T>> tasks,
+  long timeout,
+  java.util.concurrent.TimeUnit unit)
+  throws |java.util.concurrent.ExecutionException|
+         |java.lang.InterruptedException|
+         |java.util.concurrent.TimeoutException|
+         
+
+
+
+
+*java.util.concurrent.AbstractExecutorService.newTaskFor(Callable<T>)*
+
+protected |java.util.concurrent.RunnableFuture|<T> newTaskFor(java.util.concurrent.Callable<T> callable)
+
+Returns a RunnableFuture for the given callable task. 
+
+
+    callable - the callable task being wrapped 
+
+    Returns: a RunnableFuture which when run will call the underlying callable and which, as a Future, will yield the callable's result as 
+             its result and provide for cancellation of the underlying task. 
+
+*java.util.concurrent.AbstractExecutorService.newTaskFor(Runnable,T)*
+
+protected |java.util.concurrent.RunnableFuture|<T> newTaskFor(
+  java.lang.Runnable runnable,
+  T value)
+
+Returns a RunnableFuture for the given runnable and default value. 
+
+
+    runnable - the runnable task being wrapped 
+    value - the default value for the returned future 
+
+    Returns: a RunnableFuture which when run will run the underlying runnable and which, as a Future, will yield the given value as its 
+             result and provide for cancellation of the underlying task. 
+
+*java.util.concurrent.AbstractExecutorService.submit(Callable<T>)*
+
+public |java.util.concurrent.Future|<T> submit(java.util.concurrent.Callable<T> task)
+
+
+
+
+
+*java.util.concurrent.AbstractExecutorService.submit(Runnable)*
+
+public |java.util.concurrent.Future|<?> submit(java.lang.Runnable task)
+
+
+
+
+
+*java.util.concurrent.AbstractExecutorService.submit(Runnable,T)*
+
+public |java.util.concurrent.Future|<T> submit(
+  java.lang.Runnable task,
+  T result)
+
+
+
+
+
+

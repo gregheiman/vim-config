@@ -1,0 +1,92 @@
+*java.awt.MultipleGradientPaint* *MultipleGradientPaint* This is the superclass for Paints which use a multiple color
+ gradient 
+
+public abstract class MultipleGradientPaint
+  extends    |java.lang.Object|
+  implements |java.awt.Paint|
+
+|java.awt.MultipleGradientPaint_Description|
+|java.awt.MultipleGradientPaint_Fields|
+|java.awt.MultipleGradientPaint_Constructors|
+|java.awt.MultipleGradientPaint_Methods|
+
+================================================================================================================================
+
+*java.awt.MultipleGradientPaint_Methods*
+|java.awt.MultipleGradientPaint.getColors()|Returns a copy of the array of colors used by this gradient.
+|java.awt.MultipleGradientPaint.getColorSpace()|Returns the enumerated type which specifies color space for  interpolation.
+|java.awt.MultipleGradientPaint.getCycleMethod()|Returns the enumerated type which specifies cycling behavior.
+|java.awt.MultipleGradientPaint.getFractions()|Returns a copy of the array of floats used by this gradient  to calculate color 
+|java.awt.MultipleGradientPaint.getTransform()|Returns a copy of the transform applied to the gradient.
+|java.awt.MultipleGradientPaint.getTransparency()|Returns the transparency mode for this Paint object.
+
+*java.awt.MultipleGradientPaint_Description*
+
+This is the superclass for Paints which use a multiple color gradient to fill in their raster. It provides storage for 
+variables and enumerated values common toLinearGradientPaintandRadialGradientPaint. 
+
+
+
+*java.awt.MultipleGradientPaint.getColors()*
+
+public final |java.awt.Color|[] getColors()
+
+Returns a copy of the array of colors used by this gradient. The first color maps to the first value in the fractions array, 
+and the last color maps to the last value in the fractions array. 
+
+
+
+    Returns: a copy of the array of colors used by this gradient 
+
+*java.awt.MultipleGradientPaint.getColorSpace()*
+
+public final |java.awt.MultipleGradientPaint.ColorSpaceType| getColorSpace()
+
+Returns the enumerated type which specifies color space for interpolation. 
+
+
+
+    Returns: the enumerated type which specifies color space for interpolation 
+
+*java.awt.MultipleGradientPaint.getCycleMethod()*
+
+public final |java.awt.MultipleGradientPaint.CycleMethod| getCycleMethod()
+
+Returns the enumerated type which specifies cycling behavior. 
+
+
+
+    Returns: the enumerated type which specifies cycling behavior 
+
+*java.awt.MultipleGradientPaint.getFractions()*
+
+public final float[] getFractions()
+
+Returns a copy of the array of floats used by this gradient to calculate color distribution. The returned array always has 0 as 
+its first value and 1 as its last value, with increasing values in between. 
+
+
+
+    Returns: a copy of the array of floats used by this gradient to calculate color distribution 
+
+*java.awt.MultipleGradientPaint.getTransform()*
+
+public final |java.awt.geom.AffineTransform| getTransform()
+
+Returns a copy of the transform applied to the gradient. 
+
+
+
+    Returns: a copy of the transform applied to the gradient 
+
+*java.awt.MultipleGradientPaint.getTransparency()*
+
+public final int getTransparency()
+
+Returns the transparency mode for this Paint object. 
+
+
+
+    Returns: an integer value representing the transparency mode for this Paint object 
+
+

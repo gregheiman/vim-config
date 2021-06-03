@@ -1,0 +1,133 @@
+*java.sql.SQLInvalidAuthorizationSpecException* *SQLInvalidAuthorizationSpecException* The subclass ofSQLExceptionthrown when th
+
+public class SQLInvalidAuthorizationSpecException
+  extends    |java.sql.SQLNonTransientException|
+
+|java.sql.SQLInvalidAuthorizationSpecException_Description|
+|java.sql.SQLInvalidAuthorizationSpecException_Fields|
+|java.sql.SQLInvalidAuthorizationSpecException_Constructors|
+|java.sql.SQLInvalidAuthorizationSpecException_Methods|
+
+================================================================================================================================
+
+*java.sql.SQLInvalidAuthorizationSpecException_Constructors*
+|java.sql.SQLInvalidAuthorizationSpecException()|Constructs a SQLInvalidAuthorizationSpecException object.
+|java.sql.SQLInvalidAuthorizationSpecException(String)|Constructs a SQLInvalidAuthorizationSpecException object   with a given 
+|java.sql.SQLInvalidAuthorizationSpecException(String,String)|Constructs a SQLInvalidAuthorizationSpecException object  with a 
+|java.sql.SQLInvalidAuthorizationSpecException(String,String,int)|Constructs a SQLInvalidAuthorizationSpecException object  wit
+|java.sql.SQLInvalidAuthorizationSpecException(String,String,int,Throwable)|Constructs a SQLInvalidAuthorizationSpecException o
+|java.sql.SQLInvalidAuthorizationSpecException(String,String,Throwable)|Constructs a SQLInvalidAuthorizationSpecException objec
+|java.sql.SQLInvalidAuthorizationSpecException(String,Throwable)|Constructs a SQLInvalidAuthorizationSpecException object    wi
+|java.sql.SQLInvalidAuthorizationSpecException(Throwable)|Constructs a SQLInvalidAuthorizationSpecException object   with a giv
+
+*java.sql.SQLInvalidAuthorizationSpecException_Description*
+
+The subclass of (|java.sql.SQLException|) thrown when the SQLState class value is '28'. This indicated that the authorization 
+credentials presented during connection establishment are not valid. 
+
+
+
+*java.sql.SQLInvalidAuthorizationSpecException()*
+
+public SQLInvalidAuthorizationSpecException()
+
+Constructs a SQLInvalidAuthorizationSpecException object. The reason, SQLState are initialized to null and the vendor code is 
+initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+
+*java.sql.SQLInvalidAuthorizationSpecException(String)*
+
+public SQLInvalidAuthorizationSpecException(java.lang.String reason)
+
+Constructs a SQLInvalidAuthorizationSpecException object with a given reason. The SQLState is initialized to null and the 
+vender code is initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+
+*java.sql.SQLInvalidAuthorizationSpecException(String,String)*
+
+public SQLInvalidAuthorizationSpecException(
+  java.lang.String reason,
+  java.lang.String SQLState)
+
+Constructs a SQLInvalidAuthorizationSpecException object with a given reason and SQLState. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. The vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+
+*java.sql.SQLInvalidAuthorizationSpecException(String,String,int)*
+
+public SQLInvalidAuthorizationSpecException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode)
+
+Constructs a SQLInvalidAuthorizationSpecException object with a given reason, SQLState and vendorCode. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor specific exception code 
+
+*java.sql.SQLInvalidAuthorizationSpecException(String,String,int,Throwable)*
+
+public SQLInvalidAuthorizationSpecException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode,
+  java.lang.Throwable cause)
+
+Constructs a SQLInvalidAuthorizationSpecException object with a given reason, SQLState, vendorCode and cause. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor-specific exception code 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLInvalidAuthorizationSpecException(String,String,Throwable)*
+
+public SQLInvalidAuthorizationSpecException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  java.lang.Throwable cause)
+
+Constructs a SQLInvalidAuthorizationSpecException object with a given reason, SQLState and cause. The vendor code is 
+initialized to 0. 
+
+    reason - a description of the exception. 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLInvalidAuthorizationSpecException(String,Throwable)*
+
+public SQLInvalidAuthorizationSpecException(
+  java.lang.String reason,
+  java.lang.Throwable cause)
+
+Constructs a SQLInvalidAuthorizationSpecException object with a given reason and cause. The SQLState is initialized to null and 
+the vendor code is initialized to 0. 
+
+    reason - a description of the exception. 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLInvalidAuthorizationSpecException(Throwable)*
+
+public SQLInvalidAuthorizationSpecException(java.lang.Throwable cause)
+
+Constructs a SQLInvalidAuthorizationSpecException object with a given cause. The SQLState is initialized to null and the vendor 
+code is initialized to 0. The reason is initialized to null if cause==null or to cause.toString() if cause!=null. 
+
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+

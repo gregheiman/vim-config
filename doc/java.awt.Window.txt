@@ -1,0 +1,1135 @@
+*java.awt.Window* *Window* A Window object is a top-level window with no borders and no
+ menubar.
+
+public class Window
+  extends    |java.awt.Container|
+  implements |javax.accessibility.Accessible|
+
+|java.awt.Window_Description|
+|java.awt.Window_Fields|
+|java.awt.Window_Constructors|
+|java.awt.Window_Methods|
+
+================================================================================================================================
+
+*java.awt.Window_Constructors*
+|java.awt.Window(Frame)|Constructs a new, initially invisible window with the specified  Frame as its owner.
+|java.awt.Window(Window)|Constructs a new, initially invisible window with the specified  Window as its owner.
+|java.awt.Window(Window,GraphicsConfiguration)|Constructs a new, initially invisible window with the specified owner  Window an
+
+*java.awt.Window_Methods*
+|java.awt.Window.addNotify()|Makes this Window displayable by creating the connection to its  native screen resource.
+|java.awt.Window.addPropertyChangeListener(PropertyChangeListener)|Adds a PropertyChangeListener to the listener list.
+|java.awt.Window.addPropertyChangeListener(String,PropertyChangeListener)|Adds a PropertyChangeListener to the listener list fo
+|java.awt.Window.addWindowFocusListener(WindowFocusListener)|Adds the specified window focus listener to receive window events 
+|java.awt.Window.addWindowListener(WindowListener)|Adds the specified window listener to receive window events from  this windo
+|java.awt.Window.addWindowStateListener(WindowStateListener)|Adds the specified window state listener to receive window  events
+|java.awt.Window.applyResourceBundle(ResourceBundle)|
+|java.awt.Window.applyResourceBundle(String)|
+|java.awt.Window.createBufferStrategy(int)|Creates a new strategy for multi-buffering on this component.
+|java.awt.Window.createBufferStrategy(int,BufferCapabilities)|Creates a new strategy for multi-buffering on this component with
+|java.awt.Window.dispose()|Releases all of the native screen resources used by this  Window, its subcomponents, and all of its 
+|java.awt.Window.getAccessibleContext()|Gets the AccessibleContext associated with this Window.
+|java.awt.Window.getBufferStrategy()|Returns the BufferStrategy used by this component.
+|java.awt.Window.getFocusableWindowState()|Returns whether this Window can become the focused Window if it meets  the other req
+|java.awt.Window.getFocusCycleRootAncestor()|Always returns null because Windows have no ancestors; they  represent the top of 
+|java.awt.Window.getFocusOwner()|Returns the child Component of this Window that has focus if this Window  is focused; returns 
+|java.awt.Window.getFocusTraversalKeys(int)|Gets a focus traversal key for this Window.
+|java.awt.Window.getGraphicsConfiguration()|This method returns the GraphicsConfiguration used by this Window.
+|java.awt.Window.getIconImages()|Returns the sequence of images to be displayed as the icon for this window.
+|java.awt.Window.getInputContext()|Gets the input context for this window.
+|java.awt.Window.getListeners(Class<T>)|Returns an array of all the objects currently registered  as FooListeners  upon this Wi
+|java.awt.Window.getLocale()|Gets the Locale object that is associated   with this window, if the locale has been set.
+|java.awt.Window.getModalExclusionType()|Returns the modal exclusion type of this window.
+|java.awt.Window.getMostRecentFocusOwner()|Returns the child Component of this Window that will receive the focus  when this Wi
+|java.awt.Window.getOwnedWindows()|Return an array containing all the windows this  window currently owns.
+|java.awt.Window.getOwner()|Returns the owner of this window.
+|java.awt.Window.getOwnerlessWindows()|Returns an array of allWindows created by this application  that have no owner.
+|java.awt.Window.getToolkit()|Returns the toolkit of this frame.
+|java.awt.Window.getWarningString()|Gets the warning string that is displayed with this window.
+|java.awt.Window.getWindowFocusListeners()|Returns an array of all the window focus listeners  registered on this window.
+|java.awt.Window.getWindowListeners()|Returns an array of all the window listeners  registered on this window.
+|java.awt.Window.getWindows()|Returns an array of allWindows, both owned and ownerless,  created by this application.
+|java.awt.Window.getWindowStateListeners()|Returns an array of all the window state listeners  registered on this window.
+|java.awt.Window.hide()|Hide this Window, its subcomponents, and all of its owned children.
+|java.awt.Window.isActive()|Returns whether this Window is active.
+|java.awt.Window.isAlwaysOnTop()|Returns whether this window is an always-on-top window.
+|java.awt.Window.isAlwaysOnTopSupported()|Returns whether the always-on-top mode is supported for this  window.
+|java.awt.Window.isFocusableWindow()|Returns whether this Window can become the focused Window, that is,  whether this Window o
+|java.awt.Window.isFocusCycleRoot()|Always returns true because all Windows must be roots of a  focus traversal cycle.
+|java.awt.Window.isFocused()|Returns whether this Window is focused.
+|java.awt.Window.isLocationByPlatform()|Returns true if this Window will appear at the default location  for the native windowi
+|java.awt.Window.isShowing()|Checks if this Window is showing on screen.
+|java.awt.Window.pack()|Causes this Window to be sized to fit the preferred size  and layouts of its subcomponents.
+|java.awt.Window.postEvent(Event)|
+|java.awt.Window.processEvent(AWTEvent)|Processes events on this window.
+|java.awt.Window.processWindowEvent(WindowEvent)|Processes window events occurring on this window by  dispatching them to any r
+|java.awt.Window.processWindowFocusEvent(WindowEvent)|Processes window focus event occuring on this window by  dispatching them
+|java.awt.Window.processWindowStateEvent(WindowEvent)|Processes window state event occuring on this window by  dispatching them
+|java.awt.Window.removeNotify()|
+|java.awt.Window.removeWindowFocusListener(WindowFocusListener)|Removes the specified window focus listener so that it no longe
+|java.awt.Window.removeWindowListener(WindowListener)|Removes the specified window listener so that it no longer  receives wind
+|java.awt.Window.removeWindowStateListener(WindowStateListener)|Removes the specified window state listener so that it no  long
+|java.awt.Window.reshape(int,int,int,int)|
+|java.awt.Window.setAlwaysOnTop(boolean)|Sets whether this window should always be above other windows.
+|java.awt.Window.setBounds(int,int,int,int)|
+|java.awt.Window.setBounds(Rectangle)|
+|java.awt.Window.setCursor(Cursor)|Set the cursor image to a specified cursor.
+|java.awt.Window.setFocusableWindowState(boolean)|Sets whether this Window can become the focused Window if it meets  the other
+|java.awt.Window.setFocusCycleRoot(boolean)|Does nothing because Windows must always be roots of a focus traversal  cycle.
+|java.awt.Window.setIconImage(Image)|Sets the image to be displayed as the icon for this window.
+|java.awt.Window.setIconImages(List<?extendsImage>)|Sets the sequence of images to be displayed as the icon   for this window.
+|java.awt.Window.setLocationByPlatform(boolean)|Sets whether this Window should appear at the default location for the  native 
+|java.awt.Window.setLocationRelativeTo(Component)|Sets the location of the window relative to the specified  component.
+|java.awt.Window.setMinimumSize(Dimension)|Sets the minimum size of this window to a constant  value.
+|java.awt.Window.setModalExclusionType(Dialog.ModalExclusionType)|Specifies the modal exclusion type for this window.
+|java.awt.Window.setSize(Dimension)|
+|java.awt.Window.setSize(int,int)|
+|java.awt.Window.setVisible(boolean)|Shows or hides thisWindowdepending on the value of parameterb.
+|java.awt.Window.show()|Makes the Window visible.
+|java.awt.Window.toBack()|If this Window is visible, sends this Window to the back and may cause  it to lose focus or activatio
+|java.awt.Window.toFront()|If this Window is visible, brings this Window to the front and may make  it the focused Window.
+
+*java.awt.Window_Description*
+
+A Window object is a top-level window with no borders and no menubar. The default layout for a window is BorderLayout. 
+
+A window must have either a frame, dialog, or another window defined as its owner when it's constructed. 
+
+In a multi-screen environment, you can create a Window on a different screen device by constructing the Window with 
+(|java.awt.Window|) . The GraphicsConfiguration object is one of the GraphicsConfiguration objects of the target screen device. 
+
+In a virtual device multi-screen environment in which the desktop area could span multiple physical screen devices, the bounds 
+of all configurations are relative to the virtual device coordinate system. The origin of the virtual-coordinate system is at 
+the upper left-hand corner of the primary physical screen. Depending on the location of the primary screen in the virtual 
+device, negative coordinates are possible, as shown in the following figure. 
+
+
+
+In such an environment, when calling setLocation, you must pass a virtual coordinate to this method. Similarly, calling 
+getLocationOnScreen on a Window returns virtual device coordinates. Call the getBounds method of a GraphicsConfiguration to 
+find its origin in the virtual coordinate system. 
+
+The following code sets the location of a Window at (10, 10) relative to the origin of the physical screen of the corresponding 
+GraphicsConfiguration. If the bounds of the GraphicsConfiguration is not taken into account, the Window location would be set 
+at (10, 10) relative to the virtual-coordinate system and would appear on the primary physical screen, which might be different 
+from the physical screen of the specified GraphicsConfiguration. 
+
+
+
+Window w = new Window(Window owner, GraphicsConfiguration gc); Rectangle bounds = gc.getBounds(); w.setLocation(10 + bounds.x, 
+10 + bounds.y); 
+
+Note: the location and size of top-level windows (including Windows, Frames, and Dialogs) are under the control of the 
+desktop's window management system. Calls to setLocation, setSize, and setBounds are requests (not directives) which are 
+forwarded to the window management system. Every effort will be made to honor such requests. However, in some cases the window 
+management system may ignore such requests, or modify the requested geometry in order to place and size the Window in a way 
+that more closely matches the desktop settings. 
+
+Due to the asynchronous nature of native event handling, the results returned by getBounds, getLocation, getLocationOnScreen, 
+and getSize might not reflect the actual geometry of the Window on screen until the last request has been processed. During the 
+processing of subsequent requests these values might change accordingly while the window management system fulfills the 
+requests. 
+
+An application may set the size and location of an invisibleWindowarbitrarily, but the window management system may 
+subsequently change its size and/or location when theWindowis made visible. One or moreComponentEvents will be generated to 
+indicate the new geometry. 
+
+Windows are capable of generating the following WindowEvents: WindowOpened, WindowClosed, WindowGainedFocus, WindowLostFocus. 
+
+
+
+*java.awt.Window(Frame)*
+
+public Window(java.awt.Frame owner)
+
+Constructs a new, initially invisible window with the specified Frame as its owner. The window will not be focusable unless its 
+owner is showing on the screen. 
+
+If there is a security manager, this method first calls the security manager's checkTopLevelWindow method with this as its 
+argument to determine whether or not the window must be displayed with a warning banner. 
+
+    owner - the Frame to act as owner or null if this window has no owner 
+
+*java.awt.Window(Window)*
+
+public Window(java.awt.Window owner)
+
+Constructs a new, initially invisible window with the specified Window as its owner. This window will not be focusable unless 
+its nearest owning Frame or Dialog is showing on the screen. 
+
+If there is a security manager, this method first calls the security manager's checkTopLevelWindow method with this as its 
+argument to determine whether or not the window must be displayed with a warning banner. 
+
+    owner - the Window to act as owner or null if this window has no owner 
+
+*java.awt.Window(Window,GraphicsConfiguration)*
+
+public Window(
+  java.awt.Window owner,
+  java.awt.GraphicsConfiguration gc)
+
+Constructs a new, initially invisible window with the specified owner Window and a GraphicsConfiguration of a screen device. 
+The Window will not be focusable unless its nearest owning Frame or Dialog is showing on the screen. 
+
+If there is a security manager, this method first calls the security manager's checkTopLevelWindow method with this as its 
+argument to determine whether or not the window must be displayed with a warning banner. 
+
+    owner - the window to act as owner or null if this window has no owner 
+    gc - the GraphicsConfiguration of the target screen device; if gc is null, the system default GraphicsConfiguration is assumed 
+
+*java.awt.Window.addNotify()*
+
+public void addNotify()
+
+Makes this Window displayable by creating the connection to its native screen resource. This method is called internally by the 
+toolkit and should not be called directly by programs. 
+
+
+
+*java.awt.Window.addPropertyChangeListener(PropertyChangeListener)*
+
+public void addPropertyChangeListener(java.beans.PropertyChangeListener listener)
+
+Adds a PropertyChangeListener to the listener list. The listener is registered for all bound properties of this class, 
+including the following: 
+
+this Window's font ("font") this Window's background color ("background") this Window's foreground color ("foreground") this 
+Window's focusability ("focusable") this Window's focus traversal keys enabled state ("focusTraversalKeysEnabled") this 
+Window's Set of FORWARD_TRAVERSAL_KEYS ("forwardFocusTraversalKeys") this Window's Set of BACKWARD_TRAVERSAL_KEYS 
+("backwardFocusTraversalKeys") this Window's Set of UP_CYCLE_TRAVERSAL_KEYS ("upCycleFocusTraversalKeys") this Window's Set of 
+DOWN_CYCLE_TRAVERSAL_KEYS ("downCycleFocusTraversalKeys") this Window's focus traversal policy ("focusTraversalPolicy") 
+
+this Window's focusable Window state ("focusableWindowState") 
+
+this Window's always-on-top state("alwaysOnTop") 
+
+Note that if this Window is inheriting a bound property, then no event will be fired in response to a change in the inherited 
+property. 
+
+If listener is null, no exception is thrown and no action is performed. 
+
+
+    listener - the PropertyChangeListener to be added 
+
+*java.awt.Window.addPropertyChangeListener(String,PropertyChangeListener)*
+
+public void addPropertyChangeListener(
+  java.lang.String propertyName,
+  java.beans.PropertyChangeListener listener)
+
+Adds a PropertyChangeListener to the listener list for a specific property. The specified property may be user-defined, or one 
+of the following: 
+
+this Window's font ("font") this Window's background color ("background") this Window's foreground color ("foreground") this 
+Window's focusability ("focusable") this Window's focus traversal keys enabled state ("focusTraversalKeysEnabled") this 
+Window's Set of FORWARD_TRAVERSAL_KEYS ("forwardFocusTraversalKeys") this Window's Set of BACKWARD_TRAVERSAL_KEYS 
+("backwardFocusTraversalKeys") this Window's Set of UP_CYCLE_TRAVERSAL_KEYS ("upCycleFocusTraversalKeys") this Window's Set of 
+DOWN_CYCLE_TRAVERSAL_KEYS ("downCycleFocusTraversalKeys") this Window's focus traversal policy ("focusTraversalPolicy") 
+
+this Window's focusable Window state ("focusableWindowState") 
+
+this Window's always-on-top state("alwaysOnTop") 
+
+Note that if this Window is inheriting a bound property, then no event will be fired in response to a change in the inherited 
+property. 
+
+If listener is null, no exception is thrown and no action is performed. 
+
+
+    propertyName - one of the property names listed above 
+    listener - the PropertyChangeListener to be added 
+
+*java.awt.Window.addWindowFocusListener(WindowFocusListener)*
+
+public synchronized void addWindowFocusListener(java.awt.event.WindowFocusListener l)
+
+Adds the specified window focus listener to receive window events from this window. If l is null, no exception is thrown and no 
+action is performed. Refer to AWT Threading Issues for details on AWT's threading model. 
+
+
+    l - the window focus listener 
+
+*java.awt.Window.addWindowListener(WindowListener)*
+
+public synchronized void addWindowListener(java.awt.event.WindowListener l)
+
+Adds the specified window listener to receive window events from this window. If l is null, no exception is thrown and no 
+action is performed. Refer to AWT Threading Issues for details on AWT's threading model. 
+
+
+    l - the window listener 
+
+*java.awt.Window.addWindowStateListener(WindowStateListener)*
+
+public synchronized void addWindowStateListener(java.awt.event.WindowStateListener l)
+
+Adds the specified window state listener to receive window events from this window. If l is null, no exception is thrown and no 
+action is performed. Refer to AWT Threading Issues for details on AWT's threading model. 
+
+
+    l - the window state listener 
+
+*java.awt.Window.applyResourceBundle(ResourceBundle)*
+
+public void applyResourceBundle(java.util.ResourceBundle rb)
+
+
+
+    Deprecated: As of J2SE 1.4, replaced by
+ {@link Component#applyComponentOrientation Component.applyComponentOrientation}.
+
+
+*java.awt.Window.applyResourceBundle(String)*
+
+public void applyResourceBundle(java.lang.String rbName)
+
+
+
+    Deprecated: As of J2SE 1.4, replaced by
+ {@link Component#applyComponentOrientation Component.applyComponentOrientation}.
+
+
+*java.awt.Window.createBufferStrategy(int)*
+
+public void createBufferStrategy(int numBuffers)
+
+Creates a new strategy for multi-buffering on this component. Multi-buffering is useful for rendering performance. This method 
+attempts to create the best strategy available with the number of buffers supplied. It will always create a BufferStrategy with 
+that number of buffers. A page-flipping strategy is attempted first, then a blitting strategy using accelerated buffers. 
+Finally, an unaccelerated blitting strategy is used. 
+
+Each time this method is called, the existing buffer strategy for this component is discarded. 
+
+
+    numBuffers - number of buffers to create 
+
+*java.awt.Window.createBufferStrategy(int,BufferCapabilities)*
+
+public void createBufferStrategy(
+  int numBuffers,
+  java.awt.BufferCapabilities caps)
+  throws |java.awt.AWTException|
+         
+Creates a new strategy for multi-buffering on this component with the required buffer capabilities. This is useful, for 
+example, if only accelerated memory or page flipping is desired (as specified by the buffer capabilities). 
+
+Each time this method is called, the existing buffer strategy for this component is discarded. 
+
+
+    numBuffers - number of buffers to create, including the front buffer 
+    caps - the required capabilities for creating the buffer strategy; cannot be null 
+
+*java.awt.Window.dispose()*
+
+public void dispose()
+
+Releases all of the native screen resources used by this Window, its subcomponents, and all of its owned children. That is, the 
+resources for these Components will be destroyed, any memory they consume will be returned to the OS, and they will be marked 
+as undisplayable. 
+
+The Window and its subcomponents can be made displayable again by rebuilding the native resources with a subsequent call to 
+pack or show. The states of the recreated Window and its subcomponents will be identical to the states of these objects at the 
+point where the Window was disposed (not accounting for additional modifications between those actions). 
+
+Note: When the last displayable window within the Java virtual machine (VM) is disposed of, the VM may terminate. See AWT 
+Threading Issues for more information. 
+
+
+
+*java.awt.Window.getAccessibleContext()*
+
+public |javax.accessibility.AccessibleContext| getAccessibleContext()
+
+Gets the AccessibleContext associated with this Window. For windows, the AccessibleContext takes the form of an 
+AccessibleAWTWindow. A new AccessibleAWTWindow instance is created if necessary. 
+
+
+
+    Returns: an AccessibleAWTWindow that serves as the AccessibleContext of this Window 
+
+*java.awt.Window.getBufferStrategy()*
+
+public |java.awt.image.BufferStrategy| getBufferStrategy()
+
+Returns the BufferStrategy used by this component. This method will return null if a BufferStrategy has not yet been created or 
+has been disposed. 
+
+
+
+    Returns: the buffer strategy used by this component 
+
+*java.awt.Window.getFocusableWindowState()*
+
+public boolean getFocusableWindowState()
+
+Returns whether this Window can become the focused Window if it meets the other requirements outlined in isFocusableWindow. If 
+this method returns false, then isFocusableWindow will return false as well. If this method returns true, then 
+isFocusableWindow may return true or false depending upon the other requirements which must be met in order for a Window to be 
+focusable. 
+
+By default, all Windows have a focusable Window state of true. 
+
+
+
+    Returns: whether this Window can be the focused Window 
+
+*java.awt.Window.getFocusCycleRootAncestor()*
+
+public final |java.awt.Container| getFocusCycleRootAncestor()
+
+Always returns null because Windows have no ancestors; they represent the top of the Component hierarchy. 
+
+
+
+    Returns: 
+
+*java.awt.Window.getFocusOwner()*
+
+public |java.awt.Component| getFocusOwner()
+
+Returns the child Component of this Window that has focus if this Window is focused; returns null otherwise. 
+
+
+
+    Returns: the child Component with focus, or null if this Window is not focused 
+
+*java.awt.Window.getFocusTraversalKeys(int)*
+
+public |java.util.Set|<AWTKeyStroke> getFocusTraversalKeys(int id)
+
+Gets a focus traversal key for this Window. (See setFocusTraversalKeys for a full description of each key.) 
+
+If the traversal key has not been explicitly set for this Window, then this Window's parent's traversal key is returned. If the 
+traversal key has not been explicitly set for any of this Window's ancestors, then the current KeyboardFocusManager's default 
+traversal key is returned. 
+
+
+    id - one of KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, 
+       KeyboardFocusManager.UP_CYCLE_TRAVERSAL_KEYS, or KeyboardFocusManager.DOWN_CYCLE_TRAVERSAL_KEYS 
+
+    Returns: the AWTKeyStroke for the specified key 
+
+*java.awt.Window.getGraphicsConfiguration()*
+
+public |java.awt.GraphicsConfiguration| getGraphicsConfiguration()
+
+This method returns the GraphicsConfiguration used by this Window. 
+
+
+
+*java.awt.Window.getIconImages()*
+
+public |java.util.List|<Image> getIconImages()
+
+Returns the sequence of images to be displayed as the icon for this window. 
+
+This method returns a copy of the internally stored list, so all operations on the returned object will not affect the window's 
+behavior. 
+
+
+
+    Returns: the copy of icon images' list for this window, or empty list if this window doesn't have icon images. 
+
+*java.awt.Window.getInputContext()*
+
+public |java.awt.im.InputContext| getInputContext()
+
+Gets the input context for this window. A window always has an input context, which is shared by subcomponents unless they 
+create and set their own. 
+
+
+
+*java.awt.Window.getListeners(Class<T>)*
+
+public |T|[] getListeners(java.lang.Class<T> listenerType)
+
+Returns an array of all the objects currently registered as FooListeners upon this Window. FooListeners are registered using 
+the addFooListener method. 
+
+
+
+You can specify the listenerType argument with a class literal, such as FooListener.class. For example, you can query a Window 
+w for its window listeners with the following code: 
+
+WindowListener[] wls = (WindowListener[])(w.getListeners(WindowListener.class)); 
+
+If no such listeners exist, this method returns an empty array. 
+
+
+    listenerType - the type of listeners requested; this parameter should specify an interface that descends from java.util.EventListener 
+
+    Returns: an array of all objects registered as FooListeners on this window, or an empty array if no such listeners have been added 
+
+*java.awt.Window.getLocale()*
+
+public |java.util.Locale| getLocale()
+
+Gets the Locale object that is associated with this window, if the locale has been set. If no locale has been set, then the 
+default locale is returned. 
+
+
+
+    Returns: the locale that is set for this window. 
+
+*java.awt.Window.getModalExclusionType()*
+
+public |java.awt.Dialog.ModalExclusionType| getModalExclusionType()
+
+Returns the modal exclusion type of this window. 
+
+
+
+    Returns: the modal exclusion type of this window 
+
+*java.awt.Window.getMostRecentFocusOwner()*
+
+public |java.awt.Component| getMostRecentFocusOwner()
+
+Returns the child Component of this Window that will receive the focus when this Window is focused. If this Window is currently 
+focused, this method returns the same Component as getFocusOwner(). If this Window is not focused, then the child Component 
+that most recently requested focus will be returned. If no child Component has ever requested focus, and this is a focusable 
+Window, then this Window's initial focusable Component is returned. If no child Component has ever requested focus, and this is 
+a non-focusable Window, null is returned. 
+
+
+
+    Returns: the child Component that will receive focus when this Window is focused 
+
+*java.awt.Window.getOwnedWindows()*
+
+public |java.awt.Window|[] getOwnedWindows()
+
+Return an array containing all the windows this window currently owns. 
+
+
+
+*java.awt.Window.getOwner()*
+
+public |java.awt.Window| getOwner()
+
+Returns the owner of this window. 
+
+
+
+*java.awt.Window.getOwnerlessWindows()*
+
+public static |java.awt.Window|[] getOwnerlessWindows()
+
+Returns an array of allWindows created by this application that have no owner. They includeFrames and ownerlessDialogs 
+andWindows. If called from an applet, the array includes only theWindows accessible by that applet. 
+
+Warning: this method may return system created windows, such as a print dialog. Applications should not assume the existence of 
+these dialogs, nor should an application assume anything about these dialogs such as component positions, LayoutManagers or 
+serialization. 
+
+
+
+*java.awt.Window.getToolkit()*
+
+public |java.awt.Toolkit| getToolkit()
+
+Returns the toolkit of this frame. 
+
+
+
+    Returns: the toolkit of this window. 
+
+*java.awt.Window.getWarningString()*
+
+public final |java.lang.String| getWarningString()
+
+Gets the warning string that is displayed with this window. If this window is insecure, the warning string is displayed 
+somewhere in the visible area of the window. A window is insecure if there is a security manager, and the security manager's 
+checkTopLevelWindow method returns false when this window is passed to it as an argument. 
+
+If the window is secure, then getWarningString returns null. If the window is insecure, this method checks for the system 
+property awt.appletWarning and returns the string value of that property. 
+
+
+
+    Returns: the warning string for this window. 
+
+*java.awt.Window.getWindowFocusListeners()*
+
+public synchronized |java.awt.event.WindowFocusListener|[] getWindowFocusListeners()
+
+Returns an array of all the window focus listeners registered on this window. 
+
+
+
+    Returns: all of this window's WindowFocusListeners or an empty array if no window focus listeners are currently registered 
+
+*java.awt.Window.getWindowListeners()*
+
+public synchronized |java.awt.event.WindowListener|[] getWindowListeners()
+
+Returns an array of all the window listeners registered on this window. 
+
+
+
+    Returns: all of this window's WindowListeners or an empty array if no window listeners are currently registered 
+
+*java.awt.Window.getWindows()*
+
+public static |java.awt.Window|[] getWindows()
+
+Returns an array of allWindows, both owned and ownerless, created by this application. If called from an applet, the array 
+includes only theWindows accessible by that applet. 
+
+Warning: this method may return system created windows, such as a print dialog. Applications should not assume the existence of 
+these dialogs, nor should an application assume anything about these dialogs such as component positions, LayoutManagers or 
+serialization. 
+
+
+
+*java.awt.Window.getWindowStateListeners()*
+
+public synchronized |java.awt.event.WindowStateListener|[] getWindowStateListeners()
+
+Returns an array of all the window state listeners registered on this window. 
+
+
+
+    Returns: all of this window's WindowStateListeners or an empty array if no window state listeners are currently registered 
+
+*java.awt.Window.hide()*
+
+public void hide()
+
+Hide this Window, its subcomponents, and all of its owned children. The Window and its subcomponents can be made visible again 
+with a call toshow. 
+
+    Deprecated: As of JDK version 1.5, replaced by
+ {@link #setVisible(boolean)}.
+
+
+*java.awt.Window.isActive()*
+
+public boolean isActive()
+
+Returns whether this Window is active. Only a Frame or a Dialog may be active. The native windowing system may denote the 
+active Window or its children with special decorations, such as a highlighted title bar. The active Window is always either the 
+focused Window, or the first Frame or Dialog that is an owner of the focused Window. 
+
+
+
+    Returns: whether this is the active Window. 
+
+*java.awt.Window.isAlwaysOnTop()*
+
+public final boolean isAlwaysOnTop()
+
+Returns whether this window is an always-on-top window. 
+
+
+
+    Returns: true, if the window is in always-on-top state, false otherwise 
+
+*java.awt.Window.isAlwaysOnTopSupported()*
+
+public boolean isAlwaysOnTopSupported()
+
+Returns whether the always-on-top mode is supported for this window. Some platforms may not support always-on-top windows, some 
+may support only some kinds of top-level windows; for example, a platform may not support always-on-top modal dialogs. 
+
+
+
+    Returns: true, if the always-on-top mode is supported by the toolkit and for this window, false, if always-on-top mode is not supported 
+             for this window or toolkit doesn't support always-on-top windows. 
+
+*java.awt.Window.isFocusableWindow()*
+
+public final boolean isFocusableWindow()
+
+Returns whether this Window can become the focused Window, that is, whether this Window or any of its subcomponents can become 
+the focus owner. For a Frame or Dialog to be focusable, its focusable Window state must be set to true. For a Window which is 
+not a Frame or Dialog to be focusable, its focusable Window state must be set to true, its nearest owning Frame or Dialog must 
+be showing on the screen, and it must contain at least one Component in its focus traversal cycle. If any of these conditions 
+is not met, then neither this Window nor any of its subcomponents can become the focus owner. 
+
+
+
+    Returns: true if this Window can be the focused Window; false otherwise 
+
+*java.awt.Window.isFocusCycleRoot()*
+
+public final boolean isFocusCycleRoot()
+
+Always returns true because all Windows must be roots of a focus traversal cycle. 
+
+
+
+    Returns: 
+
+*java.awt.Window.isFocused()*
+
+public boolean isFocused()
+
+Returns whether this Window is focused. If there exists a focus owner, the focused Window is the Window that is, or contains, 
+that focus owner. If there is no focus owner, then no Window is focused. 
+
+If the focused Window is a Frame or a Dialog it is also the active Window. Otherwise, the active Window is the first Frame or 
+Dialog that is an owner of the focused Window. 
+
+
+
+    Returns: whether this is the focused Window. 
+
+*java.awt.Window.isLocationByPlatform()*
+
+public boolean isLocationByPlatform()
+
+Returns true if this Window will appear at the default location for the native windowing system the next time this Window is 
+made visible. This method always returns false if the Window is showing on the screen. 
+
+
+
+    Returns: whether this Window will appear at the default location 
+
+*java.awt.Window.isShowing()*
+
+public boolean isShowing()
+
+Checks if this Window is showing on screen. 
+
+
+
+*java.awt.Window.pack()*
+
+public void pack()
+
+Causes this Window to be sized to fit the preferred size and layouts of its subcomponents. If the window and/or its owner are 
+not yet displayable, both are made displayable before calculating the preferred size. The Window will be validated after the 
+preferredSize is calculated. 
+
+
+
+*java.awt.Window.postEvent(Event)*
+
+public boolean postEvent(java.awt.Event e)
+
+
+
+    Deprecated: As of JDK version 1.1
+ replaced by <code>dispatchEvent(AWTEvent)</code>.
+
+
+*java.awt.Window.processEvent(AWTEvent)*
+
+protected void processEvent(java.awt.AWTEvent e)
+
+Processes events on this window. If the event is an WindowEvent, it invokes the processWindowEvent method, else it invokes its 
+superclass's processEvent. Note that if the event parameter is null the behavior is unspecified and may result in an exception. 
+
+
+    e - the event 
+
+*java.awt.Window.processWindowEvent(WindowEvent)*
+
+protected void processWindowEvent(java.awt.event.WindowEvent e)
+
+Processes window events occurring on this window by dispatching them to any registered WindowListener objects. NOTE: This 
+method will not be called unless window events are enabled for this component; this happens when one of the following occurs: 
+
+A WindowListener object is registered via addWindowListener Window events are enabled via enableEvents 
+
+Note that if the event parameter is null the behavior is unspecified and may result in an exception. 
+
+
+    e - the window event 
+
+*java.awt.Window.processWindowFocusEvent(WindowEvent)*
+
+protected void processWindowFocusEvent(java.awt.event.WindowEvent e)
+
+Processes window focus event occuring on this window by dispatching them to any registered WindowFocusListener objects. NOTE: 
+this method will not be called unless window focus events are enabled for this window. This happens when one of the following 
+occurs: 
+
+a WindowFocusListener is registered via addWindowFocusListener Window focus events are enabled via enableEvents 
+
+Note that if the event parameter is null the behavior is unspecified and may result in an exception. 
+
+
+    e - the window focus event 
+
+*java.awt.Window.processWindowStateEvent(WindowEvent)*
+
+protected void processWindowStateEvent(java.awt.event.WindowEvent e)
+
+Processes window state event occuring on this window by dispatching them to any registered WindowStateListener objects. NOTE: 
+this method will not be called unless window state events are enabled for this window. This happens when one of the following 
+occurs: 
+
+a WindowStateListener is registered via addWindowStateListener window state events are enabled via enableEvents 
+
+Note that if the event parameter is null the behavior is unspecified and may result in an exception. 
+
+
+    e - the window state event 
+
+*java.awt.Window.removeNotify()*
+
+public void removeNotify()
+
+
+
+
+
+*java.awt.Window.removeWindowFocusListener(WindowFocusListener)*
+
+public synchronized void removeWindowFocusListener(java.awt.event.WindowFocusListener l)
+
+Removes the specified window focus listener so that it no longer receives window events from this window. If l is null, no 
+exception is thrown and no action is performed. Refer to AWT Threading Issues for details on AWT's threading model. 
+
+
+    l - the window focus listener 
+
+*java.awt.Window.removeWindowListener(WindowListener)*
+
+public synchronized void removeWindowListener(java.awt.event.WindowListener l)
+
+Removes the specified window listener so that it no longer receives window events from this window. If l is null, no exception 
+is thrown and no action is performed. Refer to AWT Threading Issues for details on AWT's threading model. 
+
+
+    l - the window listener 
+
+*java.awt.Window.removeWindowStateListener(WindowStateListener)*
+
+public synchronized void removeWindowStateListener(java.awt.event.WindowStateListener l)
+
+Removes the specified window state listener so that it no longer receives window events from this window. If l is null, no 
+exception is thrown and no action is performed. Refer to AWT Threading Issues for details on AWT's threading model. 
+
+
+    l - the window state listener 
+
+*java.awt.Window.reshape(int,int,int,int)*
+
+public void reshape(
+  int x,
+  int y,
+  int width,
+  int height)
+
+
+
+    Deprecated: As of JDK version 1.1,
+ replaced by <code>setBounds(int, int, int, int)</code>.
+
+
+*java.awt.Window.setAlwaysOnTop(boolean)*
+
+public final void setAlwaysOnTop(boolean alwaysOnTop)
+  throws |java.lang.SecurityException|
+         
+Sets whether this window should always be above other windows. If there are multiple always-on-top windows, their relative 
+order is unspecified and platform dependent. 
+
+If some other window is already always-on-top then the relative order between these windows is unspecified (depends on 
+platform). No window can be brought to be over the always-on-top window except maybe another always-on-top window. 
+
+All windows owned by an always-on-top window inherit this state and automatically become always-on-top. If a window ceases to 
+be always-on-top, the windows that it owns will no longer be always-on-top. When an always-on-top window is sent 
+toBack(|java.awt.Window|) , its always-on-top state is set to false. 
+
+When this method is called on a window with a value of true, and the window is visible and the platform supports always-on-top 
+for this window, the window is immediately brought forward, "sticking" it in the top-most position. If the window isn`t 
+currently visible, this method sets the always-on-top state to true but does not bring the window forward. When the window is 
+later shown, it will be always-on-top. 
+
+When this method is called on a window with a value of false the always-on-top state is set to normal. The window remains in 
+the top-most position but it`s z-order can be changed as for any other window. Calling this method with a value of false on a 
+window that has a normal state has no effect. Setting the always-on-top state to false has no effect on the relative z-order of 
+the windows if there are no other always-on-top windows. 
+
+Note: some platforms might not support always-on-top windows. To detect if always-on-top windows are supported by the current 
+platform, use (|java.awt.Toolkit|) and (|java.awt.Window.AccessibleAWTWindow|) . If always-on-top mode isn't supported by the 
+toolkit or for this window, calling this method has no effect. 
+
+If a SecurityManager is installed, the calling thread must be granted the AWTPermission "setWindowAlwaysOnTop" in order to set 
+the value of this property. If this permission is not granted, this method will throw a SecurityException, and the current 
+value of the property will be left unchanged. 
+
+
+    alwaysOnTop - true if the window should always be above other windows 
+
+*java.awt.Window.setBounds(int,int,int,int)*
+
+public void setBounds(
+  int x,
+  int y,
+  int width,
+  int height)
+
+Thewidthorheightvalues are automatically enlarged if either is less than the minimum size as specified by previous call 
+tosetMinimumSize. 
+
+
+
+*java.awt.Window.setBounds(Rectangle)*
+
+public void setBounds(java.awt.Rectangle r)
+
+Ther.widthorr.heightvalues will be automatically enlarged if either is less than the minimum size as specified by previous call 
+tosetMinimumSize. 
+
+
+
+*java.awt.Window.setCursor(Cursor)*
+
+public void setCursor(java.awt.Cursor cursor)
+
+Set the cursor image to a specified cursor. 
+
+The method may have no visual effect if the Java platform implementation and/or the native system do not support changing the 
+mouse cursor shape. 
+
+
+    cursor - One of the constants defined by the Cursor class. If this parameter is null then the cursor for this window will be set to the 
+       type Cursor.DEFAULT_CURSOR. 
+
+*java.awt.Window.setFocusableWindowState(boolean)*
+
+public void setFocusableWindowState(boolean focusableWindowState)
+
+Sets whether this Window can become the focused Window if it meets the other requirements outlined in isFocusableWindow. If 
+this Window's focusable Window state is set to false, then isFocusableWindow will return false. If this Window's focusable 
+Window state is set to true, then isFocusableWindow may return true or false depending upon the other requirements which must 
+be met in order for a Window to be focusable. 
+
+Setting a Window's focusability state to false is the standard mechanism for an application to identify to the AWT a Window 
+which will be used as a floating palette or toolbar, and thus should be a non-focusable Window. 
+
+Setting the focusability state on a visible Window can have a delayed effect on some platforms the actual change may happen 
+only when the Window becomes hidden and then visible again. To ensure consistent behavior across platforms, set the Window's 
+focusable state when the Window is invisible and then show it. 
+
+
+    focusableWindowState - whether this Window can be the focused Window 
+
+*java.awt.Window.setFocusCycleRoot(boolean)*
+
+public final void setFocusCycleRoot(boolean focusCycleRoot)
+
+Does nothing because Windows must always be roots of a focus traversal cycle. The passed-in value is ignored. 
+
+
+    focusCycleRoot - this value is ignored 
+
+*java.awt.Window.setIconImage(Image)*
+
+public void setIconImage(java.awt.Image image)
+
+Sets the image to be displayed as the icon for this window. 
+
+This method can be used instead of setIconImages()(|java.awt.Window|) to specify a single image as a window's icon. 
+
+The following statement: 
+
+setIconImage(image); 
+
+is equivalent to: 
+
+ArrayList imageList = new ArrayList(); imageList.add(image); setIconImages(imageList); 
+
+Note : Native windowing systems may use different images of differing dimensions to represent a window, depending on the 
+context (e.g. window decoration, window list, taskbar, etc.). They could also use just a single image for all contexts or no 
+image at all. 
+
+
+    image - the icon image to be displayed. 
+
+*java.awt.Window.setIconImages(List<?extendsImage>)*
+
+public synchronized void setIconImages(java.util.List<? extends java.awt.Image> icons)
+
+Sets the sequence of images to be displayed as the icon for this window. Subsequent calls togetIconImageswill always return a 
+copy of theiconslist. 
+
+Depending on the platform capabilities one or several images of different dimensions will be used as the window's icon. 
+
+Theiconslist is scanned for the images of most appropriate dimensions from the beginning. If the list contains several images 
+of the same size, the first will be used. 
+
+Ownerless windows with no icon specified use platfrom-default icon. The icon of an owned window may be inherited from the owner 
+unless explicitly overridden. Setting the icon tonullor empty list restores the default behavior. 
+
+Note : Native windowing systems may use different images of differing dimensions to represent a window, depending on the 
+context (e.g. window decoration, window list, taskbar, etc.). They could also use just a single image for all contexts or no 
+image at all. 
+
+
+    icons - the list of icon images to be displayed. 
+
+*java.awt.Window.setLocationByPlatform(boolean)*
+
+public void setLocationByPlatform(boolean locationByPlatform)
+
+Sets whether this Window should appear at the default location for the native windowing system or at the current location 
+(returned by getLocation) the next time the Window is made visible. This behavior resembles a native window shown without 
+programmatically setting its location. Most windowing systems cascade windows if their locations are not explicitly set. The 
+actual location is determined once the window is shown on the screen. 
+
+This behavior can also be enabled by setting the System Property "java.awt.Window.locationByPlatform" to "true", though calls 
+to this method take precedence. 
+
+Calls to setVisible, setLocation and setBounds after calling setLocationByPlatform clear this property of the Window. 
+
+For example, after the following code is executed: 
+
+setLocationByPlatform(true); setVisible(true); boolean flag = isLocationByPlatform(); 
+
+The window will be shown at platform's default location and flag will be false. 
+
+In the following sample: 
+
+setLocationByPlatform(true); setLocation(10, 10); boolean flag = isLocationByPlatform(); setVisible(true); 
+
+The window will be shown at (10, 10) and flag will be false. 
+
+
+    locationByPlatform - true if this Window should appear at the default location, false if at the current location 
+
+*java.awt.Window.setLocationRelativeTo(Component)*
+
+public void setLocationRelativeTo(java.awt.Component c)
+
+Sets the location of the window relative to the specified component. 
+
+If the component is not currently showing, or c is null, the window is placed at the center of the screen. The center point can 
+be determined with GraphicsEnvironment.getCenterPoint(|java.awt.GraphicsEnvironment|) If the bottom of the component is 
+offscreen, the window is placed to the side of the Component that is closest to the center of the screen. So if the Component 
+is on the right part of the screen, the Window is placed to its left, and visa versa. 
+
+
+    c - the component in relation to which the window's location is determined 
+
+*java.awt.Window.setMinimumSize(Dimension)*
+
+public void setMinimumSize(java.awt.Dimension minimumSize)
+
+Sets the minimum size of this window to a constant value. Subsequent calls togetMinimumSizewill always return this value. If 
+current window's size is less thanminimumSizethe size of the window is automatically enlarged to honor the minimum size. 
+
+If thesetSizeorsetBoundsmethods are called afterwards with a width or height less than that specified bysetMinimumSizethe 
+window is automatically enlarged to honor theminimumSizevalue. Setting the minimum size tonullrestores the default behavior. 
+
+Resizing operation may be restricted if the user tries to resize window below theminimumSizevalue. This behaviour is 
+platform-dependent. 
+
+
+    minimumSize - the new minimum size of this window 
+
+*java.awt.Window.setModalExclusionType(Dialog.ModalExclusionType)*
+
+public void setModalExclusionType(java.awt.Dialog.ModalExclusionType exclusionType)
+
+Specifies the modal exclusion type for this window. If a window is modal excluded, it is not blocked by some modal dialogs. See 
+Dialog.ModalExclusionType(|java.awt.Dialog.ModalExclusionType|) for possible modal exclusion types. 
+
+If the given type is not supported, NO_EXCLUDE is used. 
+
+Note: changing the modal exclusion type for a visible window may have no effect until it is hidden and then shown again. 
+
+
+    exclusionType - the modal exclusion type for this window; a null value is equivivalent to {@link Dialog.ModalExclusionType#NO_EXCLUDE 
+       NO_EXCLUDE} 
+
+*java.awt.Window.setSize(Dimension)*
+
+public void setSize(java.awt.Dimension d)
+
+Thed.widthandd.heightvalues are automatically enlarged if either is less than the minimum size as specified by previous call 
+tosetMinimumSize. 
+
+
+
+*java.awt.Window.setSize(int,int)*
+
+public void setSize(
+  int width,
+  int height)
+
+Thewidthandheightvalues are automatically enlarged if either is less than the minimum size as specified by previous call 
+tosetMinimumSize. 
+
+
+
+*java.awt.Window.setVisible(boolean)*
+
+public void setVisible(boolean b)
+
+Shows or hides thisWindowdepending on the value of parameterb. 
+
+
+    b - if {@code true}, makes the {@code Window} visible, otherwise hides the {@code Window}. If the {@code Window} and/or its owner 
+       are not yet displayable, both are made displayable. The {@code Window} will be validated prior to being made visible. If 
+       the {@code Window} is already visible, this will bring the {@code Window} to the front. If {@code false}, hides this 
+       {@code Window}, its subcomponents, and all of its owned children. The {@code Window} and its subcomponents can be made 
+       visible again with a call to {@code #setVisible(true)}. 
+
+*java.awt.Window.show()*
+
+public void show()
+
+Makes the Window visible. If the Window and/or its owner are not yet displayable, both are made displayable. The Window will be 
+validated prior to being made visible. If the Window is already visible, this will bring the Window to the front. 
+
+    Deprecated: As of JDK version 1.5, replaced by
+ {@link #setVisible(boolean)}.
+
+
+*java.awt.Window.toBack()*
+
+public void toBack()
+
+If this Window is visible, sends this Window to the back and may cause it to lose focus or activation if it is the focused or 
+active Window. 
+
+Places this Window at the bottom of the stacking order and shows it behind any other Windows in this VM. No action will take 
+place is this Window is not visible. Some platforms do not allow Windows which are owned by other Windows to appear below their 
+owners. Every attempt will be made to move this Window as low as possible in the stacking order; however, developers should not 
+assume that this method will move this Window below all other windows in every situation. 
+
+Because of variations in native windowing systems, no guarantees about changes to the focused and active Windows can be made. 
+Developers must never assume that this Window is no longer the focused or active Window until this Window receives a 
+WINDOW_LOST_FOCUS or WINDOW_DEACTIVATED event. On platforms where the top-most window is the focused window, this method will 
+probably cause this Window to lose focus. In that case, the next highest, focusable Window in this VM will receive focus. On 
+platforms where the stacking order does not typically affect the focused window, this method will probably leave the focused 
+and active Windows unchanged. 
+
+
+
+*java.awt.Window.toFront()*
+
+public void toFront()
+
+If this Window is visible, brings this Window to the front and may make it the focused Window. 
+
+Places this Window at the top of the stacking order and shows it in front of any other Windows in this VM. No action will take 
+place if this Window is not visible. Some platforms do not allow Windows which own other Windows to appear on top of those 
+owned Windows. Some platforms may not permit this VM to place its Windows above windows of native applications, or Windows of 
+other VMs. This permission may depend on whether a Window in this VM is already focused. Every attempt will be made to move 
+this Window as high as possible in the stacking order; however, developers should not assume that this method will move this 
+Window above all other windows in every situation. 
+
+Because of variations in native windowing systems, no guarantees about changes to the focused and active Windows can be made. 
+Developers must never assume that this Window is the focused or active Window until this Window receives a WINDOW_GAINED_FOCUS 
+or WINDOW_ACTIVATED event. On platforms where the top-most window is the focused window, this method will probably focus this 
+Window, if it is not already focused. On platforms where the stacking order does not typically affect the focused window, this 
+method will probably leave the focused and active Windows unchanged. 
+
+If this method causes this Window to be focused, and this Window is a Frame or a Dialog, it will also become activated. If this 
+Window is focused, but it is not a Frame or a Dialog, then the first Frame or Dialog that is an owner of this Window will be 
+activated. 
+
+If this window is blocked by modal dialog, then the blocking dialog is brought to the front and remains above the blocked 
+window. 
+
+
+
+

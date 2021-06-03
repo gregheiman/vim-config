@@ -1,0 +1,347 @@
+*java.awt.geom.RectangularShape* *RectangularShape* RectangularShape is the base class for a number ofShapeobjects whose geometr
+
+public abstract class RectangularShape
+  extends    |java.lang.Object|
+  implements |java.awt.Shape|
+             |java.lang.Cloneable|
+
+|java.awt.geom.RectangularShape_Description|
+|java.awt.geom.RectangularShape_Fields|
+|java.awt.geom.RectangularShape_Constructors|
+|java.awt.geom.RectangularShape_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.RectangularShape_Constructors*
+|java.awt.geom.RectangularShape()|This is an abstract class that cannot be instantiated directly.
+
+*java.awt.geom.RectangularShape_Methods*
+|java.awt.geom.RectangularShape.clone()|Creates a new object of the same class and with the same  contents as this object.
+|java.awt.geom.RectangularShape.contains(Point2D)|
+|java.awt.geom.RectangularShape.contains(Rectangle2D)|
+|java.awt.geom.RectangularShape.getBounds()|
+|java.awt.geom.RectangularShape.getCenterX()|Returns the X coordinate of the center of the framing  rectangle of the Shape in d
+|java.awt.geom.RectangularShape.getCenterY()|Returns the Y coordinate of the center of the framing   rectangle of the Shape in 
+|java.awt.geom.RectangularShape.getFrame()|Returns the framingRectangle2Dthat defines the overall shape of this object.
+|java.awt.geom.RectangularShape.getHeight()|Returns the height of the framing rectangle  in double precision.
+|java.awt.geom.RectangularShape.getMaxX()|Returns the largest X coordinate of the framing   rectangle of the Shape in double  p
+|java.awt.geom.RectangularShape.getMaxY()|Returns the largest Y coordinate of the framing   rectangle of the Shape in double   
+|java.awt.geom.RectangularShape.getMinX()|Returns the smallest X coordinate of the framing  rectangle of the Shape in double  p
+|java.awt.geom.RectangularShape.getMinY()|Returns the smallest Y coordinate of the framing  rectangle of the Shape in double   
+|java.awt.geom.RectangularShape.getPathIterator(AffineTransform,double)|Returns an iterator object that iterates along the   Sh
+|java.awt.geom.RectangularShape.getWidth()|Returns the width of the framing rectangle in   double precision.
+|java.awt.geom.RectangularShape.getX()|Returns the X coordinate of the upper-left corner of   the framing rectangle in double p
+|java.awt.geom.RectangularShape.getY()|Returns the Y coordinate of the upper-left corner of   the framing rectangle in double p
+|java.awt.geom.RectangularShape.intersects(Rectangle2D)|
+|java.awt.geom.RectangularShape.isEmpty()|Determines whether the RectangularShape is empty.
+|java.awt.geom.RectangularShape.setFrame(double,double,double,double)|Sets the location and size of the framing rectangle of th
+|java.awt.geom.RectangularShape.setFrame(Point2D,Dimension2D)|Sets the location and size of the framing rectangle of this   Sha
+|java.awt.geom.RectangularShape.setFrame(Rectangle2D)|Sets the framing rectangle of this Shape to   be the specified Rectangle2
+|java.awt.geom.RectangularShape.setFrameFromCenter(double,double,double,double)|Sets the framing rectangle of this Shape  based
+|java.awt.geom.RectangularShape.setFrameFromCenter(Point2D,Point2D)|Sets the framing rectangle of this Shape based on a   speci
+|java.awt.geom.RectangularShape.setFrameFromDiagonal(double,double,double,double)|Sets the diagonal of the framing rectangle of
+|java.awt.geom.RectangularShape.setFrameFromDiagonal(Point2D,Point2D)|Sets the diagonal of the framing rectangle of this Shape 
+
+*java.awt.geom.RectangularShape_Description*
+
+RectangularShape is the base class for a number of (|java.awt.Shape|) objects whose geometry is defined by a rectangular frame. 
+This class does not directly specify any specific geometry by itself, but merely provides manipulation methods inherited by a 
+whole category of Shape objects. The manipulation methods provided by this class can be used to query and modify the 
+rectangular frame, which provides a reference for the subclasses to define their geometry. 
+
+
+
+*java.awt.geom.RectangularShape()*
+
+protected RectangularShape()
+
+This is an abstract class that cannot be instantiated directly. 
+
+
+*java.awt.geom.RectangularShape.clone()*
+
+public |java.lang.Object| clone()
+
+Creates a new object of the same class and with the same contents as this object. 
+
+
+
+    Returns: a clone of this instance. 
+
+*java.awt.geom.RectangularShape.contains(Point2D)*
+
+public boolean contains(java.awt.geom.Point2D p)
+
+
+
+
+
+*java.awt.geom.RectangularShape.contains(Rectangle2D)*
+
+public boolean contains(java.awt.geom.Rectangle2D r)
+
+
+
+
+
+*java.awt.geom.RectangularShape.getBounds()*
+
+public |java.awt.Rectangle| getBounds()
+
+
+
+
+
+*java.awt.geom.RectangularShape.getCenterX()*
+
+public double getCenterX()
+
+Returns the X coordinate of the center of the framing rectangle of the Shape in double precision. 
+
+
+
+    Returns: the X coordinate of the center of the framing rectangle of the Shape. 
+
+*java.awt.geom.RectangularShape.getCenterY()*
+
+public double getCenterY()
+
+Returns the Y coordinate of the center of the framing rectangle of the Shape in double precision. 
+
+
+
+    Returns: the Y coordinate of the center of the framing rectangle of the Shape. 
+
+*java.awt.geom.RectangularShape.getFrame()*
+
+public |java.awt.geom.Rectangle2D| getFrame()
+
+Returns the framing (|java.awt.geom.Rectangle2D|) that defines the overall shape of this object. 
+
+
+
+    Returns: a Rectangle2D, specified in double coordinates. 
+
+*java.awt.geom.RectangularShape.getHeight()*
+
+public abstract double getHeight()
+
+Returns the height of the framing rectangle in double precision. 
+
+
+
+    Returns: the height of the framing rectangle. 
+
+*java.awt.geom.RectangularShape.getMaxX()*
+
+public double getMaxX()
+
+Returns the largest X coordinate of the framing rectangle of the Shape in double precision. 
+
+
+
+    Returns: the largest X coordinate of the framing rectangle of the Shape. 
+
+*java.awt.geom.RectangularShape.getMaxY()*
+
+public double getMaxY()
+
+Returns the largest Y coordinate of the framing rectangle of the Shape in double precision. 
+
+
+
+    Returns: the largest Y coordinate of the framing rectangle of the Shape. 
+
+*java.awt.geom.RectangularShape.getMinX()*
+
+public double getMinX()
+
+Returns the smallest X coordinate of the framing rectangle of the Shape in double precision. 
+
+
+
+    Returns: the smallest X coordinate of the framing rectangle of the Shape. 
+
+*java.awt.geom.RectangularShape.getMinY()*
+
+public double getMinY()
+
+Returns the smallest Y coordinate of the framing rectangle of the Shape in double precision. 
+
+
+
+    Returns: the smallest Y coordinate of the framing rectangle of the Shape. 
+
+*java.awt.geom.RectangularShape.getPathIterator(AffineTransform,double)*
+
+public |java.awt.geom.PathIterator| getPathIterator(
+  java.awt.geom.AffineTransform at,
+  double flatness)
+
+Returns an iterator object that iterates along the Shape object's boundary and provides access to a flattened view of the 
+outline of the Shape object's geometry. 
+
+Only SEG_MOVETO, SEG_LINETO, and SEG_CLOSE point types will be returned by the iterator. 
+
+The amount of subdivision of the curved segments is controlled by the flatness parameter, which specifies the maximum distance 
+that any point on the unflattened transformed curve can deviate from the returned flattened path segments. An optional 
+(|java.awt.geom.AffineTransform|) can be specified so that the coordinates returned in the iteration are transformed 
+accordingly. 
+
+
+    at - an optional AffineTransform to be applied to the coordinates as they are returned in the iteration, or null if untransformed 
+       coordinates are desired. 
+    flatness - the maximum distance that the line segments used to approximate the curved segments are allowed to deviate from any point on 
+       the original curve 
+
+    Returns: a PathIterator object that provides access to the Shape object's flattened geometry. 
+
+*java.awt.geom.RectangularShape.getWidth()*
+
+public abstract double getWidth()
+
+Returns the width of the framing rectangle in double precision. 
+
+
+
+    Returns: the width of the framing rectangle. 
+
+*java.awt.geom.RectangularShape.getX()*
+
+public abstract double getX()
+
+Returns the X coordinate of the upper-left corner of the framing rectangle in double precision. 
+
+
+
+    Returns: the X coordinate of the upper-left corner of the framing rectangle. 
+
+*java.awt.geom.RectangularShape.getY()*
+
+public abstract double getY()
+
+Returns the Y coordinate of the upper-left corner of the framing rectangle in double precision. 
+
+
+
+    Returns: the Y coordinate of the upper-left corner of the framing rectangle. 
+
+*java.awt.geom.RectangularShape.intersects(Rectangle2D)*
+
+public boolean intersects(java.awt.geom.Rectangle2D r)
+
+
+
+
+
+*java.awt.geom.RectangularShape.isEmpty()*
+
+public abstract boolean isEmpty()
+
+Determines whether the RectangularShape is empty. When the RectangularShape is empty, it encloses no area. 
+
+
+
+    Returns: true if the RectangularShape is empty; false otherwise. 
+
+*java.awt.geom.RectangularShape.setFrame(double,double,double,double)*
+
+public abstract void setFrame(
+  double x,
+  double y,
+  double w,
+  double h)
+
+Sets the location and size of the framing rectangle of this Shape to the specified rectangular values. 
+
+
+    x - the X coordinate of the upper-left corner of the specified rectangular shape 
+    y - the Y coordinate of the upper-left corner of the specified rectangular shape 
+    w - the width of the specified rectangular shape 
+    h - the height of the specified rectangular shape 
+
+*java.awt.geom.RectangularShape.setFrame(Point2D,Dimension2D)*
+
+public void setFrame(
+  java.awt.geom.Point2D loc,
+  java.awt.geom.Dimension2D size)
+
+Sets the location and size of the framing rectangle of this Shape to the specified (|java.awt.geom.Point2D|) and 
+(|java.awt.geom.Dimension2D|) , respectively. The framing rectangle is used by the subclasses of RectangularShape to define 
+their geometry. 
+
+
+    loc - the specified Point2D 
+    size - the specified Dimension2D 
+
+*java.awt.geom.RectangularShape.setFrame(Rectangle2D)*
+
+public void setFrame(java.awt.geom.Rectangle2D r)
+
+Sets the framing rectangle of this Shape to be the specified Rectangle2D. The framing rectangle is used by the subclasses of 
+RectangularShape to define their geometry. 
+
+
+    r - the specified Rectangle2D 
+
+*java.awt.geom.RectangularShape.setFrameFromCenter(double,double,double,double)*
+
+public void setFrameFromCenter(
+  double centerX,
+  double centerY,
+  double cornerX,
+  double cornerY)
+
+Sets the framing rectangle of this Shape based on the specified center point coordinates and corner point coordinates. The 
+framing rectangle is used by the subclasses of RectangularShape to define their geometry. 
+
+
+    centerX - the X coordinate of the specified center point 
+    centerY - the Y coordinate of the specified center point 
+    cornerX - the X coordinate of the specified corner point 
+    cornerY - the Y coordinate of the specified corner point 
+
+*java.awt.geom.RectangularShape.setFrameFromCenter(Point2D,Point2D)*
+
+public void setFrameFromCenter(
+  java.awt.geom.Point2D center,
+  java.awt.geom.Point2D corner)
+
+Sets the framing rectangle of this Shape based on a specified center Point2D and corner Point2D. The framing rectangle is used 
+by the subclasses of RectangularShape to define their geometry. 
+
+
+    center - the specified center Point2D 
+    corner - the specified corner Point2D 
+
+*java.awt.geom.RectangularShape.setFrameFromDiagonal(double,double,double,double)*
+
+public void setFrameFromDiagonal(
+  double x1,
+  double y1,
+  double x2,
+  double y2)
+
+Sets the diagonal of the framing rectangle of this Shape based on the two specified coordinates. The framing rectangle is used 
+by the subclasses of RectangularShape to define their geometry. 
+
+
+    x1 - the X coordinate of the start point of the specified diagonal 
+    y1 - the Y coordinate of the start point of the specified diagonal 
+    x2 - the X coordinate of the end point of the specified diagonal 
+    y2 - the Y coordinate of the end point of the specified diagonal 
+
+*java.awt.geom.RectangularShape.setFrameFromDiagonal(Point2D,Point2D)*
+
+public void setFrameFromDiagonal(
+  java.awt.geom.Point2D p1,
+  java.awt.geom.Point2D p2)
+
+Sets the diagonal of the framing rectangle of this Shape based on two specified Point2D objects. The framing rectangle is used 
+by the subclasses of RectangularShape to define their geometry. 
+
+
+    p1 - the start Point2D of the specified diagonal 
+    p2 - the end Point2D of the specified diagonal 
+
+

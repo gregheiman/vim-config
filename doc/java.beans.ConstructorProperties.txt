@@ -1,0 +1,35 @@
+*java.beans.ConstructorProperties* *ConstructorProperties* An annotation on a constructor that shows how the parameters of
+   th
+
+public interface class ConstructorProperties
+
+  implements |java.lang.annotation.Annotation|
+
+|java.beans.ConstructorProperties_Description|
+|java.beans.ConstructorProperties_Fields|
+|java.beans.ConstructorProperties_Constructors|
+|java.beans.ConstructorProperties_Methods|
+
+================================================================================================================================
+
+*java.beans.ConstructorProperties_Description*
+
+An annotation on a constructor that shows how the parameters of that constructor correspond to the constructed object's getter 
+methods. For example: 
+
+
+
+public class Point { ConstructorProperties({"x", "y"}) public Point(int x, int y) { this.x = x; this.y = y; } 
+
+public int getX() { return x; } 
+
+public int getY() { return y; } 
+
+private final int x, y; } 
+
+The annotation shows that the first parameter of the constructor can be retrieved with thegetX()method and the second with 
+thegetY()method. Since parameter names are not in general available at runtime, without the annotation there would be no way to 
+know whether the parameters correspond togetX()andgetY()or the other way around. 
+
+
+

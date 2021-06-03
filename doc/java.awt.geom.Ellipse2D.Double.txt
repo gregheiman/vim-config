@@ -1,0 +1,143 @@
+*java.awt.geom.Ellipse2D.Double* *Ellipse2D.Double* The Double class defines an ellipse specified
+ in double precision.
+
+public static class Ellipse2D.Double
+  extends    |java.awt.geom.Ellipse2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.Ellipse2D.Double_Description|
+|java.awt.geom.Ellipse2D.Double_Fields|
+|java.awt.geom.Ellipse2D.Double_Constructors|
+|java.awt.geom.Ellipse2D.Double_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.Ellipse2D.Double_Fields*
+|double_java.awt.geom.Ellipse2D.Double.height|
+|double_java.awt.geom.Ellipse2D.Double.width|
+|double_java.awt.geom.Ellipse2D.Double.x|
+|double_java.awt.geom.Ellipse2D.Double.y|
+
+*java.awt.geom.Ellipse2D.Double_Constructors*
+|java.awt.geom.Ellipse2D.Double()|Constructs a new Ellipse2D, initialized to  location (0,0) and size (0,0).
+|java.awt.geom.Ellipse2D.Double(double,double,double,double)|Constructs and initializes an Ellipse2D from the  specified coordi
+
+*java.awt.geom.Ellipse2D.Double_Methods*
+|java.awt.geom.Ellipse2D.Double.getBounds2D()|
+|java.awt.geom.Ellipse2D.Double.getHeight()|
+|java.awt.geom.Ellipse2D.Double.getWidth()|
+|java.awt.geom.Ellipse2D.Double.getX()|
+|java.awt.geom.Ellipse2D.Double.getY()|
+|java.awt.geom.Ellipse2D.Double.isEmpty()|
+|java.awt.geom.Ellipse2D.Double.setFrame(double,double,double,double)|
+
+*java.awt.geom.Ellipse2D.Double_Description*
+
+The Double class defines an ellipse specified in double precision. 
+
+
+
+*double_java.awt.geom.Ellipse2D.Double.height*
+
+The overall height of the Ellipse2D. 
+
+
+*double_java.awt.geom.Ellipse2D.Double.width*
+
+The overall width of this Ellipse2D. 
+
+
+*double_java.awt.geom.Ellipse2D.Double.x*
+
+The X coordinate of the upper-left corner of the framing rectangle of thisEllipse2D. 
+
+
+*double_java.awt.geom.Ellipse2D.Double.y*
+
+The Y coordinate of the upper-left corner of the framing rectangle of thisEllipse2D. 
+
+
+
+*java.awt.geom.Ellipse2D.Double()*
+
+public Ellipse2D.Double()
+
+Constructs a new Ellipse2D, initialized to location (0,0) and size (0,0). 
+
+
+*java.awt.geom.Ellipse2D.Double(double,double,double,double)*
+
+public Ellipse2D.Double(
+  double x,
+  double y,
+  double w,
+  double h)
+
+Constructs and initializes an Ellipse2D from the specified coordinates. 
+
+    x - the X coordinate of the upper-left corner of the framing rectangle 
+    y - the Y coordinate of the upper-left corner of the framing rectangle 
+    w - the width of the framing rectangle 
+    h - the height of the framing rectangle 
+
+*java.awt.geom.Ellipse2D.Double.getBounds2D()*
+
+public |java.awt.geom.Rectangle2D| getBounds2D()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Double.getHeight()*
+
+public double getHeight()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Double.getWidth()*
+
+public double getWidth()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Double.getX()*
+
+public double getX()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Double.getY()*
+
+public double getY()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Double.isEmpty()*
+
+public boolean isEmpty()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Double.setFrame(double,double,double,double)*
+
+public void setFrame(
+  double x,
+  double y,
+  double w,
+  double h)
+
+
+
+
+
+

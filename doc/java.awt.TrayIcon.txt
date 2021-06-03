@@ -1,0 +1,354 @@
+*java.awt.TrayIcon* *TrayIcon* A TrayIcon object represents a tray icon that can be
+ added to theSystemTray system tray.
+
+public class TrayIcon
+  extends    |java.lang.Object|
+
+|java.awt.TrayIcon_Description|
+|java.awt.TrayIcon_Fields|
+|java.awt.TrayIcon_Constructors|
+|java.awt.TrayIcon_Methods|
+
+================================================================================================================================
+
+*java.awt.TrayIcon_Constructors*
+|java.awt.TrayIcon(Image)|Creates a TrayIcon with the specified image.
+|java.awt.TrayIcon(Image,String)|Creates a TrayIcon with the specified image and  tooltip text.
+|java.awt.TrayIcon(Image,String,PopupMenu)|Creates a TrayIcon with the specified image,  tooltip and popup menu.
+
+*java.awt.TrayIcon_Methods*
+|java.awt.TrayIcon.addActionListener(ActionListener)|Adds the specified action listener to receive  ActionEvents from this Tray
+|java.awt.TrayIcon.addMouseListener(MouseListener)|Adds the specified mouse listener to receive mouse events from  this TrayIco
+|java.awt.TrayIcon.addMouseMotionListener(MouseMotionListener)|Adds the specified mouse listener to receive mouse-motion  event
+|java.awt.TrayIcon.displayMessage(String,String,TrayIcon.MessageType)|Displays a popup message near the tray icon.
+|java.awt.TrayIcon.getActionCommand()|Returns the command name of the action event fired by this tray icon.
+|java.awt.TrayIcon.getActionListeners()|Returns an array of all the action listeners  registered on this TrayIcon.
+|java.awt.TrayIcon.getImage()|Returns the current image used for this TrayIcon.
+|java.awt.TrayIcon.getMouseListeners()|Returns an array of all the mouse listeners  registered on this TrayIcon.
+|java.awt.TrayIcon.getMouseMotionListeners()|Returns an array of all the mouse-motion listeners  registered on this TrayIcon.
+|java.awt.TrayIcon.getPopupMenu()|Returns the popup menu associated with this TrayIcon.
+|java.awt.TrayIcon.getSize()|Returns the size, in pixels, of the space that the tray icon  occupies in the system tray.
+|java.awt.TrayIcon.getToolTip()|Returns the tooltip string associated with this  TrayIcon.
+|java.awt.TrayIcon.isImageAutoSize()|Returns the value of the auto-size property.
+|java.awt.TrayIcon.removeActionListener(ActionListener)|Removes the specified action listener.
+|java.awt.TrayIcon.removeMouseListener(MouseListener)|Removes the specified mouse listener.
+|java.awt.TrayIcon.removeMouseMotionListener(MouseMotionListener)|Removes the specified mouse-motion listener.
+|java.awt.TrayIcon.setActionCommand(String)|Sets the command name for the action event fired by this tray  icon.
+|java.awt.TrayIcon.setImage(Image)|Sets the image for this TrayIcon.
+|java.awt.TrayIcon.setImageAutoSize(boolean)|Sets the auto-size property.
+|java.awt.TrayIcon.setPopupMenu(PopupMenu)|Sets the popup menu for this TrayIcon.
+|java.awt.TrayIcon.setToolTip(String)|Sets the tooltip string for this TrayIcon.
+
+*java.awt.TrayIcon_Description*
+
+A TrayIcon object represents a tray icon that can be added to the system tray(|java.awt.SystemTray|) . A TrayIcon can have a 
+tooltip (text), an image, a popup menu, and a set of listeners associated with it. 
+
+A TrayIcon can generate various MouseEvents(|java.awt.event.MouseEvent|) and supports adding corresponding listeners to receive 
+notification of these events. TrayIcon processes some of the events by itself. For example, by default, when the right-mouse 
+click is performed on the TrayIcon it displays the specified popup menu. When the mouse hovers over the TrayIcon the tooltip is 
+displayed. 
+
+Note: When the MouseEvent is dispatched to its registered listeners its component property will be set to null. (See 
+(|java.awt.event.ComponentEvent|) ) The source property will be set to this TrayIcon. (See (|java.util.EventObject|) ) 
+
+Note: A well-behaved (|java.awt.TrayIcon|) implementation will assign different gestures to showing a popup menu and selecting 
+a tray icon. 
+
+A TrayIcon can generate an ActionEvent(|java.awt.event.ActionEvent|) . On some platforms, this occurs when the user selects the 
+tray icon using either the mouse or keyboard. 
+
+If a SecurityManager is installed, the AWTPermissionaccessSystemTraymust be granted in order to create aTrayIcon. Otherwise the 
+constructor will throw a SecurityException. 
+
+See the (|java.awt.SystemTray|) class overview for an example on how to use the TrayIcon API. 
+
+
+
+*java.awt.TrayIcon(Image)*
+
+public TrayIcon(java.awt.Image image)
+
+Creates a TrayIcon with the specified image. 
+
+    image - the Image to be used 
+
+*java.awt.TrayIcon(Image,String)*
+
+public TrayIcon(
+  java.awt.Image image,
+  java.lang.String tooltip)
+
+Creates a TrayIcon with the specified image and tooltip text. 
+
+    image - the Image to be used 
+    tooltip - the string to be used as tooltip text; if the value is null no tooltip is shown 
+
+*java.awt.TrayIcon(Image,String,PopupMenu)*
+
+public TrayIcon(
+  java.awt.Image image,
+  java.lang.String tooltip,
+  java.awt.PopupMenu popup)
+
+Creates a TrayIcon with the specified image, tooltip and popup menu. 
+
+    image - the Image to be used 
+    tooltip - the string to be used as tooltip text; if the value is null no tooltip is shown 
+    popup - the menu to be used for the tray icon's popup menu; if the value is null no popup menu is shown 
+
+*java.awt.TrayIcon.addActionListener(ActionListener)*
+
+public synchronized void addActionListener(java.awt.event.ActionListener listener)
+
+Adds the specified action listener to receive ActionEvents from this TrayIcon. Action events usually occur when a user selects 
+the tray icon, using either the mouse or keyboard. The conditions in which action events are generated are platform-dependent. 
+
+Calling this method with a null value has no effect. Refer to AWT Threading Issues for details on AWT's threading model. 
+
+
+    listener - the action listener 
+
+*java.awt.TrayIcon.addMouseListener(MouseListener)*
+
+public synchronized void addMouseListener(java.awt.event.MouseListener listener)
+
+Adds the specified mouse listener to receive mouse events from this TrayIcon. Calling this method with a null value has no 
+effect. 
+
+Note: TheMouseEvent's coordinates (received from theTrayIcon) are relative to the screen, not theTrayIcon. 
+
+Note: The MOUSE_ENTERED and MOUSE_EXITED mouse events are not supported. Refer to AWT Threading Issues for details on AWT's 
+threading model. 
+
+
+    listener - the mouse listener 
+
+*java.awt.TrayIcon.addMouseMotionListener(MouseMotionListener)*
+
+public synchronized void addMouseMotionListener(java.awt.event.MouseMotionListener listener)
+
+Adds the specified mouse listener to receive mouse-motion events from this TrayIcon. Calling this method with a null value has 
+no effect. 
+
+Note: TheMouseEvent's coordinates (received from theTrayIcon) are relative to the screen, not theTrayIcon. 
+
+Note: The MOUSE_DRAGGED mouse event is not supported. Refer to AWT Threading Issues for details on AWT's threading model. 
+
+
+    listener - the mouse listener 
+
+*java.awt.TrayIcon.displayMessage(String,String,TrayIcon.MessageType)*
+
+public void displayMessage(
+  java.lang.String caption,
+  java.lang.String text,
+  java.awt.TrayIcon.MessageType messageType)
+
+Displays a popup message near the tray icon. The message will disappear after a time or if the user clicks on it. Clicking on 
+the message may trigger anActionEvent. 
+
+Either the caption or the text may be null, but an NullPointerException is thrown if both are null. 
+
+When displayed, the caption or text strings may be truncated on some platforms; the number of characters that may be displayed 
+is platform-dependent. 
+
+Note: Some platforms may not support showing a message. 
+
+
+    caption - the caption displayed above the text, usually in bold; may be null 
+    text - the text displayed for the particular message; may be null 
+    messageType - an enum indicating the message type 
+
+*java.awt.TrayIcon.getActionCommand()*
+
+public |java.lang.String| getActionCommand()
+
+Returns the command name of the action event fired by this tray icon. 
+
+
+
+    Returns: the action command name, or null if none exists 
+
+*java.awt.TrayIcon.getActionListeners()*
+
+public synchronized |java.awt.event.ActionListener|[] getActionListeners()
+
+Returns an array of all the action listeners registered on this TrayIcon. 
+
+
+
+    Returns: all of the ActionListeners registered on this TrayIcon or an empty array if no action listeners are currently registered 
+
+*java.awt.TrayIcon.getImage()*
+
+public |java.awt.Image| getImage()
+
+Returns the current image used for this TrayIcon. 
+
+
+
+    Returns: 
+
+*java.awt.TrayIcon.getMouseListeners()*
+
+public synchronized |java.awt.event.MouseListener|[] getMouseListeners()
+
+Returns an array of all the mouse listeners registered on this TrayIcon. 
+
+
+
+    Returns: all of the MouseListeners registered on this TrayIcon or an empty array if no mouse listeners are currently registered 
+
+*java.awt.TrayIcon.getMouseMotionListeners()*
+
+public synchronized |java.awt.event.MouseMotionListener|[] getMouseMotionListeners()
+
+Returns an array of all the mouse-motion listeners registered on this TrayIcon. 
+
+
+
+    Returns: all of the MouseInputListeners registered on this TrayIcon or an empty array if no mouse listeners are currently registered 
+
+*java.awt.TrayIcon.getPopupMenu()*
+
+public |java.awt.PopupMenu| getPopupMenu()
+
+Returns the popup menu associated with this TrayIcon. 
+
+
+
+    Returns: the popup menu or null if none exists 
+
+*java.awt.TrayIcon.getSize()*
+
+public |java.awt.Dimension| getSize()
+
+Returns the size, in pixels, of the space that the tray icon occupies in the system tray. For the tray icon that is not yet 
+added to the system tray, the returned size is equal to the result of the (|java.awt.SystemTray|) . 
+
+
+
+    Returns: the size of the tray icon, in pixels 
+
+*java.awt.TrayIcon.getToolTip()*
+
+public |java.lang.String| getToolTip()
+
+Returns the tooltip string associated with this TrayIcon. 
+
+
+
+    Returns: the tooltip string or null if none exists 
+
+*java.awt.TrayIcon.isImageAutoSize()*
+
+public boolean isImageAutoSize()
+
+Returns the value of the auto-size property. 
+
+
+
+    Returns: true if the image will be auto-sized, false otherwise 
+
+*java.awt.TrayIcon.removeActionListener(ActionListener)*
+
+public synchronized void removeActionListener(java.awt.event.ActionListener listener)
+
+Removes the specified action listener. Calling this method with null or an invalid value has no effect. Refer to AWT Threading 
+Issues for details on AWT's threading model. 
+
+
+    listener - the action listener 
+
+*java.awt.TrayIcon.removeMouseListener(MouseListener)*
+
+public synchronized void removeMouseListener(java.awt.event.MouseListener listener)
+
+Removes the specified mouse listener. Calling this method with null or an invalid value has no effect. Refer to AWT Threading 
+Issues for details on AWT's threading model. 
+
+
+    listener - the mouse listener 
+
+*java.awt.TrayIcon.removeMouseMotionListener(MouseMotionListener)*
+
+public synchronized void removeMouseMotionListener(java.awt.event.MouseMotionListener listener)
+
+Removes the specified mouse-motion listener. Calling this method with null or an invalid value has no effect. Refer to AWT 
+Threading Issues for details on AWT's threading model. 
+
+
+    listener - the mouse listener 
+
+*java.awt.TrayIcon.setActionCommand(String)*
+
+public void setActionCommand(java.lang.String command)
+
+Sets the command name for the action event fired by this tray icon. By default, this action command is set to null. 
+
+
+    command - a string used to set the tray icon's action command. 
+
+*java.awt.TrayIcon.setImage(Image)*
+
+public void setImage(java.awt.Image image)
+
+Sets the image for this TrayIcon. The previous tray icon image is discarded without calling the (|java.awt.Image|) method you 
+will need to call it manually. 
+
+If the image represents an animated image, it will be animated automatically. 
+
+See the (|java.awt.TrayIcon|) property for details on the size of the displayed image. 
+
+Calling this method with the same image that is currently being used has no effect. 
+
+
+    image - the non-null Image to be used 
+
+*java.awt.TrayIcon.setImageAutoSize(boolean)*
+
+public void setImageAutoSize(boolean autosize)
+
+Sets the auto-size property. Auto-size determines whether the tray image is automatically sized to fit the space allocated for 
+the image on the tray. By default, the auto-size property is set to false. 
+
+If auto-size is false, and the image size doesn't match the tray icon space, the image is painted as-is inside that space if 
+larger than the allocated space, it will be cropped. 
+
+If auto-size is true, the image is stretched or shrunk to fit the tray icon space. 
+
+
+    autosize - true to auto-size the image, false otherwise 
+
+*java.awt.TrayIcon.setPopupMenu(PopupMenu)*
+
+public void setPopupMenu(java.awt.PopupMenu popup)
+
+Sets the popup menu for this TrayIcon. If popup is null, no popup menu will be associated with this TrayIcon. 
+
+Note that this popup must not be added to any parent before or after it is set on the tray icon. If you add it to some parent, 
+the popup may be removed from that parent. 
+
+Thepopupcan be set on oneTrayIcononly. Setting the same popup on multipleTrayIcons will cause anIllegalArgumentException. 
+
+Note: Some platforms may not support showing the user-specified popup menu component when the user right-clicks the tray icon. 
+In this situation, either no menu will be displayed or, on some systems, a native version of the menu may be displayed. 
+
+
+    popup - a PopupMenu or null to remove any popup menu 
+
+*java.awt.TrayIcon.setToolTip(String)*
+
+public void setToolTip(java.lang.String tooltip)
+
+Sets the tooltip string for this TrayIcon. The tooltip is displayed automatically when the mouse hovers over the icon. Setting 
+the tooltip to null removes any tooltip text. 
+
+When displayed, the tooltip string may be truncated on some platforms; the number of characters that may be displayed is 
+platform-dependent. 
+
+
+    tooltip - the string for the tooltip; if the value is null no tooltip is shown 
+
+

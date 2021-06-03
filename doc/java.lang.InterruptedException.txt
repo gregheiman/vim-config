@@ -1,0 +1,42 @@
+*java.lang.InterruptedException* *InterruptedException* Thrown when a thread is waiting, sleeping, or otherwise occupied,
+ and t
+
+public class InterruptedException
+  extends    |java.lang.Exception|
+
+|java.lang.InterruptedException_Description|
+|java.lang.InterruptedException_Fields|
+|java.lang.InterruptedException_Constructors|
+|java.lang.InterruptedException_Methods|
+
+================================================================================================================================
+
+*java.lang.InterruptedException_Constructors*
+|java.lang.InterruptedException()|Constructs an InterruptedException with no detail  message.
+|java.lang.InterruptedException(String)|Constructs an InterruptedException with the   specified detail message.
+
+*java.lang.InterruptedException_Description*
+
+Thrown when a thread is waiting, sleeping, or otherwise occupied, and the thread is interrupted, either before or during the 
+activity. Occasionally a method may wish to test whether the current thread has been interrupted, and if so, to immediately 
+throw this exception. The following code can be used to achieve this effect: 
+
+if (Thread.interrupted()) // Clears interrupted status! throw new InterruptedException(); 
+
+
+
+*java.lang.InterruptedException()*
+
+public InterruptedException()
+
+Constructs an InterruptedException with no detail message. 
+
+
+*java.lang.InterruptedException(String)*
+
+public InterruptedException(java.lang.String s)
+
+Constructs an InterruptedException with the specified detail message. 
+
+    s - the detail message. 
+

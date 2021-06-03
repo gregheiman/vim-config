@@ -1,0 +1,39 @@
+*java.sql.RowIdLifetime* *RowIdLifetime* Enumeration for RowId life-time values.
+
+public final enumRowIdLifetime
+  extends    |java.lang.Enum|
+
+|java.sql.RowIdLifetime_Description|
+|java.sql.RowIdLifetime_Fields|
+|java.sql.RowIdLifetime_Constructors|
+|java.sql.RowIdLifetime_Methods|
+
+================================================================================================================================
+
+*java.sql.RowIdLifetime_Methods*
+|java.sql.RowIdLifetime.valueOf(String)|
+|java.sql.RowIdLifetime.values()|
+
+*java.sql.RowIdLifetime_Description*
+
+Enumeration for RowId life-time values. 
+
+
+
+*java.sql.RowIdLifetime.valueOf(String)*
+
+public static |java.sql.RowIdLifetime| valueOf(java.lang.String name)
+
+
+
+
+
+*java.sql.RowIdLifetime.values()*
+
+public static |java.sql.RowIdLifetime|[] values()
+
+
+
+
+
+

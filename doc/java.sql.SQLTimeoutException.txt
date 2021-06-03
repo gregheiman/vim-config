@@ -1,0 +1,132 @@
+*java.sql.SQLTimeoutException* *SQLTimeoutException* The subclass ofSQLExceptionthrown when the timeout specified by Statement
+ 
+
+public class SQLTimeoutException
+  extends    |java.sql.SQLTransientException|
+
+|java.sql.SQLTimeoutException_Description|
+|java.sql.SQLTimeoutException_Fields|
+|java.sql.SQLTimeoutException_Constructors|
+|java.sql.SQLTimeoutException_Methods|
+
+================================================================================================================================
+
+*java.sql.SQLTimeoutException_Constructors*
+|java.sql.SQLTimeoutException()|Constructs a SQLTimeoutException object.
+|java.sql.SQLTimeoutException(String)|Constructs a SQLTimeoutException object   with a given reason.
+|java.sql.SQLTimeoutException(String,String)|Constructs a SQLTimeoutException object  with a given reason and SQLState.
+|java.sql.SQLTimeoutException(String,String,int)|Constructs a SQLTimeoutException object  with a given reason, SQLState  and   
+|java.sql.SQLTimeoutException(String,String,int,Throwable)|Constructs a SQLTimeoutException object  with a given  reason, SQLSt
+|java.sql.SQLTimeoutException(String,String,Throwable)|Constructs a SQLTimeoutException object    with a given  reason, SQLStat
+|java.sql.SQLTimeoutException(String,Throwable)|Constructs a SQLTimeoutException object   with a given  reason and  cause.
+|java.sql.SQLTimeoutException(Throwable)|Constructs a SQLTimeoutException object   with a given  cause.
+
+*java.sql.SQLTimeoutException_Description*
+
+The subclass of (|java.sql.SQLException|) thrown when the timeout specified by Statement has expired. This exception does not 
+correspond to a standard SQLState. 
+
+
+
+*java.sql.SQLTimeoutException()*
+
+public SQLTimeoutException()
+
+Constructs a SQLTimeoutException object. The reason, SQLState are initialized to null and the vendor code is initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+
+*java.sql.SQLTimeoutException(String)*
+
+public SQLTimeoutException(java.lang.String reason)
+
+Constructs a SQLTimeoutException object with a given reason. The SQLState is initialized to null and the vender code is 
+initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+
+*java.sql.SQLTimeoutException(String,String)*
+
+public SQLTimeoutException(
+  java.lang.String reason,
+  java.lang.String SQLState)
+
+Constructs a SQLTimeoutException object with a given reason and SQLState. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. The vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+
+*java.sql.SQLTimeoutException(String,String,int)*
+
+public SQLTimeoutException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode)
+
+Constructs a SQLTimeoutException object with a given reason, SQLState and vendorCode. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor specific exception code 
+
+*java.sql.SQLTimeoutException(String,String,int,Throwable)*
+
+public SQLTimeoutException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode,
+  java.lang.Throwable cause)
+
+Constructs a SQLTimeoutException object with a given reason, SQLState, vendorCode and cause. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor-specific exception code 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLTimeoutException(String,String,Throwable)*
+
+public SQLTimeoutException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  java.lang.Throwable cause)
+
+Constructs a SQLTimeoutException object with a given reason, SQLState and cause. The vendor code is initialized to 0. 
+
+    reason - a description of the exception. 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLTimeoutException(String,Throwable)*
+
+public SQLTimeoutException(
+  java.lang.String reason,
+  java.lang.Throwable cause)
+
+Constructs a SQLTimeoutException object with a given reason and cause. The SQLState is initialized to null and the vendor code 
+is initialized to 0. 
+
+    reason - a description of the exception. 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLTimeoutException(Throwable)*
+
+public SQLTimeoutException(java.lang.Throwable cause)
+
+Constructs a SQLTimeoutException object with a given cause. The SQLState is initialized to null and the vendor code is 
+initialized to 0. The reason is initialized to null if cause==null or to cause.toString() if cause!=null. 
+
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+

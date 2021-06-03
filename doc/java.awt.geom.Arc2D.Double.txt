@@ -1,0 +1,229 @@
+*java.awt.geom.Arc2D.Double* *Arc2D.Double* This class defines an arc specified indoubleprecision.
+
+public static class Arc2D.Double
+  extends    |java.awt.geom.Arc2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.Arc2D.Double_Description|
+|java.awt.geom.Arc2D.Double_Fields|
+|java.awt.geom.Arc2D.Double_Constructors|
+|java.awt.geom.Arc2D.Double_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.Arc2D.Double_Fields*
+|double_java.awt.geom.Arc2D.Double.extent|
+|double_java.awt.geom.Arc2D.Double.height|
+|double_java.awt.geom.Arc2D.Double.start|
+|double_java.awt.geom.Arc2D.Double.width|
+|double_java.awt.geom.Arc2D.Double.x|
+|double_java.awt.geom.Arc2D.Double.y|
+
+*java.awt.geom.Arc2D.Double_Constructors*
+|java.awt.geom.Arc2D.Double()|Constructs a new OPEN arc, initialized to location (0, 0),  size (0, 0), angular extents (start =
+|java.awt.geom.Arc2D.Double(double,double,double,double,double,double,int)|Constructs a new arc, initialized to the specified l
+|java.awt.geom.Arc2D.Double(int)|Constructs a new arc, initialized to location (0, 0),  size (0, 0), angular extents (start = 0
+|java.awt.geom.Arc2D.Double(Rectangle2D,double,double,int)|Constructs a new arc, initialized to the specified location,  size, 
+
+*java.awt.geom.Arc2D.Double_Methods*
+|java.awt.geom.Arc2D.Double.getAngleExtent()|
+|java.awt.geom.Arc2D.Double.getAngleStart()|
+|java.awt.geom.Arc2D.Double.getHeight()|Note that the arc  partially inscribes  the framing rectangle of thisRectangularShape.
+|java.awt.geom.Arc2D.Double.getWidth()|Note that the arc  partially inscribes  the framing rectangle of thisRectangularShape.
+|java.awt.geom.Arc2D.Double.getX()|Note that the arc  partially inscribes  the framing rectangle of thisRectangularShape.
+|java.awt.geom.Arc2D.Double.getY()|Note that the arc  partially inscribes  the framing rectangle of thisRectangularShape.
+|java.awt.geom.Arc2D.Double.isEmpty()|
+|java.awt.geom.Arc2D.Double.makeBounds(double,double,double,double)|
+|java.awt.geom.Arc2D.Double.setAngleExtent(double)|
+|java.awt.geom.Arc2D.Double.setAngleStart(double)|
+|java.awt.geom.Arc2D.Double.setArc(double,double,double,double,double,double,int)|
+
+*java.awt.geom.Arc2D.Double_Description*
+
+This class defines an arc specified indoubleprecision. 
+
+
+
+*double_java.awt.geom.Arc2D.Double.extent*
+
+The angular extent of the arc in degrees. 
+
+
+*double_java.awt.geom.Arc2D.Double.height*
+
+The overall height of the full ellipse of which this arc is a partial section (not considering the angular extents). 
+
+
+*double_java.awt.geom.Arc2D.Double.start*
+
+The starting angle of the arc in degrees. 
+
+
+*double_java.awt.geom.Arc2D.Double.width*
+
+The overall width of the full ellipse of which this arc is a partial section (not considering the angular extents). 
+
+
+*double_java.awt.geom.Arc2D.Double.x*
+
+The X coordinate of the upper-left corner of the framing rectangle of the arc. 
+
+
+*double_java.awt.geom.Arc2D.Double.y*
+
+The Y coordinate of the upper-left corner of the framing rectangle of the arc. 
+
+
+
+*java.awt.geom.Arc2D.Double()*
+
+public Arc2D.Double()
+
+Constructs a new OPEN arc, initialized to location (0, 0), size (0, 0), angular extents (start = 0, extent = 0). 
+
+
+*java.awt.geom.Arc2D.Double(double,double,double,double,double,double,int)*
+
+public Arc2D.Double(
+  double x,
+  double y,
+  double w,
+  double h,
+  double start,
+  double extent,
+  int type)
+
+Constructs a new arc, initialized to the specified location, size, angular extents, and closure type. 
+
+    x - The X coordinate of the upper-left corner of the arc's framing rectangle. 
+    y - The Y coordinate of the upper-left corner of the arc's framing rectangle. 
+    w - The overall width of the full ellipse of which this arc is a partial section. 
+    h - The overall height of the full ellipse of which this arc is a partial section. 
+    start - The starting angle of the arc in degrees. 
+    extent - The angular extent of the arc in degrees. 
+    type - The closure type for the arc: {@link #OPEN}, {@link #CHORD}, or {@link #PIE}. 
+
+*java.awt.geom.Arc2D.Double(int)*
+
+public Arc2D.Double(int type)
+
+Constructs a new arc, initialized to location (0, 0), size (0, 0), angular extents (start = 0, extent = 0), and the specified 
+closure type. 
+
+    type - The closure type for the arc: {@link #OPEN}, {@link #CHORD}, or {@link #PIE}. 
+
+*java.awt.geom.Arc2D.Double(Rectangle2D,double,double,int)*
+
+public Arc2D.Double(
+  java.awt.geom.Rectangle2D ellipseBounds,
+  double start,
+  double extent,
+  int type)
+
+Constructs a new arc, initialized to the specified location, size, angular extents, and closure type. 
+
+    ellipseBounds - The framing rectangle that defines the outer boundary of the full ellipse of which this arc is a partial section. 
+    start - The starting angle of the arc in degrees. 
+    extent - The angular extent of the arc in degrees. 
+    type - The closure type for the arc: {@link #OPEN}, {@link #CHORD}, or {@link #PIE}. 
+
+*java.awt.geom.Arc2D.Double.getAngleExtent()*
+
+public double getAngleExtent()
+
+
+
+
+
+*java.awt.geom.Arc2D.Double.getAngleStart()*
+
+public double getAngleStart()
+
+
+
+
+
+*java.awt.geom.Arc2D.Double.getHeight()*
+
+public double getHeight()
+
+Note that the arc partially inscribes the framing rectangle of thisRectangularShape. 
+
+
+
+*java.awt.geom.Arc2D.Double.getWidth()*
+
+public double getWidth()
+
+Note that the arc partially inscribes the framing rectangle of thisRectangularShape. 
+
+
+
+*java.awt.geom.Arc2D.Double.getX()*
+
+public double getX()
+
+Note that the arc partially inscribes the framing rectangle of thisRectangularShape. 
+
+
+
+*java.awt.geom.Arc2D.Double.getY()*
+
+public double getY()
+
+Note that the arc partially inscribes the framing rectangle of thisRectangularShape. 
+
+
+
+*java.awt.geom.Arc2D.Double.isEmpty()*
+
+public boolean isEmpty()
+
+
+
+
+
+*java.awt.geom.Arc2D.Double.makeBounds(double,double,double,double)*
+
+protected |java.awt.geom.Rectangle2D| makeBounds(
+  double x,
+  double y,
+  double w,
+  double h)
+
+
+
+
+
+*java.awt.geom.Arc2D.Double.setAngleExtent(double)*
+
+public void setAngleExtent(double angExt)
+
+
+
+
+
+*java.awt.geom.Arc2D.Double.setAngleStart(double)*
+
+public void setAngleStart(double angSt)
+
+
+
+
+
+*java.awt.geom.Arc2D.Double.setArc(double,double,double,double,double,double,int)*
+
+public void setArc(
+  double x,
+  double y,
+  double w,
+  double h,
+  double angSt,
+  double angExt,
+  int closure)
+
+
+
+
+
+

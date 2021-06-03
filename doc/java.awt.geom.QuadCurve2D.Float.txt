@@ -1,0 +1,217 @@
+*java.awt.geom.QuadCurve2D.Float* *QuadCurve2D.Float* A quadratic parametric curve segment specified withfloatcoordinates.
+
+public static class QuadCurve2D.Float
+  extends    |java.awt.geom.QuadCurve2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.QuadCurve2D.Float_Description|
+|java.awt.geom.QuadCurve2D.Float_Fields|
+|java.awt.geom.QuadCurve2D.Float_Constructors|
+|java.awt.geom.QuadCurve2D.Float_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.QuadCurve2D.Float_Fields*
+|float_java.awt.geom.QuadCurve2D.Float.ctrlx|
+|float_java.awt.geom.QuadCurve2D.Float.ctrly|
+|float_java.awt.geom.QuadCurve2D.Float.x1|
+|float_java.awt.geom.QuadCurve2D.Float.x2|
+|float_java.awt.geom.QuadCurve2D.Float.y1|
+|float_java.awt.geom.QuadCurve2D.Float.y2|
+
+*java.awt.geom.QuadCurve2D.Float_Constructors*
+|java.awt.geom.QuadCurve2D.Float()|Constructs and initializes a QuadCurve2D with  coordinates (0, 0, 0, 0, 0, 0).
+|java.awt.geom.QuadCurve2D.Float(float,float,float,float,float,float)|Constructs and initializes a QuadCurve2D from the  specif
+
+*java.awt.geom.QuadCurve2D.Float_Methods*
+|java.awt.geom.QuadCurve2D.Float.getBounds2D()|
+|java.awt.geom.QuadCurve2D.Float.getCtrlPt()|
+|java.awt.geom.QuadCurve2D.Float.getCtrlX()|
+|java.awt.geom.QuadCurve2D.Float.getCtrlY()|
+|java.awt.geom.QuadCurve2D.Float.getP1()|
+|java.awt.geom.QuadCurve2D.Float.getP2()|
+|java.awt.geom.QuadCurve2D.Float.getX1()|
+|java.awt.geom.QuadCurve2D.Float.getX2()|
+|java.awt.geom.QuadCurve2D.Float.getY1()|
+|java.awt.geom.QuadCurve2D.Float.getY2()|
+|java.awt.geom.QuadCurve2D.Float.setCurve(double,double,double,double,double,double)|
+|java.awt.geom.QuadCurve2D.Float.setCurve(float,float,float,float,float,float)|Sets the location of the end points and control 
+
+*java.awt.geom.QuadCurve2D.Float_Description*
+
+A quadratic parametric curve segment specified withfloatcoordinates. 
+
+
+
+*float_java.awt.geom.QuadCurve2D.Float.ctrlx*
+
+The X coordinate of the control point of the quadratic curve segment. 
+
+
+*float_java.awt.geom.QuadCurve2D.Float.ctrly*
+
+The Y coordinate of the control point of the quadratic curve segment. 
+
+
+*float_java.awt.geom.QuadCurve2D.Float.x1*
+
+The X coordinate of the start point of the quadratic curve segment. 
+
+
+*float_java.awt.geom.QuadCurve2D.Float.x2*
+
+The X coordinate of the end point of the quadratic curve segment. 
+
+
+*float_java.awt.geom.QuadCurve2D.Float.y1*
+
+The Y coordinate of the start point of the quadratic curve segment. 
+
+
+*float_java.awt.geom.QuadCurve2D.Float.y2*
+
+The Y coordinate of the end point of the quadratic curve segment. 
+
+
+
+*java.awt.geom.QuadCurve2D.Float()*
+
+public QuadCurve2D.Float()
+
+Constructs and initializes a QuadCurve2D with coordinates (0, 0, 0, 0, 0, 0). 
+
+
+*java.awt.geom.QuadCurve2D.Float(float,float,float,float,float,float)*
+
+public QuadCurve2D.Float(
+  float x1,
+  float y1,
+  float ctrlx,
+  float ctrly,
+  float x2,
+  float y2)
+
+Constructs and initializes a QuadCurve2D from the specifiedfloatcoordinates. 
+
+    x1 - the X coordinate of the start point 
+    y1 - the Y coordinate of the start point 
+    ctrlx - the X coordinate of the control point 
+    ctrly - the Y coordinate of the control point 
+    x2 - the X coordinate of the end point 
+    y2 - the Y coordinate of the end point 
+
+*java.awt.geom.QuadCurve2D.Float.getBounds2D()*
+
+public |java.awt.geom.Rectangle2D| getBounds2D()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Float.getCtrlPt()*
+
+public |java.awt.geom.Point2D| getCtrlPt()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Float.getCtrlX()*
+
+public double getCtrlX()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Float.getCtrlY()*
+
+public double getCtrlY()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Float.getP1()*
+
+public |java.awt.geom.Point2D| getP1()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Float.getP2()*
+
+public |java.awt.geom.Point2D| getP2()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Float.getX1()*
+
+public double getX1()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Float.getX2()*
+
+public double getX2()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Float.getY1()*
+
+public double getY1()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Float.getY2()*
+
+public double getY2()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Float.setCurve(double,double,double,double,double,double)*
+
+public void setCurve(
+  double x1,
+  double y1,
+  double ctrlx,
+  double ctrly,
+  double x2,
+  double y2)
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Float.setCurve(float,float,float,float,float,float)*
+
+public void setCurve(
+  float x1,
+  float y1,
+  float ctrlx,
+  float ctrly,
+  float x2,
+  float y2)
+
+Sets the location of the end points and control point of this curve to the specifiedfloatcoordinates. 
+
+
+    x1 - the X coordinate of the start point 
+    y1 - the Y coordinate of the start point 
+    ctrlx - the X coordinate of the control point 
+    ctrly - the Y coordinate of the control point 
+    x2 - the X coordinate of the end point 
+    y2 - the Y coordinate of the end point 
+
+

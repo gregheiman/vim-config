@@ -1,0 +1,98 @@
+*java.net.InterfaceAddress* *InterfaceAddress* This class represents a Network Interface address.
+
+public class InterfaceAddress
+  extends    |java.lang.Object|
+
+|java.net.InterfaceAddress_Description|
+|java.net.InterfaceAddress_Fields|
+|java.net.InterfaceAddress_Constructors|
+|java.net.InterfaceAddress_Methods|
+
+================================================================================================================================
+
+*java.net.InterfaceAddress_Methods*
+|java.net.InterfaceAddress.equals(Object)|Compares this object against the specified object.
+|java.net.InterfaceAddress.getAddress()|Returns an InetAddress for this address.
+|java.net.InterfaceAddress.getBroadcast()|Returns an InetAddress for the brodcast address  for this InterfaceAddress.
+|java.net.InterfaceAddress.getNetworkPrefixLength()|Returns the network prefix length for this address.
+|java.net.InterfaceAddress.hashCode()|Returns a hashcode for this Interface address.
+|java.net.InterfaceAddress.toString()|Converts this Interface address to a String.
+
+*java.net.InterfaceAddress_Description*
+
+This class represents a Network Interface address. In short it's an IP address, a subnet mask and a broadcast address when the 
+address is an IPv4 one. An IP address and a network prefix length in the case of IPv6 address. 
+
+
+
+*java.net.InterfaceAddress.equals(Object)*
+
+public boolean equals(java.lang.Object obj)
+
+Compares this object against the specified object. The result is true if and only if the argument is not null and it represents 
+the same interface address as this object. 
+
+Two instances of InterfaceAddress represent the same address if the InetAddress, the prefix length and the broadcast are the 
+same for both. 
+
+
+    obj - the object to compare against. 
+
+    Returns: true if the objects are the same; false otherwise. 
+
+*java.net.InterfaceAddress.getAddress()*
+
+public |java.net.InetAddress| getAddress()
+
+Returns an InetAddress for this address. 
+
+
+
+    Returns: the InetAddress for this address. 
+
+*java.net.InterfaceAddress.getBroadcast()*
+
+public |java.net.InetAddress| getBroadcast()
+
+Returns an InetAddress for the brodcast address for this InterfaceAddress. 
+
+Only IPv4 networks have broadcast address therefore, in the case of an IPv6 network, null will be returned. 
+
+
+
+    Returns: the InetAddress representing the broadcast address or null if there is no broadcast address. 
+
+*java.net.InterfaceAddress.getNetworkPrefixLength()*
+
+public short getNetworkPrefixLength()
+
+Returns the network prefix length for this address. This is also known as the subnet mask in the context of IPv4 addresses. 
+Typical IPv4 values would be 8 (255.0.0.0), 16 (255.255.0.0) or 24 (255.255.255.0). Typical IPv6 values would be 128 (::1/128) 
+or 10 (fe80::203:baff:fe27:1243/10) 
+
+
+
+    Returns: a short representing the prefix length for the subnet of that address. 
+
+*java.net.InterfaceAddress.hashCode()*
+
+public int hashCode()
+
+Returns a hashcode for this Interface address. 
+
+
+
+    Returns: a hash code value for this Interface address. 
+
+*java.net.InterfaceAddress.toString()*
+
+public |java.lang.String| toString()
+
+Converts this Interface address to a String. The string returned is of the form: InetAddress / prefix length [ broadcast 
+address ]. 
+
+
+
+    Returns: a string representation of this Interface address. 
+
+

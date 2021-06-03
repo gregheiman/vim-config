@@ -1,0 +1,39 @@
+*java.awt.MultipleGradientPaint.CycleMethod* *MultipleGradientPaint.CycleMethod* The method to use when painting outside the gra
+
+public static final enumMultipleGradientPaint.CycleMethod
+  extends    |java.lang.Enum|
+
+|java.awt.MultipleGradientPaint.CycleMethod_Description|
+|java.awt.MultipleGradientPaint.CycleMethod_Fields|
+|java.awt.MultipleGradientPaint.CycleMethod_Constructors|
+|java.awt.MultipleGradientPaint.CycleMethod_Methods|
+
+================================================================================================================================
+
+*java.awt.MultipleGradientPaint.CycleMethod_Methods*
+|java.awt.MultipleGradientPaint.CycleMethod.valueOf(String)|
+|java.awt.MultipleGradientPaint.CycleMethod.values()|
+
+*java.awt.MultipleGradientPaint.CycleMethod_Description*
+
+The method to use when painting outside the gradient bounds. 
+
+
+
+*java.awt.MultipleGradientPaint.CycleMethod.valueOf(String)*
+
+public static |java.awt.MultipleGradientPaint.CycleMethod| valueOf(java.lang.String name)
+
+
+
+
+
+*java.awt.MultipleGradientPaint.CycleMethod.values()*
+
+public static |java.awt.MultipleGradientPaint.CycleMethod|[] values()
+
+
+
+
+
+

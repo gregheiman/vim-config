@@ -1,0 +1,41 @@
+*java.awt.TrayIcon.MessageType* *TrayIcon.MessageType* The message type determines which icon will be displayed in the
+ caption 
+
+public static final enumTrayIcon.MessageType
+  extends    |java.lang.Enum|
+
+|java.awt.TrayIcon.MessageType_Description|
+|java.awt.TrayIcon.MessageType_Fields|
+|java.awt.TrayIcon.MessageType_Constructors|
+|java.awt.TrayIcon.MessageType_Methods|
+
+================================================================================================================================
+
+*java.awt.TrayIcon.MessageType_Methods*
+|java.awt.TrayIcon.MessageType.valueOf(String)|
+|java.awt.TrayIcon.MessageType.values()|
+
+*java.awt.TrayIcon.MessageType_Description*
+
+The message type determines which icon will be displayed in the caption of the message, and a possible system sound a message 
+may generate upon showing. 
+
+
+
+*java.awt.TrayIcon.MessageType.valueOf(String)*
+
+public static |java.awt.TrayIcon.MessageType| valueOf(java.lang.String name)
+
+
+
+
+
+*java.awt.TrayIcon.MessageType.values()*
+
+public static |java.awt.TrayIcon.MessageType|[] values()
+
+
+
+
+
+

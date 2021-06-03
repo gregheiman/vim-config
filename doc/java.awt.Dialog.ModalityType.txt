@@ -1,0 +1,40 @@
+*java.awt.Dialog.ModalityType* *Dialog.ModalityType* Modal dialogs block all input to some top-level windows.
+
+public static final enumDialog.ModalityType
+  extends    |java.lang.Enum|
+
+|java.awt.Dialog.ModalityType_Description|
+|java.awt.Dialog.ModalityType_Fields|
+|java.awt.Dialog.ModalityType_Constructors|
+|java.awt.Dialog.ModalityType_Methods|
+
+================================================================================================================================
+
+*java.awt.Dialog.ModalityType_Methods*
+|java.awt.Dialog.ModalityType.valueOf(String)|
+|java.awt.Dialog.ModalityType.values()|
+
+*java.awt.Dialog.ModalityType_Description*
+
+Modal dialogs block all input to some top-level windows. Whether a particular window is blocked depends on dialog's type of 
+modality; this is called the "scope of blocking". The ModalityType enum specifies modal types and their associated scopes. 
+
+
+
+*java.awt.Dialog.ModalityType.valueOf(String)*
+
+public static |java.awt.Dialog.ModalityType| valueOf(java.lang.String name)
+
+
+
+
+
+*java.awt.Dialog.ModalityType.values()*
+
+public static |java.awt.Dialog.ModalityType|[] values()
+
+
+
+
+
+

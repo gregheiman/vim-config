@@ -1,0 +1,30 @@
+*java.awt.peer.SystemTrayPeer* *SystemTrayPeer* 
+
+public interface interface SystemTrayPeer
+
+
+|java.awt.peer.SystemTrayPeer_Description|
+|java.awt.peer.SystemTrayPeer_Fields|
+|java.awt.peer.SystemTrayPeer_Constructors|
+|java.awt.peer.SystemTrayPeer_Methods|
+
+================================================================================================================================
+
+*java.awt.peer.SystemTrayPeer_Methods*
+|java.awt.peer.SystemTrayPeer.getTrayIconSize()|
+
+*java.awt.peer.SystemTrayPeer_Description*
+
+
+
+
+
+*java.awt.peer.SystemTrayPeer.getTrayIconSize()*
+
+public |java.awt.Dimension| getTrayIconSize()
+
+
+
+
+
+

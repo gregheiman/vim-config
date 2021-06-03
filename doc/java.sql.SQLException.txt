@@ -1,0 +1,199 @@
+*java.sql.SQLException* *SQLException* An exception that provides information on a database access
+ error or other errors.
+
+public class SQLException
+  extends    |java.lang.Exception|
+  implements |java.lang.Iterable|
+
+|java.sql.SQLException_Description|
+|java.sql.SQLException_Fields|
+|java.sql.SQLException_Constructors|
+|java.sql.SQLException_Methods|
+
+================================================================================================================================
+
+*java.sql.SQLException_Constructors*
+|java.sql.SQLException()|Constructs a SQLException object.
+|java.sql.SQLException(String)|Constructs a SQLException object with a given  reason.
+|java.sql.SQLException(String,String)|Constructs a SQLException object with a given  reason and SQLState.
+|java.sql.SQLException(String,String,int)|Constructs a SQLException object with a given  reason, SQLState  and   vendorCode.
+|java.sql.SQLException(String,String,int,Throwable)|Constructs a SQLException object with a given  reason, SQLState, vendorCode
+|java.sql.SQLException(String,String,Throwable)|Constructs a SQLException object with a given  reason, SQLState and  cause.
+|java.sql.SQLException(String,Throwable)|Constructs a SQLException object with a given  reason and  cause.
+|java.sql.SQLException(Throwable)|Constructs a SQLException object with a given  cause.
+
+*java.sql.SQLException_Methods*
+|java.sql.SQLException.getErrorCode()|Retrieves the vendor-specific exception code  for this SQLException object.
+|java.sql.SQLException.getNextException()|Retrieves the exception chained to this   SQLException object by setNextException(SQL
+|java.sql.SQLException.getSQLState()|Retrieves the SQLState for this SQLException object.
+|java.sql.SQLException.iterator()|Returns an iterator over the chained SQLExceptions.
+|java.sql.SQLException.setNextException(SQLException)|Adds an SQLException object to the end of the chain.
+
+*java.sql.SQLException_Description*
+
+An exception that provides information on a database access error or other errors. 
+
+Each SQLException provides several kinds of information: 
+
+a string describing the error. This is used as the Java Exception message, available via the method getMesasge. a "SQLstate" 
+string, which follows either the XOPEN SQLstate conventions or the SQL:2003 conventions. The values of the SQLState string are 
+described in the appropriate spec. The DatabaseMetaData method getSQLStateType can be used to discover whether the driver 
+returns the XOPEN type or the SQL:2003 type. an integer error code that is specific to each vendor. Normally this will be the 
+actual error code returned by the underlying database. a chain to a next Exception. This can be used to provide additional 
+error information. the causal relationship, if any for this SQLException. 
+
+
+
+*java.sql.SQLException()*
+
+public SQLException()
+
+Constructs a SQLException object. The reason, SQLState are initialized to null and the vendor code is initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+
+*java.sql.SQLException(String)*
+
+public SQLException(java.lang.String reason)
+
+Constructs a SQLException object with a given reason. The SQLState is initialized to null and the vender code is initialized to 
+0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+
+*java.sql.SQLException(String,String)*
+
+public SQLException(
+  java.lang.String reason,
+  java.lang.String SQLState)
+
+Constructs a SQLException object with a given reason and SQLState. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. The vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+
+*java.sql.SQLException(String,String,int)*
+
+public SQLException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode)
+
+Constructs a SQLException object with a given reason, SQLState and vendorCode. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor-specific exception code 
+
+*java.sql.SQLException(String,String,int,Throwable)*
+
+public SQLException(
+  java.lang.String reason,
+  java.lang.String sqlState,
+  int vendorCode,
+  java.lang.Throwable cause)
+
+Constructs a SQLException object with a given reason, SQLState, vendorCode and cause. 
+
+    reason - a description of the exception 
+    sqlState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor-specific exception code 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLException(String,String,Throwable)*
+
+public SQLException(
+  java.lang.String reason,
+  java.lang.String sqlState,
+  java.lang.Throwable cause)
+
+Constructs a SQLException object with a given reason, SQLState and cause. The vendor code is initialized to 0. 
+
+    reason - a description of the exception. 
+    sqlState - an XOPEN or SQL:2003 code identifying the exception 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLException(String,Throwable)*
+
+public SQLException(
+  java.lang.String reason,
+  java.lang.Throwable cause)
+
+Constructs a SQLException object with a given reason and cause. The SQLState is initialized to null and the vendor code is 
+initialized to 0. 
+
+    reason - a description of the exception. 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLException(Throwable)*
+
+public SQLException(java.lang.Throwable cause)
+
+Constructs a SQLException object with a given cause. The SQLState is initialized to null and the vendor code is initialized to 
+0. The reason is initialized to null if cause==null or to cause.toString() if cause!=null. 
+
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLException.getErrorCode()*
+
+public int getErrorCode()
+
+Retrieves the vendor-specific exception code for this SQLException object. 
+
+
+
+    Returns: the vendor's error code 
+
+*java.sql.SQLException.getNextException()*
+
+public |java.sql.SQLException| getNextException()
+
+Retrieves the exception chained to this SQLException object by setNextException(SQLException ex). 
+
+
+
+    Returns: the next SQLException object in the chain; null if there are none 
+
+*java.sql.SQLException.getSQLState()*
+
+public |java.lang.String| getSQLState()
+
+Retrieves the SQLState for this SQLException object. 
+
+
+
+    Returns: the SQLState value 
+
+*java.sql.SQLException.iterator()*
+
+public |java.util.Iterator|<Throwable> iterator()
+
+Returns an iterator over the chained SQLExceptions. The iterator will be used to iterate over each SQLException and its 
+underlying cause (if any). 
+
+
+
+    Returns: an iterator over the chained SQLExceptions and causes in the proper order 
+
+*java.sql.SQLException.setNextException(SQLException)*
+
+public void setNextException(java.sql.SQLException ex)
+
+Adds an SQLException object to the end of the chain. 
+
+
+    ex - the new exception that will be added to the end of the SQLException chain 
+
+

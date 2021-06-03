@@ -1,0 +1,20 @@
+*java.awt.GridBagLayoutInfo* *GridBagLayoutInfo* TheGridBagLayoutInfois an utility class forGridBagLayoutlayout manager.
+
+public class GridBagLayoutInfo
+  extends    |java.lang.Object|
+  implements |java.io.Serializable|
+
+|java.awt.GridBagLayoutInfo_Description|
+|java.awt.GridBagLayoutInfo_Fields|
+|java.awt.GridBagLayoutInfo_Constructors|
+|java.awt.GridBagLayoutInfo_Methods|
+
+================================================================================================================================
+
+*java.awt.GridBagLayoutInfo_Description*
+
+TheGridBagLayoutInfois an utility class forGridBagLayoutlayout manager. It stores align, size and baseline parameters for every 
+component within a container. 
+
+
+

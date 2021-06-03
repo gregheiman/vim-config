@@ -1,0 +1,133 @@
+*java.sql.SQLTransientException* *SQLTransientException* The subclass ofSQLExceptionis thrown in situations where a
+ previoulsy 
+
+public class SQLTransientException
+  extends    |java.sql.SQLException|
+
+|java.sql.SQLTransientException_Description|
+|java.sql.SQLTransientException_Fields|
+|java.sql.SQLTransientException_Constructors|
+|java.sql.SQLTransientException_Methods|
+
+================================================================================================================================
+
+*java.sql.SQLTransientException_Constructors*
+|java.sql.SQLTransientException()|Constructs a SQLTransientException object.
+|java.sql.SQLTransientException(String)|Constructs a SQLTransientException object    with a given reason.
+|java.sql.SQLTransientException(String,String)|Constructs a SQLTransientException object   with a given reason and SQLState.
+|java.sql.SQLTransientException(String,String,int)|Constructs a SQLTransientException object   with a given reason, SQLState  a
+|java.sql.SQLTransientException(String,String,int,Throwable)|Constructs a SQLTransientException object  with a given  reason, S
+|java.sql.SQLTransientException(String,String,Throwable)|Constructs a SQLTransientException object   with a given  reason, SQLS
+|java.sql.SQLTransientException(String,Throwable)|Constructs a SQLTransientException object   with a given  reason and  cause.
+|java.sql.SQLTransientException(Throwable)|Constructs a SQLTransientException object   with a given  cause.
+
+*java.sql.SQLTransientException_Description*
+
+The subclass of (|java.sql.SQLException|) is thrown in situations where a previoulsy failed operation might be able to succeed 
+when the operation is retried without any intervention by application-level functionality. 
+
+
+
+*java.sql.SQLTransientException()*
+
+public SQLTransientException()
+
+Constructs a SQLTransientException object. The reason, SQLState are initialized to null and the vendor code is initialized to 
+0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+
+*java.sql.SQLTransientException(String)*
+
+public SQLTransientException(java.lang.String reason)
+
+Constructs a SQLTransientException object with a given reason. The SQLState is initialized to null and the vender code is 
+initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+
+*java.sql.SQLTransientException(String,String)*
+
+public SQLTransientException(
+  java.lang.String reason,
+  java.lang.String SQLState)
+
+Constructs a SQLTransientException object with a given reason and SQLState. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. The vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+
+*java.sql.SQLTransientException(String,String,int)*
+
+public SQLTransientException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode)
+
+Constructs a SQLTransientException object with a given reason, SQLState and vendorCode. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor specific exception code 
+
+*java.sql.SQLTransientException(String,String,int,Throwable)*
+
+public SQLTransientException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode,
+  java.lang.Throwable cause)
+
+Constructs a SQLTransientException object with a given reason, SQLState, vendorCode and cause. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor-specific exception code 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLTransientException(String,String,Throwable)*
+
+public SQLTransientException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  java.lang.Throwable cause)
+
+Constructs a SQLTransientException object with a given reason, SQLState and cause. The vendor code is initialized to 0. 
+
+    reason - a description of the exception. 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLTransientException(String,Throwable)*
+
+public SQLTransientException(
+  java.lang.String reason,
+  java.lang.Throwable cause)
+
+Constructs a SQLTransientException object with a given reason and cause. The SQLState is initialized to null and the vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception. 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLTransientException(Throwable)*
+
+public SQLTransientException(java.lang.Throwable cause)
+
+Constructs a SQLTransientException object with a given cause. The SQLState is initialized to null and the vendor code is 
+initialized to 0. The reason is initialized to null if cause==null or to cause.toString() if cause!=null. 
+
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+

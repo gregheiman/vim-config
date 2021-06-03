@@ -1,0 +1,133 @@
+*java.sql.SQLTransactionRollbackException* *SQLTransactionRollbackException* The subclass ofSQLExceptionthrown when the SQLState
+
+public class SQLTransactionRollbackException
+  extends    |java.sql.SQLTransientException|
+
+|java.sql.SQLTransactionRollbackException_Description|
+|java.sql.SQLTransactionRollbackException_Fields|
+|java.sql.SQLTransactionRollbackException_Constructors|
+|java.sql.SQLTransactionRollbackException_Methods|
+
+================================================================================================================================
+
+*java.sql.SQLTransactionRollbackException_Constructors*
+|java.sql.SQLTransactionRollbackException()|Constructs a SQLTransactionRollbackException object.
+|java.sql.SQLTransactionRollbackException(String)|Constructs a SQLTransactionRollbackException object   with a given reason.
+|java.sql.SQLTransactionRollbackException(String,String)|Constructs a SQLTransactionRollbackException object   with a given rea
+|java.sql.SQLTransactionRollbackException(String,String,int)|Constructs a SQLTransactionRollbackException object  with a given 
+|java.sql.SQLTransactionRollbackException(String,String,int,Throwable)|Constructs a SQLTransactionRollbackException object  wit
+|java.sql.SQLTransactionRollbackException(String,String,Throwable)|Constructs a SQLTransactionRollbackException object   with a
+|java.sql.SQLTransactionRollbackException(String,Throwable)|Constructs a SQLTransactionRollbackException object  with a given  
+|java.sql.SQLTransactionRollbackException(Throwable)|Constructs a SQLTransactionRollbackException object   with a given  cause.
+
+*java.sql.SQLTransactionRollbackException_Description*
+
+The subclass of (|java.sql.SQLException|) thrown when the SQLState class value is '40'. This indicates that the current 
+statement was automatically rolled back by the database becuase of deadlock or other transaction serialization failures. 
+
+
+
+*java.sql.SQLTransactionRollbackException()*
+
+public SQLTransactionRollbackException()
+
+Constructs a SQLTransactionRollbackException object. The reason, SQLState are initialized to null and the vendor code is 
+initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+
+*java.sql.SQLTransactionRollbackException(String)*
+
+public SQLTransactionRollbackException(java.lang.String reason)
+
+Constructs a SQLTransactionRollbackException object with a given reason. The SQLState is initialized to null and the vender 
+code is initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+
+*java.sql.SQLTransactionRollbackException(String,String)*
+
+public SQLTransactionRollbackException(
+  java.lang.String reason,
+  java.lang.String SQLState)
+
+Constructs a SQLTransactionRollbackException object with a given reason and SQLState. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. The vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+
+*java.sql.SQLTransactionRollbackException(String,String,int)*
+
+public SQLTransactionRollbackException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode)
+
+Constructs a SQLTransactionRollbackException object with a given reason, SQLState and vendorCode. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor specific exception code 
+
+*java.sql.SQLTransactionRollbackException(String,String,int,Throwable)*
+
+public SQLTransactionRollbackException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode,
+  java.lang.Throwable cause)
+
+Constructs a SQLTransactionRollbackException object with a given reason, SQLState, vendorCode and cause. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor-specific exception code 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLTransactionRollbackException(String,String,Throwable)*
+
+public SQLTransactionRollbackException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  java.lang.Throwable cause)
+
+Constructs a SQLTransactionRollbackException object with a given reason, SQLState and cause. The vendor code is initialized to 
+0. 
+
+    reason - a description of the exception. 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLTransactionRollbackException(String,Throwable)*
+
+public SQLTransactionRollbackException(
+  java.lang.String reason,
+  java.lang.Throwable cause)
+
+Constructs a SQLTransactionRollbackException object with a given reason and cause. The SQLState is initialized to null and the 
+vendor code is initialized to 0. 
+
+    reason - a description of the exception. 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLTransactionRollbackException(Throwable)*
+
+public SQLTransactionRollbackException(java.lang.Throwable cause)
+
+Constructs a SQLTransactionRollbackException object with a given cause. The SQLState is initialized to null and the vendor code 
+is initialized to 0. The reason is initialized to null if cause==null or to cause.toString() if cause!=null. 
+
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+

@@ -1,0 +1,40 @@
+*java.awt.Desktop.Action* *Desktop.Action* Represents an action type.
+
+public static final enumDesktop.Action
+  extends    |java.lang.Enum|
+
+|java.awt.Desktop.Action_Description|
+|java.awt.Desktop.Action_Fields|
+|java.awt.Desktop.Action_Constructors|
+|java.awt.Desktop.Action_Methods|
+
+================================================================================================================================
+
+*java.awt.Desktop.Action_Methods*
+|java.awt.Desktop.Action.valueOf(String)|
+|java.awt.Desktop.Action.values()|
+
+*java.awt.Desktop.Action_Description*
+
+Represents an action type. Each platform supports a different set of actions. You may use the (|java.awt.Desktop|) method to 
+determine if the given action is supported by the current platform. 
+
+
+
+*java.awt.Desktop.Action.valueOf(String)*
+
+public static |java.awt.Desktop.Action| valueOf(java.lang.String name)
+
+
+
+
+
+*java.awt.Desktop.Action.values()*
+
+public static |java.awt.Desktop.Action|[] values()
+
+
+
+
+
+

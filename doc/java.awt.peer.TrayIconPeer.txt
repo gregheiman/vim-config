@@ -1,0 +1,71 @@
+*java.awt.peer.TrayIconPeer* *TrayIconPeer* 
+
+public interface interface TrayIconPeer
+
+
+|java.awt.peer.TrayIconPeer_Description|
+|java.awt.peer.TrayIconPeer_Fields|
+|java.awt.peer.TrayIconPeer_Constructors|
+|java.awt.peer.TrayIconPeer_Methods|
+
+================================================================================================================================
+
+*java.awt.peer.TrayIconPeer_Methods*
+|java.awt.peer.TrayIconPeer.displayMessage(String,String,String)|
+|java.awt.peer.TrayIconPeer.dispose()|
+|java.awt.peer.TrayIconPeer.setToolTip(String)|
+|java.awt.peer.TrayIconPeer.showPopupMenu(int,int)|
+|java.awt.peer.TrayIconPeer.updateImage()|
+
+*java.awt.peer.TrayIconPeer_Description*
+
+
+
+
+
+*java.awt.peer.TrayIconPeer.displayMessage(String,String,String)*
+
+public void displayMessage(
+  java.lang.String caption,
+  java.lang.String text,
+  java.lang.String messageType)
+
+
+
+
+
+*java.awt.peer.TrayIconPeer.dispose()*
+
+public void dispose()
+
+
+
+
+
+*java.awt.peer.TrayIconPeer.setToolTip(String)*
+
+public void setToolTip(java.lang.String tooltip)
+
+
+
+
+
+*java.awt.peer.TrayIconPeer.showPopupMenu(int,int)*
+
+public void showPopupMenu(
+  int x,
+  int y)
+
+
+
+
+
+*java.awt.peer.TrayIconPeer.updateImage()*
+
+public void updateImage()
+
+
+
+
+
+

@@ -1,0 +1,154 @@
+*java.util.concurrent.atomic.AtomicReferenceArray* *AtomicReferenceArray* An array of object references in which elements may be
+
+public class AtomicReferenceArray<E>
+  extends    |java.lang.Object|
+  implements |java.io.Serializable|
+
+|java.util.concurrent.atomic.AtomicReferenceArray_Description|
+|java.util.concurrent.atomic.AtomicReferenceArray_Fields|
+|java.util.concurrent.atomic.AtomicReferenceArray_Constructors|
+|java.util.concurrent.atomic.AtomicReferenceArray_Methods|
+
+================================================================================================================================
+
+*java.util.concurrent.atomic.AtomicReferenceArray_Constructors*
+|java.util.concurrent.atomic.AtomicReferenceArray(E[])|Creates a new AtomicReferenceArray with the same length as, and  all ele
+|java.util.concurrent.atomic.AtomicReferenceArray(int)|Creates a new AtomicReferenceArray of given length.
+
+*java.util.concurrent.atomic.AtomicReferenceArray_Methods*
+|java.util.concurrent.atomic.AtomicReferenceArray.compareAndSet(int,E,E)|Atomically sets the element at positionito the given  
+|java.util.concurrent.atomic.AtomicReferenceArray.get(int)|Gets the current value at positioni.
+|java.util.concurrent.atomic.AtomicReferenceArray.getAndSet(int,E)|Atomically sets the element at positionito the given  value 
+|java.util.concurrent.atomic.AtomicReferenceArray.lazySet(int,E)|Eventually sets the element at positionito the given value.
+|java.util.concurrent.atomic.AtomicReferenceArray.length()|Returns the length of the array.
+|java.util.concurrent.atomic.AtomicReferenceArray.set(int,E)|Sets the element at positionito the given value.
+|java.util.concurrent.atomic.AtomicReferenceArray.toString()|Returns the String representation of the current values of array.
+|java.util.concurrent.atomic.AtomicReferenceArray.weakCompareAndSet(int,E,E)|Atomically sets the element at positionito the giv
+
+*java.util.concurrent.atomic.AtomicReferenceArray_Description*
+
+An array of object references in which elements may be updated atomically. See the (|java.util.concurrent.atomic|) package 
+specification for description of the properties of atomic variables. 
+
+
+
+*java.util.concurrent.atomic.AtomicReferenceArray(E[])*
+
+public AtomicReferenceArray(E[] array)
+
+Creates a new AtomicReferenceArray with the same length as, and all elements copied from, the given array. 
+
+    array - the array to copy elements from 
+
+*java.util.concurrent.atomic.AtomicReferenceArray(int)*
+
+public AtomicReferenceArray(int length)
+
+Creates a new AtomicReferenceArray of given length. 
+
+    length - the length of the array 
+
+*java.util.concurrent.atomic.AtomicReferenceArray.compareAndSet(int,E,E)*
+
+public final boolean compareAndSet(
+  int i,
+  E expect,
+  E update)
+
+Atomically sets the element at positionito the given updated value if the current value==the expected value. 
+
+
+    i - the index 
+    expect - the expected value 
+    update - the new value 
+
+    Returns: true if successful. False return indicates that the actual value was not equal to the expected value. 
+
+*java.util.concurrent.atomic.AtomicReferenceArray.get(int)*
+
+public final |E| get(int i)
+
+Gets the current value at positioni. 
+
+
+    i - the index 
+
+    Returns: the current value 
+
+*java.util.concurrent.atomic.AtomicReferenceArray.getAndSet(int,E)*
+
+public final |E| getAndSet(
+  int i,
+  E newValue)
+
+Atomically sets the element at positionito the given value and returns the old value. 
+
+
+    i - the index 
+    newValue - the new value 
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicReferenceArray.lazySet(int,E)*
+
+public final void lazySet(
+  int i,
+  E newValue)
+
+Eventually sets the element at positionito the given value. 
+
+
+    i - the index 
+    newValue - the new value 
+
+*java.util.concurrent.atomic.AtomicReferenceArray.length()*
+
+public final int length()
+
+Returns the length of the array. 
+
+
+
+    Returns: the length of the array 
+
+*java.util.concurrent.atomic.AtomicReferenceArray.set(int,E)*
+
+public final void set(
+  int i,
+  E newValue)
+
+Sets the element at positionito the given value. 
+
+
+    i - the index 
+    newValue - the new value 
+
+*java.util.concurrent.atomic.AtomicReferenceArray.toString()*
+
+public |java.lang.String| toString()
+
+Returns the String representation of the current values of array. 
+
+
+
+    Returns: the String representation of the current values of array. 
+
+*java.util.concurrent.atomic.AtomicReferenceArray.weakCompareAndSet(int,E,E)*
+
+public final boolean weakCompareAndSet(
+  int i,
+  E expect,
+  E update)
+
+Atomically sets the element at positionito the given updated value if the current value==the expected value. 
+
+May fail spuriously and does not provide ordering guarantees, so is only rarely an appropriate alternative tocompareAndSet. 
+
+
+    i - the index 
+    expect - the expected value 
+    update - the new value 
+
+    Returns: true if successful. 
+
+

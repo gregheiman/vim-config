@@ -1,0 +1,188 @@
+*java.awt.geom.RoundRectangle2D.Double* *RoundRectangle2D.Double* The Double class defines a rectangle with rounded
+ corners all
+
+public static class RoundRectangle2D.Double
+  extends    |java.awt.geom.RoundRectangle2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.RoundRectangle2D.Double_Description|
+|java.awt.geom.RoundRectangle2D.Double_Fields|
+|java.awt.geom.RoundRectangle2D.Double_Constructors|
+|java.awt.geom.RoundRectangle2D.Double_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.RoundRectangle2D.Double_Fields*
+|double_java.awt.geom.RoundRectangle2D.Double.archeight|
+|double_java.awt.geom.RoundRectangle2D.Double.arcwidth|
+|double_java.awt.geom.RoundRectangle2D.Double.height|
+|double_java.awt.geom.RoundRectangle2D.Double.width|
+|double_java.awt.geom.RoundRectangle2D.Double.x|
+|double_java.awt.geom.RoundRectangle2D.Double.y|
+
+*java.awt.geom.RoundRectangle2D.Double_Constructors*
+|java.awt.geom.RoundRectangle2D.Double()|Constructs a new RoundRectangle2D, initialized to  location (0.0,0), size (0.0,0.0), a
+|java.awt.geom.RoundRectangle2D.Double(double,double,double,double,double,double)|Constructs and initializes a RoundRectangle2D
+
+*java.awt.geom.RoundRectangle2D.Double_Methods*
+|java.awt.geom.RoundRectangle2D.Double.getArcHeight()|
+|java.awt.geom.RoundRectangle2D.Double.getArcWidth()|
+|java.awt.geom.RoundRectangle2D.Double.getBounds2D()|
+|java.awt.geom.RoundRectangle2D.Double.getHeight()|
+|java.awt.geom.RoundRectangle2D.Double.getWidth()|
+|java.awt.geom.RoundRectangle2D.Double.getX()|
+|java.awt.geom.RoundRectangle2D.Double.getY()|
+|java.awt.geom.RoundRectangle2D.Double.isEmpty()|
+|java.awt.geom.RoundRectangle2D.Double.setRoundRect(double,double,double,double,double,double)|
+|java.awt.geom.RoundRectangle2D.Double.setRoundRect(RoundRectangle2D)|
+
+*java.awt.geom.RoundRectangle2D.Double_Description*
+
+The Double class defines a rectangle with rounded corners all specified in double coordinates. 
+
+
+
+*double_java.awt.geom.RoundRectangle2D.Double.archeight*
+
+The height of the arc that rounds off the corners. 
+
+
+*double_java.awt.geom.RoundRectangle2D.Double.arcwidth*
+
+The width of the arc that rounds off the corners. 
+
+
+*double_java.awt.geom.RoundRectangle2D.Double.height*
+
+The height of this RoundRectangle2D. 
+
+
+*double_java.awt.geom.RoundRectangle2D.Double.width*
+
+The width of this RoundRectangle2D. 
+
+
+*double_java.awt.geom.RoundRectangle2D.Double.x*
+
+The X coordinate of this RoundRectangle2D. 
+
+
+*double_java.awt.geom.RoundRectangle2D.Double.y*
+
+The Y coordinate of this RoundRectangle2D. 
+
+
+
+*java.awt.geom.RoundRectangle2D.Double()*
+
+public RoundRectangle2D.Double()
+
+Constructs a new RoundRectangle2D, initialized to location (0.0,0), size (0.0,0.0), and corner arcs of radius 0.0. 
+
+
+*java.awt.geom.RoundRectangle2D.Double(double,double,double,double,double,double)*
+
+public RoundRectangle2D.Double(
+  double x,
+  double y,
+  double w,
+  double h,
+  double arcw,
+  double arch)
+
+Constructs and initializes a RoundRectangle2D from the specified double coordinates. 
+
+    x - the X coordinate of the newly constructed RoundRectangle2D 
+    y - the Y coordinate of the newly constructed RoundRectangle2D 
+    w - the width to which to set the newly constructed RoundRectangle2D 
+    h - the height to which to set the newly constructed RoundRectangle2D 
+    arcw - the width of the arc to use to round off the corners of the newly constructed RoundRectangle2D 
+    arch - the height of the arc to use to round off the corners of the newly constructed RoundRectangle2D 
+
+*java.awt.geom.RoundRectangle2D.Double.getArcHeight()*
+
+public double getArcHeight()
+
+
+
+
+
+*java.awt.geom.RoundRectangle2D.Double.getArcWidth()*
+
+public double getArcWidth()
+
+
+
+
+
+*java.awt.geom.RoundRectangle2D.Double.getBounds2D()*
+
+public |java.awt.geom.Rectangle2D| getBounds2D()
+
+
+
+
+
+*java.awt.geom.RoundRectangle2D.Double.getHeight()*
+
+public double getHeight()
+
+
+
+
+
+*java.awt.geom.RoundRectangle2D.Double.getWidth()*
+
+public double getWidth()
+
+
+
+
+
+*java.awt.geom.RoundRectangle2D.Double.getX()*
+
+public double getX()
+
+
+
+
+
+*java.awt.geom.RoundRectangle2D.Double.getY()*
+
+public double getY()
+
+
+
+
+
+*java.awt.geom.RoundRectangle2D.Double.isEmpty()*
+
+public boolean isEmpty()
+
+
+
+
+
+*java.awt.geom.RoundRectangle2D.Double.setRoundRect(double,double,double,double,double,double)*
+
+public void setRoundRect(
+  double x,
+  double y,
+  double w,
+  double h,
+  double arcw,
+  double arch)
+
+
+
+
+
+*java.awt.geom.RoundRectangle2D.Double.setRoundRect(RoundRectangle2D)*
+
+public void setRoundRect(java.awt.geom.RoundRectangle2D rr)
+
+
+
+
+
+

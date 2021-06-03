@@ -1,0 +1,161 @@
+*java.sql.SQLWarning* *SQLWarning* An exception that provides information on  database access
+ warnings.
+
+public class SQLWarning
+  extends    |java.sql.SQLException|
+
+|java.sql.SQLWarning_Description|
+|java.sql.SQLWarning_Fields|
+|java.sql.SQLWarning_Constructors|
+|java.sql.SQLWarning_Methods|
+
+================================================================================================================================
+
+*java.sql.SQLWarning_Constructors*
+|java.sql.SQLWarning()|Constructs a  SQLWarning object.
+|java.sql.SQLWarning(String)|Constructs a SQLWarning object  with a given reason.
+|java.sql.SQLWarning(String,String)|Constructs a SQLWarning object  with a given reason and SQLState.
+|java.sql.SQLWarning(String,String,int)|Constructs a  SQLWarning object   with a given reason, SQLState  and   vendorCode.
+|java.sql.SQLWarning(String,String,int,Throwable)|Constructs aSQLWarning object  with a given  reason, SQLState, vendorCode  an
+|java.sql.SQLWarning(String,String,Throwable)|Constructs a SQLWarning object  with a given  reason, SQLState and  cause.
+|java.sql.SQLWarning(String,Throwable)|Constructs a SQLWarning object  with a given  reason and  cause.
+|java.sql.SQLWarning(Throwable)|Constructs a SQLWarning object  with a given  cause.
+
+*java.sql.SQLWarning_Methods*
+|java.sql.SQLWarning.getNextWarning()|Retrieves the warning chained to this SQLWarning object by  setNextWarning.
+|java.sql.SQLWarning.setNextWarning(SQLWarning)|Adds a SQLWarning object to the end of the chain.
+
+*java.sql.SQLWarning_Description*
+
+An exception that provides information on database access warnings. Warnings are silently chained to the object whose method 
+caused it to be reported. 
+
+Warnings may be retrieved from Connection, Statement, and ResultSet objects. Trying to retrieve a warning on a connection after 
+it has been closed will cause an exception to be thrown. Similarly, trying to retrieve a warning on a statement after it has 
+been closed or on a result set after it has been closed will cause an exception to be thrown. Note that closing a statement 
+also closes a result set that it might have produced. 
+
+
+
+*java.sql.SQLWarning()*
+
+public SQLWarning()
+
+Constructs a SQLWarning object. The reason, SQLState are initialized to null and the vendor code is initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+
+*java.sql.SQLWarning(String)*
+
+public SQLWarning(java.lang.String reason)
+
+Constructs a SQLWarning object with a given reason. The SQLState is initialized to null and the vender code is initialized to 
+0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the warning 
+
+*java.sql.SQLWarning(String,String)*
+
+public SQLWarning(
+  java.lang.String reason,
+  java.lang.String SQLState)
+
+Constructs a SQLWarning object with a given reason and SQLState. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. The vendor 
+code is initialized to 0. 
+
+    reason - a description of the warning 
+    SQLState - an XOPEN or SQL:2003 code identifying the warning 
+
+*java.sql.SQLWarning(String,String,int)*
+
+public SQLWarning(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode)
+
+Constructs a SQLWarning object with a given reason, SQLState and vendorCode. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the warning 
+    SQLState - an XOPEN or SQL:2003 code identifying the warning 
+    vendorCode - a database vendor-specific warning code 
+
+*java.sql.SQLWarning(String,String,int,Throwable)*
+
+public SQLWarning(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode,
+  java.lang.Throwable cause)
+
+Constructs aSQLWarning object with a given reason, SQLState, vendorCode and cause. 
+
+    reason - a description of the warning 
+    SQLState - an XOPEN or SQL:2003 code identifying the warning 
+    vendorCode - a database vendor-specific warning code 
+    cause - the underlying reason for this SQLWarning (which is saved for later retrieval by the getCause() method); may be null indicating 
+       the cause is non-existent or unknown. 
+
+*java.sql.SQLWarning(String,String,Throwable)*
+
+public SQLWarning(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  java.lang.Throwable cause)
+
+Constructs a SQLWarning object with a given reason, SQLState and cause. The vendor code is initialized to 0. 
+
+    reason - a description of the warning 
+    SQLState - an XOPEN or SQL:2003 code identifying the warning 
+    cause - the underlying reason for this SQLWarning (which is saved for later retrieval by the getCause() method); may be null indicating 
+       the cause is non-existent or unknown. 
+
+*java.sql.SQLWarning(String,Throwable)*
+
+public SQLWarning(
+  java.lang.String reason,
+  java.lang.Throwable cause)
+
+Constructs a SQLWarning object with a given reason and cause. The SQLState is initialized to null and the vendor code is 
+initialized to 0. 
+
+    reason - a description of the warning 
+    cause - the underlying reason for this SQLWarning (which is saved for later retrieval by the getCause() method); may be null indicating 
+       the cause is non-existent or unknown. 
+
+*java.sql.SQLWarning(Throwable)*
+
+public SQLWarning(java.lang.Throwable cause)
+
+Constructs a SQLWarning object with a given cause. The SQLState is initialized to null and the vendor code is initialized to 0. 
+The reason is initialized to null if cause==null or to cause.toString() if cause!=null. 
+
+    cause - the underlying reason for this SQLWarning (which is saved for later retrieval by the getCause() method); may be null indicating 
+       the cause is non-existent or unknown. 
+
+*java.sql.SQLWarning.getNextWarning()*
+
+public |java.sql.SQLWarning| getNextWarning()
+
+Retrieves the warning chained to this SQLWarning object by setNextWarning. 
+
+
+
+    Returns: the next SQLException in the chain; null if none 
+
+*java.sql.SQLWarning.setNextWarning(SQLWarning)*
+
+public void setNextWarning(java.sql.SQLWarning w)
+
+Adds a SQLWarning object to the end of the chain. 
+
+
+    w - the new end of the SQLException chain 
+
+

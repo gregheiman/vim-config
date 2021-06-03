@@ -1,0 +1,258 @@
+*java.awt.geom.Path2D.Float* *Path2D.Float* TheFloatclass defines a geometric path with
+ coordinates stored in single precision 
+
+public static class Path2D.Float
+  extends    |java.awt.geom.Path2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.Path2D.Float_Description|
+|java.awt.geom.Path2D.Float_Fields|
+|java.awt.geom.Path2D.Float_Constructors|
+|java.awt.geom.Path2D.Float_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.Path2D.Float_Constructors*
+|java.awt.geom.Path2D.Float()|Constructs a new empty single precisionPath2Dobject  with a default winding rule of#WIND_NON_ZERO
+|java.awt.geom.Path2D.Float(int)|Constructs a new empty single precisionPath2Dobject  with the specified winding rule to contro
+|java.awt.geom.Path2D.Float(int,int)|Constructs a new empty single precisionPath2Dobject  with the specified winding rule and t
+|java.awt.geom.Path2D.Float(Shape)|Constructs a new single precisionPath2Dobject  from an arbitraryShapeobject.
+|java.awt.geom.Path2D.Float(Shape,AffineTransform)|Constructs a new single precisionPath2Dobject  from an arbitraryShapeobject,
+
+*java.awt.geom.Path2D.Float_Methods*
+|java.awt.geom.Path2D.Float.append(PathIterator,boolean)|
+|java.awt.geom.Path2D.Float.clone()|Creates a new object of the same class as this object.
+|java.awt.geom.Path2D.Float.curveTo(double,double,double,double,double,double)|
+|java.awt.geom.Path2D.Float.curveTo(float,float,float,float,float,float)|Adds a curved segment, defined by three new points, to
+|java.awt.geom.Path2D.Float.getBounds2D()|
+|java.awt.geom.Path2D.Float.getPathIterator(AffineTransform)|
+|java.awt.geom.Path2D.Float.lineTo(double,double)|
+|java.awt.geom.Path2D.Float.lineTo(float,float)|Adds a point to the path by drawing a straight line from the  current coordinat
+|java.awt.geom.Path2D.Float.moveTo(double,double)|
+|java.awt.geom.Path2D.Float.moveTo(float,float)|Adds a point to the path by moving to the specified  coordinates specified in f
+|java.awt.geom.Path2D.Float.quadTo(double,double,double,double)|
+|java.awt.geom.Path2D.Float.quadTo(float,float,float,float)|Adds a curved segment, defined by two new points, to the path by  d
+|java.awt.geom.Path2D.Float.transform(AffineTransform)|
+
+*java.awt.geom.Path2D.Float_Description*
+
+TheFloatclass defines a geometric path with coordinates stored in single precision floating point. 
+
+
+
+*java.awt.geom.Path2D.Float()*
+
+public Path2D.Float()
+
+Constructs a new empty single precisionPath2Dobject with a default winding rule of (|java.awt.geom.Path2D.Float|) . 
+
+
+*java.awt.geom.Path2D.Float(int)*
+
+public Path2D.Float(int rule)
+
+Constructs a new empty single precisionPath2Dobject with the specified winding rule to control operations that require the 
+interior of the path to be defined. 
+
+    rule - the winding rule 
+
+*java.awt.geom.Path2D.Float(int,int)*
+
+public Path2D.Float(
+  int rule,
+  int initialCapacity)
+
+Constructs a new empty single precisionPath2Dobject with the specified winding rule and the specified initial capacity to store 
+path segments. This number is an initial guess as to how many path segments will be added to the path, but the storage is 
+expanded as needed to store whatever path segments are added. 
+
+    rule - the winding rule 
+    initialCapacity - the estimate for the number of path segments in the path 
+
+*java.awt.geom.Path2D.Float(Shape)*
+
+public Path2D.Float(java.awt.Shape s)
+
+Constructs a new single precisionPath2Dobject from an arbitrary (|java.awt.Shape|) object. All of the initial geometry and the 
+winding rule for this path are taken from the specifiedShapeobject. 
+
+    s - the specified {@code Shape} object 
+
+*java.awt.geom.Path2D.Float(Shape,AffineTransform)*
+
+public Path2D.Float(
+  java.awt.Shape s,
+  java.awt.geom.AffineTransform at)
+
+Constructs a new single precisionPath2Dobject from an arbitrary (|java.awt.Shape|) object, transformed by an 
+(|java.awt.geom.AffineTransform|) object. All of the initial geometry and the winding rule for this path are taken from the 
+specifiedShapeobject and transformed by the specifiedAffineTransformobject. 
+
+    s - the specified {@code Shape} object 
+    at - the specified {@code AffineTransform} object 
+
+*java.awt.geom.Path2D.Float.append(PathIterator,boolean)*
+
+public final void append(
+  java.awt.geom.PathIterator pi,
+  boolean connect)
+
+
+
+
+
+*java.awt.geom.Path2D.Float.clone()*
+
+public final |java.lang.Object| clone()
+
+Creates a new object of the same class as this object. 
+
+
+
+    Returns: a clone of this instance. 
+
+*java.awt.geom.Path2D.Float.curveTo(double,double,double,double,double,double)*
+
+public final synchronized void curveTo(
+  double x1,
+  double y1,
+  double x2,
+  double y2,
+  double x3,
+  double y3)
+
+
+
+
+
+*java.awt.geom.Path2D.Float.curveTo(float,float,float,float,float,float)*
+
+public final synchronized void curveTo(
+  float x1,
+  float y1,
+  float x2,
+  float y2,
+  float x3,
+  float y3)
+
+Adds a curved segment, defined by three new points, to the path by drawing a Bzier curve that intersects both the current 
+coordinates and the specified coordinates(x3,y3), using the specified points(x1,y1)and(x2,y2)as Bzier control points. All 
+coordinates are specified in float precision. 
+
+This method provides a single precision variant of the double precisioncurveTo()method on the basePath2Dclass. 
+
+
+    x1 - the X coordinate of the first Bzier control point 
+    y1 - the Y coordinate of the first Bzier control point 
+    x2 - the X coordinate of the second Bzier control point 
+    y2 - the Y coordinate of the second Bzier control point 
+    x3 - the X coordinate of the final end point 
+    y3 - the Y coordinate of the final end point 
+
+*java.awt.geom.Path2D.Float.getBounds2D()*
+
+public final synchronized |java.awt.geom.Rectangle2D| getBounds2D()
+
+
+
+
+
+*java.awt.geom.Path2D.Float.getPathIterator(AffineTransform)*
+
+public |java.awt.geom.PathIterator| getPathIterator(java.awt.geom.AffineTransform at)
+
+The iterator for this class is not multi-threaded safe, which means that thePath2Dclass does not guarantee that modifications 
+to the geometry of thisPath2Dobject do not affect any iterations of that geometry that are already in process. 
+
+
+
+*java.awt.geom.Path2D.Float.lineTo(double,double)*
+
+public final synchronized void lineTo(
+  double x,
+  double y)
+
+
+
+
+
+*java.awt.geom.Path2D.Float.lineTo(float,float)*
+
+public final synchronized void lineTo(
+  float x,
+  float y)
+
+Adds a point to the path by drawing a straight line from the current coordinates to the new specified coordinates specified in 
+float precision. 
+
+This method provides a single precision variant of the double precisionlineTo()method on the basePath2Dclass. 
+
+
+    x - the specified X coordinate 
+    y - the specified Y coordinate 
+
+*java.awt.geom.Path2D.Float.moveTo(double,double)*
+
+public final synchronized void moveTo(
+  double x,
+  double y)
+
+
+
+
+
+*java.awt.geom.Path2D.Float.moveTo(float,float)*
+
+public final synchronized void moveTo(
+  float x,
+  float y)
+
+Adds a point to the path by moving to the specified coordinates specified in float precision. 
+
+This method provides a single precision variant of the double precisionmoveTo()method on the basePath2Dclass. 
+
+
+    x - the specified X coordinate 
+    y - the specified Y coordinate 
+
+*java.awt.geom.Path2D.Float.quadTo(double,double,double,double)*
+
+public final synchronized void quadTo(
+  double x1,
+  double y1,
+  double x2,
+  double y2)
+
+
+
+
+
+*java.awt.geom.Path2D.Float.quadTo(float,float,float,float)*
+
+public final synchronized void quadTo(
+  float x1,
+  float y1,
+  float x2,
+  float y2)
+
+Adds a curved segment, defined by two new points, to the path by drawing a Quadratic curve that intersects both the current 
+coordinates and the specified coordinates(x2,y2), using the specified point(x1,y1)as a quadratic parametric control point. All 
+coordinates are specified in float precision. 
+
+This method provides a single precision variant of the double precisionquadTo()method on the basePath2Dclass. 
+
+
+    x1 - the X coordinate of the quadratic control point 
+    y1 - the Y coordinate of the quadratic control point 
+    x2 - the X coordinate of the final end point 
+    y2 - the Y coordinate of the final end point 
+
+*java.awt.geom.Path2D.Float.transform(AffineTransform)*
+
+public final void transform(java.awt.geom.AffineTransform at)
+
+
+
+
+
+

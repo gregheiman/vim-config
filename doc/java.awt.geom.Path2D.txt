@@ -1,0 +1,516 @@
+*java.awt.geom.Path2D* *Path2D* ThePath2Dclass provides a simple, yet flexible
+ shape which represents an arbitrary geometric pa
+
+public abstract class Path2D
+  extends    |java.lang.Object|
+  implements |java.awt.Shape|
+             |java.lang.Cloneable|
+
+|java.awt.geom.Path2D_Description|
+|java.awt.geom.Path2D_Fields|
+|java.awt.geom.Path2D_Constructors|
+|java.awt.geom.Path2D_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.Path2D_Fields*
+|int_java.awt.geom.Path2D.WIND_EVEN_ODD|
+|int_java.awt.geom.Path2D.WIND_NON_ZERO|
+
+*java.awt.geom.Path2D_Methods*
+|java.awt.geom.Path2D.append(PathIterator,boolean)|Appends the geometry of the specifiedPathIteratorobject   to the path, possi
+|java.awt.geom.Path2D.append(Shape,boolean)|Appends the geometry of the specifiedShapeobject to the  path, possibly connecting 
+|java.awt.geom.Path2D.clone()|Creates a new object of the same class as this object.
+|java.awt.geom.Path2D.closePath()|Closes the current subpath by drawing a straight line back to  the coordinates of the lastmov
+|java.awt.geom.Path2D.contains(double,double)|
+|java.awt.geom.Path2D.contains(double,double,double,double)|
+|java.awt.geom.Path2D.contains(PathIterator,double,double)|Tests if the specified coordinates are inside the closed  boundary o
+|java.awt.geom.Path2D.contains(PathIterator,double,double,double,double)|Tests if the specified rectangular area is entirely in
+|java.awt.geom.Path2D.contains(PathIterator,Point2D)|Tests if the specifiedPoint2Dis inside the closed  boundary of the specifi
+|java.awt.geom.Path2D.contains(PathIterator,Rectangle2D)|Tests if the specifiedRectangle2Dis entirely inside the  closed bounda
+|java.awt.geom.Path2D.contains(Point2D)|
+|java.awt.geom.Path2D.contains(Rectangle2D)|
+|java.awt.geom.Path2D.createTransformedShape(AffineTransform)|Returns a newShaperepresenting a transformed version  of thisPath
+|java.awt.geom.Path2D.curveTo(double,double,double,double,double,double)|Adds a curved segment, defined by three new points, to
+|java.awt.geom.Path2D.getBounds()|
+|java.awt.geom.Path2D.getCurrentPoint()|Returns the coordinates most recently added to the end of the path  as aPoint2Dobject.
+|java.awt.geom.Path2D.getPathIterator(AffineTransform,double)|
+|java.awt.geom.Path2D.getWindingRule()|Returns the fill style winding rule.
+|java.awt.geom.Path2D.intersects(double,double,double,double)|
+|java.awt.geom.Path2D.intersects(PathIterator,double,double,double,double)|Tests if the interior of the specifiedPathIteratorin
+|java.awt.geom.Path2D.intersects(PathIterator,Rectangle2D)|Tests if the interior of the specifiedPathIteratorintersects the int
+|java.awt.geom.Path2D.intersects(Rectangle2D)|
+|java.awt.geom.Path2D.lineTo(double,double)|Adds a point to the path by drawing a straight line from the  current coordinates t
+|java.awt.geom.Path2D.moveTo(double,double)|Adds a point to the path by moving to the specified  coordinates specified in doubl
+|java.awt.geom.Path2D.quadTo(double,double,double,double)|Adds a curved segment, defined by two new points, to the path by  dra
+|java.awt.geom.Path2D.reset()|Resets the path to empty.
+|java.awt.geom.Path2D.setWindingRule(int)|Sets the winding rule for this path to the specified value.
+|java.awt.geom.Path2D.transform(AffineTransform)|Transforms the geometry of this path using the specifiedAffineTransform.
+
+*java.awt.geom.Path2D_Description*
+
+ThePath2Dclass provides a simple, yet flexible shape which represents an arbitrary geometric path. It can fully represent any 
+path which can be iterated by the (|java.awt.geom.PathIterator|) interface including all of its segment types and winding rules 
+and it implements all of the basic hit testing methods of the (|java.awt.Shape|) interface. 
+
+Use (|java.awt.geom.Path2D.Float|) when dealing with data that can be represented and used with floating point precision. Use 
+(|java.awt.geom.Path2D.Double|) for data that requires the accuracy or range of double precision. Path2Dprovides exactly those 
+facilities required for basic construction and management of a geometric path and implementation of the above interfaces with 
+little added interpretation. If it is useful to manipulate the interiors of closed geometric shapes beyond simple hit testing 
+then the (|java.awt.geom.Area|) class provides additional capabilities specifically targeted at closed figures. While both 
+classes nominally implement theShapeinterface, they differ in purpose and together they provide two useful views of a geometric 
+shape wherePath2Ddeals primarily with a trajectory formed by path segments andAreadeals more with interpretation and 
+manipulation of enclosed regions of 2D geometric space. 
+
+The (|java.awt.geom.PathIterator|) interface has more detailed descriptions of the types of segments that make up a path and 
+the winding rules that control how to determine which regions are inside or outside the path. 
+
+
+
+*int_java.awt.geom.Path2D.WIND_EVEN_ODD*
+
+An even-odd winding rule for determining the interior of a path. 
+
+
+*int_java.awt.geom.Path2D.WIND_NON_ZERO*
+
+A non-zero winding rule for determining the interior of a path. 
+
+
+
+*java.awt.geom.Path2D.append(PathIterator,boolean)*
+
+public abstract void append(
+  java.awt.geom.PathIterator pi,
+  boolean connect)
+
+Appends the geometry of the specified (|java.awt.geom.PathIterator|) object to the path, possibly connecting the new geometry 
+to the existing path segments with a line segment. If theconnectparameter istrueand the path is not empty then any 
+initialmoveToin the geometry of the appendedShapeis turned into alineTosegment. If the destination coordinates of such a 
+connectinglineTosegment match the ending coordinates of a currently open subpath then the segment is omitted as superfluous. 
+The winding rule of the specifiedShapeis ignored and the appended geometry is governed by the winding rule specified for this 
+path. 
+
+
+    pi - the {@code PathIterator} whose geometry is appended to this path 
+    connect - a boolean to control whether or not to turn an initial {@code moveTo} segment into a {@code lineTo} segment to connect the new 
+       geometry to the existing path 
+
+*java.awt.geom.Path2D.append(Shape,boolean)*
+
+public final void append(
+  java.awt.Shape s,
+  boolean connect)
+
+Appends the geometry of the specifiedShapeobject to the path, possibly connecting the new geometry to the existing path 
+segments with a line segment. If theconnectparameter istrueand the path is not empty then any initialmoveToin the geometry of 
+the appendedShapeis turned into alineTosegment. If the destination coordinates of such a connectinglineTosegment match the 
+ending coordinates of a currently open subpath then the segment is omitted as superfluous. The winding rule of the 
+specifiedShapeis ignored and the appended geometry is governed by the winding rule specified for this path. 
+
+
+    s - the {@code Shape} whose geometry is appended to this path 
+    connect - a boolean to control whether or not to turn an initial {@code moveTo} segment into a {@code lineTo} segment to connect the new 
+       geometry to the existing path 
+
+*java.awt.geom.Path2D.clone()*
+
+public abstract |java.lang.Object| clone()
+
+Creates a new object of the same class as this object. 
+
+
+
+    Returns: a clone of this instance. 
+
+*java.awt.geom.Path2D.closePath()*
+
+public final synchronized void closePath()
+
+Closes the current subpath by drawing a straight line back to the coordinates of the lastmoveTo. If the path is already closed 
+then this method has no effect. 
+
+
+
+*java.awt.geom.Path2D.contains(double,double)*
+
+public final boolean contains(
+  double x,
+  double y)
+
+
+
+
+
+*java.awt.geom.Path2D.contains(double,double,double,double)*
+
+public final boolean contains(
+  double x,
+  double y,
+  double w,
+  double h)
+
+This method object may conservatively return false in cases where the specified rectangular area intersects a segment of the 
+path, but that segment does not represent a boundary between the interior and exterior of the path. Such segments could lie 
+entirely within the interior of the path if they are part of a path with a (|java.awt.geom.Path2D|) winding rule or if the 
+segments are retraced in the reverse direction such that the two sets of segments cancel each other out without any exterior 
+area falling between them. To determine whether segments represent true boundaries of the interior of the path would require 
+extensive calculations involving all of the segments of the path and the winding rule and are thus beyond the scope of this 
+implementation. 
+
+
+
+*java.awt.geom.Path2D.contains(PathIterator,double,double)*
+
+public static boolean contains(
+  java.awt.geom.PathIterator pi,
+  double x,
+  double y)
+
+Tests if the specified coordinates are inside the closed boundary of the specified (|java.awt.geom.PathIterator|) . 
+
+This method provides a basic facility for implementors of the (|java.awt.Shape|) interface to implement support for the 
+(|java.awt.Shape|) method. 
+
+
+    pi - the specified {@code PathIterator} 
+    x - the specified X coordinate 
+    y - the specified Y coordinate 
+
+    Returns: {@code true} if the specified coordinates are inside the specified {@code PathIterator}; {@code false} otherwise 
+
+*java.awt.geom.Path2D.contains(PathIterator,double,double,double,double)*
+
+public static boolean contains(
+  java.awt.geom.PathIterator pi,
+  double x,
+  double y,
+  double w,
+  double h)
+
+Tests if the specified rectangular area is entirely inside the closed boundary of the specified (|java.awt.geom.PathIterator|) 
+. 
+
+This method provides a basic facility for implementors of the (|java.awt.Shape|) interface to implement support for the 
+(|java.awt.Shape|) method. 
+
+This method object may conservatively return false in cases where the specified rectangular area intersects a segment of the 
+path, but that segment does not represent a boundary between the interior and exterior of the path. Such segments could lie 
+entirely within the interior of the path if they are part of a path with a (|java.awt.geom.Path2D|) winding rule or if the 
+segments are retraced in the reverse direction such that the two sets of segments cancel each other out without any exterior 
+area falling between them. To determine whether segments represent true boundaries of the interior of the path would require 
+extensive calculations involving all of the segments of the path and the winding rule and are thus beyond the scope of this 
+implementation. 
+
+
+    pi - the specified {@code PathIterator} 
+    x - the specified X coordinate 
+    y - the specified Y coordinate 
+    w - the width of the specified rectangular area 
+    h - the height of the specified rectangular area 
+
+    Returns: {@code true} if the specified {@code PathIterator} contains the specified rectangluar area; {@code false} otherwise. 
+
+*java.awt.geom.Path2D.contains(PathIterator,Point2D)*
+
+public static boolean contains(
+  java.awt.geom.PathIterator pi,
+  java.awt.geom.Point2D p)
+
+Tests if the specified (|java.awt.geom.Point2D|) is inside the closed boundary of the specified (|java.awt.geom.PathIterator|) 
+. 
+
+This method provides a basic facility for implementors of the (|java.awt.Shape|) interface to implement support for the 
+(|java.awt.Shape|) method. 
+
+
+    pi - the specified {@code PathIterator} 
+    p - the specified {@code Point2D} 
+
+    Returns: {@code true} if the specified coordinates are inside the specified {@code PathIterator}; {@code false} otherwise 
+
+*java.awt.geom.Path2D.contains(PathIterator,Rectangle2D)*
+
+public static boolean contains(
+  java.awt.geom.PathIterator pi,
+  java.awt.geom.Rectangle2D r)
+
+Tests if the specified (|java.awt.geom.Rectangle2D|) is entirely inside the closed boundary of the specified 
+(|java.awt.geom.PathIterator|) . 
+
+This method provides a basic facility for implementors of the (|java.awt.Shape|) interface to implement support for the 
+(|java.awt.Shape|) method. 
+
+This method object may conservatively return false in cases where the specified rectangular area intersects a segment of the 
+path, but that segment does not represent a boundary between the interior and exterior of the path. Such segments could lie 
+entirely within the interior of the path if they are part of a path with a (|java.awt.geom.Path2D|) winding rule or if the 
+segments are retraced in the reverse direction such that the two sets of segments cancel each other out without any exterior 
+area falling between them. To determine whether segments represent true boundaries of the interior of the path would require 
+extensive calculations involving all of the segments of the path and the winding rule and are thus beyond the scope of this 
+implementation. 
+
+
+    pi - the specified {@code PathIterator} 
+    r - a specified {@code Rectangle2D} 
+
+    Returns: {@code true} if the specified {@code PathIterator} contains the specified {@code Rectangle2D}; {@code false} otherwise. 
+
+*java.awt.geom.Path2D.contains(Point2D)*
+
+public final boolean contains(java.awt.geom.Point2D p)
+
+
+
+
+
+*java.awt.geom.Path2D.contains(Rectangle2D)*
+
+public final boolean contains(java.awt.geom.Rectangle2D r)
+
+This method object may conservatively return false in cases where the specified rectangular area intersects a segment of the 
+path, but that segment does not represent a boundary between the interior and exterior of the path. Such segments could lie 
+entirely within the interior of the path if they are part of a path with a (|java.awt.geom.Path2D|) winding rule or if the 
+segments are retraced in the reverse direction such that the two sets of segments cancel each other out without any exterior 
+area falling between them. To determine whether segments represent true boundaries of the interior of the path would require 
+extensive calculations involving all of the segments of the path and the winding rule and are thus beyond the scope of this 
+implementation. 
+
+
+
+*java.awt.geom.Path2D.createTransformedShape(AffineTransform)*
+
+public final synchronized |java.awt.Shape| createTransformedShape(java.awt.geom.AffineTransform at)
+
+Returns a newShaperepresenting a transformed version of thisPath2D. Note that the exact type and coordinate precision of the 
+return value is not specified for this method. The method will return a Shape that contains no less precision for the 
+transformed geometry than thisPath2Dcurrently maintains, but it may contain no more precision either. If the tradeoff of 
+precision vs. storage size in the result is important then the convenience constructors in the 
+Path2D.Float(|java.awt.geom.Path2D.Float|) and Path2D.Double(|java.awt.geom.Path2D.Double|) subclasses should be used to make 
+the choice explicit. 
+
+
+    at - the {@code AffineTransform} used to transform a new {@code Shape}. 
+
+    Returns: a new {@code Shape}, transformed with the specified {@code AffineTransform}. 
+
+*java.awt.geom.Path2D.curveTo(double,double,double,double,double,double)*
+
+public abstract void curveTo(
+  double x1,
+  double y1,
+  double x2,
+  double y2,
+  double x3,
+  double y3)
+
+Adds a curved segment, defined by three new points, to the path by drawing a Bzier curve that intersects both the current 
+coordinates and the specified coordinates(x3,y3), using the specified points(x1,y1)and(x2,y2)as Bzier control points. All 
+coordinates are specified in double precision. 
+
+
+    x1 - the X coordinate of the first Bzier control point 
+    y1 - the Y coordinate of the first Bzier control point 
+    x2 - the X coordinate of the second Bzier control point 
+    y2 - the Y coordinate of the second Bzier control point 
+    x3 - the X coordinate of the final end point 
+    y3 - the Y coordinate of the final end point 
+
+*java.awt.geom.Path2D.getBounds()*
+
+public final |java.awt.Rectangle| getBounds()
+
+
+
+
+
+*java.awt.geom.Path2D.getCurrentPoint()*
+
+public final synchronized |java.awt.geom.Point2D| getCurrentPoint()
+
+Returns the coordinates most recently added to the end of the path as a (|java.awt.geom.Point2D|) object. 
+
+
+
+    Returns: a {@code Point2D} object containing the ending coordinates of the path or {@code null} if there are no points in the path. 
+
+*java.awt.geom.Path2D.getPathIterator(AffineTransform,double)*
+
+public |java.awt.geom.PathIterator| getPathIterator(
+  java.awt.geom.AffineTransform at,
+  double flatness)
+
+The iterator for this class is not multi-threaded safe, which means that thisPath2Dclass does not guarantee that modifications 
+to the geometry of thisPath2Dobject do not affect any iterations of that geometry that are already in process. 
+
+
+
+*java.awt.geom.Path2D.getWindingRule()*
+
+public final synchronized int getWindingRule()
+
+Returns the fill style winding rule. 
+
+
+
+    Returns: an integer representing the current winding rule. 
+
+*java.awt.geom.Path2D.intersects(double,double,double,double)*
+
+public final boolean intersects(
+  double x,
+  double y,
+  double w,
+  double h)
+
+This method object may conservatively return true in cases where the specified rectangular area intersects a segment of the 
+path, but that segment does not represent a boundary between the interior and exterior of the path. Such a case may occur if 
+some set of segments of the path are retraced in the reverse direction such that the two sets of segments cancel each other out 
+without any interior area between them. To determine whether segments represent true boundaries of the interior of the path 
+would require extensive calculations involving all of the segments of the path and the winding rule and are thus beyond the 
+scope of this implementation. 
+
+
+
+*java.awt.geom.Path2D.intersects(PathIterator,double,double,double,double)*
+
+public static boolean intersects(
+  java.awt.geom.PathIterator pi,
+  double x,
+  double y,
+  double w,
+  double h)
+
+Tests if the interior of the specified (|java.awt.geom.PathIterator|) intersects the interior of a specified set of rectangular 
+coordinates. 
+
+This method provides a basic facility for implementors of the (|java.awt.Shape|) interface to implement support for the 
+(|java.awt.Shape|) method. 
+
+This method object may conservatively return true in cases where the specified rectangular area intersects a segment of the 
+path, but that segment does not represent a boundary between the interior and exterior of the path. Such a case may occur if 
+some set of segments of the path are retraced in the reverse direction such that the two sets of segments cancel each other out 
+without any interior area between them. To determine whether segments represent true boundaries of the interior of the path 
+would require extensive calculations involving all of the segments of the path and the winding rule and are thus beyond the 
+scope of this implementation. 
+
+
+    pi - the specified {@code PathIterator} 
+    x - the specified X coordinate 
+    y - the specified Y coordinate 
+    w - the width of the specified rectangular coordinates 
+    h - the height of the specified rectangular coordinates 
+
+    Returns: {@code true} if the specified {@code PathIterator} and the interior of the specified set of rectangular coordinates intersect 
+             each other; {@code false} otherwise. 
+
+*java.awt.geom.Path2D.intersects(PathIterator,Rectangle2D)*
+
+public static boolean intersects(
+  java.awt.geom.PathIterator pi,
+  java.awt.geom.Rectangle2D r)
+
+Tests if the interior of the specified (|java.awt.geom.PathIterator|) intersects the interior of a specified 
+(|java.awt.geom.Rectangle2D|) . 
+
+This method provides a basic facility for implementors of the (|java.awt.Shape|) interface to implement support for the 
+(|java.awt.Shape|) method. 
+
+This method object may conservatively return true in cases where the specified rectangular area intersects a segment of the 
+path, but that segment does not represent a boundary between the interior and exterior of the path. Such a case may occur if 
+some set of segments of the path are retraced in the reverse direction such that the two sets of segments cancel each other out 
+without any interior area between them. To determine whether segments represent true boundaries of the interior of the path 
+would require extensive calculations involving all of the segments of the path and the winding rule and are thus beyond the 
+scope of this implementation. 
+
+
+    pi - the specified {@code PathIterator} 
+    r - the specified {@code Rectangle2D} 
+
+    Returns: {@code true} if the specified {@code PathIterator} and the interior of the specified {@code Rectangle2D} intersect each other; 
+             {@code false} otherwise. 
+
+*java.awt.geom.Path2D.intersects(Rectangle2D)*
+
+public final boolean intersects(java.awt.geom.Rectangle2D r)
+
+This method object may conservatively return true in cases where the specified rectangular area intersects a segment of the 
+path, but that segment does not represent a boundary between the interior and exterior of the path. Such a case may occur if 
+some set of segments of the path are retraced in the reverse direction such that the two sets of segments cancel each other out 
+without any interior area between them. To determine whether segments represent true boundaries of the interior of the path 
+would require extensive calculations involving all of the segments of the path and the winding rule and are thus beyond the 
+scope of this implementation. 
+
+
+
+*java.awt.geom.Path2D.lineTo(double,double)*
+
+public abstract void lineTo(
+  double x,
+  double y)
+
+Adds a point to the path by drawing a straight line from the current coordinates to the new specified coordinates specified in 
+double precision. 
+
+
+    x - the specified X coordinate 
+    y - the specified Y coordinate 
+
+*java.awt.geom.Path2D.moveTo(double,double)*
+
+public abstract void moveTo(
+  double x,
+  double y)
+
+Adds a point to the path by moving to the specified coordinates specified in double precision. 
+
+
+    x - the specified X coordinate 
+    y - the specified Y coordinate 
+
+*java.awt.geom.Path2D.quadTo(double,double,double,double)*
+
+public abstract void quadTo(
+  double x1,
+  double y1,
+  double x2,
+  double y2)
+
+Adds a curved segment, defined by two new points, to the path by drawing a Quadratic curve that intersects both the current 
+coordinates and the specified coordinates(x2,y2), using the specified point(x1,y1)as a quadratic parametric control point. All 
+coordinates are specified in double precision. 
+
+
+    x1 - the X coordinate of the quadratic control point 
+    y1 - the Y coordinate of the quadratic control point 
+    x2 - the X coordinate of the final end point 
+    y2 - the Y coordinate of the final end point 
+
+*java.awt.geom.Path2D.reset()*
+
+public final synchronized void reset()
+
+Resets the path to empty. The append position is set back to the beginning of the path and all coordinates and point types are 
+forgotten. 
+
+
+
+*java.awt.geom.Path2D.setWindingRule(int)*
+
+public final void setWindingRule(int rule)
+
+Sets the winding rule for this path to the specified value. 
+
+
+    rule - an integer representing the specified winding rule 
+
+*java.awt.geom.Path2D.transform(AffineTransform)*
+
+public abstract void transform(java.awt.geom.AffineTransform at)
+
+Transforms the geometry of this path using the specified (|java.awt.geom.AffineTransform|) . The geometry is transformed in 
+place, which permanently changes the boundary defined by this object. 
+
+
+    at - the {@code AffineTransform} used to transform the area 
+
+

@@ -1,0 +1,131 @@
+*java.sql.SQLSyntaxErrorException* *SQLSyntaxErrorException* The subclass ofSQLExceptionthrown when the SQLState class value is 
+
+public class SQLSyntaxErrorException
+  extends    |java.sql.SQLNonTransientException|
+
+|java.sql.SQLSyntaxErrorException_Description|
+|java.sql.SQLSyntaxErrorException_Fields|
+|java.sql.SQLSyntaxErrorException_Constructors|
+|java.sql.SQLSyntaxErrorException_Methods|
+
+================================================================================================================================
+
+*java.sql.SQLSyntaxErrorException_Constructors*
+|java.sql.SQLSyntaxErrorException()|Constructs a SQLSyntaxErrorException object.
+|java.sql.SQLSyntaxErrorException(String)|Constructs a SQLSyntaxErrorException object   with a given reason.
+|java.sql.SQLSyntaxErrorException(String,String)|Constructs a SQLSyntaxErrorException object  with a given reason and SQLState.
+|java.sql.SQLSyntaxErrorException(String,String,int)|Constructs a SQLSyntaxErrorException object   with a given reason, SQLStat
+|java.sql.SQLSyntaxErrorException(String,String,int,Throwable)|Constructs a SQLSyntaxErrorException object  with a given  reaso
+|java.sql.SQLSyntaxErrorException(String,String,Throwable)|Constructs a SQLSyntaxErrorException object   with a given  reason, 
+|java.sql.SQLSyntaxErrorException(String,Throwable)|Constructs a SQLSyntaxErrorException object   with a given  reason and  cau
+|java.sql.SQLSyntaxErrorException(Throwable)|Constructs a SQLSyntaxErrorException object     with a given  cause.
+
+*java.sql.SQLSyntaxErrorException_Description*
+
+The subclass of (|java.sql.SQLException|) thrown when the SQLState class value is '42'. This indicates that the in-progress 
+query has violated SQL syntax rules. 
+
+
+
+*java.sql.SQLSyntaxErrorException()*
+
+public SQLSyntaxErrorException()
+
+Constructs a SQLSyntaxErrorException object. The reason, SQLState are initialized to null and the vendor code is initialized to 
+0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+
+*java.sql.SQLSyntaxErrorException(String)*
+
+public SQLSyntaxErrorException(java.lang.String reason)
+
+Constructs a SQLSyntaxErrorException object with a given reason. The SQLState is initialized to null and the vender code is 
+initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+
+*java.sql.SQLSyntaxErrorException(String,String)*
+
+public SQLSyntaxErrorException(
+  java.lang.String reason,
+  java.lang.String SQLState)
+
+Constructs a SQLSyntaxErrorException object with a given reason and SQLState. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. The vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+
+*java.sql.SQLSyntaxErrorException(String,String,int)*
+
+public SQLSyntaxErrorException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode)
+
+Constructs a SQLSyntaxErrorException object with a given reason, SQLState and vendorCode. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor specific exception code 
+
+*java.sql.SQLSyntaxErrorException(String,String,int,Throwable)*
+
+public SQLSyntaxErrorException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode,
+  java.lang.Throwable cause)
+
+Constructs a SQLSyntaxErrorException object with a given reason, SQLState, vendorCode and cause. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor-specific exception code 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLSyntaxErrorException(String,String,Throwable)*
+
+public SQLSyntaxErrorException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  java.lang.Throwable cause)
+
+Constructs a SQLSyntaxErrorException object with a given reason, SQLState and cause. The vendor code is initialized to 0. 
+
+    reason - a description of the exception. 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    cause - the (which is saved for later retrieval by the getCause() method); may be null indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLSyntaxErrorException(String,Throwable)*
+
+public SQLSyntaxErrorException(
+  java.lang.String reason,
+  java.lang.Throwable cause)
+
+Constructs a SQLSyntaxErrorException object with a given reason and cause. The SQLState is initialized to null and the vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception. 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLSyntaxErrorException(Throwable)*
+
+public SQLSyntaxErrorException(java.lang.Throwable cause)
+
+Constructs a SQLSyntaxErrorException object with a given cause. The SQLState is initialized to null and the vendor code is 
+initialized to 0. The reason is initialized to null if cause==null or to cause.toString() if cause!=null. 
+
+    cause - the underlying reason for this SQLException (which is saved for later retrieval bythe getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+

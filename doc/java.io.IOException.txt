@@ -1,0 +1,65 @@
+*java.io.IOException* *IOException* Signals that an I/O exception of some sort has occurred.
+
+public class IOException
+  extends    |java.lang.Exception|
+
+|java.io.IOException_Description|
+|java.io.IOException_Fields|
+|java.io.IOException_Constructors|
+|java.io.IOException_Methods|
+
+================================================================================================================================
+
+*java.io.IOException_Constructors*
+|java.io.IOException()|Constructs anIOExceptionwithnullas its error detail message.
+|java.io.IOException(String)|Constructs anIOExceptionwith the specified detail message.
+|java.io.IOException(String,Throwable)|Constructs anIOExceptionwith the specified detail message  and cause.
+|java.io.IOException(Throwable)|Constructs anIOExceptionwith the specified cause and a  detail message of(cause==null ? null : 
+
+*java.io.IOException_Description*
+
+Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or 
+interrupted I/O operations. 
+
+
+
+*java.io.IOException()*
+
+public IOException()
+
+Constructs anIOExceptionwithnullas its error detail message. 
+
+
+*java.io.IOException(String)*
+
+public IOException(java.lang.String message)
+
+Constructs anIOExceptionwith the specified detail message. 
+
+    message - The detail message (which is saved for later retrieval by the {@link #getMessage()} method) 
+
+*java.io.IOException(String,Throwable)*
+
+public IOException(
+  java.lang.String message,
+  java.lang.Throwable cause)
+
+Constructs anIOExceptionwith the specified detail message and cause. 
+
+Note that the detail message associated withcauseis not automatically incorporated into this exception's detail message. 
+
+    message - The detail message (which is saved for later retrieval by the {@link #getMessage()} method) 
+    cause - The cause (which is saved for later retrieval by the {@link #getCause()} method). (A null value is permitted, and indicates 
+       that the cause is nonexistent or unknown.) 
+
+*java.io.IOException(Throwable)*
+
+public IOException(java.lang.Throwable cause)
+
+Constructs anIOExceptionwith the specified cause and a detail message of(cause==null ? null : cause.toString())(which typically 
+contains the class and detail message ofcause). This constructor is useful for IO exceptions that are little more than wrappers 
+for other throwables. 
+
+    cause - The cause (which is saved for later retrieval by the {@link #getCause()} method). (A null value is permitted, and indicates 
+       that the cause is nonexistent or unknown.) 
+

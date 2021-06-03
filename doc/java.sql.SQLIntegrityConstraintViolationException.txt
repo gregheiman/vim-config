@@ -1,0 +1,131 @@
+*java.sql.SQLIntegrityConstraintViolationException* *SQLIntegrityConstraintViolationException* The subclass ofSQLExceptionthrown
+
+public class SQLIntegrityConstraintViolationException
+  extends    |java.sql.SQLNonTransientException|
+
+|java.sql.SQLIntegrityConstraintViolationException_Description|
+|java.sql.SQLIntegrityConstraintViolationException_Fields|
+|java.sql.SQLIntegrityConstraintViolationException_Constructors|
+|java.sql.SQLIntegrityConstraintViolationException_Methods|
+
+================================================================================================================================
+
+*java.sql.SQLIntegrityConstraintViolationException_Constructors*
+|java.sql.SQLIntegrityConstraintViolationException()|Constructs a SQLIntegrityConstraintViolationException object.
+|java.sql.SQLIntegrityConstraintViolationException(String)|Constructs a SQLIntegrityConstraintViolationException   with a given
+|java.sql.SQLIntegrityConstraintViolationException(String,String)|Constructs a SQLIntegrityConstraintViolationException   objec
+|java.sql.SQLIntegrityConstraintViolationException(String,String,int)|Constructs a SQLIntegrityConstraintViolationException obj
+|java.sql.SQLIntegrityConstraintViolationException(String,String,int,Throwable)|Constructs a SQLIntegrityConstraintViolationExc
+|java.sql.SQLIntegrityConstraintViolationException(String,String,Throwable)|Constructs a SQLIntegrityConstraintViolationExcepti
+|java.sql.SQLIntegrityConstraintViolationException(String,Throwable)|Constructs a SQLIntegrityConstraintViolationException obje
+|java.sql.SQLIntegrityConstraintViolationException(Throwable)|Constructs an SQLIntegrityConstraintViolationException object wit
+
+*java.sql.SQLIntegrityConstraintViolationException_Description*
+
+The subclass of (|java.sql.SQLException|) thrown when the SQLState class value is '23'. This indicates that an integrity 
+constraint (foreign key, primary key or unique key) has been violated. 
+
+
+
+*java.sql.SQLIntegrityConstraintViolationException()*
+
+public SQLIntegrityConstraintViolationException()
+
+Constructs a SQLIntegrityConstraintViolationException object. The reason, SQLState are initialized to null and the vendor code 
+is initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+
+*java.sql.SQLIntegrityConstraintViolationException(String)*
+
+public SQLIntegrityConstraintViolationException(java.lang.String reason)
+
+Constructs a SQLIntegrityConstraintViolationException with a given reason. The SQLState is initialized to null and the vender 
+code is initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+
+*java.sql.SQLIntegrityConstraintViolationException(String,String)*
+
+public SQLIntegrityConstraintViolationException(
+  java.lang.String reason,
+  java.lang.String SQLState)
+
+Constructs a SQLIntegrityConstraintViolationException object with a given reason and SQLState. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. The vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+
+*java.sql.SQLIntegrityConstraintViolationException(String,String,int)*
+
+public SQLIntegrityConstraintViolationException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode)
+
+Constructs a SQLIntegrityConstraintViolationException object with a given reason, SQLState and vendorCode. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor specific exception code 
+
+*java.sql.SQLIntegrityConstraintViolationException(String,String,int,Throwable)*
+
+public SQLIntegrityConstraintViolationException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode,
+  java.lang.Throwable cause)
+
+Constructs a SQLIntegrityConstraintViolationException object with a given reason, SQLState, vendorCode and cause. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor-specific exception code 
+    cause - the (which is saved for later retrieval by the getCause() method); may be null indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLIntegrityConstraintViolationException(String,String,Throwable)*
+
+public SQLIntegrityConstraintViolationException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  java.lang.Throwable cause)
+
+Constructs a SQLIntegrityConstraintViolationException object with a given reason, SQLState and cause. The vendor code is 
+initialized to 0. 
+
+    reason - a description of the exception. 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLIntegrityConstraintViolationException(String,Throwable)*
+
+public SQLIntegrityConstraintViolationException(
+  java.lang.String reason,
+  java.lang.Throwable cause)
+
+Constructs a SQLIntegrityConstraintViolationException object with a given reason and cause. The SQLState is initialized to null 
+and the vendor code is initialized to 0. 
+
+    reason - a description of the exception. 
+    cause - the (which is saved for later retrieval by the getCause() method); may be null indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLIntegrityConstraintViolationException(Throwable)*
+
+public SQLIntegrityConstraintViolationException(java.lang.Throwable cause)
+
+Constructs an SQLIntegrityConstraintViolationException object with a given cause. The SQLState is initialized to null and the 
+vendor code is initialized to 0. The reason is initialized to null if cause==null or to cause.toString() if cause!=null. 
+
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+

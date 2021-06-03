@@ -1,0 +1,46 @@
+*java.security.URIParameter* *URIParameter* A parameter that contains a URI pointing to data intended for a
+ PolicySpi or Config
+
+public class URIParameter
+  extends    |java.lang.Object|
+  implements |java.security.Policy.Parameters|
+             |javax.security.auth.login.Configuration.Parameters|
+
+|java.security.URIParameter_Description|
+|java.security.URIParameter_Fields|
+|java.security.URIParameter_Constructors|
+|java.security.URIParameter_Methods|
+
+================================================================================================================================
+
+*java.security.URIParameter_Constructors*
+|java.security.URIParameter(URI)|Constructs a URIParameter with the URI pointing to  data intended for an SPI implementation.
+
+*java.security.URIParameter_Methods*
+|java.security.URIParameter.getURI()|Returns the URI.
+
+*java.security.URIParameter_Description*
+
+A parameter that contains a URI pointing to data intended for a PolicySpi or ConfigurationSpi implementation. 
+
+
+
+*java.security.URIParameter(URI)*
+
+public URIParameter(java.net.URI uri)
+
+Constructs a URIParameter with the URI pointing to data intended for an SPI implementation. 
+
+    uri - the URI pointing to the data. 
+
+*java.security.URIParameter.getURI()*
+
+public |java.net.URI| getURI()
+
+Returns the URI. 
+
+
+
+    Returns: 
+
+

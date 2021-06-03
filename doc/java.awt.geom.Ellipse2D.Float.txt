@@ -1,0 +1,160 @@
+*java.awt.geom.Ellipse2D.Float* *Ellipse2D.Float* The Float class defines an ellipse specified 
+ in float precision.
+
+public static class Ellipse2D.Float
+  extends    |java.awt.geom.Ellipse2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.Ellipse2D.Float_Description|
+|java.awt.geom.Ellipse2D.Float_Fields|
+|java.awt.geom.Ellipse2D.Float_Constructors|
+|java.awt.geom.Ellipse2D.Float_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.Ellipse2D.Float_Fields*
+|float_java.awt.geom.Ellipse2D.Float.height|
+|float_java.awt.geom.Ellipse2D.Float.width|
+|float_java.awt.geom.Ellipse2D.Float.x|
+|float_java.awt.geom.Ellipse2D.Float.y|
+
+*java.awt.geom.Ellipse2D.Float_Constructors*
+|java.awt.geom.Ellipse2D.Float()|Constructs a new Ellipse2D, initialized to  location (0,0) and size (0,0).
+|java.awt.geom.Ellipse2D.Float(float,float,float,float)|Constructs and initializes an Ellipse2D from the  specified coordinates
+
+*java.awt.geom.Ellipse2D.Float_Methods*
+|java.awt.geom.Ellipse2D.Float.getBounds2D()|
+|java.awt.geom.Ellipse2D.Float.getHeight()|
+|java.awt.geom.Ellipse2D.Float.getWidth()|
+|java.awt.geom.Ellipse2D.Float.getX()|
+|java.awt.geom.Ellipse2D.Float.getY()|
+|java.awt.geom.Ellipse2D.Float.isEmpty()|
+|java.awt.geom.Ellipse2D.Float.setFrame(double,double,double,double)|
+|java.awt.geom.Ellipse2D.Float.setFrame(float,float,float,float)|Sets the location and size of the framing rectangle of this  S
+
+*java.awt.geom.Ellipse2D.Float_Description*
+
+The Float class defines an ellipse specified in float precision. 
+
+
+
+*float_java.awt.geom.Ellipse2D.Float.height*
+
+The overall height of this Ellipse2D. 
+
+
+*float_java.awt.geom.Ellipse2D.Float.width*
+
+The overall width of this Ellipse2D. 
+
+
+*float_java.awt.geom.Ellipse2D.Float.x*
+
+The X coordinate of the upper-left corner of the framing rectangle of thisEllipse2D. 
+
+
+*float_java.awt.geom.Ellipse2D.Float.y*
+
+The Y coordinate of the upper-left corner of the framing rectangle of thisEllipse2D. 
+
+
+
+*java.awt.geom.Ellipse2D.Float()*
+
+public Ellipse2D.Float()
+
+Constructs a new Ellipse2D, initialized to location (0,0) and size (0,0). 
+
+
+*java.awt.geom.Ellipse2D.Float(float,float,float,float)*
+
+public Ellipse2D.Float(
+  float x,
+  float y,
+  float w,
+  float h)
+
+Constructs and initializes an Ellipse2D from the specified coordinates. 
+
+    x - the X coordinate of the upper-left corner of the framing rectangle 
+    y - the Y coordinate of the upper-left corner of the framing rectangle 
+    w - the width of the framing rectangle 
+    h - the height of the framing rectangle 
+
+*java.awt.geom.Ellipse2D.Float.getBounds2D()*
+
+public |java.awt.geom.Rectangle2D| getBounds2D()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Float.getHeight()*
+
+public double getHeight()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Float.getWidth()*
+
+public double getWidth()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Float.getX()*
+
+public double getX()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Float.getY()*
+
+public double getY()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Float.isEmpty()*
+
+public boolean isEmpty()
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Float.setFrame(double,double,double,double)*
+
+public void setFrame(
+  double x,
+  double y,
+  double w,
+  double h)
+
+
+
+
+
+*java.awt.geom.Ellipse2D.Float.setFrame(float,float,float,float)*
+
+public void setFrame(
+  float x,
+  float y,
+  float w,
+  float h)
+
+Sets the location and size of the framing rectangle of this Shape to the specified rectangular values. 
+
+
+    x - the X coordinate of the upper-left corner of the specified rectangular shape 
+    y - the Y coordinate of the upper-left corner of the specified rectangular shape 
+    w - the width of the specified rectangular shape 
+    h - the height of the specified rectangular shape 
+
+

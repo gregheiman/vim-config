@@ -1,0 +1,311 @@
+*java.util.AbstractList* *AbstractList* This class provides a skeletal implementation of theListinterface to minimize the effort
+
+public abstract class AbstractList<E>
+  extends    |java.util.AbstractCollection|
+  implements |java.util.List|
+
+|java.util.AbstractList_Description|
+|java.util.AbstractList_Fields|
+|java.util.AbstractList_Constructors|
+|java.util.AbstractList_Methods|
+
+================================================================================================================================
+
+*java.util.AbstractList_Fields*
+|int_java.util.AbstractList.modCount|
+
+*java.util.AbstractList_Constructors*
+|java.util.AbstractList()|Sole constructor.
+
+*java.util.AbstractList_Methods*
+|java.util.AbstractList.add(E)|Appends the specified element to the end of this list (optional  operation).
+|java.util.AbstractList.add(int,E)|
+|java.util.AbstractList.addAll(int,Collection<?extendsE>)|
+|java.util.AbstractList.clear()|Removes all of the elements from this list (optional operation).
+|java.util.AbstractList.equals(Object)|Compares the specified object with this list for equality.
+|java.util.AbstractList.get(int)|
+|java.util.AbstractList.hashCode()|Returns the hash code value for this list.
+|java.util.AbstractList.indexOf(Object)|
+|java.util.AbstractList.iterator()|Returns an iterator over the elements in this list in proper sequence.
+|java.util.AbstractList.lastIndexOf(Object)|
+|java.util.AbstractList.listIterator()|
+|java.util.AbstractList.listIterator(int)|
+|java.util.AbstractList.remove(int)|
+|java.util.AbstractList.removeRange(int,int)|Removes from this list all of the elements whose index is betweenfromIndex, inclus
+|java.util.AbstractList.set(int,E)|
+|java.util.AbstractList.subList(int,int)|
+
+*java.util.AbstractList_Description*
+
+This class provides a skeletal implementation of the (|java.util.List|) interface to minimize the effort required to implement 
+this interface backed by a "random access" data store (such as an array). For sequential access data (such as a linked list), 
+(|java.util.AbstractSequentialList|) should be used in preference to this class. 
+
+To implement an unmodifiable list, the programmer needs only to extend this class and provide implementations for the 
+(|java.util.AbstractList|) and size()(|java.util.List|) methods. 
+
+To implement a modifiable list, the programmer must additionally override the set(int, E)(|java.util.AbstractList|) method 
+(which otherwise throws anUnsupportedOperationException). If the list is variable-size the programmer must additionally 
+override the add(int, E)(|java.util.AbstractList|) and (|java.util.AbstractList|) methods. 
+
+The programmer should generally provide a void (no argument) and collection constructor, as per the recommendation in the 
+(|java.util.Collection|) interface specification. 
+
+Unlike the other abstract collection implementations, the programmer does not have to provide an iterator implementation; the 
+iterator and list iterator are implemented by this class, on top of the "random access" methods: (|java.util.AbstractList|) , 
+set(int, E)(|java.util.AbstractList|) , add(int, E)(|java.util.AbstractList|) and (|java.util.AbstractList|) . 
+
+The documentation for each non-abstract method in this class describes its implementation in detail. Each of these methods may 
+be overridden if the collection being implemented admits a more efficient implementation. 
+
+This class is a member of the <a href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
+
+
+*int_java.util.AbstractList.modCount*
+
+The number of times this list has been structurally modified. Structural modifications are those that change the size of the 
+list, or otherwise perturb it in such a fashion that iterations in progress may yield incorrect results. 
+
+This field is used by the iterator and list iterator implementation returned by theiteratorandlistIteratormethods. If the value 
+of this field changes unexpectedly, the iterator (or list iterator) will throw aConcurrentModificationExceptionin response to 
+thenext,remove,previous,setoraddoperations. This provides fail-fast behavior, rather than non-deterministic behavior in the 
+face of concurrent modification during iteration. 
+
+Use of this field by subclasses is optional. If a subclass wishes to provide fail-fast iterators (and list iterators), then it 
+merely has to increment this field in itsadd(int, E)andremove(int)methods (and any other methods that it overrides that result 
+in structural modifications to the list). A single call toadd(int, E)orremove(int)must add no more than one to this field, or 
+the iterators (and list iterators) will throw bogusConcurrentModificationExceptions. If an implementation does not wish to 
+provide fail-fast iterators, this field may be ignored. 
+
+
+
+*java.util.AbstractList()*
+
+protected AbstractList()
+
+Sole constructor. (For invocation by subclass constructors, typically implicit.) 
+
+
+*java.util.AbstractList.add(E)*
+
+public boolean add(E e)
+
+Appends the specified element to the end of this list (optional operation). 
+
+Lists that support this operation may place limitations on what elements may be added to this list. In particular, some lists 
+will refuse to add null elements, and others will impose restrictions on the type of elements that may be added. List classes 
+should clearly specify in their documentation any restrictions on what elements may be added. 
+
+This implementation callsadd(size(), e). 
+
+Note that this implementation throws anUnsupportedOperationExceptionunless add(int, E)(|java.util.AbstractList|) is overridden. 
+
+
+    e - element to be appended to this list 
+
+    Returns: {@code true} (as specified by {@link Collection#add}) 
+
+*java.util.AbstractList.add(int,E)*
+
+public void add(
+  int index,
+  E element)
+
+This implementation always throws anUnsupportedOperationException. 
+
+
+
+*java.util.AbstractList.addAll(int,Collection<?extendsE>)*
+
+public boolean addAll(
+  int index,
+  java.util.Collection<? extends E> c)
+
+This implementation gets an iterator over the specified collection and iterates over it, inserting the elements obtained from 
+the iterator into this list at the appropriate position, one at a time, usingadd(int, E). Many implementations will override 
+this method for efficiency. 
+
+Note that this implementation throws anUnsupportedOperationExceptionunless add(int, E)(|java.util.AbstractList|) is overridden. 
+
+
+
+*java.util.AbstractList.clear()*
+
+public void clear()
+
+Removes all of the elements from this list (optional operation). The list will be empty after this call returns. 
+
+This implementation callsremoveRange(0, size()). 
+
+Note that this implementation throws anUnsupportedOperationExceptionunlessremove(int index)orremoveRange(int fromIndex, int 
+toIndex)is overridden. 
+
+
+
+*java.util.AbstractList.equals(Object)*
+
+public boolean equals(java.lang.Object o)
+
+Compares the specified object with this list for equality. Returnstrueif and only if the specified object is also a list, both 
+lists have the same size, and all corresponding pairs of elements in the two lists are equal. (Two elementse1ande2are equal 
+if(e1==null ? e2==null : e1.equals(e2)).) In other words, two lists are defined to be equal if they contain the same elements 
+in the same order. 
+
+This implementation first checks if the specified object is this list. If so, it returnstrue; if not, it checks if the 
+specified object is a list. If not, it returnsfalse; if so, it iterates over both lists, comparing corresponding pairs of 
+elements. If any comparison returnsfalse, this method returnsfalse. If either iterator runs out of elements before the other it 
+returnsfalse(as the lists are of unequal length); otherwise it returnstruewhen the iterations complete. 
+
+
+    o - the object to be compared for equality with this list 
+
+    Returns: {@code true} if the specified object is equal to this list 
+
+*java.util.AbstractList.get(int)*
+
+public abstract |E| get(int index)
+
+
+
+
+
+*java.util.AbstractList.hashCode()*
+
+public int hashCode()
+
+Returns the hash code value for this list. 
+
+This implementation uses exactly the code that is used to define the list hash function in the documentation for the 
+(|java.util.List|) method. 
+
+
+
+    Returns: the hash code value for this list 
+
+*java.util.AbstractList.indexOf(Object)*
+
+public int indexOf(java.lang.Object o)
+
+This implementation first gets a list iterator (withlistIterator()). Then, it iterates over the list until the specified 
+element is found or the end of the list is reached. 
+
+
+
+*java.util.AbstractList.iterator()*
+
+public |java.util.Iterator|<E> iterator()
+
+Returns an iterator over the elements in this list in proper sequence. 
+
+This implementation returns a straightforward implementation of the iterator interface, relying on the backing 
+list'ssize(),get(int), andremove(int)methods. 
+
+Note that the iterator returned by this method will throw anUnsupportedOperationExceptionin response to itsremovemethod unless 
+the list'sremove(int)method is overridden. 
+
+This implementation can be made to throw runtime exceptions in the face of concurrent modification, as described in the 
+specification for the (protected)modCountfield. 
+
+
+
+    Returns: an iterator over the elements in this list in proper sequence 
+
+*java.util.AbstractList.lastIndexOf(Object)*
+
+public int lastIndexOf(java.lang.Object o)
+
+This implementation first gets a list iterator that points to the end of the list (withlistIterator(size())). Then, it iterates 
+backwards over the list until the specified element is found, or the beginning of the list is reached. 
+
+
+
+*java.util.AbstractList.listIterator()*
+
+public |java.util.ListIterator|<E> listIterator()
+
+This implementation returnslistIterator(0). 
+
+
+
+*java.util.AbstractList.listIterator(int)*
+
+public |java.util.ListIterator|<E> listIterator(int index)
+
+This implementation returns a straightforward implementation of theListIteratorinterface that extends the implementation of 
+theIteratorinterface returned by theiterator()method. TheListIteratorimplementation relies on the backing 
+list'sget(int),set(int, E),add(int, E)andremove(int)methods. 
+
+Note that the list iterator returned by this implementation will throw anUnsupportedOperationExceptionin response to 
+itsremove,setandaddmethods unless the list'sremove(int),set(int, E), andadd(int, E)methods are overridden. 
+
+This implementation can be made to throw runtime exceptions in the face of concurrent modification, as described in the 
+specification for the (protected)modCountfield. 
+
+
+
+*java.util.AbstractList.remove(int)*
+
+public |E| remove(int index)
+
+This implementation always throws anUnsupportedOperationException. 
+
+
+
+*java.util.AbstractList.removeRange(int,int)*
+
+protected void removeRange(
+  int fromIndex,
+  int toIndex)
+
+Removes from this list all of the elements whose index is betweenfromIndex, inclusive, andtoIndex, exclusive. Shifts any 
+succeeding elements to the left (reduces their index). This call shortens the ArrayList by(toIndex - fromIndex)elements. 
+(IftoIndex==fromIndex, this operation has no effect.) 
+
+This method is called by theclearoperation on this list and its subLists. Overriding this method to take advantage of the 
+internals of the list implementation can substantially improve the performance of theclearoperation on this list and its 
+subLists. 
+
+This implementation gets a list iterator positioned beforefromIndex, and repeatedly callsListIterator.nextfollowed 
+byListIterator.removeuntil the entire range has been removed. Note: ifListIterator.removerequires linear time, this 
+implementation requires quadratic time. 
+
+
+    fromIndex - index of first element to be removed 
+    toIndex - index after last element to be removed 
+
+*java.util.AbstractList.set(int,E)*
+
+public |E| set(
+  int index,
+  E element)
+
+This implementation always throws anUnsupportedOperationException. 
+
+
+
+*java.util.AbstractList.subList(int,int)*
+
+public |java.util.List|<E> subList(
+  int fromIndex,
+  int toIndex)
+
+This implementation returns a list that subclassesAbstractList. The subclass stores, in private fields, the offset of the 
+subList within the backing list, the size of the subList (which can change over its lifetime), and the expectedmodCountvalue of 
+the backing list. There are two variants of the subclass, one of which implementsRandomAccess. If this list 
+implementsRandomAccessthe returned list will be an instance of the subclass that implementsRandomAccess. 
+
+The subclass'sset(int, E),get(int),add(int, E),remove(int),addAll(int, Collection)andremoveRange(int, int)methods all delegate 
+to the corresponding methods on the backing abstract list, after bounds-checking the index and adjusting for the offset. 
+TheaddAll(Collection c)method merely returnsaddAll(size, c). 
+
+ThelistIterator(int)method returns a "wrapper object" over a list iterator on the backing list, which is created with the 
+corresponding method on the backing list. Theiteratormethod merely returnslistIterator(), and thesizemethod merely returns the 
+subclass'ssizefield. 
+
+All methods first check to see if the actualmodCountof the backing list is equal to its expected value, and throw 
+aConcurrentModificationExceptionif it is not. 
+
+
+
+

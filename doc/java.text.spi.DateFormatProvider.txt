@@ -1,0 +1,87 @@
+*java.text.spi.DateFormatProvider* *DateFormatProvider* An abstract class for service providers that
+ provide concrete implement
+
+public abstract class DateFormatProvider
+  extends    |java.util.spi.LocaleServiceProvider|
+
+|java.text.spi.DateFormatProvider_Description|
+|java.text.spi.DateFormatProvider_Fields|
+|java.text.spi.DateFormatProvider_Constructors|
+|java.text.spi.DateFormatProvider_Methods|
+
+================================================================================================================================
+
+*java.text.spi.DateFormatProvider_Constructors*
+|java.text.spi.DateFormatProvider()|Sole constructor.
+
+*java.text.spi.DateFormatProvider_Methods*
+|java.text.spi.DateFormatProvider.getDateInstance(int,Locale)|Returns a new DateFormat instance which formats date  with the gi
+|java.text.spi.DateFormatProvider.getDateTimeInstance(int,int,Locale)|Returns a new DateFormat instance which formats date and 
+|java.text.spi.DateFormatProvider.getTimeInstance(int,Locale)|Returns a new DateFormat instance which formats time   with the g
+
+*java.text.spi.DateFormatProvider_Description*
+
+An abstract class for service providers that provide concrete implementations of the DateFormat(|java.text.DateFormat|) class. 
+
+
+
+*java.text.spi.DateFormatProvider()*
+
+protected DateFormatProvider()
+
+Sole constructor. (For invocation by subclass constructors, typically implicit.) 
+
+
+*java.text.spi.DateFormatProvider.getDateInstance(int,Locale)*
+
+public abstract |java.text.DateFormat| getDateInstance(
+  int style,
+  java.util.Locale locale)
+
+Returns a new DateFormat instance which formats date with the given formatting style for the specified locale. 
+
+
+    style - the given formatting style. Either one of {@link java.text.DateFormat#SHORT DateFormat.SHORT}, {@link 
+       java.text.DateFormat#MEDIUM DateFormat.MEDIUM}, {@link java.text.DateFormat#LONG DateFormat.LONG}, or {@link 
+       java.text.DateFormat#FULL DateFormat.FULL}. 
+    locale - the desired locale. 
+
+    Returns: a date formatter. 
+
+*java.text.spi.DateFormatProvider.getDateTimeInstance(int,int,Locale)*
+
+public abstract |java.text.DateFormat| getDateTimeInstance(
+  int dateStyle,
+  int timeStyle,
+  java.util.Locale locale)
+
+Returns a new DateFormat instance which formats date and time with the given formatting style for the specified locale. 
+
+
+    dateStyle - the given date formatting style. Either one of {@link java.text.DateFormat#SHORT DateFormat.SHORT}, {@link 
+       java.text.DateFormat#MEDIUM DateFormat.MEDIUM}, {@link java.text.DateFormat#LONG DateFormat.LONG}, or {@link 
+       java.text.DateFormat#FULL DateFormat.FULL}. 
+    timeStyle - the given time formatting style. Either one of {@link java.text.DateFormat#SHORT DateFormat.SHORT}, {@link 
+       java.text.DateFormat#MEDIUM DateFormat.MEDIUM}, {@link java.text.DateFormat#LONG DateFormat.LONG}, or {@link 
+       java.text.DateFormat#FULL DateFormat.FULL}. 
+    locale - the desired locale. 
+
+    Returns: a date/time formatter. 
+
+*java.text.spi.DateFormatProvider.getTimeInstance(int,Locale)*
+
+public abstract |java.text.DateFormat| getTimeInstance(
+  int style,
+  java.util.Locale locale)
+
+Returns a new DateFormat instance which formats time with the given formatting style for the specified locale. 
+
+
+    style - the given formatting style. Either one of {@link java.text.DateFormat#SHORT DateFormat.SHORT}, {@link 
+       java.text.DateFormat#MEDIUM DateFormat.MEDIUM}, {@link java.text.DateFormat#LONG DateFormat.LONG}, or {@link 
+       java.text.DateFormat#FULL DateFormat.FULL}. 
+    locale - the desired locale. 
+
+    Returns: a time formatter. 
+
+

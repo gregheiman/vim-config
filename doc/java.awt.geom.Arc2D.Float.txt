@@ -1,0 +1,229 @@
+*java.awt.geom.Arc2D.Float* *Arc2D.Float* This class defines an arc specified infloatprecision.
+
+public static class Arc2D.Float
+  extends    |java.awt.geom.Arc2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.Arc2D.Float_Description|
+|java.awt.geom.Arc2D.Float_Fields|
+|java.awt.geom.Arc2D.Float_Constructors|
+|java.awt.geom.Arc2D.Float_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.Arc2D.Float_Fields*
+|float_java.awt.geom.Arc2D.Float.extent|
+|float_java.awt.geom.Arc2D.Float.height|
+|float_java.awt.geom.Arc2D.Float.start|
+|float_java.awt.geom.Arc2D.Float.width|
+|float_java.awt.geom.Arc2D.Float.x|
+|float_java.awt.geom.Arc2D.Float.y|
+
+*java.awt.geom.Arc2D.Float_Constructors*
+|java.awt.geom.Arc2D.Float()|Constructs a new OPEN arc, initialized to location (0, 0),  size (0, 0), angular extents (start = 
+|java.awt.geom.Arc2D.Float(float,float,float,float,float,float,int)|Constructs a new arc, initialized to the specified location
+|java.awt.geom.Arc2D.Float(int)|Constructs a new arc, initialized to location (0, 0),  size (0, 0), angular extents (start = 0,
+|java.awt.geom.Arc2D.Float(Rectangle2D,float,float,int)|Constructs a new arc, initialized to the specified location,  size, ang
+
+*java.awt.geom.Arc2D.Float_Methods*
+|java.awt.geom.Arc2D.Float.getAngleExtent()|
+|java.awt.geom.Arc2D.Float.getAngleStart()|
+|java.awt.geom.Arc2D.Float.getHeight()|Note that the arc  partially inscribes  the framing rectangle of thisRectangularShape.
+|java.awt.geom.Arc2D.Float.getWidth()|Note that the arc  partially inscribes  the framing rectangle of thisRectangularShape.
+|java.awt.geom.Arc2D.Float.getX()|Note that the arc  partially inscribes  the framing rectangle of thisRectangularShape.
+|java.awt.geom.Arc2D.Float.getY()|Note that the arc  partially inscribes  the framing rectangle of thisRectangularShape.
+|java.awt.geom.Arc2D.Float.isEmpty()|
+|java.awt.geom.Arc2D.Float.makeBounds(double,double,double,double)|
+|java.awt.geom.Arc2D.Float.setAngleExtent(double)|
+|java.awt.geom.Arc2D.Float.setAngleStart(double)|
+|java.awt.geom.Arc2D.Float.setArc(double,double,double,double,double,double,int)|
+
+*java.awt.geom.Arc2D.Float_Description*
+
+This class defines an arc specified infloatprecision. 
+
+
+
+*float_java.awt.geom.Arc2D.Float.extent*
+
+The angular extent of the arc in degrees. 
+
+
+*float_java.awt.geom.Arc2D.Float.height*
+
+The overall height of the full ellipse of which this arc is a partial section (not considering the angular extents). 
+
+
+*float_java.awt.geom.Arc2D.Float.start*
+
+The starting angle of the arc in degrees. 
+
+
+*float_java.awt.geom.Arc2D.Float.width*
+
+The overall width of the full ellipse of which this arc is a partial section (not considering the angular extents). 
+
+
+*float_java.awt.geom.Arc2D.Float.x*
+
+The X coordinate of the upper-left corner of the framing rectangle of the arc. 
+
+
+*float_java.awt.geom.Arc2D.Float.y*
+
+The Y coordinate of the upper-left corner of the framing rectangle of the arc. 
+
+
+
+*java.awt.geom.Arc2D.Float()*
+
+public Arc2D.Float()
+
+Constructs a new OPEN arc, initialized to location (0, 0), size (0, 0), angular extents (start = 0, extent = 0). 
+
+
+*java.awt.geom.Arc2D.Float(float,float,float,float,float,float,int)*
+
+public Arc2D.Float(
+  float x,
+  float y,
+  float w,
+  float h,
+  float start,
+  float extent,
+  int type)
+
+Constructs a new arc, initialized to the specified location, size, angular extents, and closure type. 
+
+    x - The X coordinate of the upper-left corner of the arc's framing rectangle. 
+    y - The Y coordinate of the upper-left corner of the arc's framing rectangle. 
+    w - The overall width of the full ellipse of which this arc is a partial section. 
+    h - The overall height of the full ellipse of which this arc is a partial section. 
+    start - The starting angle of the arc in degrees. 
+    extent - The angular extent of the arc in degrees. 
+    type - The closure type for the arc: {@link #OPEN}, {@link #CHORD}, or {@link #PIE}. 
+
+*java.awt.geom.Arc2D.Float(int)*
+
+public Arc2D.Float(int type)
+
+Constructs a new arc, initialized to location (0, 0), size (0, 0), angular extents (start = 0, extent = 0), and the specified 
+closure type. 
+
+    type - The closure type for the arc: {@link #OPEN}, {@link #CHORD}, or {@link #PIE}. 
+
+*java.awt.geom.Arc2D.Float(Rectangle2D,float,float,int)*
+
+public Arc2D.Float(
+  java.awt.geom.Rectangle2D ellipseBounds,
+  float start,
+  float extent,
+  int type)
+
+Constructs a new arc, initialized to the specified location, size, angular extents, and closure type. 
+
+    ellipseBounds - The framing rectangle that defines the outer boundary of the full ellipse of which this arc is a partial section. 
+    start - The starting angle of the arc in degrees. 
+    extent - The angular extent of the arc in degrees. 
+    type - The closure type for the arc: {@link #OPEN}, {@link #CHORD}, or {@link #PIE}. 
+
+*java.awt.geom.Arc2D.Float.getAngleExtent()*
+
+public double getAngleExtent()
+
+
+
+
+
+*java.awt.geom.Arc2D.Float.getAngleStart()*
+
+public double getAngleStart()
+
+
+
+
+
+*java.awt.geom.Arc2D.Float.getHeight()*
+
+public double getHeight()
+
+Note that the arc partially inscribes the framing rectangle of thisRectangularShape. 
+
+
+
+*java.awt.geom.Arc2D.Float.getWidth()*
+
+public double getWidth()
+
+Note that the arc partially inscribes the framing rectangle of thisRectangularShape. 
+
+
+
+*java.awt.geom.Arc2D.Float.getX()*
+
+public double getX()
+
+Note that the arc partially inscribes the framing rectangle of thisRectangularShape. 
+
+
+
+*java.awt.geom.Arc2D.Float.getY()*
+
+public double getY()
+
+Note that the arc partially inscribes the framing rectangle of thisRectangularShape. 
+
+
+
+*java.awt.geom.Arc2D.Float.isEmpty()*
+
+public boolean isEmpty()
+
+
+
+
+
+*java.awt.geom.Arc2D.Float.makeBounds(double,double,double,double)*
+
+protected |java.awt.geom.Rectangle2D| makeBounds(
+  double x,
+  double y,
+  double w,
+  double h)
+
+
+
+
+
+*java.awt.geom.Arc2D.Float.setAngleExtent(double)*
+
+public void setAngleExtent(double angExt)
+
+
+
+
+
+*java.awt.geom.Arc2D.Float.setAngleStart(double)*
+
+public void setAngleStart(double angSt)
+
+
+
+
+
+*java.awt.geom.Arc2D.Float.setArc(double,double,double,double,double,double,int)*
+
+public void setArc(
+  double x,
+  double y,
+  double w,
+  double h,
+  double angSt,
+  double angExt,
+  int closure)
+
+
+
+
+
+

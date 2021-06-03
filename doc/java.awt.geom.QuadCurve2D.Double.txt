@@ -1,0 +1,196 @@
+*java.awt.geom.QuadCurve2D.Double* *QuadCurve2D.Double* A quadratic parametric curve segment specified withdoublecoordinates.
+
+public static class QuadCurve2D.Double
+  extends    |java.awt.geom.QuadCurve2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.QuadCurve2D.Double_Description|
+|java.awt.geom.QuadCurve2D.Double_Fields|
+|java.awt.geom.QuadCurve2D.Double_Constructors|
+|java.awt.geom.QuadCurve2D.Double_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.QuadCurve2D.Double_Fields*
+|double_java.awt.geom.QuadCurve2D.Double.ctrlx|
+|double_java.awt.geom.QuadCurve2D.Double.ctrly|
+|double_java.awt.geom.QuadCurve2D.Double.x1|
+|double_java.awt.geom.QuadCurve2D.Double.x2|
+|double_java.awt.geom.QuadCurve2D.Double.y1|
+|double_java.awt.geom.QuadCurve2D.Double.y2|
+
+*java.awt.geom.QuadCurve2D.Double_Constructors*
+|java.awt.geom.QuadCurve2D.Double()|Constructs and initializes a QuadCurve2D with  coordinates (0, 0, 0, 0, 0, 0).
+|java.awt.geom.QuadCurve2D.Double(double,double,double,double,double,double)|Constructs and initializes a QuadCurve2D from the 
+
+*java.awt.geom.QuadCurve2D.Double_Methods*
+|java.awt.geom.QuadCurve2D.Double.getBounds2D()|
+|java.awt.geom.QuadCurve2D.Double.getCtrlPt()|
+|java.awt.geom.QuadCurve2D.Double.getCtrlX()|
+|java.awt.geom.QuadCurve2D.Double.getCtrlY()|
+|java.awt.geom.QuadCurve2D.Double.getP1()|
+|java.awt.geom.QuadCurve2D.Double.getP2()|
+|java.awt.geom.QuadCurve2D.Double.getX1()|
+|java.awt.geom.QuadCurve2D.Double.getX2()|
+|java.awt.geom.QuadCurve2D.Double.getY1()|
+|java.awt.geom.QuadCurve2D.Double.getY2()|
+|java.awt.geom.QuadCurve2D.Double.setCurve(double,double,double,double,double,double)|
+
+*java.awt.geom.QuadCurve2D.Double_Description*
+
+A quadratic parametric curve segment specified withdoublecoordinates. 
+
+
+
+*double_java.awt.geom.QuadCurve2D.Double.ctrlx*
+
+The X coordinate of the control point of the quadratic curve segment. 
+
+
+*double_java.awt.geom.QuadCurve2D.Double.ctrly*
+
+The Y coordinate of the control point of the quadratic curve segment. 
+
+
+*double_java.awt.geom.QuadCurve2D.Double.x1*
+
+The X coordinate of the start point of the quadratic curve segment. 
+
+
+*double_java.awt.geom.QuadCurve2D.Double.x2*
+
+The X coordinate of the end point of the quadratic curve segment. 
+
+
+*double_java.awt.geom.QuadCurve2D.Double.y1*
+
+The Y coordinate of the start point of the quadratic curve segment. 
+
+
+*double_java.awt.geom.QuadCurve2D.Double.y2*
+
+The Y coordinate of the end point of the quadratic curve segment. 
+
+
+
+*java.awt.geom.QuadCurve2D.Double()*
+
+public QuadCurve2D.Double()
+
+Constructs and initializes a QuadCurve2D with coordinates (0, 0, 0, 0, 0, 0). 
+
+
+*java.awt.geom.QuadCurve2D.Double(double,double,double,double,double,double)*
+
+public QuadCurve2D.Double(
+  double x1,
+  double y1,
+  double ctrlx,
+  double ctrly,
+  double x2,
+  double y2)
+
+Constructs and initializes a QuadCurve2D from the specifieddoublecoordinates. 
+
+    x1 - the X coordinate of the start point 
+    y1 - the Y coordinate of the start point 
+    ctrlx - the X coordinate of the control point 
+    ctrly - the Y coordinate of the control point 
+    x2 - the X coordinate of the end point 
+    y2 - the Y coordinate of the end point 
+
+*java.awt.geom.QuadCurve2D.Double.getBounds2D()*
+
+public |java.awt.geom.Rectangle2D| getBounds2D()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Double.getCtrlPt()*
+
+public |java.awt.geom.Point2D| getCtrlPt()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Double.getCtrlX()*
+
+public double getCtrlX()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Double.getCtrlY()*
+
+public double getCtrlY()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Double.getP1()*
+
+public |java.awt.geom.Point2D| getP1()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Double.getP2()*
+
+public |java.awt.geom.Point2D| getP2()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Double.getX1()*
+
+public double getX1()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Double.getX2()*
+
+public double getX2()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Double.getY1()*
+
+public double getY1()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Double.getY2()*
+
+public double getY2()
+
+
+
+
+
+*java.awt.geom.QuadCurve2D.Double.setCurve(double,double,double,double,double,double)*
+
+public void setCurve(
+  double x1,
+  double y1,
+  double ctrlx,
+  double ctrly,
+  double x2,
+  double y2)
+
+
+
+
+
+

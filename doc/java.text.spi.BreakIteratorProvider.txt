@@ -1,0 +1,81 @@
+*java.text.spi.BreakIteratorProvider* *BreakIteratorProvider* An abstract class for service providers that
+ provide concrete imp
+
+public abstract class BreakIteratorProvider
+  extends    |java.util.spi.LocaleServiceProvider|
+
+|java.text.spi.BreakIteratorProvider_Description|
+|java.text.spi.BreakIteratorProvider_Fields|
+|java.text.spi.BreakIteratorProvider_Constructors|
+|java.text.spi.BreakIteratorProvider_Methods|
+
+================================================================================================================================
+
+*java.text.spi.BreakIteratorProvider_Constructors*
+|java.text.spi.BreakIteratorProvider()|Sole constructor.
+
+*java.text.spi.BreakIteratorProvider_Methods*
+|java.text.spi.BreakIteratorProvider.getCharacterInstance(Locale)|Returns a new BreakIterator instance  for character breaks  f
+|java.text.spi.BreakIteratorProvider.getLineInstance(Locale)|Returns a new BreakIterator instance  for line breaks  for the giv
+|java.text.spi.BreakIteratorProvider.getSentenceInstance(Locale)|Returns a new BreakIterator instance  for sentence breaks  for
+|java.text.spi.BreakIteratorProvider.getWordInstance(Locale)|Returns a new BreakIterator instance  for word breaks  for the giv
+
+*java.text.spi.BreakIteratorProvider_Description*
+
+An abstract class for service providers that provide concrete implementations of the BreakIterator(|java.text.BreakIterator|) 
+class. 
+
+
+
+*java.text.spi.BreakIteratorProvider()*
+
+protected BreakIteratorProvider()
+
+Sole constructor. (For invocation by subclass constructors, typically implicit.) 
+
+
+*java.text.spi.BreakIteratorProvider.getCharacterInstance(Locale)*
+
+public abstract |java.text.BreakIterator| getCharacterInstance(java.util.Locale locale)
+
+Returns a new BreakIterator instance for character breaks for the given locale. 
+
+
+    locale - the desired locale 
+
+    Returns: A break iterator for character breaks 
+
+*java.text.spi.BreakIteratorProvider.getLineInstance(Locale)*
+
+public abstract |java.text.BreakIterator| getLineInstance(java.util.Locale locale)
+
+Returns a new BreakIterator instance for line breaks for the given locale. 
+
+
+    locale - the desired locale 
+
+    Returns: A break iterator for line breaks 
+
+*java.text.spi.BreakIteratorProvider.getSentenceInstance(Locale)*
+
+public abstract |java.text.BreakIterator| getSentenceInstance(java.util.Locale locale)
+
+Returns a new BreakIterator instance for sentence breaks for the given locale. 
+
+
+    locale - the desired locale 
+
+    Returns: A break iterator for sentence breaks 
+
+*java.text.spi.BreakIteratorProvider.getWordInstance(Locale)*
+
+public abstract |java.text.BreakIterator| getWordInstance(java.util.Locale locale)
+
+Returns a new BreakIterator instance for word breaks for the given locale. 
+
+
+    locale - the desired locale 
+
+    Returns: A break iterator for word breaks 
+
+

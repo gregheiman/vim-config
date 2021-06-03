@@ -1,0 +1,189 @@
+*java.sql.SQLClientInfoException* *SQLClientInfoException* The subclass ofSQLExceptionis thrown when one or more client info pro
+
+public class SQLClientInfoException
+  extends    |java.sql.SQLException|
+
+|java.sql.SQLClientInfoException_Description|
+|java.sql.SQLClientInfoException_Fields|
+|java.sql.SQLClientInfoException_Constructors|
+|java.sql.SQLClientInfoException_Methods|
+
+================================================================================================================================
+
+*java.sql.SQLClientInfoException_Constructors*
+|java.sql.SQLClientInfoException()|Constructs a SQLClientInfoException  Object.
+|java.sql.SQLClientInfoException(Map<String,ClientInfoStatus>)|Constructs a SQLClientInfoException object initialized with a  g
+|java.sql.SQLClientInfoException(Map<String,ClientInfoStatus>,Throwable)|Constructs a SQLClientInfoException object initialized
+|java.sql.SQLClientInfoException(String,Map<String,ClientInfoStatus>)|Constructs a SQLClientInfoException object initialized wi
+|java.sql.SQLClientInfoException(String,Map<String,ClientInfoStatus>,Throwable)|Constructs a SQLClientInfoException object init
+|java.sql.SQLClientInfoException(String,String,int,Map<String,ClientInfoStatus>)|Constructs a SQLClientInfoException object ini
+|java.sql.SQLClientInfoException(String,String,int,Map<String,ClientInfoStatus>,Throwable)|Constructs a SQLClientInfoException 
+|java.sql.SQLClientInfoException(String,String,Map<String,ClientInfoStatus>)|Constructs a SQLClientInfoException object initial
+|java.sql.SQLClientInfoException(String,String,Map<String,ClientInfoStatus>,Throwable)|Constructs a SQLClientInfoException obje
+
+*java.sql.SQLClientInfoException_Methods*
+|java.sql.SQLClientInfoException.getFailedProperties()|Returns the list of client info properties that could not be set.
+
+*java.sql.SQLClientInfoException_Description*
+
+The subclass of (|java.sql.SQLException|) is thrown when one or more client info properties could not be set on a Connection. 
+In addition to the information provided by SQLException, a SQLClientInfoException provides a list of client info properties 
+that were not set. 
+
+Some databases do not allow multiple client info properties to be set atomically. For those databases, it is possible that some 
+of the client info properties had been set even though the Connection.setClientInfo method threw an exception. An application 
+can use the getFailedProperties method to retrieve a list of client info properties that were not set. The properties are 
+identified by passing a Map<String,ClientInfoStatus> to the appropriate SQLClientInfoException constructor. 
+
+
+
+*java.sql.SQLClientInfoException()*
+
+public SQLClientInfoException()
+
+Constructs a SQLClientInfoException Object. The reason, SQLState, and failedProperties list are initialized to null and the 
+vendor code is initialized to 0. The cause is not initialized, and may subsequently be initialized by a call to the 
+(|java.lang.Throwable|) method. 
+
+
+*java.sql.SQLClientInfoException(Map<String,ClientInfoStatus>)*
+
+public SQLClientInfoException(java.util.Map<java.lang.String, java.sql.ClientInfoStatus> failedProperties)
+
+Constructs a SQLClientInfoException object initialized with a given failedProperties. The reason and SQLState are initialized 
+to null and the vendor code is initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    failedProperties - A Map containing the property values that could not be set. The keys in the Map contain the names of the client info properties 
+       that could not be set and the values contain one of the reason codes defined in ClientInfoStatus 
+
+*java.sql.SQLClientInfoException(Map<String,ClientInfoStatus>,Throwable)*
+
+public SQLClientInfoException(
+  java.util.Map<java.lang.String, java.sql.ClientInfoStatus> failedProperties,
+  java.lang.Throwable cause)
+
+Constructs a SQLClientInfoException object initialized with a given cause and failedProperties. 
+
+The reason is initialized to null if cause==null or to cause.toString() if cause!=null and the vendor code is initialized to 0. 
+
+
+
+    failedProperties - A Map containing the property values that could not be set. The keys in the Map contain the names of the client info properties 
+       that could not be set and the values contain one of the reason codes defined in ClientInfoStatus 
+    cause - the (which is saved for later retrieval by the getCause() method); may be null indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLClientInfoException(String,Map<String,ClientInfoStatus>)*
+
+public SQLClientInfoException(
+  java.lang.String reason,
+  java.util.Map<java.lang.String, java.sql.ClientInfoStatus> failedProperties)
+
+Constructs a SQLClientInfoException object initialized with a given reason and failedProperties. The SQLState is initialized to 
+null and the vendor code is initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+    failedProperties - A Map containing the property values that could not be set. The keys in the Map contain the names of the client info properties 
+       that could not be set and the values contain one of the reason codes defined in ClientInfoStatus 
+
+*java.sql.SQLClientInfoException(String,Map<String,ClientInfoStatus>,Throwable)*
+
+public SQLClientInfoException(
+  java.lang.String reason,
+  java.util.Map<java.lang.String, java.sql.ClientInfoStatus> failedProperties,
+  java.lang.Throwable cause)
+
+Constructs a SQLClientInfoException object initialized with a given reason, cause and failedProperties. The SQLState is 
+initialized to null and the vendor code is initialized to 0. 
+
+    reason - a description of the exception 
+    failedProperties - A Map containing the property values that could not be set. The keys in the Map contain the names of the client info properties 
+       that could not be set and the values contain one of the reason codes defined in ClientInfoStatus 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLClientInfoException(String,String,int,Map<String,ClientInfoStatus>)*
+
+public SQLClientInfoException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode,
+  java.util.Map<java.lang.String, java.sql.ClientInfoStatus> failedProperties)
+
+Constructs a SQLClientInfoException object initialized with a given reason, SQLState, vendorCode and failedProperties. The 
+cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor-specific exception code 
+    failedProperties - A Map containing the property values that could not be set. The keys in the Map contain the names of the client info properties 
+       that could not be set and the values contain one of the reason codes defined in ClientInfoStatus 
+
+*java.sql.SQLClientInfoException(String,String,int,Map<String,ClientInfoStatus>,Throwable)*
+
+public SQLClientInfoException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode,
+  java.util.Map<java.lang.String, java.sql.ClientInfoStatus> failedProperties,
+  java.lang.Throwable cause)
+
+Constructs a SQLClientInfoException object initialized with a given reason, SQLState, cause, vendorCode and failedProperties. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor-specific exception code 
+    failedProperties - A Map containing the property values that could not be set. The keys in the Map contain the names of the client info properties 
+       that could not be set and the values contain one of the reason codes defined in ClientInfoStatus 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLClientInfoException(String,String,Map<String,ClientInfoStatus>)*
+
+public SQLClientInfoException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  java.util.Map<java.lang.String, java.sql.ClientInfoStatus> failedProperties)
+
+Constructs a SQLClientInfoException object initialized with a given reason, SQLState and failedProperties. The cause is not 
+initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. The vendor code is 
+initialized to 0. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    failedProperties - A Map containing the property values that could not be set. The keys in the Map contain the names of the client info properties 
+       that could not be set and the values contain one of the reason codes defined in ClientInfoStatus 
+
+*java.sql.SQLClientInfoException(String,String,Map<String,ClientInfoStatus>,Throwable)*
+
+public SQLClientInfoException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  java.util.Map<java.lang.String, java.sql.ClientInfoStatus> failedProperties,
+  java.lang.Throwable cause)
+
+Constructs a SQLClientInfoException object initialized with a given reason, SQLState, cause and failedProperties. The vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    failedProperties - A Map containing the property values that could not be set. The keys in the Map contain the names of the client info properties 
+       that could not be set and the values contain one of the reason codes defined in ClientInfoStatus 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLClientInfoException.getFailedProperties()*
+
+public |java.util.Map|<String,ClientInfoStatus> getFailedProperties()
+
+Returns the list of client info properties that could not be set. The keys in the Map contain the names of the client info 
+properties that could not be set and the values contain one of the reason codes defined in ClientInfoStatus 
+
+
+
+    Returns: Map list containing the client info properties that could not be set 
+
+

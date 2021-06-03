@@ -1,0 +1,132 @@
+*java.sql.SQLNonTransientConnectionException* *SQLNonTransientConnectionException*  The subclass ofSQLExceptionthrown for the SQ
+
+public class SQLNonTransientConnectionException
+  extends    |java.sql.SQLNonTransientException|
+
+|java.sql.SQLNonTransientConnectionException_Description|
+|java.sql.SQLNonTransientConnectionException_Fields|
+|java.sql.SQLNonTransientConnectionException_Constructors|
+|java.sql.SQLNonTransientConnectionException_Methods|
+
+================================================================================================================================
+
+*java.sql.SQLNonTransientConnectionException_Constructors*
+|java.sql.SQLNonTransientConnectionException()|Constructs a SQLNonTransientConnectionException object.
+|java.sql.SQLNonTransientConnectionException(String)|Constructs a SQLNonTransientConnectionException object   with a given reas
+|java.sql.SQLNonTransientConnectionException(String,String)|Constructs a SQLNonTransientConnectionException object  with a give
+|java.sql.SQLNonTransientConnectionException(String,String,int)|Constructs a SQLNonTransientConnectionException object  with a 
+|java.sql.SQLNonTransientConnectionException(String,String,int,Throwable)|Constructs a SQLNonTransientConnectionException objec
+|java.sql.SQLNonTransientConnectionException(String,String,Throwable)|Constructs a SQLNonTransientConnectionException object   
+|java.sql.SQLNonTransientConnectionException(String,Throwable)|Constructs a SQLTransientException object  with a given  reason 
+|java.sql.SQLNonTransientConnectionException(Throwable)|Constructs a SQLNonTransientConnectionException object  with a given  c
+
+*java.sql.SQLNonTransientConnectionException_Description*
+
+The subclass of (|java.sql.SQLException|) thrown for the SQLState class value '08', representing that the connection operation 
+that failed will not succeed when the operation is retried without the cause of the failure being corrected. 
+
+
+
+*java.sql.SQLNonTransientConnectionException()*
+
+public SQLNonTransientConnectionException()
+
+Constructs a SQLNonTransientConnectionException object. The reason, SQLState are initialized to null and the vendor code is 
+initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+
+*java.sql.SQLNonTransientConnectionException(String)*
+
+public SQLNonTransientConnectionException(java.lang.String reason)
+
+Constructs a SQLNonTransientConnectionException object with a given reason. The SQLState is initialized to null and the vender 
+code is initialized to 0. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+
+*java.sql.SQLNonTransientConnectionException(String,String)*
+
+public SQLNonTransientConnectionException(
+  java.lang.String reason,
+  java.lang.String SQLState)
+
+Constructs a SQLNonTransientConnectionException object with a given reason and SQLState. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. The vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+
+*java.sql.SQLNonTransientConnectionException(String,String,int)*
+
+public SQLNonTransientConnectionException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode)
+
+Constructs a SQLNonTransientConnectionException object with a given reason, SQLState and vendorCode. 
+
+The cause is not initialized, and may subsequently be initialized by a call to the (|java.lang.Throwable|) method. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor specific exception code 
+
+*java.sql.SQLNonTransientConnectionException(String,String,int,Throwable)*
+
+public SQLNonTransientConnectionException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  int vendorCode,
+  java.lang.Throwable cause)
+
+Constructs a SQLNonTransientConnectionException object with a given reason, SQLState, vendorCode and cause. 
+
+    reason - a description of the exception 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    vendorCode - a database vendor-specific exception code 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLNonTransientConnectionException(String,String,Throwable)*
+
+public SQLNonTransientConnectionException(
+  java.lang.String reason,
+  java.lang.String SQLState,
+  java.lang.Throwable cause)
+
+Constructs a SQLNonTransientConnectionException object with a given reason, SQLState and cause. The vendor code is initialized 
+to 0. 
+
+    reason - a description of the exception. 
+    SQLState - an XOPEN or SQL:2003 code identifying the exception 
+    cause - the (which is saved for later retrieval by the getCause() method); may be null indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLNonTransientConnectionException(String,Throwable)*
+
+public SQLNonTransientConnectionException(
+  java.lang.String reason,
+  java.lang.Throwable cause)
+
+Constructs a SQLTransientException object with a given reason and cause. The SQLState is initialized to null and the vendor 
+code is initialized to 0. 
+
+    reason - a description of the exception. 
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+
+*java.sql.SQLNonTransientConnectionException(Throwable)*
+
+public SQLNonTransientConnectionException(java.lang.Throwable cause)
+
+Constructs a SQLNonTransientConnectionException object with a given cause. The SQLState is initialized to null and the vendor 
+code is initialized to 0. The reason is initialized to null if cause==null or to cause.toString() if cause!=null. 
+
+    cause - the underlying reason for this SQLException (which is saved for later retrieval by the getCause() method); may be null 
+       indicating the cause is non-existent or unknown. 
+

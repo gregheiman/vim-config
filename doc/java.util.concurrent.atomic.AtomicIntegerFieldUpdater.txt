@@ -1,0 +1,225 @@
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater* *AtomicIntegerFieldUpdater* A reflection-based utility that enables atom
+
+public abstract class AtomicIntegerFieldUpdater<T>
+  extends    |java.lang.Object|
+
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater_Description|
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater_Fields|
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater_Constructors|
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater_Methods|
+
+================================================================================================================================
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater_Constructors*
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater()|Protected do-nothing constructor for use by subclasses.
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater_Methods*
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.addAndGet(T,int)|Atomically adds the given value to the current value of
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.compareAndSet(T,int,int)|Atomically sets the field of the given object m
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.decrementAndGet(T)|Atomically decrements by one the current value of the
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.get(T)|Gets the current value held in the field of the given object mana
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.getAndAdd(T,int)|Atomically adds the given value to the current value of
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.getAndDecrement(T)|Atomically decrements by one the current value of the
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.getAndIncrement(T)|Atomically increments by one the current value of the
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.getAndSet(T,int)|Atomically sets the field of the given object managed b
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.incrementAndGet(T)|Atomically increments by one the current value of the
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.lazySet(T,int)|Eventually sets the field of the given object managed by 
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.newUpdater(Class<U>,String)|Creates and returns an updater for objects w
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.set(T,int)|Sets the field of the given object managed by this updater to
+|java.util.concurrent.atomic.AtomicIntegerFieldUpdater.weakCompareAndSet(T,int,int)|Atomically sets the field of the given obje
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater_Description*
+
+A reflection-based utility that enables atomic updates to designatedvolatile intfields of designated classes. This class is 
+designed for use in atomic data structures in which several fields of the same node are independently subject to atomic 
+updates. 
+
+Note that the guarantees of thecompareAndSetmethod in this class are weaker than in other atomic classes. Because this class 
+cannot ensure that all uses of the field are appropriate for purposes of atomic access, it can guarantee atomicity only with 
+respect to other invocations ofcompareAndSetandseton the same updater. 
+
+
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater()*
+
+protected AtomicIntegerFieldUpdater()
+
+Protected do-nothing constructor for use by subclasses. 
+
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.addAndGet(T,int)*
+
+public int addAndGet(
+  T obj,
+  int delta)
+
+Atomically adds the given value to the current value of the field of the given object managed by this updater. 
+
+
+    obj - An object whose field to get and set 
+    delta - the value to add 
+
+    Returns: the updated value 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.compareAndSet(T,int,int)*
+
+public abstract boolean compareAndSet(
+  T obj,
+  int expect,
+  int update)
+
+Atomically sets the field of the given object managed by this updater to the given updated value if the current value==the 
+expected value. This method is guaranteed to be atomic with respect to other calls tocompareAndSetandset, but not necessarily 
+with respect to other changes in the field. 
+
+
+    obj - An object whose field to conditionally set 
+    expect - the expected value 
+    update - the new value 
+
+    Returns: true if successful 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.decrementAndGet(T)*
+
+public int decrementAndGet(T obj)
+
+Atomically decrements by one the current value of the field of the given object managed by this updater. 
+
+
+    obj - An object whose field to get and set 
+
+    Returns: the updated value 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.get(T)*
+
+public abstract int get(T obj)
+
+Gets the current value held in the field of the given object managed by this updater. 
+
+
+    obj - An object whose field to get 
+
+    Returns: the current value 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.getAndAdd(T,int)*
+
+public int getAndAdd(
+  T obj,
+  int delta)
+
+Atomically adds the given value to the current value of the field of the given object managed by this updater. 
+
+
+    obj - An object whose field to get and set 
+    delta - the value to add 
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.getAndDecrement(T)*
+
+public int getAndDecrement(T obj)
+
+Atomically decrements by one the current value of the field of the given object managed by this updater. 
+
+
+    obj - An object whose field to get and set 
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.getAndIncrement(T)*
+
+public int getAndIncrement(T obj)
+
+Atomically increments by one the current value of the field of the given object managed by this updater. 
+
+
+    obj - An object whose field to get and set 
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.getAndSet(T,int)*
+
+public int getAndSet(
+  T obj,
+  int newValue)
+
+Atomically sets the field of the given object managed by this updater to the given value and returns the old value. 
+
+
+    obj - An object whose field to get and set 
+    newValue - the new value 
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.incrementAndGet(T)*
+
+public int incrementAndGet(T obj)
+
+Atomically increments by one the current value of the field of the given object managed by this updater. 
+
+
+    obj - An object whose field to get and set 
+
+    Returns: the updated value 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.lazySet(T,int)*
+
+public abstract void lazySet(
+  T obj,
+  int newValue)
+
+Eventually sets the field of the given object managed by this updater to the given updated value. 
+
+
+    obj - An object whose field to set 
+    newValue - the new value 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.newUpdater(Class<U>,String)*
+
+public static |java.util.concurrent.atomic.AtomicIntegerFieldUpdater|<U> newUpdater(
+  java.lang.Class<U> tclass,
+  java.lang.String fieldName)
+
+Creates and returns an updater for objects with the given field. The Class argument is needed to check that reflective types 
+and generic types match. 
+
+
+    tclass - the class of the objects holding the field 
+    fieldName - the name of the field to be updated 
+
+    Returns: 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.set(T,int)*
+
+public abstract void set(
+  T obj,
+  int newValue)
+
+Sets the field of the given object managed by this updater to the given updated value. This operation is guaranteed to act as a 
+volatile store with respect to subsequent invocations ofcompareAndSet. 
+
+
+    obj - An object whose field to set 
+    newValue - the new value 
+
+*java.util.concurrent.atomic.AtomicIntegerFieldUpdater.weakCompareAndSet(T,int,int)*
+
+public abstract boolean weakCompareAndSet(
+  T obj,
+  int expect,
+  int update)
+
+Atomically sets the field of the given object managed by this updater to the given updated value if the current value==the 
+expected value. This method is guaranteed to be atomic with respect to other calls tocompareAndSetandset, but not necessarily 
+with respect to other changes in the field. 
+
+May fail spuriously and does not provide ordering guarantees, so is only rarely an appropriate alternative tocompareAndSet. 
+
+
+    obj - An object whose field to conditionally set 
+    expect - the expected value 
+    update - the new value 
+
+    Returns: true if successful 
+
+

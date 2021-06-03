@@ -1,0 +1,234 @@
+*java.util.concurrent.atomic.AtomicInteger* *AtomicInteger* Anintvalue that may be updated atomically.
+
+public class AtomicInteger
+  extends    |java.lang.Number|
+  implements |java.io.Serializable|
+
+|java.util.concurrent.atomic.AtomicInteger_Description|
+|java.util.concurrent.atomic.AtomicInteger_Fields|
+|java.util.concurrent.atomic.AtomicInteger_Constructors|
+|java.util.concurrent.atomic.AtomicInteger_Methods|
+
+================================================================================================================================
+
+*java.util.concurrent.atomic.AtomicInteger_Constructors*
+|java.util.concurrent.atomic.AtomicInteger()|Creates a new AtomicInteger with initial value0.
+|java.util.concurrent.atomic.AtomicInteger(int)|Creates a new AtomicInteger with the given initial value.
+
+*java.util.concurrent.atomic.AtomicInteger_Methods*
+|java.util.concurrent.atomic.AtomicInteger.addAndGet(int)|Atomically adds the given value to the current value.
+|java.util.concurrent.atomic.AtomicInteger.compareAndSet(int,int)|Atomically sets the value to the given updated value  if the 
+|java.util.concurrent.atomic.AtomicInteger.decrementAndGet()|Atomically decrements by one the current value.
+|java.util.concurrent.atomic.AtomicInteger.doubleValue()|
+|java.util.concurrent.atomic.AtomicInteger.floatValue()|
+|java.util.concurrent.atomic.AtomicInteger.get()|Gets the current value.
+|java.util.concurrent.atomic.AtomicInteger.getAndAdd(int)|Atomically adds the given value to the current value.
+|java.util.concurrent.atomic.AtomicInteger.getAndDecrement()|Atomically decrements by one the current value.
+|java.util.concurrent.atomic.AtomicInteger.getAndIncrement()|Atomically increments by one the current value.
+|java.util.concurrent.atomic.AtomicInteger.getAndSet(int)|Atomically sets to the given value and returns the old value.
+|java.util.concurrent.atomic.AtomicInteger.incrementAndGet()|Atomically increments by one the current value.
+|java.util.concurrent.atomic.AtomicInteger.intValue()|
+|java.util.concurrent.atomic.AtomicInteger.lazySet(int)|Eventually sets to the given value.
+|java.util.concurrent.atomic.AtomicInteger.longValue()|
+|java.util.concurrent.atomic.AtomicInteger.set(int)|Sets to the given value.
+|java.util.concurrent.atomic.AtomicInteger.toString()|Returns the String representation of the current value.
+|java.util.concurrent.atomic.AtomicInteger.weakCompareAndSet(int,int)|Atomically sets the value to the given updated value  if 
+
+*java.util.concurrent.atomic.AtomicInteger_Description*
+
+Anintvalue that may be updated atomically. See the (|java.util.concurrent.atomic|) package specification for description of the 
+properties of atomic variables. AnAtomicIntegeris used in applications such as atomically incremented counters, and cannot be 
+used as a replacement for an (|java.lang.Integer|) . However, this class does extendNumberto allow uniform access by tools and 
+utilities that deal with numerically-based classes. 
+
+
+
+*java.util.concurrent.atomic.AtomicInteger()*
+
+public AtomicInteger()
+
+Creates a new AtomicInteger with initial value0. 
+
+
+*java.util.concurrent.atomic.AtomicInteger(int)*
+
+public AtomicInteger(int initialValue)
+
+Creates a new AtomicInteger with the given initial value. 
+
+    initialValue - the initial value 
+
+*java.util.concurrent.atomic.AtomicInteger.addAndGet(int)*
+
+public final int addAndGet(int delta)
+
+Atomically adds the given value to the current value. 
+
+
+    delta - the value to add 
+
+    Returns: the updated value 
+
+*java.util.concurrent.atomic.AtomicInteger.compareAndSet(int,int)*
+
+public final boolean compareAndSet(
+  int expect,
+  int update)
+
+Atomically sets the value to the given updated value if the current value==the expected value. 
+
+
+    expect - the expected value 
+    update - the new value 
+
+    Returns: true if successful. False return indicates that the actual value was not equal to the expected value. 
+
+*java.util.concurrent.atomic.AtomicInteger.decrementAndGet()*
+
+public final int decrementAndGet()
+
+Atomically decrements by one the current value. 
+
+
+
+    Returns: the updated value 
+
+*java.util.concurrent.atomic.AtomicInteger.doubleValue()*
+
+public double doubleValue()
+
+
+
+
+
+*java.util.concurrent.atomic.AtomicInteger.floatValue()*
+
+public float floatValue()
+
+
+
+
+
+*java.util.concurrent.atomic.AtomicInteger.get()*
+
+public final int get()
+
+Gets the current value. 
+
+
+
+    Returns: the current value 
+
+*java.util.concurrent.atomic.AtomicInteger.getAndAdd(int)*
+
+public final int getAndAdd(int delta)
+
+Atomically adds the given value to the current value. 
+
+
+    delta - the value to add 
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicInteger.getAndDecrement()*
+
+public final int getAndDecrement()
+
+Atomically decrements by one the current value. 
+
+
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicInteger.getAndIncrement()*
+
+public final int getAndIncrement()
+
+Atomically increments by one the current value. 
+
+
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicInteger.getAndSet(int)*
+
+public final int getAndSet(int newValue)
+
+Atomically sets to the given value and returns the old value. 
+
+
+    newValue - the new value 
+
+    Returns: the previous value 
+
+*java.util.concurrent.atomic.AtomicInteger.incrementAndGet()*
+
+public final int incrementAndGet()
+
+Atomically increments by one the current value. 
+
+
+
+    Returns: the updated value 
+
+*java.util.concurrent.atomic.AtomicInteger.intValue()*
+
+public int intValue()
+
+
+
+
+
+*java.util.concurrent.atomic.AtomicInteger.lazySet(int)*
+
+public final void lazySet(int newValue)
+
+Eventually sets to the given value. 
+
+
+    newValue - the new value 
+
+*java.util.concurrent.atomic.AtomicInteger.longValue()*
+
+public long longValue()
+
+
+
+
+
+*java.util.concurrent.atomic.AtomicInteger.set(int)*
+
+public final void set(int newValue)
+
+Sets to the given value. 
+
+
+    newValue - the new value 
+
+*java.util.concurrent.atomic.AtomicInteger.toString()*
+
+public |java.lang.String| toString()
+
+Returns the String representation of the current value. 
+
+
+
+    Returns: the String representation of the current value. 
+
+*java.util.concurrent.atomic.AtomicInteger.weakCompareAndSet(int,int)*
+
+public final boolean weakCompareAndSet(
+  int expect,
+  int update)
+
+Atomically sets the value to the given updated value if the current value==the expected value. 
+
+May fail spuriously and does not provide ordering guarantees, so is only rarely an appropriate alternative tocompareAndSet. 
+
+
+    expect - the expected value 
+    update - the new value 
+
+    Returns: true if successful. 
+
+

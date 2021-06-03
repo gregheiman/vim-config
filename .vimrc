@@ -9,14 +9,15 @@ else
     let g:plugDirectory = '~/.vim/plugged'     
 endif
 call plug#begin(plugDirectory) " REQUIRED
-Plug 'tpope/vim-dispatch' " Asychronous make
+Plug 'tpope/vim-dispatch' " Asynchronous make
 Plug 'tpope/vim-fugitive' " Git wrapper
+Plug 'tpope/vim-surround' " Easy surrounding of current selection
 Plug 'airblade/vim-rooter' " Find project root automatically
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
+Plug 'dhruvasagar/vim-markify' " Add signs to entries in quickfix
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
-Plug 'andreypopp/vim-colors-plain' " Monochrome theme
-Plug 'tpope/vim-surround' " Easy surrounding of current selection
+Plug 'gruvbox-community/gruvbox' " Gruvbox theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -54,13 +55,12 @@ let g:tex_flavor='latex' " Set the global tex flavor
 " Set custom highlights. Stops plugins from messing with colors
 augroup Highlight
 autocmd!
-autocmd ColorScheme * highlight! Normal guibg=#222222
 autocmd ColorScheme * highlight! link SignColumn LineNr
 autocmd ColorScheme * highlight! link StatusLine LineNr
 autocmd ColorScheme * highlight StatusLineNC cterm=reverse gui=reverse
 autocmd ColorScheme * highlight! link TabLine LineNr
 augroup END
-colorscheme plain " Set color theme
+colorscheme gruvbox " Set color theme
 
 " Set Font and size
 if has('win32') || has('win64')
@@ -95,40 +95,18 @@ endif
 
 "{{{ " Auto Commands
 if has("autocmd")
-" Autocmd to check whether vimrc needs to be updated
-if (v:version >= 80 && has("job") && has("timers")) || has('nvim')
-augroup CheckVimrc
-autocmd!
-"autocmd VimEnter * call functions#GitFetchVimrc()
-augroup END
-endif
-" Set the working directory to the git directory if there is one present
-" otherwise set the working directory to the directory of the current file
-augroup SetWorkingDirectory
-autocmd!
-"autocmd BufEnter * call functions#SetWorkingDirectory()
-augroup END
-augroup Autosave
-autocmd!
-" Call autosave
-autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
-if (v:version >= 80 && has("job")) || has('nvim')
-"autocmd BufWritePost * if glob("./tags") != "" | call functions#UpdateTagsFile() | endif " Update tags file if one is present
-endif 
-augroup END
-augroup SaveSessionIfExistsUponExit
-autocmd!
-autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif " Autosave session.vim file if it exists
-augroup END
-augroup MakeFiles
-autocmd!
-" Automatically open quickfix window and refocus last window if errors are present after a :make command
-"autocmd QuickFixCmdPost *make* cwindow
-augroup END
-augroup GitBranch
-autocmd!
-autocmd BufNewFile,BufReadPost,BufEnter * call functions#GetGitBranch() " Retrieve git branch for statusline
-augroup END
+    " Autocmd to check whether vimrc needs to be updated
+    if (v:version >= 80 && has("job") && has("timers")) || has('nvim')
+        augroup Autosave
+        autocmd!
+            " Call autosave
+            autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
+        augroup END
+    endif
+    augroup SaveSessionIfExistsUponExit
+        autocmd!
+        autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif " Autosave session.vim file if it exists
+    augroup END
 endif
 "}}}
 
@@ -168,6 +146,9 @@ nnoremap <leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 " Project wide replace
 nnoremap <leader>R :call functions#DetermineGrep("<C-r><C-w>", '1')<CR>
 vnoremap <leader>R :<C-u>call functions#GrepOperator(visualmode(), '1')<CR>
+
+" Search for visually selected text in current file
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " Auto jump back to the last spelling mistake and fix it
 inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
@@ -227,6 +208,7 @@ set statusline+=\  " Extra space at the end
 let g:mucomplete#always_use_completeopt = 1
 let g:mucomplete#chains = {
         \ 'default' : ['path', 'omni', 'tags', 'incl'],
+        \ 'java'    : ['path', 'tags', 'keyp'],
         \ 'vim'     : ['path', 'cmd', 'keyp'],
         \ }
 inoremap <silent> <plug>(MUcompleteFwdKey) <right>

@@ -1,0 +1,44 @@
+*java.text.spi.CollatorProvider* *CollatorProvider* An abstract class for service providers that
+ provide concrete implementatio
+
+public abstract class CollatorProvider
+  extends    |java.util.spi.LocaleServiceProvider|
+
+|java.text.spi.CollatorProvider_Description|
+|java.text.spi.CollatorProvider_Fields|
+|java.text.spi.CollatorProvider_Constructors|
+|java.text.spi.CollatorProvider_Methods|
+
+================================================================================================================================
+
+*java.text.spi.CollatorProvider_Constructors*
+|java.text.spi.CollatorProvider()|Sole constructor.
+
+*java.text.spi.CollatorProvider_Methods*
+|java.text.spi.CollatorProvider.getInstance(Locale)|Returns a new Collator instance for the specified locale.
+
+*java.text.spi.CollatorProvider_Description*
+
+An abstract class for service providers that provide concrete implementations of the Collator(|java.text.Collator|) class. 
+
+
+
+*java.text.spi.CollatorProvider()*
+
+protected CollatorProvider()
+
+Sole constructor. (For invocation by subclass constructors, typically implicit.) 
+
+
+*java.text.spi.CollatorProvider.getInstance(Locale)*
+
+public abstract |java.text.Collator| getInstance(java.util.Locale locale)
+
+Returns a new Collator instance for the specified locale. 
+
+
+    locale - the desired locale. 
+
+    Returns: the Collator for the desired locale. 
+
+

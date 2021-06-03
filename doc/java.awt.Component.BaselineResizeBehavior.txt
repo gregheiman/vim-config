@@ -1,0 +1,44 @@
+*java.awt.Component.BaselineResizeBehavior* *Component.BaselineResizeBehavior* Enumeration of the common ways the baseline of a 
+
+public static final enumComponent.BaselineResizeBehavior
+  extends    |java.lang.Enum|
+
+|java.awt.Component.BaselineResizeBehavior_Description|
+|java.awt.Component.BaselineResizeBehavior_Fields|
+|java.awt.Component.BaselineResizeBehavior_Constructors|
+|java.awt.Component.BaselineResizeBehavior_Methods|
+
+================================================================================================================================
+
+*java.awt.Component.BaselineResizeBehavior_Methods*
+|java.awt.Component.BaselineResizeBehavior.valueOf(String)|
+|java.awt.Component.BaselineResizeBehavior.values()|
+
+*java.awt.Component.BaselineResizeBehavior_Description*
+
+Enumeration of the common ways the baseline of a component can change as the size changes. The baseline resize behavior is 
+primarily for layout managers that need to know how the position of the baseline changes as the component size changes. In 
+general the baseline resize behavior will be valid for sizes greater than or equal to the minimum size (the actual minimum 
+size; not a developer specified minimum size). For sizes smaller than the minimum size the baseline may change in a way other 
+than the baseline resize behavior indicates. Similarly, as the size approaches Integer.MAX_VALUE and/or Short.MAX_VALUE the 
+baseline may change in a way other than the baseline resize behavior indicates. 
+
+
+
+*java.awt.Component.BaselineResizeBehavior.valueOf(String)*
+
+public static |java.awt.Component.BaselineResizeBehavior| valueOf(java.lang.String name)
+
+
+
+
+
+*java.awt.Component.BaselineResizeBehavior.values()*
+
+public static |java.awt.Component.BaselineResizeBehavior|[] values()
+
+
+
+
+
+

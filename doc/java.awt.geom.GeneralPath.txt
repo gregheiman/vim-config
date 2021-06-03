@@ -1,0 +1,71 @@
+*java.awt.geom.GeneralPath* *GeneralPath* TheGeneralPathclass represents a geometric path 
+ constructed from straight lines, and
+
+public final class GeneralPath
+  extends    |java.awt.geom.Path2D.Float|
+
+|java.awt.geom.GeneralPath_Description|
+|java.awt.geom.GeneralPath_Fields|
+|java.awt.geom.GeneralPath_Constructors|
+|java.awt.geom.GeneralPath_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.GeneralPath_Constructors*
+|java.awt.geom.GeneralPath()|Constructs a new empty single precisionGeneralPathobject  with a default winding rule of#WIND_NON_
+|java.awt.geom.GeneralPath(int)|Constructs a new GeneralPath object with the specified   winding rule to control operations tha
+|java.awt.geom.GeneralPath(int,int)|Constructs a new GeneralPath object with the specified   winding rule and the specified ini
+|java.awt.geom.GeneralPath(Shape)|Constructs a new GeneralPath object from an arbitraryShapeobject.
+
+*java.awt.geom.GeneralPath_Description*
+
+TheGeneralPathclass represents a geometric path constructed from straight lines, and quadratic and cubic (Bzier) curves. It can 
+contain multiple subpaths. GeneralPathis a legacy final class which exactly implements the behavior of its superclass 
+(|java.awt.geom.Path2D.Float|) . Together with (|java.awt.geom.Path2D.Double|) , the (|java.awt.geom.Path2D|) classes provide 
+full implementations of a general geometric path that support all of the functionality of the (|java.awt.Shape|) and 
+(|java.awt.geom.PathIterator|) interfaces with the ability to explicitly select different levels of internal coordinate 
+precision. 
+
+UsePath2D.Float(or this legacyGeneralPathsubclass) when dealing with data that can be represented and used with floating point 
+precision. UsePath2D.Doublefor data that requires the accuracy or range of double precision. 
+
+
+
+*java.awt.geom.GeneralPath()*
+
+public GeneralPath()
+
+Constructs a new empty single precisionGeneralPathobject with a default winding rule of (|java.awt.geom.GeneralPath|) . 
+
+
+*java.awt.geom.GeneralPath(int)*
+
+public GeneralPath(int rule)
+
+Constructs a new GeneralPath object with the specified winding rule to control operations that require the interior of the path 
+to be defined. 
+
+    rule - the winding rule 
+
+*java.awt.geom.GeneralPath(int,int)*
+
+public GeneralPath(
+  int rule,
+  int initialCapacity)
+
+Constructs a new GeneralPath object with the specified winding rule and the specified initial capacity to store path 
+coordinates. This number is an initial guess as to how many path segments will be added to the path, but the storage is 
+expanded as needed to store whatever path segments are added. 
+
+    rule - the winding rule 
+    initialCapacity - the estimate for the number of path segments in the path 
+
+*java.awt.geom.GeneralPath(Shape)*
+
+public GeneralPath(java.awt.Shape s)
+
+Constructs a new GeneralPath object from an arbitrary (|java.awt.Shape|) object. All of the initial geometry and the winding 
+rule for this path are taken from the specified Shape object. 
+
+    s - the specified Shape object 
+

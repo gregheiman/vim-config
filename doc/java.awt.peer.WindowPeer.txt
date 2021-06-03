@@ -1,0 +1,134 @@
+*java.awt.peer.WindowPeer* *WindowPeer* The peer interfaces are intended only for use in porting
+ the AWT.
+
+public interface interface WindowPeer
+
+  implements |java.awt.peer.ContainerPeer|
+
+|java.awt.peer.WindowPeer_Description|
+|java.awt.peer.WindowPeer_Fields|
+|java.awt.peer.WindowPeer_Constructors|
+|java.awt.peer.WindowPeer_Methods|
+
+================================================================================================================================
+
+*java.awt.peer.WindowPeer_Methods*
+|java.awt.peer.WindowPeer.repositionSecurityWarning()|
+|java.awt.peer.WindowPeer.requestWindowFocus()|
+|java.awt.peer.WindowPeer.setAlwaysOnTop(boolean)|
+|java.awt.peer.WindowPeer.setModalBlocked(Dialog,boolean)|
+|java.awt.peer.WindowPeer.setOpacity(float)|
+|java.awt.peer.WindowPeer.setOpaque(boolean)|
+|java.awt.peer.WindowPeer.toBack()|
+|java.awt.peer.WindowPeer.toFront()|
+|java.awt.peer.WindowPeer.updateFocusableWindowState()|
+|java.awt.peer.WindowPeer.updateIconImages()|
+|java.awt.peer.WindowPeer.updateMinimumSize()|
+|java.awt.peer.WindowPeer.updateWindow(BufferedImage)|
+
+*java.awt.peer.WindowPeer_Description*
+
+The peer interfaces are intended only for use in porting the AWT. They are not intended for use by application developers, and 
+developers should not implement peers nor invoke any of the peer methods directly on the peer instances. 
+
+
+
+*java.awt.peer.WindowPeer.repositionSecurityWarning()*
+
+public void repositionSecurityWarning()
+
+
+
+
+
+*java.awt.peer.WindowPeer.requestWindowFocus()*
+
+public boolean requestWindowFocus()
+
+
+
+
+
+*java.awt.peer.WindowPeer.setAlwaysOnTop(boolean)*
+
+public void setAlwaysOnTop(boolean alwaysOnTop)
+
+
+
+
+
+*java.awt.peer.WindowPeer.setModalBlocked(Dialog,boolean)*
+
+public void setModalBlocked(
+  java.awt.Dialog blocker,
+  boolean blocked)
+
+
+
+
+
+*java.awt.peer.WindowPeer.setOpacity(float)*
+
+public void setOpacity(float opacity)
+
+
+
+
+
+*java.awt.peer.WindowPeer.setOpaque(boolean)*
+
+public void setOpaque(boolean isOpaque)
+
+
+
+
+
+*java.awt.peer.WindowPeer.toBack()*
+
+public void toBack()
+
+
+
+
+
+*java.awt.peer.WindowPeer.toFront()*
+
+public void toFront()
+
+
+
+
+
+*java.awt.peer.WindowPeer.updateFocusableWindowState()*
+
+public void updateFocusableWindowState()
+
+
+
+
+
+*java.awt.peer.WindowPeer.updateIconImages()*
+
+public void updateIconImages()
+
+
+
+
+
+*java.awt.peer.WindowPeer.updateMinimumSize()*
+
+public void updateMinimumSize()
+
+
+
+
+
+*java.awt.peer.WindowPeer.updateWindow(BufferedImage)*
+
+public void updateWindow(java.awt.image.BufferedImage backBuffer)
+
+
+
+
+
+

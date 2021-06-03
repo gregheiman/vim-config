@@ -1,0 +1,241 @@
+*java.awt.geom.CubicCurve2D.Double* *CubicCurve2D.Double* A cubic parametric curve segment specified withdoublecoordinates.
+
+public static class CubicCurve2D.Double
+  extends    |java.awt.geom.CubicCurve2D|
+  implements |java.io.Serializable|
+
+|java.awt.geom.CubicCurve2D.Double_Description|
+|java.awt.geom.CubicCurve2D.Double_Fields|
+|java.awt.geom.CubicCurve2D.Double_Constructors|
+|java.awt.geom.CubicCurve2D.Double_Methods|
+
+================================================================================================================================
+
+*java.awt.geom.CubicCurve2D.Double_Fields*
+|double_java.awt.geom.CubicCurve2D.Double.ctrlx1|
+|double_java.awt.geom.CubicCurve2D.Double.ctrlx2|
+|double_java.awt.geom.CubicCurve2D.Double.ctrly1|
+|double_java.awt.geom.CubicCurve2D.Double.ctrly2|
+|double_java.awt.geom.CubicCurve2D.Double.x1|
+|double_java.awt.geom.CubicCurve2D.Double.x2|
+|double_java.awt.geom.CubicCurve2D.Double.y1|
+|double_java.awt.geom.CubicCurve2D.Double.y2|
+
+*java.awt.geom.CubicCurve2D.Double_Constructors*
+|java.awt.geom.CubicCurve2D.Double()|Constructs and initializes a CubicCurve with coordinates  (0, 0, 0, 0, 0, 0).
+|java.awt.geom.CubicCurve2D.Double(double,double,double,double,double,double,double,double)|Constructs and initializes aCubicCu
+
+*java.awt.geom.CubicCurve2D.Double_Methods*
+|java.awt.geom.CubicCurve2D.Double.getBounds2D()|
+|java.awt.geom.CubicCurve2D.Double.getCtrlP1()|
+|java.awt.geom.CubicCurve2D.Double.getCtrlP2()|
+|java.awt.geom.CubicCurve2D.Double.getCtrlX1()|
+|java.awt.geom.CubicCurve2D.Double.getCtrlX2()|
+|java.awt.geom.CubicCurve2D.Double.getCtrlY1()|
+|java.awt.geom.CubicCurve2D.Double.getCtrlY2()|
+|java.awt.geom.CubicCurve2D.Double.getP1()|
+|java.awt.geom.CubicCurve2D.Double.getP2()|
+|java.awt.geom.CubicCurve2D.Double.getX1()|
+|java.awt.geom.CubicCurve2D.Double.getX2()|
+|java.awt.geom.CubicCurve2D.Double.getY1()|
+|java.awt.geom.CubicCurve2D.Double.getY2()|
+|java.awt.geom.CubicCurve2D.Double.setCurve(double,double,double,double,double,double,double,double)|
+
+*java.awt.geom.CubicCurve2D.Double_Description*
+
+A cubic parametric curve segment specified withdoublecoordinates. 
+
+
+
+*double_java.awt.geom.CubicCurve2D.Double.ctrlx1*
+
+The X coordinate of the first control point of the cubic curve segment. 
+
+
+*double_java.awt.geom.CubicCurve2D.Double.ctrlx2*
+
+The X coordinate of the second control point of the cubic curve segment. 
+
+
+*double_java.awt.geom.CubicCurve2D.Double.ctrly1*
+
+The Y coordinate of the first control point of the cubic curve segment. 
+
+
+*double_java.awt.geom.CubicCurve2D.Double.ctrly2*
+
+The Y coordinate of the second control point of the cubic curve segment. 
+
+
+*double_java.awt.geom.CubicCurve2D.Double.x1*
+
+The X coordinate of the start point of the cubic curve segment. 
+
+
+*double_java.awt.geom.CubicCurve2D.Double.x2*
+
+The X coordinate of the end point of the cubic curve segment. 
+
+
+*double_java.awt.geom.CubicCurve2D.Double.y1*
+
+The Y coordinate of the start point of the cubic curve segment. 
+
+
+*double_java.awt.geom.CubicCurve2D.Double.y2*
+
+The Y coordinate of the end point of the cubic curve segment. 
+
+
+
+*java.awt.geom.CubicCurve2D.Double()*
+
+public CubicCurve2D.Double()
+
+Constructs and initializes a CubicCurve with coordinates (0, 0, 0, 0, 0, 0). 
+
+
+*java.awt.geom.CubicCurve2D.Double(double,double,double,double,double,double,double,double)*
+
+public CubicCurve2D.Double(
+  double x1,
+  double y1,
+  double ctrlx1,
+  double ctrly1,
+  double ctrlx2,
+  double ctrly2,
+  double x2,
+  double y2)
+
+Constructs and initializes aCubicCurve2Dfrom the specifieddoublecoordinates. 
+
+    x1 - the X coordinate for the start point of the resulting {@code CubicCurve2D} 
+    y1 - the Y coordinate for the start point of the resulting {@code CubicCurve2D} 
+    ctrlx1 - the X coordinate for the first control point of the resulting {@code CubicCurve2D} 
+    ctrly1 - the Y coordinate for the first control point of the resulting {@code CubicCurve2D} 
+    ctrlx2 - the X coordinate for the second control point of the resulting {@code CubicCurve2D} 
+    ctrly2 - the Y coordinate for the second control point of the resulting {@code CubicCurve2D} 
+    x2 - the X coordinate for the end point of the resulting {@code CubicCurve2D} 
+    y2 - the Y coordinate for the end point of the resulting {@code CubicCurve2D} 
+
+*java.awt.geom.CubicCurve2D.Double.getBounds2D()*
+
+public |java.awt.geom.Rectangle2D| getBounds2D()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getCtrlP1()*
+
+public |java.awt.geom.Point2D| getCtrlP1()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getCtrlP2()*
+
+public |java.awt.geom.Point2D| getCtrlP2()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getCtrlX1()*
+
+public double getCtrlX1()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getCtrlX2()*
+
+public double getCtrlX2()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getCtrlY1()*
+
+public double getCtrlY1()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getCtrlY2()*
+
+public double getCtrlY2()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getP1()*
+
+public |java.awt.geom.Point2D| getP1()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getP2()*
+
+public |java.awt.geom.Point2D| getP2()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getX1()*
+
+public double getX1()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getX2()*
+
+public double getX2()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getY1()*
+
+public double getY1()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.getY2()*
+
+public double getY2()
+
+
+
+
+
+*java.awt.geom.CubicCurve2D.Double.setCurve(double,double,double,double,double,double,double,double)*
+
+public void setCurve(
+  double x1,
+  double y1,
+  double ctrlx1,
+  double ctrly1,
+  double ctrlx2,
+  double ctrly2,
+  double x2,
+  double y2)
+
+
+
+
+
+

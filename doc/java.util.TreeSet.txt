@@ -1,0 +1,373 @@
+*java.util.TreeSet* *TreeSet* ANavigableSetimplementation based on aTreeMap.
+
+public class TreeSet<E>
+  extends    |java.util.AbstractSet|
+  implements |java.util.NavigableSet|
+             |java.lang.Cloneable|
+             |java.io.Serializable|
+
+|java.util.TreeSet_Description|
+|java.util.TreeSet_Fields|
+|java.util.TreeSet_Constructors|
+|java.util.TreeSet_Methods|
+
+================================================================================================================================
+
+*java.util.TreeSet_Constructors*
+|java.util.TreeSet()|Constructs a new, empty tree set, sorted according to the  natural ordering of its elements.
+|java.util.TreeSet(Collection<?extendsE>)|Constructs a new tree set containing the elements in the specified  collection, sorte
+|java.util.TreeSet(Comparator<?superE>)|Constructs a new, empty tree set, sorted according to the specified  comparator.
+|java.util.TreeSet(SortedSet<E>)|Constructs a new tree set containing the same elements and  using the same ordering as the spe
+
+*java.util.TreeSet_Methods*
+|java.util.TreeSet.add(E)|Adds the specified element to this set if it is not already present.
+|java.util.TreeSet.addAll(Collection<?extendsE>)|Adds all of the elements in the specified collection to this set.
+|java.util.TreeSet.ceiling(E)|
+|java.util.TreeSet.clear()|Removes all of the elements from this set.
+|java.util.TreeSet.clone()|Returns a shallow copy of thisTreeSetinstance.
+|java.util.TreeSet.comparator()|
+|java.util.TreeSet.contains(Object)|Returnstrueif this set contains the specified element.
+|java.util.TreeSet.descendingIterator()|Returns an iterator over the elements in this set in descending order.
+|java.util.TreeSet.descendingSet()|
+|java.util.TreeSet.first()|
+|java.util.TreeSet.floor(E)|
+|java.util.TreeSet.headSet(E)|
+|java.util.TreeSet.headSet(E,boolean)|
+|java.util.TreeSet.higher(E)|
+|java.util.TreeSet.isEmpty()|Returnstrueif this set contains no elements.
+|java.util.TreeSet.iterator()|Returns an iterator over the elements in this set in ascending order.
+|java.util.TreeSet.last()|
+|java.util.TreeSet.lower(E)|
+|java.util.TreeSet.pollFirst()|
+|java.util.TreeSet.pollLast()|
+|java.util.TreeSet.remove(Object)|Removes the specified element from this set if it is present.
+|java.util.TreeSet.size()|Returns the number of elements in this set (its cardinality).
+|java.util.TreeSet.subSet(E,boolean,E,boolean)|
+|java.util.TreeSet.subSet(E,E)|
+|java.util.TreeSet.tailSet(E)|
+|java.util.TreeSet.tailSet(E,boolean)|
+
+*java.util.TreeSet_Description*
+
+A (|java.util.NavigableSet|) implementation based on a (|java.util.TreeMap|) . The elements are ordered using their natural 
+ordering(|java.lang.Comparable|) , or by a (|java.util.Comparator|) provided at set creation time, depending on which 
+constructor is used. 
+
+This implementation provides guaranteed log(n) time cost for the basic operations (add,removeandcontains). 
+
+Note that the ordering maintained by a set (whether or not an explicit comparator is provided) must be consistent with equals 
+if it is to correctly implement theSetinterface. (SeeComparableorComparatorfor a precise definition of consistent with equals.) 
+This is so because theSetinterface is defined in terms of theequalsoperation, but aTreeSetinstance performs all element 
+comparisons using itscompareTo(orcompare) method, so two elements that are deemed equal by this method are, from the standpoint 
+of the set, equal. The behavior of a set is well-defined even if its ordering is inconsistent with equals; it just fails to 
+obey the general contract of theSetinterface. 
+
+Note that this implementation is not synchronized. If multiple threads access a tree set concurrently, and at least one of the 
+threads modifies the set, it must be synchronized externally. This is typically accomplished by synchronizing on some object 
+that naturally encapsulates the set. If no such object exists, the set should be "wrapped" using the 
+Collections.synchronizedSortedSet(|java.util.Collections|) method. This is best done at creation time, to prevent accidental 
+unsynchronized access to the set: 
+
+SortedSet s = Collections.synchronizedSortedSet(new TreeSet(...)); 
+
+The iterators returned by this class'siteratormethod are fail-fast: if the set is modified at any time after the iterator is 
+created, in any way except through the iterator's ownremovemethod, the iterator will throw a 
+(|java.util.ConcurrentModificationException|) . Thus, in the face of concurrent modification, the iterator fails quickly and 
+cleanly, rather than risking arbitrary, non-deterministic behavior at an undetermined time in the future. 
+
+Note that the fail-fast behavior of an iterator cannot be guaranteed as it is, generally speaking, impossible to make any hard 
+guarantees in the presence of unsynchronized concurrent modification. Fail-fast iterators 
+throwConcurrentModificationExceptionon a best-effort basis. Therefore, it would be wrong to write a program that depended on 
+this exception for its correctness: the fail-fast behavior of iterators should be used only to detect bugs. 
+
+This class is a member of the <a href="/../technotes/guides/collections/index.html"> Java Collections Framework. 
+
+
+
+*java.util.TreeSet()*
+
+public TreeSet()
+
+Constructs a new, empty tree set, sorted according to the natural ordering of its elements. All elements inserted into the set 
+must implement the (|java.lang.Comparable|) interface. Furthermore, all such elements must be mutually 
+comparable:e1.compareTo(e2)must not throw aClassCastExceptionfor any elementse1ande2in the set. If the user attempts to add an 
+element to the set that violates this constraint (for example, the user attempts to add a string element to a set whose 
+elements are integers), theaddcall will throw aClassCastException. 
+
+
+*java.util.TreeSet(Collection<?extendsE>)*
+
+public TreeSet(java.util.Collection<? extends E> c)
+
+Constructs a new tree set containing the elements in the specified collection, sorted according to the natural ordering of its 
+elements. All elements inserted into the set must implement the (|java.lang.Comparable|) interface. Furthermore, all such 
+elements must be mutually comparable:e1.compareTo(e2)must not throw aClassCastExceptionfor any elementse1ande2in the set. 
+
+    c - collection whose elements will comprise the new set 
+
+*java.util.TreeSet(Comparator<?superE>)*
+
+public TreeSet(java.util.Comparator<? super E> comparator)
+
+Constructs a new, empty tree set, sorted according to the specified comparator. All elements inserted into the set must be 
+mutually comparable by the specified comparator:comparator.compare(e1, e2)must not throw aClassCastExceptionfor any 
+elementse1ande2in the set. If the user attempts to add an element to the set that violates this constraint, theaddcall will 
+throw aClassCastException. 
+
+    comparator - the comparator that will be used to order this set. If {@code null}, the {@linkplain Comparable natural ordering} of the 
+       elements will be used. 
+
+*java.util.TreeSet(SortedSet<E>)*
+
+public TreeSet(java.util.SortedSet<E> s)
+
+Constructs a new tree set containing the same elements and using the same ordering as the specified sorted set. 
+
+    s - sorted set whose elements will comprise the new set 
+
+*java.util.TreeSet.add(E)*
+
+public boolean add(E e)
+
+Adds the specified element to this set if it is not already present. More formally, adds the specified elementeto this set if 
+the set contains no elemente2such that (e==null?e2==null:e.equals(e2)). If this set already contains the element, the call 
+leaves the set unchanged and returnsfalse. 
+
+
+    e - element to be added to this set 
+
+    Returns: {@code true} if this set did not already contain the specified element 
+
+*java.util.TreeSet.addAll(Collection<?extendsE>)*
+
+public boolean addAll(java.util.Collection<? extends E> c)
+
+Adds all of the elements in the specified collection to this set. 
+
+
+    c - collection containing elements to be added to this set 
+
+    Returns: {@code true} if this set changed as a result of the call 
+
+*java.util.TreeSet.ceiling(E)*
+
+public |E| ceiling(E e)
+
+
+
+
+
+*java.util.TreeSet.clear()*
+
+public void clear()
+
+Removes all of the elements from this set. The set will be empty after this call returns. 
+
+
+
+*java.util.TreeSet.clone()*
+
+public |java.lang.Object| clone()
+
+Returns a shallow copy of thisTreeSetinstance. (The elements themselves are not cloned.) 
+
+
+
+    Returns: a shallow copy of this set 
+
+*java.util.TreeSet.comparator()*
+
+public |java.util.Comparator|<? super E> comparator()
+
+
+
+
+
+*java.util.TreeSet.contains(Object)*
+
+public boolean contains(java.lang.Object o)
+
+Returnstrueif this set contains the specified element. More formally, returnstrueif and only if this set contains an 
+elementesuch that (o==null?e==null:o.equals(e)). 
+
+
+    o - object to be checked for containment in this set 
+
+    Returns: {@code true} if this set contains the specified element 
+
+*java.util.TreeSet.descendingIterator()*
+
+public |java.util.Iterator|<E> descendingIterator()
+
+Returns an iterator over the elements in this set in descending order. 
+
+
+
+    Returns: an iterator over the elements in this set in descending order 
+
+*java.util.TreeSet.descendingSet()*
+
+public |java.util.NavigableSet|<E> descendingSet()
+
+
+
+
+
+*java.util.TreeSet.first()*
+
+public |E| first()
+
+
+
+
+
+*java.util.TreeSet.floor(E)*
+
+public |E| floor(E e)
+
+
+
+
+
+*java.util.TreeSet.headSet(E)*
+
+public |java.util.SortedSet|<E> headSet(E toElement)
+
+
+
+
+
+*java.util.TreeSet.headSet(E,boolean)*
+
+public |java.util.NavigableSet|<E> headSet(
+  E toElement,
+  boolean inclusive)
+
+
+
+
+
+*java.util.TreeSet.higher(E)*
+
+public |E| higher(E e)
+
+
+
+
+
+*java.util.TreeSet.isEmpty()*
+
+public boolean isEmpty()
+
+Returnstrueif this set contains no elements. 
+
+
+
+    Returns: {@code true} if this set contains no elements 
+
+*java.util.TreeSet.iterator()*
+
+public |java.util.Iterator|<E> iterator()
+
+Returns an iterator over the elements in this set in ascending order. 
+
+
+
+    Returns: an iterator over the elements in this set in ascending order 
+
+*java.util.TreeSet.last()*
+
+public |E| last()
+
+
+
+
+
+*java.util.TreeSet.lower(E)*
+
+public |E| lower(E e)
+
+
+
+
+
+*java.util.TreeSet.pollFirst()*
+
+public |E| pollFirst()
+
+
+
+
+
+*java.util.TreeSet.pollLast()*
+
+public |E| pollLast()
+
+
+
+
+
+*java.util.TreeSet.remove(Object)*
+
+public boolean remove(java.lang.Object o)
+
+Removes the specified element from this set if it is present. More formally, removes an elementesuch that 
+(o==null?e==null:o.equals(e)), if this set contains such an element. Returnstrueif this set contained the element (or 
+equivalently, if this set changed as a result of the call). (This set will not contain the element once the call returns.) 
+
+
+    o - object to be removed from this set, if present 
+
+    Returns: {@code true} if this set contained the specified element 
+
+*java.util.TreeSet.size()*
+
+public int size()
+
+Returns the number of elements in this set (its cardinality). 
+
+
+
+    Returns: the number of elements in this set (its cardinality) 
+
+*java.util.TreeSet.subSet(E,boolean,E,boolean)*
+
+public |java.util.NavigableSet|<E> subSet(
+  E fromElement,
+  boolean fromInclusive,
+  E toElement,
+  boolean toInclusive)
+
+
+
+
+
+*java.util.TreeSet.subSet(E,E)*
+
+public |java.util.SortedSet|<E> subSet(
+  E fromElement,
+  E toElement)
+
+
+
+
+
+*java.util.TreeSet.tailSet(E)*
+
+public |java.util.SortedSet|<E> tailSet(E fromElement)
+
+
+
+
+
+*java.util.TreeSet.tailSet(E,boolean)*
+
+public |java.util.NavigableSet|<E> tailSet(
+  E fromElement,
+  boolean inclusive)
+
+
+
+
+
+

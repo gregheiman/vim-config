@@ -1,0 +1,202 @@
+*java.sql.ParameterMetaData* *ParameterMetaData* An object that can be used to get information about the types 
+ and properties 
+
+public interface interface ParameterMetaData
+
+  implements |java.sql.Wrapper|
+
+|java.sql.ParameterMetaData_Description|
+|java.sql.ParameterMetaData_Fields|
+|java.sql.ParameterMetaData_Constructors|
+|java.sql.ParameterMetaData_Methods|
+
+================================================================================================================================
+
+*java.sql.ParameterMetaData_Fields*
+|int_java.sql.ParameterMetaData.parameterModeIn|
+|int_java.sql.ParameterMetaData.parameterModeInOut|
+|int_java.sql.ParameterMetaData.parameterModeOut|
+|int_java.sql.ParameterMetaData.parameterModeUnknown|
+|int_java.sql.ParameterMetaData.parameterNoNulls|
+|int_java.sql.ParameterMetaData.parameterNullable|
+|int_java.sql.ParameterMetaData.parameterNullableUnknown|
+
+*java.sql.ParameterMetaData_Methods*
+|java.sql.ParameterMetaData.getParameterClassName(int)|Retrieves the fully-qualified name of the Java class whose instances   s
+|java.sql.ParameterMetaData.getParameterCount()|Retrieves the number of parameters in the PreparedStatement   object for which 
+|java.sql.ParameterMetaData.getParameterMode(int)|Retrieves the designated parameter's mode.
+|java.sql.ParameterMetaData.getParameterType(int)|Retrieves the designated parameter's SQL type.
+|java.sql.ParameterMetaData.getParameterTypeName(int)|Retrieves the designated parameter's database-specific type name.
+|java.sql.ParameterMetaData.getPrecision(int)|Retrieves the designated parameter's specified column size.
+|java.sql.ParameterMetaData.getScale(int)|Retrieves the designated parameter's number of digits to right of the decimal point.
+|java.sql.ParameterMetaData.isNullable(int)|Retrieves whether null values are allowed in the designated parameter.
+|java.sql.ParameterMetaData.isSigned(int)|Retrieves whether values for the designated parameter can be signed numbers.
+
+*java.sql.ParameterMetaData_Description*
+
+An object that can be used to get information about the types and properties for each parameter marker in a PreparedStatement 
+object. For some queries and driver implementations, the data that would be returned by a ParameterMetaData object may not be 
+available until the PreparedStatement has been executed. 
+
+Some driver implementations may not be able to provide information about the types and properties for each parameter marker in 
+a CallableStatement object. 
+
+
+
+*int_java.sql.ParameterMetaData.parameterModeIn*
+
+The constant indicating that the parameter's mode is IN. 
+
+
+*int_java.sql.ParameterMetaData.parameterModeInOut*
+
+The constant indicating that the parameter's mode is INOUT. 
+
+
+*int_java.sql.ParameterMetaData.parameterModeOut*
+
+The constant indicating that the parameter's mode is OUT. 
+
+
+*int_java.sql.ParameterMetaData.parameterModeUnknown*
+
+The constant indicating that the mode of the parameter is unknown. 
+
+
+*int_java.sql.ParameterMetaData.parameterNoNulls*
+
+The constant indicating that a parameter will not allow NULL values. 
+
+
+*int_java.sql.ParameterMetaData.parameterNullable*
+
+The constant indicating that a parameter will allow NULL values. 
+
+
+*int_java.sql.ParameterMetaData.parameterNullableUnknown*
+
+The constant indicating that the nullability of a parameter is unknown. 
+
+
+
+*java.sql.ParameterMetaData.getParameterClassName(int)*
+
+public |java.lang.String| getParameterClassName(int param)
+  throws |java.sql.SQLException|
+         
+Retrieves the fully-qualified name of the Java class whose instances should be passed to the method 
+PreparedStatement.setObject. 
+
+
+    param - the first parameter is 1, the second is 2, ... 
+
+    Returns: the fully-qualified name of the class in the Java programming language that would be used by the method 
+             PreparedStatement.setObject to set the value in the specified parameter. This is the class name used for custom 
+             mapping. 
+
+*java.sql.ParameterMetaData.getParameterCount()*
+
+public int getParameterCount()
+  throws |java.sql.SQLException|
+         
+Retrieves the number of parameters in the PreparedStatement object for which this ParameterMetaData object contains 
+information. 
+
+
+
+    Returns: the number of parameters 
+
+*java.sql.ParameterMetaData.getParameterMode(int)*
+
+public int getParameterMode(int param)
+  throws |java.sql.SQLException|
+         
+Retrieves the designated parameter's mode. 
+
+
+    param - the first parameter is 1, the second is 2, ... 
+
+    Returns: mode of the parameter; one of ParameterMetaData.parameterModeIn, ParameterMetaData.parameterModeOut, or 
+             ParameterMetaData.parameterModeInOut ParameterMetaData.parameterModeUnknown. 
+
+*java.sql.ParameterMetaData.getParameterType(int)*
+
+public int getParameterType(int param)
+  throws |java.sql.SQLException|
+         
+Retrieves the designated parameter's SQL type. 
+
+
+    param - the first parameter is 1, the second is 2, ... 
+
+    Returns: SQL type from java.sql.Types 
+
+*java.sql.ParameterMetaData.getParameterTypeName(int)*
+
+public |java.lang.String| getParameterTypeName(int param)
+  throws |java.sql.SQLException|
+         
+Retrieves the designated parameter's database-specific type name. 
+
+
+    param - the first parameter is 1, the second is 2, ... 
+
+    Returns: type the name used by the database. If the parameter type is a user-defined type, then a fully-qualified type name is returned. 
+
+*java.sql.ParameterMetaData.getPrecision(int)*
+
+public int getPrecision(int param)
+  throws |java.sql.SQLException|
+         
+Retrieves the designated parameter's specified column size. 
+
+The returned value represents the maximum column size for the given parameter. For numeric data, this is the maximum precision. 
+For character data, this is the length in characters. For datetime datatypes, this is the length in characters of the String 
+representation (assuming the maximum allowed precision of the fractional seconds component). For binary data, this is the 
+length in bytes. For the ROWID datatype, this is the length in bytes. 0 is returned for data types where the column size is not 
+applicable. 
+
+
+    param - the first parameter is 1, the second is 2, ... 
+
+    Returns: 
+
+*java.sql.ParameterMetaData.getScale(int)*
+
+public int getScale(int param)
+  throws |java.sql.SQLException|
+         
+Retrieves the designated parameter's number of digits to right of the decimal point. 0 is returned for data types where the 
+scale is not applicable. 
+
+
+    param - the first parameter is 1, the second is 2, ... 
+
+    Returns: 
+
+*java.sql.ParameterMetaData.isNullable(int)*
+
+public int isNullable(int param)
+  throws |java.sql.SQLException|
+         
+Retrieves whether null values are allowed in the designated parameter. 
+
+
+    param - the first parameter is 1, the second is 2, ... 
+
+    Returns: the nullability status of the given parameter; one of ParameterMetaData.parameterNoNulls, ParameterMetaData.parameterNullable, 
+             or ParameterMetaData.parameterNullableUnknown 
+
+*java.sql.ParameterMetaData.isSigned(int)*
+
+public boolean isSigned(int param)
+  throws |java.sql.SQLException|
+         
+Retrieves whether values for the designated parameter can be signed numbers. 
+
+
+    param - the first parameter is 1, the second is 2, ... 
+
+    Returns: true if so; false otherwise 
+
+

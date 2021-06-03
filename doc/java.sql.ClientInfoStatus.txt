@@ -1,0 +1,40 @@
+*java.sql.ClientInfoStatus* *ClientInfoStatus* Enumeration for status of the reason that a property could not be set
+ via a call
+
+public final enumClientInfoStatus
+  extends    |java.lang.Enum|
+
+|java.sql.ClientInfoStatus_Description|
+|java.sql.ClientInfoStatus_Fields|
+|java.sql.ClientInfoStatus_Constructors|
+|java.sql.ClientInfoStatus_Methods|
+
+================================================================================================================================
+
+*java.sql.ClientInfoStatus_Methods*
+|java.sql.ClientInfoStatus.valueOf(String)|
+|java.sql.ClientInfoStatus.values()|
+
+*java.sql.ClientInfoStatus_Description*
+
+Enumeration for status of the reason that a property could not be set via a call to Connection.setClientInfo 
+
+
+
+*java.sql.ClientInfoStatus.valueOf(String)*
+
+public static |java.sql.ClientInfoStatus| valueOf(java.lang.String name)
+
+
+
+
+
+*java.sql.ClientInfoStatus.values()*
+
+public static |java.sql.ClientInfoStatus|[] values()
+
+
+
+
+
+
