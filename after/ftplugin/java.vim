@@ -68,7 +68,7 @@ nnoremap <F8> :update<CR>:silent make<CR>
 setlocal keywordprg=
 
 " Setup :find command
-setlocal path+=src/**,target/**,config/**
+set path^=src/**,config/**
 
 
 " Because the path in message output by Maven has '/<fullpath>' in windows

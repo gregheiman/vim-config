@@ -14,7 +14,6 @@ Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-surround' " Easy surrounding of current selection
 Plug 'airblade/vim-rooter' " Find project root automatically
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
-Plug 'dhruvasagar/vim-markify' " Add signs to entries in quickfix
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
 Plug 'gruvbox-community/gruvbox' " Gruvbox theme
@@ -29,7 +28,7 @@ set nocompatible " Required to not be forced into vi mode
 syntax on " Enable syntax 
 set mouse=a " Enable the mouse
 set nowrap " No line wrapping
-set encoding=utf-8 " Set default encoding
+set encoding=utf-8 fileformats=unix,dos " Set default encoding
 set path-=/usr/include " Remove /usr/include form path. Included for C langs. in ftplugin
 set noshowmode " Disable the mode display below statusline
 set backspace=indent,eol,start " Better backspace
@@ -46,7 +45,7 @@ set laststatus=2 " Always display the status line
 set cursorline " Enable highlighting of the current line
 set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spellcheck language
 set noswapfile undofile backup " No swaps. Persistent undo, create backups
-set undodir=C:/Users/heimangreg/.vim-undo// backupdir=C:/Users/heimangreg/.vim-backup// " Save backups and undo files to constant location
+set undodir=~/.vim-undo// backupdir=~/.vim-backup// " Save backups and undo files to constant location
 set colorcolumn=80 " Create line at 80 character mark
 set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
 nnoremap <Space> <Nop> 
@@ -85,8 +84,10 @@ else
 set t_Co=256
 endif
 
-set grepprg=C:/Users/heimangreg/ripgrep/rg.exe\ --vimgrep\ $*
-set grepformat^=%f:%l:%c:%m 
+if executable('rg')
+    set grepprg=rg\ --vimgrep\ $*
+    set grepformat^=%f:%l:%c:%m 
+endif
 
 if (has('clipboard'))
     set clipboard=unnamedplus
@@ -220,7 +221,7 @@ imap <left> <plug>(MUcompleteCycBwd)
 let g:pear_tree_repeatable_expand = 0
 
 " Gutentags configuration
-let g:gutentags_ctags_executable = "C:/Users/heimangreg/Universal-Ctags/ctags.exe"
+"let g:gutentags_ctags_executable = "C:/Users/heimangreg/Universal-Ctags/ctags.exe"
 let g:gutentags_ctags_extra_args = [
     \ '--tag-relative=yes',
     \ '--fields=+ailmnS',
