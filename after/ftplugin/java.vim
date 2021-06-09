@@ -70,7 +70,6 @@ setlocal keywordprg=
 " Setup :find command
 set path^=src/**,config/**
 
-
 " Because the path in message output by Maven has '/<fullpath>' in windows
 " system, this function would adapt the path for correct path of jump voer
 " quickfix

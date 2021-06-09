@@ -17,6 +17,7 @@ Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
 Plug 'gruvbox-community/gruvbox' " Gruvbox theme
+Plug 'junegunn/seoul256.vim'
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -59,7 +60,8 @@ autocmd ColorScheme * highlight! link StatusLine LineNr
 autocmd ColorScheme * highlight StatusLineNC cterm=reverse gui=reverse
 autocmd ColorScheme * highlight! link TabLine LineNr
 augroup END
-colorscheme gruvbox " Set color theme
+let g:seoul256_background = 234
+colorscheme seoul256 " Set color theme
 
 " Set Font and size
 if has('win32') || has('win64')
@@ -209,7 +211,8 @@ set statusline+=\  " Extra space at the end
 let g:mucomplete#always_use_completeopt = 1
 let g:mucomplete#chains = {
         \ 'default' : ['path', 'omni', 'tags', 'incl'],
-        \ 'java'    : ['path', 'tags', 'keyp'],
+        \ 'java'    : ['path', 'incl', 'tags'],
+        \ 'latex'   : ['path', 'tags', 'keyp', 'uspl'],
         \ 'vim'     : ['path', 'cmd', 'keyp'],
         \ }
 inoremap <silent> <plug>(MUcompleteFwdKey) <right>
@@ -221,11 +224,15 @@ imap <left> <plug>(MUcompleteCycBwd)
 let g:pear_tree_repeatable_expand = 0
 
 " Gutentags configuration
-"let g:gutentags_ctags_executable = "C:/Users/heimangreg/Universal-Ctags/ctags.exe"
+if has('win64') || has('win32') | let g:gutentags_ctags_executable = "C:/Users/heimangreg/Universal-Ctags/ctags.exe" | endif
 let g:gutentags_ctags_extra_args = [
     \ '--tag-relative=yes',
     \ '--fields=+ailmnS',
     \]
+let g:gutentags_project_root = ['Makefile', 'CMakeLists.txt', 'pom.xml', 'build.gradle', 'node_modules', 'src']
+
 " Rooter configuration
 let g:rooter_silent_chdir = 1
+let g:rooter_patterns = ['CMakeLists.txt', 'pom.xml', 'build.gradle', 'src', 'node_modules']
+let g:rooter_change_directory_for_non_project_files = 'current'
 "}}}
