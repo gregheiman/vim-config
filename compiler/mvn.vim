@@ -1,28 +1,45 @@
-function! java#DetectMaven()
-    if glob("pom.xml") != "" && executable('mvn')
-        " Assign makeprg to mvn
-        compiler mvn
-        echohl title | redraw | echom "Maven project detected" | echohl None
-    elseif glob("mvnw") != "" || glob("mvnw.bat") != ""
-        compiler mvn
-        echohl title | redraw | echom "Maven wrapper detected" | echohl None
-    else
-        compiler javac
-        " Assigns F9 to run the current Java file
-        nnoremap <F9> :update<CR>:!java %:p:r<CR>
+if glob('mvnw') != "" || glob('mvnw.bat') != ""
+    CompilerSet makeprg=mvnw\ clean\ compile
+else
+    CompilerSet makeprg=mvn\ -Dstyle.color=never\ clean\ compile
+endif
+
+" Ignored message
+setlocal errorformat=
+    \%-G[INFO]\ %.%#,
+    \%-G[debug]\ %.%#
+" Error message for POM
+setlocal errorformat+=
+    \[FATAL]\ Non-parseable\ POM\ %f:\ %m%\\s%\\+@%.%#line\ %l\\,\ column\ %c%.%#,
+    \[%tRROR]\ Malformed\ POM\ %f:\ %m%\\s%\\+@%.%#line\ %l\\,\ column\ %c%.%#
+" Error message for compiling
+setlocal errorformat+=
+    \[%tARNING]\ %f:[%l\\,%c]\ %m,
+    \[%tRROR]\ %f:[%l\\,%c]\ %m
+" Message from JUnit 5(5.3.X), TestNG(6.14.X), JMockit(1.43), and AssertJ(3.11.X)
+setlocal errorformat+=
+    \%+E%>[ERROR]\ %.%\\+Time\ elapsed:%.%\\+<<<\ FAILURE!,
+    \%+E%>[ERROR]\ %.%\\+Time\ elapsed:%.%\\+<<<\ ERROR!,
+    \%+Z%\\s%#at\ %f(%\\f%\\+:%l),
+    \%+C%.%#
+" Misc message removal
+setlocal errorformat+=%-G%.%#,%Z
+
+
+augroup Make
+    autocmd!
+    " Automatically make in background on write
+    autocmd BufWritePost * silent execute("Make!")
+    if has('win32') || has('win64')
+        " After Dispatch finishes
+        autocmd QuickFixCmdPost cgetfile call s:ProcessQuickFixForMaven(getqflist())
+        " After normal make finishes
+        autocmd QuickFixCmdPost *make* call s:ProcessQuickFixForMaven(getqflist())
     endif
-endfunction
+augroup END
 
-" Assign F8 to compile the current Java file
-nnoremap <F8> :update<CR>:silent make<CR>
-
-" Use vim's built in help system with K
-setlocal keywordprg=
-
-" Setup :find command
-set path^=src/**,config/**
-
-<<<<<<< HEAD
+" Cleans up the file path on Windows
+" Slightly modified from https://github.com/mikelue/vim-maven-plugin/blob/master/plugin/maven.vim
 " Because the path in message output by Maven has '/<fullpath>' in windows
 " system, this function would adapt the path for correct path of jump voer
 " quickfix
@@ -69,10 +86,3 @@ function! <SID>AdaptFilenameOfError(qfentry, rawFileName)
 	endif
 	" //:~)
 endfunction
-=======
-" Set up make
-augroup Project
-    autocmd!
-    autocmd BufEnter,BufNewFile,BufReadPost * silent call java#DetectMaven()
-augroup END
->>>>>>> 21cd5653e595cf5bb35d429090e8295aba5e1ed9

@@ -64,48 +64,42 @@ let g:seoul256_background = 234
 colorscheme seoul256 " Set color theme
 
 " Set Font and size
-if has('win32') || has('win64')
-set guifont=Iosevka:h11
-elseif has('unix')
 set guifont=Iosevka:h12
-endif
 
 " Start Vim fullscreen
 if has('win32') || has('win64') 
-autocmd GUIEnter * simalt ~x
+    autocmd GUIEnter * simalt ~x
 endif
 
 " Set true colors if supported. If not default to 256 colors
 if (has("termguicolors"))
-" Fix alacritty and Vim not showing colorschemes right (Prob. a Vim issue)
-if !has('nvim') && &term == "alacritty"
-let &term = "xterm-256color"
-endif
-set termguicolors
-else
-set t_Co=256
+    " Fix alacritty and Vim not showing colorschemes right (Prob. a Vim issue)
+    if !has('nvim') && &term == "alacritty"
+        let &term = "xterm-256color"
+    else
+        set t_Co=256
+    endif
+    set termguicolors
 endif
 
-if executable('rg')
+if executable('rg') " Use ripgrep if available
     set grepprg=rg\ --vimgrep\ $*
     set grepformat^=%f:%l:%c:%m 
 endif
 
 if (has('clipboard'))
-    set clipboard=unnamedplus
+    set clipboard=unnamedplus " User system clipboard
 endif
 "}}}
 
 "{{{ " Auto Commands
 if has("autocmd")
     " Autocmd to check whether vimrc needs to be updated
-    if (v:version >= 80 && has("job") && has("timers")) || has('nvim')
-        augroup Autosave
-        autocmd!
-            " Call autosave
-            autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
-        augroup END
-    endif
+    augroup Autosave
+    autocmd!
+        " Call autosave
+        autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
+    augroup END
     augroup SaveSessionIfExistsUponExit
         autocmd!
         autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif " Autosave session.vim file if it exists
@@ -180,8 +174,8 @@ command! -nargs=0 -bar Term let $VIM_DIR=expand('%:p:h') | silent exe 'sp' | sil
 
 " Eat spaces (or any other char) for abbreviations
 function! Eatchar(pat)
-let c = nr2char(getchar(0))
-return (c =~ a:pat) ? '' : c
+    let c = nr2char(getchar(0))
+    return (c =~ a:pat) ? '' : c
 endfunction
 "}}}
 
