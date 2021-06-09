@@ -26,10 +26,10 @@ filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 "{{{ " Vim Configuration Settings
 """""""""""""""""""""""""""""""""""""
 set nocompatible " Required to not be forced into vi mode
-syntax on " Enable syntax 
+syntax on " Enable syntax highlighting
 set mouse=a " Enable the mouse
 set nowrap " No line wrapping
-set encoding=utf-8 fileformats=unix,dos " Set default encoding
+set encoding=utf-8 fileformat=unix fileformats=unix,dos " Set default encoding and line ending
 set path-=/usr/include " Remove /usr/include form path. Included for C langs. in ftplugin
 set noshowmode " Disable the mode display below statusline
 set backspace=indent,eol,start " Better backspace
@@ -44,7 +44,7 @@ set incsearch nohlsearch ignorecase smartcase " Set searching to only be case se
 set splitright splitbelow " Change default vsp and sp directions
 set laststatus=2 " Always display the status line
 set cursorline " Enable highlighting of the current line
-set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spellcheck language
+set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spell check language
 set noswapfile undofile backup " No swaps. Persistent undo, create backups
 set undodir=~/.vim-undo// backupdir=~/.vim-backup// " Save backups and undo files to constant location
 set colorcolumn=80 " Create line at 80 character mark
@@ -66,10 +66,9 @@ colorscheme seoul256 " Set color theme
 " Set Font and size
 set guifont=Iosevka:h12
 
-" Start Vim fullscreen
-if has('win32') || has('win64') 
-    autocmd GUIEnter * simalt ~x
-endif
+if has('win32') || has('win64') " Start Vim fullscreen
+    autocmd GUIEnter * simalt ~x 
+endif 
 
 " Set true colors if supported. If not default to 256 colors
 if (has("termguicolors"))
@@ -87,22 +86,19 @@ if executable('rg') " Use ripgrep if available
     set grepformat^=%f:%l:%c:%m 
 endif
 
-if (has('clipboard'))
-    set clipboard=unnamedplus " User system clipboard
-endif
+if (has('clipboard')) | set clipboard=unnamedplus | endif  " Use system clipboard
 "}}}
 
 "{{{ " Auto Commands
 if has("autocmd")
-    " Autocmd to check whether vimrc needs to be updated
     augroup Autosave
-    autocmd!
+        autocmd!
         " Call autosave
         autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
     augroup END
     augroup SaveSessionIfExistsUponExit
         autocmd!
-        autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif " Autosave session.vim file if it exists
+        autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif " Autosave Session.vim file if it exists
     augroup END
 endif
 "}}}
@@ -123,16 +119,13 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k   
 nnoremap <C-l> <C-w>l
 
-" Change mappings of buffer commands. Start with <leader>b for buffer
-" buffer next
-nnoremap <leader>bn :bn<CR>
-" buffer previous
-nnoremap <leader>bp :bp<CR>
-" buffer delete
+" Change mappings of buffer commands.
+nnoremap ]b :bn<CR>
+nnoremap [b :bp<CR>
+nnoremap [B :bfirst<CR>
+nnoremap ]B :blast<CR>
 nnoremap <leader>bd :bd<CR>
-" buffer go to
 nnoremap <silent> <leader>bg :call functions#GoToSpecifiedBuffer()<CR>
-" buffer list
 nnoremap <leader>bl :buffers<CR>
 
 " Project wide search
@@ -154,11 +147,7 @@ inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
 inoremap <C-j> <Esc>/<++><CR><Esc>cf>
 inoremap <C-k> <Esc>?<++><CR><Esc>cf>
 
-" Set bindings for jumping to errors in the loclist and quickfix list
-nnoremap <silent> ]l :lnext<CR>
-nnoremap <silent> [l :lprev<CR>
-nnoremap <silent> [L :lfirst<CR>
-nnoremap <silent> ]L :llast<CR>
+" Set bindings for jumping to errors in quickfix list
 nnoremap <silent> ]q :cnext<CR>
 nnoremap <silent> [q :cprev<CR>
 nnoremap <silent> [Q :cfirst<CR>
@@ -167,8 +156,6 @@ nnoremap <silent> ]Q :clast<CR>
 " Set Escape to leave terminal mode
 tnoremap <ESC> <C-\><C-n>
 
-" Command to make tags file inside Vim
-command! -nargs=0 -bar Mkctags silent exe '!ctags -R' | silent exe 'redraw!'
 " Auto split the terminal and open it in current directory
 command! -nargs=0 -bar Term let $VIM_DIR=expand('%:p:h') | silent exe 'sp' | silent exe 'term' | silent exe 'cd $VIM_DIR'
 
@@ -205,7 +192,7 @@ set statusline+=\  " Extra space at the end
 let g:mucomplete#always_use_completeopt = 1
 let g:mucomplete#chains = {
         \ 'default' : ['path', 'omni', 'tags', 'incl'],
-        \ 'java'    : ['path', 'incl', 'tags'],
+        \ 'java'    : ['path', 'keyp', 'tags'],
         \ 'latex'   : ['path', 'tags', 'keyp', 'uspl'],
         \ 'vim'     : ['path', 'cmd', 'keyp'],
         \ }
@@ -218,11 +205,14 @@ imap <left> <plug>(MUcompleteCycBwd)
 let g:pear_tree_repeatable_expand = 0
 
 " Gutentags configuration
-if has('win64') || has('win32') | let g:gutentags_ctags_executable = "C:/Users/heimangreg/Universal-Ctags/ctags.exe" | endif
-let g:gutentags_ctags_extra_args = [
-    \ '--tag-relative=yes',
-    \ '--fields=+ailmnS',
-    \]
+if has('win64') || has('win32') 
+	let g:gutentags_ctags_executable = "C:/Users/heimangreg/Universal-Ctags/ctags.exe" 
+    let g:gutentags_ctags_extra_args = [
+        \ '--tag-relative=yes',
+        \ '--fields=+ailmnS',
+        \ '--exclude=*.db',
+        \]
+endif
 let g:gutentags_project_root = ['Makefile', 'CMakeLists.txt', 'pom.xml', 'build.gradle', 'node_modules', 'src']
 
 " Rooter configuration
