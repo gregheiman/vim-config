@@ -17,13 +17,12 @@ Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
 Plug 'gruvbox-community/gruvbox' " Gruvbox theme
-Plug 'junegunn/seoul256.vim'
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
 "}}}"
 
-"{{{ " Vim Configuration Settings
+"{{{ " Vim Configuration Setting
 """""""""""""""""""""""""""""""""""""
 set nocompatible " Required to not be forced into vi mode
 syntax on " Enable syntax highlighting
@@ -60,8 +59,7 @@ autocmd ColorScheme * highlight! link StatusLine LineNr
 autocmd ColorScheme * highlight StatusLineNC cterm=reverse gui=reverse
 autocmd ColorScheme * highlight! link TabLine LineNr
 augroup END
-let g:seoul256_background = 234
-colorscheme seoul256 " Set color theme
+colorscheme gruvbox " Set color theme
 
 " Set Font and size
 set guifont=Iosevka:h12
@@ -94,7 +92,7 @@ if has("autocmd")
     augroup Autosave
         autocmd!
         " Call autosave
-        autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
+        autocmd CursorHold,CursorHoldI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
     augroup END
     augroup SaveSessionIfExistsUponExit
         autocmd!
