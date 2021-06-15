@@ -93,7 +93,7 @@ if has("autocmd")
     augroup Autosave
         autocmd!
         " Call autosave
-        autocmd CursorHold,CursorHoldI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
+        "autocmd CursorHold,CursorHoldI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
     augroup END
     augroup SaveSessionIfExistsUponExit
         autocmd!
