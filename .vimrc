@@ -4,9 +4,9 @@
 filetype off " REQUIRED Disable file type for vim plug.
 " Check for OS system in order to start vim-plug in
 if has('win32') || has('win64')
-    let g:plugDirectory = 'C:/Users/heimangreg/vimfiles/plugged'
+let g:plugDirectory = 'C:/Users/heimangreg/vimfiles/plugged'
 else
-    let g:plugDirectory = '~/.vim/plugged'     
+let g:plugDirectory = '~/.vim/plugged'     
 endif
 call plug#begin(plugDirectory) " REQUIRED
 Plug 'tpope/vim-dispatch' " Asynchronous make
@@ -17,7 +17,6 @@ Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
 Plug 'gruvbox-community/gruvbox' " Gruvbox theme
-Plug 'junegunn/seoul256.vim'
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -38,7 +37,7 @@ set omnifunc=syntaxcomplete#Complete " Enable general omnicomplete
 set shortmess+=c " Stop completion messages in the command line
 set completeopt=menuone,noselect " Configure completion menu to work as expected
 set pumheight=25 " Set maximum height for popup menu
-set number " Show line numbers
+set number relativenumber " Show line numbers
 set tabstop=4 shiftwidth=4 smarttab expandtab " Set proper 4 space tabs
 set incsearch nohlsearch ignorecase smartcase " Set searching to only be case sensitive when the first letter is capitalized
 set splitright splitbelow " Change default vsp and sp directions
@@ -47,6 +46,7 @@ set cursorline " Enable highlighting of the current line
 set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spell check language
 set noswapfile undofile backup " No swaps. Persistent undo, create backups
 set undodir=~/.vim-undo// backupdir=~/.vim-backup// " Save backups and undo files to constant location
+set sessionoptions=curdir,folds,globals,options,tabpages,unix,slash " Set what is saved in session files
 set colorcolumn=80 " Create line at 80 character mark
 set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
 nnoremap <Space> <Nop> 
@@ -60,8 +60,7 @@ autocmd ColorScheme * highlight! link StatusLine LineNr
 autocmd ColorScheme * highlight StatusLineNC cterm=reverse gui=reverse
 autocmd ColorScheme * highlight! link TabLine LineNr
 augroup END
-let g:seoul256_background = 234
-colorscheme seoul256 " Set color theme
+colorscheme gruvbox " Set color theme
 
 " Set Font and size
 set guifont=Iosevka:h12
@@ -192,7 +191,7 @@ set statusline+=\  " Extra space at the end
 let g:mucomplete#always_use_completeopt = 1
 let g:mucomplete#chains = {
         \ 'default' : ['path', 'omni', 'tags', 'incl'],
-        \ 'java'    : ['path', 'keyp', 'tags'],
+        \ 'java'    : ['path', 'tags', 'incl'],
         \ 'latex'   : ['path', 'tags', 'keyp', 'uspl'],
         \ 'vim'     : ['path', 'cmd', 'keyp'],
         \ }

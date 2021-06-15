@@ -273,6 +273,6 @@ endfunction
 " Function to replace Greped pattern
 function! functions#ReplaceGrep(PatternToReplace)
     let l:replace = input("What would you like to replace \"" . expand(a:PatternToReplace). "\" with? ")
-    execute "cdo %s/\\<" . expand(a:PatternToReplace) . "\\>/" . expand(l:replace) . "/gc"
+    execute "cfdo %s/\\<" . expand(a:PatternToReplace) . "\\>/" . expand(l:replace) . "/gc"
     return
 endfunction
