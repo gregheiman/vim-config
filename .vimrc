@@ -22,7 +22,7 @@ filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
 "}}}"
 
-"{{{ " Vim Configuration Settings
+"{{{ " Vim Configuration Setting
 """""""""""""""""""""""""""""""""""""
 set nocompatible " Required to not be forced into vi mode
 syntax on " Enable syntax highlighting
@@ -93,7 +93,7 @@ if has("autocmd")
     augroup Autosave
         autocmd!
         " Call autosave
-        autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
+        autocmd CursorHold,CursorHoldI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
     augroup END
     augroup SaveSessionIfExistsUponExit
         autocmd!
