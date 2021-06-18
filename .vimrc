@@ -28,6 +28,7 @@ set nocompatible " Required to not be forced into vi mode
 syntax on " Enable syntax highlighting
 set mouse=a " Enable the mouse
 set nowrap " No line wrapping
+set autowriteall " Auto save on big events
 set encoding=utf-8 fileformat=unix fileformats=unix,dos " Set default encoding and line ending
 set path-=/usr/include " Remove /usr/include form path. Included for C langs. in ftplugin
 set noshowmode " Disable the mode display below statusline
@@ -49,21 +50,24 @@ set undodir=~/.vim-undo// backupdir=~/.vim-backup// " Save backups and undo file
 set sessionoptions=curdir,folds,globals,options,tabpages,unix,slash " Set what is saved in session files
 set colorcolumn=80 " Create line at 80 character mark
 set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
-nnoremap <Space> <Nop> 
-let mapleader="\<Space>" " Map leader to space
+
+nnoremap <Nop> "\"
+let mapleader = "\\"
+
 let g:tex_flavor='latex' " Set the global tex flavor
-" Set custom highlights. Stops plugins from messing with colors
-augroup Highlight
-autocmd!
-autocmd ColorScheme * highlight! link SignColumn LineNr
-autocmd ColorScheme * highlight! link StatusLine LineNr
-autocmd ColorScheme * highlight StatusLineNC cterm=reverse gui=reverse
-autocmd ColorScheme * highlight! link TabLine LineNr
-augroup END
+
+if has('autocmd')
+    augroup Highlight " Set custom highlights. Stops plugins from messing with colors
+        autocmd!
+        autocmd ColorScheme * highlight! link SignColumn LineNr
+        autocmd ColorScheme * highlight! link StatusLine LineNr
+        autocmd ColorScheme * highlight StatusLineNC cterm=reverse gui=reverse
+        autocmd ColorScheme * highlight! link TabLine LineNr
+    augroup END
+endif
 colorscheme gruvbox " Set color theme
 
-" Set Font and size
-set guifont=Iosevka:h12
+set guifont=Iosevka:h12 " Set Font and size
 
 if has('win32') || has('win64') " Start Vim fullscreen
     autocmd GUIEnter * simalt ~x 
@@ -85,19 +89,20 @@ if executable('rg') " Use ripgrep if available
     set grepformat^=%f:%l:%c:%m 
 endif
 
-if (has('clipboard')) | set clipboard=unnamedplus | endif  " Use system clipboard
+set clipboard+=unnamedplus " Use system clipboard
 "}}}
 
 "{{{ " Auto Commands
 if has("autocmd")
-    augroup Autosave
-        autocmd!
-        " Call autosave
-        "autocmd CursorHold,CursorHoldI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
-    augroup END
     augroup SaveSessionIfExistsUponExit
         autocmd!
-        autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif " Autosave Session.vim file if it exists
+        autocmd VimLeavePre * call functions#UpdateSessionOnExit() " Autosave Session.vim file if it exists
+    augroup END
+    augroup CheckVimrcOnEnter
+        autocmd!
+        if has("job") || has("nvim")
+            autocmd VimEnter * call functions#GitFetchVimrc() " Check if .vimrc needs to be updated on enter
+        endif 
     augroup END
 endif
 "}}}
@@ -151,6 +156,7 @@ nnoremap <silent> ]q :cnext<CR>
 nnoremap <silent> [q :cprev<CR>
 nnoremap <silent> [Q :cfirst<CR>
 nnoremap <silent> ]Q :clast<CR>
+nnoremap co<CR> :Copen<CR>
 
 " Set Escape to leave terminal mode
 tnoremap <ESC> <C-\><C-n>
@@ -191,7 +197,7 @@ set statusline+=\  " Extra space at the end
 let g:mucomplete#always_use_completeopt = 1
 let g:mucomplete#chains = {
         \ 'default' : ['path', 'omni', 'tags', 'incl'],
-        \ 'java'    : ['path', 'tags', 'incl'],
+        \ 'java'    : ['path', 'incl', 'keyp', 'tags'],
         \ 'latex'   : ['path', 'tags', 'keyp', 'uspl'],
         \ 'vim'     : ['path', 'cmd', 'keyp'],
         \ }

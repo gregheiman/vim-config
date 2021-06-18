@@ -20,6 +20,14 @@ function! functions#Autosave()
         silent update " Otherwise autosave
     endif
 endfunction
+   
+" Update Session.vim file on exit if one is present
+function! functions#UpdateSessionOnExit()
+    if glob("./Session.vim") != ""
+        silent mksession!
+        echohl Title | redraw | echo "Saved session file" | echohl None
+    endif 
+endfunction
 
 " Finds the directory that the .vimrc is in
 " Safe for symbolic links

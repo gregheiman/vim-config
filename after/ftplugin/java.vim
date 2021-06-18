@@ -20,7 +20,13 @@ nnoremap <F8> :update<CR>:silent make<CR>
 setlocal keywordprg=
 
 " Setup :find command
-set path^=src/**,config/**
+set path^=src/main/java/**,src/test/java/**,src/main/resources/**
+" Proper include statement
+setlocal include=^\\s*import
+" Proper define statement for the beginning of functions
+setlocal define=^\\s*public\\s\\a*\\s
+"setlocal define=^\\s*private\\\|public\\\|protected
+
 
 " Set up make
 augroup Project
