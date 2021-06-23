@@ -17,6 +17,7 @@ Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
 Plug 'gruvbox-community/gruvbox' " Gruvbox theme
+Plug 'romainl/Apprentice' " Apprentice theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -37,7 +38,7 @@ set tags=./tags,tags " Set default tags file location
 set omnifunc=syntaxcomplete#Complete " Enable general omnicomplete
 set shortmess+=c " Stop completion messages in the command line
 set completeopt=menuone,noselect " Configure completion menu to work as expected
-set pumheight=25 " Set maximum height for popup menu
+set pumheight=10 " Set maximum height for popup menu
 set number relativenumber " Show line numbers
 set tabstop=4 shiftwidth=4 smarttab expandtab " Set proper 4 space tabs
 set incsearch nohlsearch ignorecase smartcase " Set searching to only be case sensitive when the first letter is capitalized
@@ -65,7 +66,7 @@ if has('autocmd')
         autocmd ColorScheme * highlight! link TabLine LineNr
     augroup END
 endif
-colorscheme gruvbox " Set color theme
+colorscheme apprentice " Set color theme
 
 set guifont=Iosevka:h12 " Set Font and size
 
@@ -96,12 +97,12 @@ set clipboard+=unnamedplus " Use system clipboard
 if has("autocmd")
     augroup SaveSessionIfExistsUponExit
         autocmd!
-        autocmd VimLeavePre * call functions#UpdateSessionOnExit() " Autosave Session.vim file if it exists
+        autocmd VimLeavePre * if glob("Session.vim") != "" | mksession! | endif " Autosave Session.vim file if it exists
     augroup END
     augroup CheckVimrcOnEnter
         autocmd!
         if has("job") || has("nvim")
-            autocmd VimEnter * call functions#GitFetchVimrc() " Check if .vimrc needs to be updated on enter
+            autocmd VimEnter * call functions#GitFetchVimrc(fnamemodify("%", ":p:h")) " Check if .vimrc needs to be updated on enter
         endif 
     augroup END
 endif
@@ -156,7 +157,12 @@ nnoremap <silent> ]q :cnext<CR>
 nnoremap <silent> [q :cprev<CR>
 nnoremap <silent> [Q :cfirst<CR>
 nnoremap <silent> ]Q :clast<CR>
-nnoremap co<CR> :Copen<CR>
+
+if exists("g:loaded_dispatch") " Open up :Copen if Dispatch else just open normal :copen
+    nnoremap co<CR> :Copen<CR>
+else
+    nnoremap co<CR> :copen<CR>
+endif
 
 " Set Escape to leave terminal mode
 tnoremap <ESC> <C-\><C-n>
@@ -197,7 +203,7 @@ set statusline+=\  " Extra space at the end
 let g:mucomplete#always_use_completeopt = 1
 let g:mucomplete#chains = {
         \ 'default' : ['path', 'omni', 'tags', 'incl'],
-        \ 'java'    : ['path', 'incl', 'keyp', 'tags'],
+        \ 'java'    : ['path', 'keyp', 'keyn', 'tags', 'incl'],
         \ 'latex'   : ['path', 'tags', 'keyp', 'uspl'],
         \ 'vim'     : ['path', 'cmd', 'keyp'],
         \ }
@@ -218,10 +224,8 @@ if has('win64') || has('win32')
         \ '--exclude=*.db',
         \]
 endif
-let g:gutentags_project_root = ['Makefile', 'CMakeLists.txt', 'pom.xml', 'build.gradle', 'node_modules', 'src']
 
 " Rooter configuration
 let g:rooter_silent_chdir = 1
-let g:rooter_patterns = ['CMakeLists.txt', 'pom.xml', 'build.gradle', 'src', 'node_modules']
 let g:rooter_change_directory_for_non_project_files = 'current'
 "}}}
