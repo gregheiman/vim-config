@@ -4,6 +4,28 @@ else
     CompilerSet makeprg=mvn\ -Dstyle.color=never\ clean\ compile
 endif
 
+" Set up Dispatch if it exists
+if exists("g:loaded_dispatch")
+    let b:dispatch = "mvn test" " Set default for :Dispatch command
+    augroup DispatchMake
+        autocmd!
+        " Automatically :Make in background on write
+        autocmd BufWritePost * silent execute("Make!")
+    augroup END
+endif
+
+augroup Make
+    autocmd!
+    if has('win32') || has('win64')
+        " After Dispatch :Make finishes
+        autocmd QuickFixCmdPost cgetfile call s:ProcessQuickFixForMaven(getqflist())
+        " After normal :make finishes
+        autocmd QuickFixCmdPost *make* call s:ProcessQuickFixForMaven(getqflist())
+    endif
+augroup END
+
+
+" Set up errorformat
 " Ignored message
 setlocal errorformat=
     \%-G[INFO]\ %.%#,
@@ -24,19 +46,6 @@ setlocal errorformat+=
     \%+C%.%#
 " Misc message removal
 setlocal errorformat+=%-G%.%#,%Z
-
-
-augroup Make
-    autocmd!
-    " Automatically make in background on write
-    autocmd BufWritePost * silent execute("Make!")
-    if has('win32') || has('win64')
-        " After Dispatch finishes
-        autocmd QuickFixCmdPost cgetfile call s:ProcessQuickFixForMaven(getqflist())
-        " After normal make finishes
-        autocmd QuickFixCmdPost *make* call s:ProcessQuickFixForMaven(getqflist())
-    endif
-augroup END
 
 " Cleans up the file path on Windows
 " Slightly modified from https://github.com/mikelue/vim-maven-plugin/blob/master/plugin/maven.vim

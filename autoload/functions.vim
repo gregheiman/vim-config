@@ -20,19 +20,30 @@ function! functions#Autosave()
         silent update " Otherwise autosave
     endif
 endfunction
+   
+" Update Session.vim file on exit if one is present
+function! functions#UpdateSessionOnExit()
+    if glob("./Session.vim") != ""
+        silent mksession!
+        echohl Title | redraw | echo "Saved session file" | echohl None
+    endif 
+endfunction
 
 " Finds the directory that the .vimrc is in
 " Safe for symbolic links
 " Needs to be outside of function in order to work correctly
 let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-function! functions#GitFetchVimrc()
+" The path of the folder or file that vim opened in
+let s:openingFilePath = ""
+function! functions#GitFetchVimrc(originalFilePath)
     " Make sure git exists on the system
     if !executable("git")
         echohl Error | redraw | echom "Git not found on system. Can't check Vimrc." | echohl None
         finish
     endif 
-
-    " Change to the vimrc git directory
+    
+    " Assign the passed in variable to a script local variable
+    let s:openingFilePath = a:originalFilePath
     silent execute("lcd " . s:vimrclocation) 
     
     " Execute a git fetch to update the tree
@@ -67,6 +78,8 @@ function! functions#GitFetchVimrc()
         " https://vi.stackexchange.com/questions/27003/how-to-start-an-async-function-in-vim-8
         let l:compareUpstreamAndLocalTimer = timer_start(0, 'functions#CompareUpstreamAndLocalVimrcGitStatus')
     endif
+    
+    " Go back to the original startup directory
     return 
 endfunction 
 
@@ -89,8 +102,9 @@ function! functions#CompareUpstreamAndLocalVimrcGitStatus(timer)
         " Otherwise something went wrong
         echohl Error | redraw | echom "Unable to confirm whether you need to update your Vimrc" | echohl None
     endif
-    " Go back to the original startup directory
-    silent execute("lcd ~") 
+    
+    " Return to the file or folder vim opened in
+    silent execute("lcd " . s:openingFilePath) 
     return
 endfunction
 
@@ -246,18 +260,34 @@ function! functions#DetermineGrep(word, ...)
     let l:grepPreference = input("1. Project Wide \n2. Only in files of the same type \n3. Only in current file's folder \n4. Only in current file \nSelect Method of Grep for pattern \"" . expand(a:word) . "\": ")
 
     if (l:grepPreference == 1) " Project wide
-        silent execute "grep! " . shellescape(expand(a:word)) . " "
+        if executable('rg')
+            silent execute "grep! " . shellescape(expand(a:word)) . " "
+        else
+            silent execute "grep! -R" . shellescape(expand(a:word)) . " "
+        endif
         silent execute "copen"
     elseif (l:grepPreference == 2) " Files of the same type (eg. *.java)
         let b:current_filetype = &ft
-        silent execute "grep! " . shellescape(expand(a:word)) . " -t " . b:current_filetype
+        if executable('rg')
+            silent execute "grep! " . shellescape(expand(a:word)) . " -t " . b:current_filetype
+        else
+            silent execute "grep! -R" . shellescape(expand(a:word)) . " --include=*." . b:current_filetype
+        endif
         silent execute "copen"
     elseif (l:grepPreference == 3) " Files in the current file's folder
         let b:current_folder = expand('%:p:h')
-        silent execute "grep! " . shellescape(expand(a:word)) . " " . b:current_folder 
+        if executable('rg')
+            silent execute "grep! " . shellescape(expand(a:word)) . " " . b:current_folder 
+        else
+            silent execute "grep! -R" . shellescape(expand(a:word)) . " " . b:current_folder
+        endif
         silent execute "copen"
     elseif (l:grepPreference == 4) " Only in the current file
-        silent execute "grep! " . shellescape(expand(a:word)) . " %"
+        if executable('rg')
+            silent execute "grep! " . shellescape(expand(a:word)) . " %"
+        else 
+            silent execute "grep! " . shellescape(expand(a:word)) . " %"
+        endif
         silent execute "copen"
     else
         echohl WarningMsg | echo "\nPlease enter in a valid option" | echohl None
@@ -273,6 +303,8 @@ endfunction
 " Function to replace Greped pattern
 function! functions#ReplaceGrep(PatternToReplace)
     let l:replace = input("What would you like to replace \"" . expand(a:PatternToReplace). "\" with? ")
-    execute "cdo %s/\\<" . expand(a:PatternToReplace) . "\\>/" . expand(l:replace) . "/gc"
+    " Needs to write at end in order to not error on switching to next file in
+    " list
+    execute "cfdo %s/" . expand(a:PatternToReplace) . "/" . expand(l:replace) . "/gc | w"
     return
 endfunction

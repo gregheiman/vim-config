@@ -4,9 +4,9 @@
 filetype off " REQUIRED Disable file type for vim plug.
 " Check for OS system in order to start vim-plug in
 if has('win32') || has('win64')
-    let g:plugDirectory = 'C:/Users/heimangreg/vimfiles/plugged'
+let g:plugDirectory = 'C:/Users/heimangreg/vimfiles/plugged'
 else
-    let g:plugDirectory = '~/.vim/plugged'     
+let g:plugDirectory = '~/.vim/plugged'     
 endif
 call plug#begin(plugDirectory) " REQUIRED
 Plug 'tpope/vim-dispatch' " Asynchronous make
@@ -17,18 +17,19 @@ Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
 Plug 'gruvbox-community/gruvbox' " Gruvbox theme
-Plug 'junegunn/seoul256.vim'
+Plug 'romainl/Apprentice' " Apprentice theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
 "}}}"
 
-"{{{ " Vim Configuration Settings
+"{{{ " Vim Configuration Setting
 """""""""""""""""""""""""""""""""""""
 set nocompatible " Required to not be forced into vi mode
 syntax on " Enable syntax highlighting
 set mouse=a " Enable the mouse
 set nowrap " No line wrapping
+set autowriteall " Auto save on big events
 set encoding=utf-8 fileformat=unix fileformats=unix,dos " Set default encoding and line ending
 set path-=/usr/include " Remove /usr/include form path. Included for C langs. in ftplugin
 set noshowmode " Disable the mode display below statusline
@@ -37,8 +38,8 @@ set tags=./tags,tags " Set default tags file location
 set omnifunc=syntaxcomplete#Complete " Enable general omnicomplete
 set shortmess+=c " Stop completion messages in the command line
 set completeopt=menuone,noselect " Configure completion menu to work as expected
-set pumheight=25 " Set maximum height for popup menu
-set number " Show line numbers
+set pumheight=10 " Set maximum height for popup menu
+set number relativenumber " Show line numbers
 set tabstop=4 shiftwidth=4 smarttab expandtab " Set proper 4 space tabs
 set incsearch nohlsearch ignorecase smartcase " Set searching to only be case sensitive when the first letter is capitalized
 set splitright splitbelow " Change default vsp and sp directions
@@ -47,24 +48,27 @@ set cursorline " Enable highlighting of the current line
 set spell spelllang=en_us " Enable Vim's built in spell check and set the proper spell check language
 set noswapfile undofile backup " No swaps. Persistent undo, create backups
 set undodir=~/.vim-undo// backupdir=~/.vim-backup// " Save backups and undo files to constant location
+set sessionoptions=curdir,folds,globals,options,tabpages,unix,slash " Set what is saved in session files
 set colorcolumn=80 " Create line at 80 character mark
 set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
-nnoremap <Space> <Nop> 
-let mapleader="\<Space>" " Map leader to space
-let g:tex_flavor='latex' " Set the global tex flavor
-" Set custom highlights. Stops plugins from messing with colors
-augroup Highlight
-autocmd!
-autocmd ColorScheme * highlight! link SignColumn LineNr
-autocmd ColorScheme * highlight! link StatusLine LineNr
-autocmd ColorScheme * highlight StatusLineNC cterm=reverse gui=reverse
-autocmd ColorScheme * highlight! link TabLine LineNr
-augroup END
-let g:seoul256_background = 234
-colorscheme seoul256 " Set color theme
 
-" Set Font and size
-set guifont=Iosevka:h12
+nnoremap <Nop> "\"
+let mapleader = "\\"
+
+let g:tex_flavor='latex' " Set the global tex flavor
+
+if has('autocmd')
+    augroup Highlight " Set custom highlights. Stops plugins from messing with colors
+        autocmd!
+        autocmd ColorScheme * highlight! link SignColumn LineNr
+        autocmd ColorScheme * highlight! link StatusLine LineNr
+        autocmd ColorScheme * highlight StatusLineNC cterm=reverse gui=reverse
+        autocmd ColorScheme * highlight! link TabLine LineNr
+    augroup END
+endif
+colorscheme apprentice " Set color theme
+
+set guifont=Iosevka:h12 " Set Font and size
 
 if has('win32') || has('win64') " Start Vim fullscreen
     autocmd GUIEnter * simalt ~x 
@@ -86,19 +90,20 @@ if executable('rg') " Use ripgrep if available
     set grepformat^=%f:%l:%c:%m 
 endif
 
-if (has('clipboard')) | set clipboard=unnamedplus | endif  " Use system clipboard
+set clipboard+=unnamedplus " Use system clipboard
 "}}}
 
 "{{{ " Auto Commands
 if has("autocmd")
-    augroup Autosave
-        autocmd!
-        " Call autosave
-        autocmd CursorHold,CursorHoldI,CursorMoved,CursorMovedI,InsertLeave,InsertEnter,BufLeave,VimLeave * call functions#Autosave()
-    augroup END
     augroup SaveSessionIfExistsUponExit
         autocmd!
-        autocmd VimLeave * if glob("./Session.vim") != "" | silent mksession! | endif " Autosave Session.vim file if it exists
+        autocmd VimLeavePre * if glob("Session.vim") != "" | mksession! | endif " Autosave Session.vim file if it exists
+    augroup END
+    augroup CheckVimrcOnEnter
+        autocmd!
+        if has("job") || has("nvim")
+            autocmd VimEnter * call functions#GitFetchVimrc(fnamemodify("%", ":p:h")) " Check if .vimrc needs to be updated on enter
+        endif 
     augroup END
 endif
 "}}}
@@ -153,6 +158,12 @@ nnoremap <silent> [q :cprev<CR>
 nnoremap <silent> [Q :cfirst<CR>
 nnoremap <silent> ]Q :clast<CR>
 
+if exists("g:loaded_dispatch") " Open up :Copen if Dispatch else just open normal :copen
+    nnoremap co<CR> :Copen<CR>
+else
+    nnoremap co<CR> :copen<CR>
+endif
+
 " Set Escape to leave terminal mode
 tnoremap <ESC> <C-\><C-n>
 
@@ -192,7 +203,7 @@ set statusline+=\  " Extra space at the end
 let g:mucomplete#always_use_completeopt = 1
 let g:mucomplete#chains = {
         \ 'default' : ['path', 'omni', 'tags', 'incl'],
-        \ 'java'    : ['path', 'keyp', 'tags'],
+        \ 'java'    : ['path', 'keyp', 'keyn', 'tags', 'incl'],
         \ 'latex'   : ['path', 'tags', 'keyp', 'uspl'],
         \ 'vim'     : ['path', 'cmd', 'keyp'],
         \ }
@@ -213,10 +224,8 @@ if has('win64') || has('win32')
         \ '--exclude=*.db',
         \]
 endif
-let g:gutentags_project_root = ['Makefile', 'CMakeLists.txt', 'pom.xml', 'build.gradle', 'node_modules', 'src']
 
 " Rooter configuration
 let g:rooter_silent_chdir = 1
-let g:rooter_patterns = ['CMakeLists.txt', 'pom.xml', 'build.gradle', 'src', 'node_modules']
 let g:rooter_change_directory_for_non_project_files = 'current'
 "}}}
