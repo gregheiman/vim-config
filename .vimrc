@@ -17,7 +17,6 @@ Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
 Plug 'gruvbox-community/gruvbox' " Gruvbox theme
-Plug 'romainl/Apprentice' " Apprentice theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -66,7 +65,7 @@ if has('autocmd')
         autocmd ColorScheme * highlight! link TabLine LineNr
     augroup END
 endif
-colorscheme apprentice " Set color theme
+colorscheme gruvbox " Set color theme
 
 set guifont=Iosevka:h12 " Set Font and size
 
@@ -117,12 +116,6 @@ inoremap <silent> <F1> <Esc>:call functions#ToggleNetrw()<CR>
 " Keybinding for tabbing visual mode selection to automatically re-select the visual selection 
 vnoremap > >gv 
 vnoremap < <gv
-
-" Change split navigation keys
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k   
-nnoremap <C-l> <C-w>l
 
 " Change mappings of buffer commands.
 nnoremap ]b :bn<CR>
@@ -194,8 +187,8 @@ set statusline+=\ %t\ \\| " File name
 set statusline+=\ %(\%m%r%h%w%) " Modified, Read-only, help display
 set statusline+=%= " Right align
 set statusline+=%Y " File format
-set statusline+=\ \\|\ %{&ff} " Line endings
-set statusline+=\ \\|\ %{&enc} " Encoding
+set statusline+=\ \\|\ %{toupper(&ff)} " Line endings
+set statusline+=\ \\|\ %{toupper(&enc)} " Encoding
 set statusline+=\ \\|\ %l/%L " Current line/Total lines
 set statusline+=\  " Extra space at the end
 
@@ -217,7 +210,6 @@ let g:pear_tree_repeatable_expand = 0
 
 " Gutentags configuration
 if has('win64') || has('win32') 
-	let g:gutentags_ctags_executable = "C:/Users/heimangreg/Universal-Ctags/ctags.exe" 
     let g:gutentags_ctags_extra_args = [
         \ '--tag-relative=yes',
         \ '--fields=+ailmnS',
