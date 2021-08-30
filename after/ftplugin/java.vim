@@ -17,7 +17,10 @@ endfunction
 nnoremap <F8> :update<CR>:silent make<CR>
 
 " Setup :find command
-set path^=src/main/java/**,src/test/java/**,src/main/resources/**
+" Setup inefficient path that will find pretty much everything in the project
+set path^=**/src/main/java**,**/src/test/java/**,**/src/main/resources/**
+" Setup more efficient path that will find everything in the current module
+"set path^=src/main/java/**,src/test/java/**,src/main/resources/**
 " Proper include statement
 setlocal include=^\\s*import
 " Proper define statement for the beginning of functions

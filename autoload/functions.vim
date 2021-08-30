@@ -33,14 +33,17 @@ endfunction
 " Safe for symbolic links
 " Needs to be outside of function in order to work correctly
 let s:vimrclocation = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-function! functions#GitFetchVimrc()
+" The path of the folder or file that vim opened in
+let s:openingFilePath = ""
+function! functions#GitFetchVimrc(originalFilePath)
     " Make sure git exists on the system
     if !executable("git")
         echohl Error | redraw | echom "Git not found on system. Can't check Vimrc." | echohl None
         finish
     endif 
-
-    " Change to the vimrc git directory
+    
+    " Assign the passed in variable to a script local variable
+    let s:openingFilePath = a:originalFilePath
     silent execute("lcd " . s:vimrclocation) 
     
     " Execute a git fetch to update the tree
@@ -75,6 +78,8 @@ function! functions#GitFetchVimrc()
         " https://vi.stackexchange.com/questions/27003/how-to-start-an-async-function-in-vim-8
         let l:compareUpstreamAndLocalTimer = timer_start(0, 'functions#CompareUpstreamAndLocalVimrcGitStatus')
     endif
+    
+    " Go back to the original startup directory
     return 
 endfunction 
 
@@ -97,8 +102,9 @@ function! functions#CompareUpstreamAndLocalVimrcGitStatus(timer)
         " Otherwise something went wrong
         echohl Error | redraw | echom "Unable to confirm whether you need to update your Vimrc" | echohl None
     endif
-    " Go back to the original startup directory
-    silent execute("lcd ~") 
+    
+    " Return to the file or folder vim opened in
+    silent execute("lcd " . s:openingFilePath) 
     return
 endfunction
 
