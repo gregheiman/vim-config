@@ -4,7 +4,7 @@
 filetype off " REQUIRED Disable file type for vim plug.
 " Check for OS system in order to start vim-plug in
 if has('win32') || has('win64')
-let g:plugDirectory = 'C:/Users/heimangreg/vimfiles/plugged'
+let g:plugDirectory = '~/vimfiles/plugged'
 else
 let g:plugDirectory = '~/.vim/plugged'     
 endif
