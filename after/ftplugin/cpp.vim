@@ -1,5 +1,5 @@
 " Behaves mostly just like C
-runtime! ftplugin/c.vim ftplugin/c_*.vim ftplugin/c/*.vim
+" runtime! ftplugin/c.vim ftplugin/c_*.vim ftplugin/c/*.vim
 
 " Set the program that is called with :make
 if glob("makefile") || glob("Makefile")

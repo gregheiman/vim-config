@@ -10,13 +10,16 @@ let g:plugDirectory = '~/.vim/plugged'
 endif
 call plug#begin(plugDirectory) " REQUIRED
 Plug 'tpope/vim-dispatch' " Asynchronous make
+Plug 'dhruvasagar/vim-markify' " Populate sign column with symbols from vim-dispatch
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-surround' " Easy surrounding of current selection
+Plug 'tpope/vim-commentary' " Easy commenting of lines
 Plug 'airblade/vim-rooter' " Find project root automatically
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
 Plug 'gruvbox-community/gruvbox' " Gruvbox theme
+Plug 'xero/sourcerer.vim' " Sourcerer theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -31,6 +34,7 @@ set nowrap " No line wrapping
 set autowriteall " Auto save on big events
 set encoding=utf-8 fileformat=unix fileformats=unix,dos " Set default encoding and line ending
 set path-=/usr/include " Remove /usr/include form path. Included for C langs. in ftplugin
+set wildignore+=**/.git/** " Add .git directory to wildignore. Nothing inside will be found by :find
 set noshowmode " Disable the mode display below statusline
 set backspace=indent,eol,start " Better backspace
 set tags=./tags,tags " Set default tags file location
@@ -38,7 +42,7 @@ set omnifunc=syntaxcomplete#Complete " Enable general omnicomplete
 set shortmess+=c " Stop completion messages in the command line
 set completeopt=menuone,noselect " Configure completion menu to work as expected
 set pumheight=10 " Set maximum height for popup menu
-set number relativenumber " Show line numbers
+set number " Show line numbers
 set tabstop=4 shiftwidth=4 smarttab expandtab " Set proper 4 space tabs
 set incsearch nohlsearch ignorecase smartcase " Set searching to only be case sensitive when the first letter is capitalized
 set splitright splitbelow " Change default vsp and sp directions
@@ -65,7 +69,7 @@ if has('autocmd')
         autocmd ColorScheme * highlight! link TabLine LineNr
     augroup END
 endif
-colorscheme gruvbox " Set color theme
+colorscheme sourcerer " Set color theme
 
 set guifont=Iosevka:h12 " Set Font and size
 
@@ -158,7 +162,9 @@ else
 endif
 
 " Set Escape to leave terminal mode
-tnoremap <ESC> <C-\><C-n>
+if has("nvim")
+  au TermOpen * tnoremap <Esc> <c-\><c-n>
+endif
 
 " Auto split the terminal and open it in current directory
 command! -nargs=0 -bar Term let $VIM_DIR=expand('%:p:h') | silent exe 'sp' | silent exe 'term' | silent exe 'cd $VIM_DIR'
@@ -194,6 +200,9 @@ set statusline+=\  " Extra space at the end
 
 " Mucomplete configuration
 let g:mucomplete#always_use_completeopt = 1
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#completion_delay = 450
+let g:mucomplete#reopen_immediately = 0
 let g:mucomplete#chains = {
         \ 'default' : ['path', 'omni', 'tags', 'incl'],
         \ 'java'    : ['path', 'keyp', 'keyn', 'tags', 'incl'],
@@ -214,6 +223,10 @@ if has('win64') || has('win32')
         \ '--tag-relative=yes',
         \ '--fields=+ailmnS',
         \ '--exclude=*.db',
+        \ '--exclude=.git/*',
+        \ '--exclude=.idea/*',
+        \ '--exclude=target/*',
+        \ '--exclude=node_modules/*',
         \]
 endif
 

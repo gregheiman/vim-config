@@ -3,7 +3,7 @@ function! java#DetectMaven()
         " Assign makeprg to mvn
         compiler mvn
         echohl title | redraw | echom "Maven project detected" | echohl None
-    elseif glob("mvnw") != "" || glob("mvnw.bat") != ""
+    elseif glob("pom.xml") && (glob("mvnw") != "" || glob("mvnw.bat") != "")
         compiler mvn
         echohl title | redraw | echom "Maven wrapper detected" | echohl None
     else
@@ -13,12 +13,18 @@ function! java#DetectMaven()
     endif
 endfunction
 
+" Improve java syntax highlighting
+let java_highlight_functions = "style"
+let java_highlight_all = 1
+let java_highlight_debug = 0
+
 " Assign F8 to compile the current Java file
 nnoremap <F8> :update<CR>:silent make<CR>
 
 " Setup :find command
 " Setup inefficient path that will find pretty much everything in the project
 set path^=**/src/main/java**,**/src/test/java/**,**/src/main/resources/**
+set wildignore+=**/target/**
 " Setup more efficient path that will find everything in the current module
 "set path^=src/main/java/**,src/test/java/**,src/main/resources/**
 " Proper include statement
