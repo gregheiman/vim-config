@@ -108,6 +108,12 @@ if has("autocmd")
             autocmd VimEnter * call functions#GitFetchVimrc(fnamemodify("%", ":p:h")) " Check if .vimrc needs to be updated on enter
         endif 
     augroup END
+    augroup templates
+        autocmd!
+        autocmd BufNewFile *.hpp 0r ~/.vim/skeletons/skeleton.h | call functions#SetupHeaderGuards() 
+        autocmd BufNewFile *.h 0r ~/.vim/skeletons/skeleton.h | call functions#SetupHeaderGuards() 
+        autocmd BufNewFile *.java 0r ~/.vim/skeletons/skeleton.java | call functions#SetupJavaClass()
+    augroup END
 endif
 "}}}
 

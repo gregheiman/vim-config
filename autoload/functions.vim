@@ -308,3 +308,20 @@ function! functions#ReplaceGrep(PatternToReplace)
     execute "cfdo %s/" . expand(a:PatternToReplace) . "/" . expand(l:replace) . "/gc | w"
     return
 endfunction
+
+" Template functions
+function! functions#SetupJavaClass()
+    execute "%s/__CLASS_NAME__/" . expand('%:t:r')
+    let filePath = expand('%:h:r')
+    echom filePath
+    let packageName = matchstr(filePath, "\\(org\\\|com\\).*")
+    echom packageName
+    let finalPackageName = substitute(packageName, '\/','.','g')
+    echom finalPackageName
+    execute "%s/__PACKAGE_NAME__/" . finalPackageName
+endfunction
+
+function! functions#SetupHeaderGuards()
+    let headerName = toupper(expand('%:t:r')) . '_H'
+    execute "%s/__HEADER_NAME__/" . headerName
+endfunction
