@@ -74,7 +74,7 @@ if has('autocmd')
 endif
 colorscheme sourcerer " Set color theme
 
-set guifont=Iosevka:h12 " Set Font and size
+if has("gui_running") | set guifont=JetBrains\ Mono\ Regular:h11 | endif " Set font for gui
 
 if has('win32') || has('win64') " Start Vim fullscreen
     autocmd GUIEnter * simalt ~x 
@@ -277,6 +277,7 @@ function! g:On_lsp_buffer_enabled() abort
     let g:lsp_format_sync_timeout = 1000
     let g:mucomplete#chains = {
         \ 'default' : ['path', 'omni'],
+        \ 'java' : ['path', 'omni'],
         \ }
 endfunction
 "}}}
