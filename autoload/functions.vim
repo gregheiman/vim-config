@@ -1,14 +1,6 @@
 " Custom Vim Functions
 """""""""""""""""""""""""""""""""""""""""""""""""
-" Check if the buffer is empty and determine how to open my vimrc
-function! functions#CheckHowToOpenVimrc()
-    if @% == "" || filereadable(@%) == 0 || line('$') == 1 && col('$') == 1
-        e $MYVIMRC " If the buffer is empty open vimrc fullscreen 
-    else
-        vsp $MYVIMRC " Otherwise open vimrc in a vertical split
-    endif
-endfunction
-
+" {{{ " Autosave Function
 " Autosave autocmd that makes sure the file exists before saving. Stops errors
 " from being thrown
 function! functions#Autosave()
@@ -20,7 +12,9 @@ function! functions#Autosave()
         silent update " Otherwise autosave
     endif
 endfunction
-   
+" }}} 
+
+" {{{ Auto save session.vim files on exit function
 " Update Session.vim file on exit if one is present
 function! functions#UpdateSessionOnExit()
     if glob("./Session.vim") != ""
@@ -28,7 +22,9 @@ function! functions#UpdateSessionOnExit()
         echohl Title | redraw | echo "Saved session file" | echohl None
     endif 
 endfunction
+" }}}
 
+" {{{ Auto check if .vimrc needs updating function
 " Finds the directory that the .vimrc is in
 " Safe for symbolic links
 " Needs to be outside of function in order to work correctly
@@ -107,7 +103,9 @@ function! functions#CompareUpstreamAndLocalVimrcGitStatus(timer)
     silent execute("lcd " . s:openingFilePath) 
     return
 endfunction
+"}}}
 
+" {{{ Go to specific buffer with number function
 function! functions#GoToSpecifiedBuffer()
     " Show list of buffers
     execute("buffers") 
@@ -115,82 +113,9 @@ function! functions#GoToSpecifiedBuffer()
     " Go to that buffer
     execute(":buffer " . bufferNum) 
 endfunction
+"}}}
 
-" If in a Git repo, sets the working directory to its root,
-" or if not, to the directory of the current file.
-function! functions#SetWorkingDirectory()
-    " Stops fugitive from throwing error on :Gdiff
-    if bufname('fugitive') != "" || bufname('term') != ""
-        return
-    endif
-
-    " Default to the current file's directory (resolving symlinks.)
-    let current_file = expand('%:p')
-    if getftype(current_file) == 'link'
-        let current_file = resolve(current_file)
-    endif
-    exe ':lcd ' . fnameescape(fnamemodify(current_file, ':h'))
-
-    " Get the path to `.git` if we're inside a Git repo.
-    " Works both when inside a worktree, or inside an internal `.git` folder.
-    silent let git_dir = system('git rev-parse --git-dir')[:-2]
-    " Check whether the command output starts with 'fatal'; if it does, we're not inside a Git repo.
-    let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
-    " If we're inside a Git repo, change the working directory to its root.
-    if empty(is_not_git_dir)
-        " Expand path -> Remove trailing slash -> Remove trailing `.git`.
-        exe ':lcd ' . fnameescape(fnamemodify(git_dir, ':p:h:h'))
-    endif
-endfunction
-
-function! functions#UpdateTagsFile()
-    " Make sure Ctags exists on the system
-    if !executable("ctags")
-        echohl WarningMsg | redraw | echom "Could not execute ctags" | echohl None
-        finish
-    endif 
-
-    " Rename old tags file and set vim to use that
-    " While new tags file is being generated
-    let s:currentTagsFile=expand("%:p:h") . "/tags"
-    call rename(s:currentTagsFile, "old-tags")
-    set tags^=./old-tags,old-tags
-    
-    " Create new tags file. Uses ~/.config/ctags/.ctags config file
-    if has('win64') || has('win32')
-        if !has('nvim')
-            let l:createNewTagsJob = job_start("cmd ctags -R")
-        else 
-            let l:createNewTagsJob = jobstart("ctags -R")
-        endif
-    else
-        " *nix distributions
-        if !has('nvim')
-            let l:createNewTagsJob = job_start("/bin/sh ctags -R")
-        else 
-            let l:createNewTagsJob = jobstart("ctags -R")
-        endif
-    endif
-
-    " Get job status if not using Nvim
-    if !has('nvim') | let l:newTagsJobStatus = job_status(l:createNewTagsJob) | endif 
-
-    if !has('nvim') && (l:newTagsJobStatus ==? "fail" || l:newTagsJobStatus ==? "dead")
-        echohl WarningMsg | redraw | echom "Tags file failed to be created with status " . l:newTagsJobStatus| echohl None
-        call job_stop(l:createNewTagsJob)
-    elseif has('nvim') && (l:createNewTagsJob < 1)
-        echohl WarningMsg | redraw | echom "Tags file failed to be created with status " . l:createNewTagsJob | echohl None
-        call jobstop(l:createNewTagsJob)
-    else 
-        " If job does not report fail status
-        echohl title | redraw | echom "Tags file was updated successfully" | echohl None
-    endif 
-        
-    " Delete old tags file and reset tags
-    set tags-=./old-tags,old-tags
-    call delete("./old-tags")
-endfunction
-
+" {{{ Toggle Netrw function
 " Toggle Netrw window open and close with the same key
 function! functions#ToggleNetrw()
     if &filetype != "netrw"
@@ -201,32 +126,9 @@ function! functions#ToggleNetrw()
         call winrestview(b:windowpos) " Reset view
     endif
 endfunction
+" }}}
 
-" Function to display Git branch in statusline
-function! functions#GitBranchStatusLine()
-    if executable('git')
-        if exists("b:git_branch")
-            return b:git_branch
-        else
-            return ''
-        endif
-    endif
-endfunction
-" Function to retrieve Git branch from the repository
-function! functions#GetGitBranch()
-    if executable('git')
-        let l:is_git_dir = trim(system('git rev-parse --is-inside-work-tree'))
-        if l:is_git_dir is# 'true'
-            let b:git_branch = " " . trim(system('git rev-parse --abbrev-ref HEAD')) . " |"
-            if strlen(b:git_branch) > 50
-                let b:git_branch = ''
-            endif
-        else
-            let b:git_branch = ''
-        endif 
-    endif
-endfunction
-
+"{{{ Grepping Functions
 " Function that lets the user decide what to grep through visual selection
 function! functions#GrepOperator(type, ...)
     let saved_unnamed_register = @@
@@ -308,7 +210,9 @@ function! functions#ReplaceGrep(PatternToReplace)
     execute "cfdo %s/" . expand(a:PatternToReplace) . "/" . expand(l:replace) . "/gc | w"
     return
 endfunction
+"}}}
 
+" {{{ Template functions
 " Template functions
 function! functions#SetupJavaClass()
     execute "%s/__CLASS_NAME__/" . expand('%:t:r')
@@ -325,3 +229,4 @@ function! functions#SetupHeaderGuards()
     let headerName = toupper(expand('%:t:r')) . '_H'
     execute "%s/__HEADER_NAME__/" . headerName
 endfunction
+"}}}
