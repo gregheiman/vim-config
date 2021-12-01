@@ -2,6 +2,7 @@
 setlocal path^=after/**,autoload/**
 " Set fold method
 setlocal foldmethod=marker
+setlocal keywordprg=:help
 
 " Assign F12 to reload the current file
 nnoremap <silent> <F12> :so %<CR> | redraw

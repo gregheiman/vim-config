@@ -20,8 +20,9 @@ Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
 Plug 'xero/sourcerer.vim' " Sourcerer theme
 
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+Plug 'romainl/vim-devdocs' " Auto open devdocs.io for word under cursor
+Plug 'prabirshrestha/vim-lsp' " Vim LSP client
+Plug 'mattn/vim-lsp-settings' " Automatic install and setup of LSP servers for vim-lsp
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -116,6 +117,11 @@ if has("autocmd")
         autocmd BufNewFile *.h 0r ~/.vim/skeletons/skeleton.h | call functions#SetupHeaderGuards() 
         autocmd BufNewFile *.java 0r ~/.vim/skeletons/skeleton.java | call functions#SetupJavaClass()
     augroup END
+    augroup quickfix " Auto open window after issuing :Grep command if there are items present
+        autocmd!
+        autocmd QuickFixCmdPost cgetexpr cwindow
+        autocmd QuickFixCmdPost lgetexpr lwindow
+    augroup END
 endif
 "}}}
 
@@ -169,13 +175,23 @@ else
     nnoremap co<CR> :copen<CR>
 endif
 
-" Set Escape to leave terminal mode
-if has("nvim")
+if has("nvim") " Set Escape to leave terminal mode
   au TermOpen * tnoremap <Esc> <c-\><c-n>
 endif
 
+if exists("g:loaded_devdocs") " Use vim-devdocs as keyword prg
+    set keywordprg=:DD
+endif 
+
 " Auto split the terminal and open it in current directory
 command! -nargs=0 -bar Term let $VIM_DIR=expand('%:p:h') | silent exe 'sp' | silent exe 'term' | silent exe 'cd $VIM_DIR'
+
+" Async grep for words using the grep command. Shamelessly stolen from romainl
+command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr functions#Grep(<f-args>) 
+command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr functions#Grep(<f-args>)
+" Auto replace :grep with :Grep
+cnoreabbrev <expr> grep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'Grep' : 'grep'
+cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
 
 " Eat spaces (or any other char) for abbreviations
 function! Eatchar(pat)

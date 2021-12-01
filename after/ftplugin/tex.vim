@@ -93,55 +93,55 @@ endfunction
 
 " Abbreviations
 " Article boilerplate
-iabbrev article \documentclass[letterpaper,12pt]{article}<CR><CR>\title{<++>}<CR>\author{<++>}<CR>\date{<++>}<CR><CR>\begin{document}<CR>\maketitle<CR><++><CR>\end{document}<Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> article \documentclass[letterpaper,12pt]{article}<CR><CR>\title{<++>}<CR>\author{<++>}<CR>\date{<++>}<CR><CR>\begin{document}<CR>\maketitle<CR><++><CR>\end{document}<Esc>/<++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Begin and end boilerplate
-iabbrev beg \begin{<beg++>}<CR><++><CR>\end{<++>}<ESC>/<beg++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> beg \begin{<beg++>}<CR><++><CR>\end{<++>}<ESC>/<beg++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Itemize begin boilerplate
-iabbrev begitem \begin{itemize}<CR><i++><CR><BS><BS>\end{itemize}<ESC>/<i++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> begitem \begin{itemize}<CR><i++><CR><BS><BS>\end{itemize}<ESC>/<i++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " 2 column table boilerplate
-iabbrev 2ctable \begin{center}<CR>\begin{tabular}{\|c\|c\|}<CR><2c++><CR>\end{tabular}<CR>\end{center}<Esc>/<2c++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> 2ctable \begin{center}<CR>\begin{tabular}{\|c\|c\|}<CR><2c++><CR>\end{tabular}<CR>\end{center}<Esc>/<2c++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Table boilerplate
-iabbrev table \begin{center}<CR>\begin{tabular}{<ta++>}<CR><++><CR>\end{tabular}<CR>\end{center}<Esc>/<ta++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> table \begin{center}<CR>\begin{tabular}{<ta++>}<CR><++><CR>\end{tabular}<CR>\end{center}<Esc>/<ta++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Italicize words
-iabbrev emph \emph{<e++>}<++><Esc>/<e++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> emph \emph{<e++>}<++><Esc>/<e++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Bold words
-iabbrev bold \textbf{<b++>}<++><Esc>/<b++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> bold \textbf{<b++>}<++><Esc>/<b++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 
 " Math Abbreviations
 " Add text inside of math
-iabbrev textrm \textrm{<rm++>}<++><Esc>/<rm++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> textrm \textrm{<rm++>}<++><Esc>/<rm++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Inline math
-iabbrev mk $<m++>$<++><Esc>/<m++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> mk $<m++>$<++><Esc>/<m++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Line math
-iabbrev dm \[\]<++><Esc>bf[a<CR><CR><Up><Tab><Tab><Tab><Tab><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> dm \[\]<++><Esc>bf[a<CR><CR><Up><Tab><Tab><Tab><Tab><C-R>=Eatchar('\s')<CR>
 " Vector
-iabbrev vec \vec{<v++>}<++><Esc>/<v++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> vec \vec{<v++>}<++><Esc>/<v++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Square
-iabbrev #r ^2<C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> #r ^2<C-R>=Eatchar('\s')<CR>
 " Cube
-iabbrev #c ^3<C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> #c ^3<C-R>=Eatchar('\s')<CR>
 " Superscript
-iabbrev #S ^{<S++>}<++><Esc>/<S++><CR><Esc>/<S++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>>
+iabbrev <buffer> #S ^{<S++>}<++><Esc>/<S++><CR><Esc>/<S++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>>
 " Subscript
-iabbrev #s _{<s++>}<++><Esc>/<s++><CR><Esc>/<s++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> #s _{<s++>}<++><Esc>/<s++><CR><Esc>/<s++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Fraction
-iabbrev frac \frac{<f++>}{<++>}<++><Esc>/<f++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> fr \frac{<f++>}{<++>}<++><Esc>/<f++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Hat
-iabbrev hat \hat{<h++>}<++><Esc>/<h++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> hat \hat{<h++>}<++><Esc>/<h++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Limit
-iabbrev lim \lim_{<l++>}<++><Esc>/<l++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> lim \lim_{<l++>}<++><Esc>/<l++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Summation
-iabbrev summ \sum_{<u++>}^{<++>}<Esc>/<u++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> summ \sum_{<u++>}^{<++>}<Esc>/<u++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Integral
-iabbrev inte \int_<in++>^<++><Esc>/<in++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> inte \int_<in++>^<++><Esc>/<in++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Square root
-iabbrev sqrt \sqrt{<sq++>}<++><Esc>/<sq++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> sqrt \sqrt{<sq++>}<++><Esc>/<sq++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 
 " Symbol Abbreviations
 " Lower case theta
-iabbrev theta \theta<Left><Right><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> theta \theta<Left><Right><C-R>=Eatchar('\s')<CR>
 " Lower case pi
-iabbrev pi \pi<Left><Right><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> pi \pi<Left><Right><C-R>=Eatchar('\s')<CR>
 " Upper case delta
-iabbrev Delta \Delta<Left><Right><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> Delta \Delta<Left><Right><C-R>=Eatchar('\s')<CR>
 

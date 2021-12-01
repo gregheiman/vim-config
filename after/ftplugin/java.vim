@@ -23,8 +23,8 @@ nnoremap <F8> :update<CR>:silent make<CR>
 
 " Setup :find command
 " Setup inefficient path that will find pretty much everything in the project
-set path^=**/src/main/java**,**/src/test/java/**,**/src/main/resources/**
-set wildignore+=**/target/**
+setlocal path^=**/src/main/java**,**/src/test/java/**,**/src/main/resources/**
+setlocal wildignore+=**/target/**
 " Setup more efficient path that will find everything in the current module
 "set path^=src/main/java/**,src/test/java/**,src/main/resources/**
 " Proper include statement

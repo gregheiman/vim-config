@@ -129,6 +129,10 @@ endfunction
 " }}}
 
 "{{{ Grepping Functions
+function! functions#Grep(...)
+    return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+endfunction
+
 " Function that lets the user decide what to grep through visual selection
 function! functions#GrepOperator(type, ...)
     let saved_unnamed_register = @@

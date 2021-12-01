@@ -3,10 +3,10 @@
 if glob("makefile") || glob("Makefile")
     set makeprg=make
 else
-    if executable("clang++")
-        set makeprg=clang++\ -g\ -Wall\ *.cpp\ -o\ %:r.exe
-    elseif executable("g++")
-        set makeprg=g++\ -g\ -Wall\ *.cpp\ -o\ %:r.exe
+    if executable("g++")
+        set makeprg=g++
+    elseif executable("clang++")
+        set makeprg=clang++
     endif
 endif
 
@@ -25,6 +25,7 @@ endif
 setlocal path^=src/**,include/**,resources/**,/usr/include,
 setlocal wildignore^=lib/**
 setlocal suffixesadd+=.cpp,.cc,.h,.hpp
+setlocal keywordprg=:Man
 
 " Abbreviations
 iabbrev <buffer> main int<Space>main()<Space>{}<Left><Left><CR><Right><CR><CR>return<Space>0;<Up><Tab><C-R>=Eatchar('\s')<CR>
