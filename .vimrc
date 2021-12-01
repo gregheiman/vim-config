@@ -18,8 +18,10 @@ Plug 'airblade/vim-rooter' " Find project root automatically
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
-Plug 'gruvbox-community/gruvbox' " Gruvbox theme
 Plug 'xero/sourcerer.vim' " Sourcerer theme
+
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -191,8 +193,8 @@ let g:netrw_keepdir = 0 " Netrw will change working directory every new file
 let g:currentmode={'n'  : 'NORMAL', 'v'  : 'VISUAL', 'V'  : 'V·Line', 
                     \ "\<C-V>" : 'V·Block', 'i'  : 'INSERT', 'R'  : 'R', 
                     \ 'Rv' : 'V·Replace', 'c'  : 'Command', 'r' : 'Replace', 
-                    \ 't': 'Terminal'}
-set statusline= " Clear the status line
+                    \ 't': 'Terminal'} 
+set statusline= " Clear the status line 
 set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\| " Mode
 set statusline+=\ %{fugitive#head()}\ \\| " Git branch
 set statusline+=\ %t\ \\| " File name
@@ -239,4 +241,26 @@ endif
 " Rooter configuration
 let g:rooter_silent_chdir = 1
 let g:rooter_change_directory_for_non_project_files = 'current'
+
+function! g:On_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    let g:mucomplete#chains = {
+        \ 'default' : ['path', 'omni'],
+        \ }
+endfunction
 "}}}
