@@ -1,12 +1,11 @@
-
 " Set the program that is called with :make
 if glob("makefile") || glob("Makefile")
     set makeprg=make
 else
-    if executable("clang++")
-        set makeprg=clang++\ -g\ -Wall\ *.cpp\ -o\ %:r.exe
-    elseif executable("g++")
-        set makeprg=g++\ -g\ -Wall\ *.cpp\ -o\ %:r.exe
+    if executable("clang")
+        set makeprg=clang\ -g\ -Wall\ *.c\ -o\ %:r.exe
+    elseif executable("gcc")
+        set makeprg=gcc\ -g\ -Wall\ *.c\ -o\ %:r.exe
     endif
 endif
 
@@ -16,7 +15,7 @@ nnoremap <buffer> <F8> :update<CR>:make<CR>
 nnoremap <F9> :update<CR>:!%:p:r.exe<CR>
 
 if exists("g:lsp_loaded")
-        call g:On_lsp_buffer_enabled()
+    call g:On_lsp_buffer_enabled()
 else
     setlocal omnifunc=ccomplete#Complete
 endif
@@ -24,7 +23,7 @@ endif
 " Set up :find
 setlocal path^=src/**,include/**,resources/**,/usr/include,
 setlocal wildignore^=lib/**
-setlocal suffixesadd+=.cpp,.cc,.h,.hpp
+setlocal suffixesadd+=.c,.h
 
 " Abbreviations
 iabbrev <buffer> main int<Space>main()<Space>{}<Left><Left><CR><Right><CR><CR>return<Space>0;<Up><Tab><C-R>=Eatchar('\s')<CR>
@@ -37,7 +36,3 @@ iabbrev <buffer> if if<Space>(<if++>)<Space>{<++>}<++><Esc>bi<CR><Esc>f{a<CR><Es
 iabbrev <buffer> elif else<Space>if<Space>(<elif++>)<Space>{<++>}<++><Esc>bi<CR><Esc>f{a<CR><Esc>f}i<CR><Esc>/<elif++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 iabbrev <buffer> else else<Space>{<else++>}<++><Esc>F{i<CR><Esc>f{a<CR><Esc>f}i<CR><Esc>/<else++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 iabbrev <buffer> struct struct<Space><s++><Space>{<++>};<Esc>bi<CR><Esc>a<CR><Esc>f}i<CR><Esc>/<s++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
-iabbrev <buffer> class class<Space><c++><Space>{<++>};<Esc>bi<CR><Esc>a<CR><Esc>f}i<CR><Esc>/<c++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
-iabbrev <buffer> cout cout<Space><<<Space><C-R>=Eatchar('\s')<CR>
-iabbrev <buffer> cin cin<Space>>><Space><C-R>=Eatchar('\s')<CR>
-iabbrev <buffer> namespacestd using<Space>namespace<Space>std;<C-R>=Eatchar('\s')<CR>

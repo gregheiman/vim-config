@@ -41,18 +41,18 @@ augroup END
 
 " Abbreviations
 " Main
-iabbrev main public<Space>static<Space>void<Space>main(String[] args)<Space>{}<Left><CR><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> main public<Space>static<Space>void<Space>main(String[] args)<Space>{}<Left><CR><C-R>=Eatchar('\s')<CR>
 " Println and print
-iabbrev println System.out.println(<pl++>);<++><Esc>/<pl++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
-iabbrev print System.out.print(<pr++>);<++><Esc>/<pr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> println System.out.println(<pl++>);<++><Esc>/<pl++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> print System.out.print(<pr++>);<++><Esc>/<pr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Import statement
-iabbrev imp import<Space>"<im++>"<Esc>/<im++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> imp import<Space>"<im++>"<Esc>/<im++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " For loop
-iabbrev forl for<Space>(<f++>; <++>; <++>)<space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<f++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> forl for<Space>(<f++>; <++>; <++>)<space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<f++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " If statment
-iabbrev ifs if<Space>(<if++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<if++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> ifs if<Space>(<if++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<if++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Try catch block
-iabbrev tryb try<Space>{<tr++>}<Esc>F{a<CR><Esc>f}i<CR><Esc>a<Space>catch<Space>(<++>)<Space>{<++>}<++><Esc>F{a<CR><Esc>f}i<CR><Esc>/<tr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> tryb try<Space>{<tr++>}<Esc>F{a<CR><Esc>f}i<CR><Esc>a<Space>catch<Space>(<++>)<Space>{<++>}<++><Esc>F{a<CR><Esc>f}i<CR><Esc>/<tr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Private and public methods
-iabbrev prm private<Space><pr++>(<++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<pr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
-iabbrev pbm public<Space><pb++>(<++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<pb++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> prm private<Space><pr++>(<++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<pr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> pbm public<Space><pb++>(<++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<pb++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
