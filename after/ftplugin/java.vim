@@ -18,6 +18,10 @@ let java_highlight_functions = "style"
 let java_highlight_all = 1
 let java_highlight_debug = 0
 
+if exists("g:lsp_loaded")
+        call g:On_lsp_buffer_enabled()
+endif
+
 " Assign F8 to compile the current Java file
 nnoremap <F8> :update<CR>:silent make<CR>
 
