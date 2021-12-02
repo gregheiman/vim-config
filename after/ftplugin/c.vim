@@ -3,7 +3,7 @@ if glob("makefile") || glob("Makefile")
     set makeprg=make
 else
     if executable("gcc")
-        compiler=gcc
+        compiler gcc
     elseif executable("clang")
         set makeprg=clang 
     endif

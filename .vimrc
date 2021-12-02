@@ -20,7 +20,6 @@ Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
 Plug 'xero/sourcerer.vim' " Sourcerer theme
 
-Plug 'romainl/vim-devdocs' " Auto open devdocs.io for word under cursor
 Plug 'prabirshrestha/vim-lsp' " Vim LSP client
 Plug 'mattn/vim-lsp-settings' " Automatic install and setup of LSP servers for vim-lsp
 call plug#end() " REQUIRED
@@ -179,10 +178,6 @@ if has("nvim") " Set Escape to leave terminal mode
   au TermOpen * tnoremap <Esc> <c-\><c-n>
 endif
 
-if exists("g:loaded_devdocs") " Use vim-devdocs as keyword prg
-    set keywordprg=:DD
-endif 
-
 " Auto split the terminal and open it in current directory
 command! -nargs=0 -bar Term let $VIM_DIR=expand('%:p:h') | silent exe 'sp' | silent exe 'term' | silent exe 'cd $VIM_DIR'
 
@@ -222,7 +217,6 @@ set statusline+=\ \\|\ %{toupper(&enc)} " Encoding
 set statusline+=\ \\|\ %l/%L " Current line/Total lines
 set statusline+=\  " Extra space at the end
 
-" Mucomplete configuration
 let g:mucomplete#always_use_completeopt = 1
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 450
@@ -241,7 +235,6 @@ imap <left> <plug>(MUcompleteCycBwd)
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
 
-" Gutentags configuration
 if has('win64') || has('win32') 
     let g:gutentags_ctags_extra_args = [
         \ '--tag-relative=yes',
@@ -254,7 +247,6 @@ if has('win64') || has('win32')
         \]
 endif
 
-" Rooter configuration
 let g:rooter_silent_chdir = 1
 let g:rooter_change_directory_for_non_project_files = 'current'
 
