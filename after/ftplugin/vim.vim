@@ -1,5 +1,5 @@
 " Set up :find
-setlocal path^=after/**,autoload/**
+setlocal path^=after/**,autoload/**,compiler/**
 " Set fold method
 setlocal foldmethod=marker
 setlocal keywordprg=:help

@@ -168,11 +168,16 @@ nnoremap <silent> [q :cprev<CR>
 nnoremap <silent> [Q :cfirst<CR>
 nnoremap <silent> ]Q :clast<CR>
 
-if exists("g:loaded_dispatch") " Open up :Copen if Dispatch else just open normal :copen
+if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
     nnoremap co<CR> :Copen<CR>
 else
     nnoremap co<CR> :copen<CR>
 endif
+
+" Auto replace :make with :Make
+if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
+    cnoreabbrev <expr> make (getcmdtype() ==# ':' && getcmdline() ==# 'make') ? 'Make' : 'make'
+endif 
 
 if has("nvim") " Set Escape to leave terminal mode
   au TermOpen * tnoremap <Esc> <c-\><c-n>
