@@ -11,7 +11,7 @@
 " ==============================================================================
 
 let g:cpp_function_highlight = 1
-let g:cpp_member_highlight = 1
+let g:cpp_member_highlight = 0
 
 " Highlight additional keywords in the comments
 syn keyword cTodo contained BUG NOTE

@@ -4,9 +4,9 @@
 filetype off " REQUIRED Disable file type for vim plug.
 " Check for OS system in order to start vim-plug in
 if has('win32') || has('win64')
-let g:plugDirectory = '~/vimfiles/plugged'
+    let g:plugDirectory = '~/vimfiles/plugged'
 else
-let g:plugDirectory = '~/.vim/plugged'     
+    let g:plugDirectory = '~/.vim/plugged'
 endif
 call plug#begin(plugDirectory) " REQUIRED
 Plug 'tpope/vim-dispatch' " Asynchronous make

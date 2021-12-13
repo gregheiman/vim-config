@@ -10,10 +10,7 @@
 " https://github.com/octol/vim-cpp-enhanced-highlight
 " ==============================================================================
 
-let g:cpp_function_highlight = 1
-let g:cpp_attributes_highlight = 1
-let g:cpp_member_highlight = 1
-let g:cpp_simple_highlight = 1
+let g:cpp_attributes_highlight = 0
 
 " C++ attributes {{{1
 if get(g:, 'cpp_attributes_highlight', 0)
