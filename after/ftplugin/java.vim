@@ -8,8 +8,6 @@ function! java#DetectMaven()
         echohl title | redraw | echom "Maven wrapper detected" | echohl None
     else
         compiler javac
-        " Assigns F9 to run the current Java file
-        nnoremap <F9> :update<CR>:!java %:p:r<CR>
     endif
 endfunction
 
@@ -19,11 +17,15 @@ let java_highlight_all = 1
 let java_highlight_debug = 0
 
 if exists("g:lsp_loaded")
-        call g:On_lsp_buffer_enabled()
+    call g:On_lsp_buffer_enabled()
 endif
 
 " Assign F8 to compile the current Java file
-nnoremap <F8> :update<CR>:silent make<CR>
+if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
+    nnoremap <buffer> <F8> :update<CR>:Make %<CR>
+else
+    nnoremap <buffer> <F8> :update<CR>:make %<CR>
+endif 
 
 " Setup :find command
 " Setup inefficient path that will find pretty much everything in the project
@@ -35,7 +37,6 @@ setlocal wildignore+=**/target/**
 setlocal include=^\\s*import
 " Proper define statement for the beginning of functions
 setlocal define=^\\s*\\(private\\\|public\\\|protected\\)\\s*\\a*\\s*
-
 
 " Set up make
 augroup Project

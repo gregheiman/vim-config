@@ -12,7 +12,3 @@ autocmd BufRead,BufNewFile match BadWhitespace /\s\+$/
 
 setlocal foldmethod=indent
 setlocal nofoldenable
-
-if exists("g:lsp_loaded")
-    call g:On_lsp_buffer_enabled()
-endif

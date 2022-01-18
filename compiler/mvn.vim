@@ -5,7 +5,7 @@ else
 endif
 
 " Set up Dispatch if it exists
-if exists("g:loaded_dispatch")
+if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
     let b:dispatch = "mvn test" " Set default for :Dispatch command
     augroup DispatchMake
         autocmd!

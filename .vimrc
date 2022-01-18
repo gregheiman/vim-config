@@ -17,11 +17,8 @@ Plug 'tpope/vim-commentary' " Easy commenting of lines
 Plug 'airblade/vim-rooter' " Find project root automatically
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
-Plug 'ludovicchabant/vim-gutentags' " Make working with tags nice
-Plug 'xero/sourcerer.vim' " Sourcerer theme
-
 Plug 'prabirshrestha/vim-lsp' " Vim LSP client
-Plug 'mattn/vim-lsp-settings' " Automatic install and setup of LSP servers for vim-lsp
+Plug 'gruvbox-community/gruvbox' " Gruvbox theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -71,7 +68,9 @@ if has('autocmd')
         autocmd ColorScheme * highlight! link TabLine LineNr
     augroup END
 endif
-colorscheme sourcerer " Set color theme
+let g:gruvbox_contrast_light = "soft"
+let g:gruvbox_contrast_dark = "medium"
+colorscheme gruvbox " Set color theme
 
 if has("gui_running") | set guifont=JetBrains\ Mono\ Regular:h11 | endif " Set font for gui
 
@@ -222,9 +221,10 @@ set statusline+=\ \\|\ %{toupper(&enc)} " Encoding
 set statusline+=\ \\|\ %l/%L " Current line/Total lines
 set statusline+=\  " Extra space at the end
 
+" MuComplete Configuration
 let g:mucomplete#always_use_completeopt = 1
 let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#completion_delay = 450
+let g:mucomplete#completion_delay = 200
 let g:mucomplete#reopen_immediately = 0
 let g:mucomplete#chains = {
         \ 'default' : ['path', 'omni', 'tags', 'incl'],
@@ -240,41 +240,29 @@ imap <left> <plug>(MUcompleteCycBwd)
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
 
-if has('win64') || has('win32') 
-    let g:gutentags_ctags_extra_args = [
-        \ '--tag-relative=yes',
-        \ '--fields=+ailmnS',
-        \ '--exclude=*.db',
-        \ '--exclude=.git/*',
-        \ '--exclude=.idea/*',
-        \ '--exclude=target/*',
-        \ '--exclude=node_modules/*',
-        \]
-endif
-
+" Rooter Configuration
 let g:rooter_silent_chdir = 1
-let g:rooter_change_directory_for_non_project_files = 'current'
 
-function! g:On_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gs <plug>(lsp-document-symbol-search)
-    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <leader>rn <plug>(lsp-rename)
-    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
-    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
-    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
-
-    let g:lsp_format_sync_timeout = 1000
-    let g:mucomplete#chains = {
-        \ 'default' : ['path', 'omni'],
-        \ 'java' : ['path', 'omni'],
-        \ }
-endfunction
+" Vim-Lsp Configuration
+let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_echo_cursor = 1
+augroup LSP_Config
+    autocmd!
+    if executable('pylsp')
+        autocmd User lsp_setup call lsp#register_server({
+            \ 'name': 'pylsp',
+            \ 'cmd': {server_info->['pylsp']},
+            \ 'allowlist': ['python'],
+            \ })
+    endif
+    if executable('clangd')
+        autocmd User lsp_setup call lsp#register_server({
+            \ 'name': 'clangd',
+            \ 'cmd': {server_info->['clangd']},
+            \ 'allowlist': ['c', 'cpp'],
+            \ })
+    endif
+    " call g:On_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call g:On_lsp_buffer_enabled()
+augroup END
 "}}}
