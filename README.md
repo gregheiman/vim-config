@@ -12,7 +12,7 @@ much issue.
 - [Installation for MacOS](#installation-for-macos)
 - [Installation for Linux](#installation-for-linux)
 
-<a name="installation-for-windows"
+<a name="installation-for-windows">
 ### Installation for Windows
 
 1. Install Vim from [here](https://github.com/vim/vim-win32-installer/releases) or through [Chocolatey](https://chocolatey.org/) using the following command:
