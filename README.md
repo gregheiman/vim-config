@@ -11,8 +11,9 @@ much issue.
 - [Installation for Windows](#installation-for-windows)
 - [Installation for MacOS](#installation-for-macos)
 - [Installation for Linux](#installation-for-linux)
+- [Dependencies](#dependencies)
 
-<a name="installation-for-windows">
+<a name="installation-for-windows"></a>
 ### Installation for Windows
 
 1. Install Vim from [here](https://github.com/vim/vim-win32-installer/releases) or through [Chocolatey](https://chocolatey.org/) using the following command:
@@ -41,7 +42,7 @@ choco install vim
     Then run :PlugInstall upon launching Vim for the first time.
 5. Restart Vim.
 
-<a name="installation-for-macos"/>
+<a name="installation-for-macos"></a>
 ### Installation for MacOS
 
 1. Install MacVim from [here](https://github.com/macvim-dev/macvim/releases/tag/snapshot-161).
@@ -64,7 +65,7 @@ choco install vim
     Then run :PlugInstall upon launching Vim for the first time.
 6. Restart MacVim.
 
-<a name="installation-for-linux"/>
+<a name="installation-for-linux"></a>
 ### Installation for Linux
 
 1. Install Vim through your package manager.
@@ -87,7 +88,7 @@ choco install vim
     Then run :PlugInstall upon launching Vim for the first time.
 6. Restart Vim.
 
-<a name="dependencies"/>
+<a name="dependencies"></a>
 ### Dependencies
 
 **Required Dependencies:**
