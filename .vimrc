@@ -10,15 +10,11 @@ else
 endif
 call plug#begin(plugDirectory) " REQUIRED
 Plug 'tpope/vim-dispatch' " Asynchronous make
-Plug 'dhruvasagar/vim-markify' " Populate sign column with symbols from vim-dispatch
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-surround' " Easy surrounding of current selection
 Plug 'tpope/vim-commentary' " Easy commenting of lines
-Plug 'airblade/vim-rooter' " Find project root automatically
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
-Plug 'prabirshrestha/vim-lsp' " Vim LSP client
-Plug 'gruvbox-community/gruvbox' " Gruvbox theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -68,9 +64,7 @@ if has('autocmd')
         autocmd ColorScheme * highlight! link TabLine LineNr
     augroup END
 endif
-let g:gruvbox_contrast_light = "soft"
-let g:gruvbox_contrast_dark = "medium"
-colorscheme gruvbox " Set color theme
+colorscheme koehler " Set color theme
 
 if has("gui_running") | set guifont=JetBrains\ Mono\ Regular:h11 | endif " Set font for gui
 
@@ -211,7 +205,7 @@ let g:currentmode={'n'  : 'NORMAL', 'v'  : 'VISUAL', 'V'  : 'V·Line',
                     \ 't': 'Terminal'} 
 set statusline= " Clear the status line 
 set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\| " Mode
-set statusline+=\ %{fugitive#head()}\ \\| " Git branch
+set statusline+=\ %{FugitiveHead()}\ \\| " Git branch
 set statusline+=\ %t\ \\| " File name
 set statusline+=\ %(\%m%r%h%w%) " Modified, Read-only, help display
 set statusline+=%= " Right align
@@ -227,8 +221,7 @@ let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 200
 let g:mucomplete#reopen_immediately = 0
 let g:mucomplete#chains = {
-        \ 'default' : ['path', 'omni', 'tags', 'incl'],
-        \ 'java'    : ['path', 'keyp', 'keyn', 'tags', 'incl'],
+        \ 'default' : ['path', 'tags', 'keyp'],
         \ 'latex'   : ['path', 'tags', 'keyp', 'uspl'],
         \ 'vim'     : ['path', 'cmd', 'keyp'],
         \ }
@@ -239,30 +232,4 @@ imap <left> <plug>(MUcompleteCycBwd)
 
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
-
-" Rooter Configuration
-let g:rooter_silent_chdir = 1
-
-" Vim-Lsp Configuration
-let g:lsp_diagnostics_virtual_text_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 1
-augroup LSP_Config
-    autocmd!
-    if executable('pylsp')
-        autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'pylsp',
-            \ 'cmd': {server_info->['pylsp']},
-            \ 'allowlist': ['python'],
-            \ })
-    endif
-    if executable('clangd')
-        autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'clangd',
-            \ 'cmd': {server_info->['clangd']},
-            \ 'allowlist': ['c', 'cpp'],
-            \ })
-    endif
-    " call g:On_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call g:On_lsp_buffer_enabled()
-augroup END
 "}}}

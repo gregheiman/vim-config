@@ -1,5 +1,5 @@
 " Set the program that is called with :make
-if glob("makefile") || glob("Makefile")
+if glob("makefile") != "" || glob("Makefile") != ""
     set makeprg=make
 else
     if executable("gcc")
@@ -12,8 +12,8 @@ endif
 nnoremap <buffer> <F8> :update<CR>:make<CR>
 
 " Set up :find
-setlocal path^=src/**,include/**,resources/**,/usr/include,
-setlocal wildignore^=**/*.o
+setlocal path^=src/**,include/**,resources/**,/usr/include,lib/**,
+setlocal wildignore^=**/*.o,
 setlocal suffixesadd+=.c,.h
 setlocal keywordprg=:Man
 

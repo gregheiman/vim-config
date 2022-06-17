@@ -1,5 +1,5 @@
 " Set the program that is called with :make
-if glob("makefile") || glob("Makefile")
+if glob("makefile") != "" || glob("Makefile") != ""
     set makeprg=make
 else
     if executable("g++")
@@ -21,8 +21,8 @@ nnoremap <F9> :update<CR>:!%:p:r.exe<CR>
 let g:termdebug_wide = 1
 
 " Set up :find
-setlocal path^=src/**,include/**,resources/**,/usr/include,
-setlocal wildignore^=lib/**
+setlocal path^=src/**,include/**,resources/**,/usr/include,lib/**,
+setlocal wildignore^=obj/**,
 setlocal suffixesadd+=.cpp,.cc,.h,.hpp
 setlocal keywordprg=:Man
 " Proper define statement for defines and constants

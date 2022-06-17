@@ -16,10 +16,6 @@ let java_highlight_functions = "style"
 let java_highlight_all = 1
 let java_highlight_debug = 0
 
-if exists("g:lsp_loaded")
-    call g:On_lsp_buffer_enabled()
-endif
-
 " Assign F8 to compile the current Java file
 if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
     nnoremap <buffer> <F8> :update<CR>:Make %<CR>
@@ -29,8 +25,8 @@ endif
 
 " Setup :find command
 " Setup inefficient path that will find pretty much everything in the project
-setlocal path^=**/src/main/java**,**/src/test/java/**,**/src/main/resources/**
-setlocal wildignore+=**/target/**
+setlocal path^=**/src/main/java**,**/src/test/java/**,**/src/main/resources/**,**/src/test/resources/**,
+setlocal wildignore^=**/target/**,**/*.class,
 " Setup more efficient path that will find everything in the current module
 "set path^=src/main/java/**,src/test/java/**,src/main/resources/**
 " Proper include statement
