@@ -123,7 +123,7 @@ function! functions#ToggleNetrw()
         silent Explore
     else
         silent Rexplore " Return to previous file
-        call winrestview(w:windowpos) " Reset view
+        call winrestview(b:windowpos) " Reset view
     endif
 endfunction
 " }}}
@@ -132,72 +132,6 @@ endfunction
 " Async grep using cgetexpr
 function! functions#Grep(...) 
     return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
-endfunction
-
-" Function that lets the user decide what to grep through visual selection
-function! functions#GrepOperator(type, ...)
-    let saved_unnamed_register = @@
-
-    if a:type ==# 'v'
-        " Yanks the last visual selection
-        normal! `<v`>y
-        " Determines grep scope
-        if (a:0 > 0)
-            call functions#DetermineGrep(@@, a:1)
-        else
-            call functions#DetermineGrep(@@)
-        endif
-        " Cleans the register
-        let @@ = saved_unnamed_register
-    elseif a:type ==# 'char'
-        " Yanks the motion
-        normal! `[v`]y
-        if (a:0 > 0)
-            call functions#DetermineGrep(@@, a:1)
-        else
-            call functions#DetermineGrep(@@)
-        endif
-        let @@ = saved_unnamed_register
-    else
-        return
-    endif
-endfunction
-" Determine the scope of :grep
-function! functions#DetermineGrep(word, ...)
-    let l:grepPreference = input("1. Project Wide \n2. Only in files of the same type \n3. Only in current file's folder \n4. Only in current file \nSelect Method of Grep for pattern \"" . expand(a:word) . "\": ")
-
-    if (l:grepPreference == 1) " Project wide
-        silent execute "Grep " . shellescape(expand(a:word)) . " **"
-        silent execute "copen"
-    elseif (l:grepPreference == 2) " Files of the same type (eg. *.java)
-        let b:current_filetype = &ft
-        silent execute "Grep " . shellescape(expand(a:word)) . " -t " . b:current_filetype
-        silent execute "copen"
-    elseif (l:grepPreference == 3) " Files in the current file's folder
-        let b:current_folder = expand('%:p:h')
-        silent execute "Grep " . shellescape(expand(a:word)) .  " " . expand("%:p:h")
-        silent execute "copen"
-    elseif (l:grepPreference == 4) " Only in the current file
-        silent execute "Grep " . shellescape(expand(a:word)) . " " . expand("%") 
-        silent execute "copen"
-    else
-        echohl WarningMsg | echo "\nPlease enter in a valid option" | echohl None
-        return
-    endif
-    
-    if (a:0 > 0) " If optional arugments are present
-        if (a:1 == 1) " Replace the grepped word
-            call functions#ReplaceGrep(a:word)
-        endif
-    endif
-endfunction
-" Function to replace Greped pattern
-function! functions#ReplaceGrep(PatternToReplace)
-    let l:replace = input("What would you like to replace \"" . expand(a:PatternToReplace). "\" with? ")
-    " Needs to write at end in order to not error on switching to next file in
-    " list
-    execute "cfdo %s/" . expand(a:PatternToReplace) . "/" . expand(l:replace) . "/gc | w"
-    return
 endfunction
 "}}}
 

@@ -136,14 +136,8 @@ nnoremap <leader>bd :bd<CR>
 nnoremap <silent> <leader>bg :call functions#GoToSpecifiedBuffer()<CR>
 nnoremap <leader>bl :buffers<CR>
 
-" Project wide search
-nnoremap <leader>f :call functions#DetermineGrep("<C-r><C-w>")<CR>
-vnoremap <leader>f :<C-u>call functions#GrepOperator(visualmode())<CR>
 " Local replace all instances of a variable using Vim
 nnoremap <leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
-" Project wide replace
-nnoremap <leader>R :call functions#DetermineGrep("<C-r><C-w>", '1')<CR>
-vnoremap <leader>R :<C-u>call functions#GrepOperator(visualmode(), '1')<CR>
 
 " Search for visually selected text in current file
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
