@@ -25,10 +25,8 @@ endif
 
 " Setup :find command
 " Setup inefficient path that will find pretty much everything in the project
-setlocal path^=**/src/main/java**,**/src/test/java/**,**/src/main/resources/**,**/src/test/resources/**,
-setlocal wildignore^=**/target/**,**/*.class,
-" Setup more efficient path that will find everything in the current module
-"set path^=src/main/java/**,src/test/java/**,src/main/resources/**
+setlocal path^=src/main/java/**,src/test/java/**,src/main/resources/**,src/test/resources/**
+setlocal wildignore+=**/target/**
 " Proper include statement
 setlocal include=^\\s*import
 " Proper define statement for the beginning of functions
@@ -42,18 +40,18 @@ augroup END
 
 " Abbreviations
 " Main
-iabbrev <buffer> main public<Space>static<Space>void<Space>main(String[] args)<Space>{}<Left><CR><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> amain public<Space>static<Space>void<Space>main(String[] args)<Space>{}<Left><CR><C-R>=Eatchar('\s')<CR>
 " Println and print
-iabbrev <buffer> println System.out.println(<pl++>);<++><Esc>/<pl++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
-iabbrev <buffer> print System.out.print(<pr++>);<++><Esc>/<pr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> aprintln System.out.println(<pl++>);<++><Esc>/<pl++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> aprint System.out.print(<pr++>);<++><Esc>/<pr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Import statement
-iabbrev <buffer> imp import<Space>"<im++>"<Esc>/<im++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> aimp import<Space>"<im++>"<Esc>/<im++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " For loop
-iabbrev <buffer> forl for<Space>(<f++>; <++>; <++>)<space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<f++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> aforl for<Space>(<f++>; <++>; <++>)<space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<f++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " If statment
-iabbrev <buffer> ifs if<Space>(<if++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<if++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> aif if<Space>(<if++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<if++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Try catch block
-iabbrev <buffer> tryb try<Space>{<tr++>}<Esc>F{a<CR><Esc>f}i<CR><Esc>a<Space>catch<Space>(<++>)<Space>{<++>}<++><Esc>F{a<CR><Esc>f}i<CR><Esc>/<tr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> atry try<Space>{<tr++>}<Esc>F{a<CR><Esc>f}i<CR><Esc>a<Space>catch<Space>(<++>)<Space>{<++>}<++><Esc>F{a<CR><Esc>f}i<CR><Esc>/<tr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
 " Private and public methods
-iabbrev <buffer> prm private<Space><pr++>(<++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<pr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
-iabbrev <buffer> pbm public<Space><pb++>(<++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<pb++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> aprm private<Space><pr++>(<++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<pr++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>
+iabbrev <buffer> apbm public<Space><pb++>(<++>)<Space>{<++>}<Esc>ba<CR><Esc>f}i<CR><Esc>/<pb++><CR><Esc>cf><C-R>=Eatchar('\s')<CR>

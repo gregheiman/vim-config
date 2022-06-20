@@ -123,7 +123,7 @@ function! functions#ToggleNetrw()
         silent Explore
     else
         silent Rexplore " Return to previous file
-        call winrestview(b:windowpos) " Reset view
+        call winrestview(w:windowpos) " Reset view
     endif
 endfunction
 " }}}
