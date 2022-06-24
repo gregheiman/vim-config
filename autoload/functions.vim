@@ -133,6 +133,26 @@ endfunction
 function! functions#Grep(...) 
     return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
 endfunction
+
+" Use grep as an operator allowing for motions
+function! functions#GrepOperator(type)
+  " cache the register
+  let saved_unnamed_register = @@
+
+  if a:type ==# 'v'
+    " copy selected in visual mode
+    normal! gvy
+  elseif a:type ==# 'char'     
+      normal! `[v`]y
+  else
+    return
+  endif
+
+  " @ is the unnameed default register
+  silent execute "Grep " . shellescape(@@)
+
+  let @@ = saved_unnamed_register
+endfunction
 "}}}
 
 " {{{ Template functions

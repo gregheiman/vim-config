@@ -173,6 +173,10 @@ endif
 " Auto split the terminal and open it in current directory
 command! -nargs=0 -bar Term let $VIM_DIR=expand('%:p:h') | silent exe 'sp' | silent exe 'term' | silent exe 'cd $VIM_DIR'
 
+" Map :grep to motions
+nnoremap <leader>f :set operatorfunc=functions#GrepOperator<CR>g@
+vnoremap <leader>f :<C-u>call functions#GrepOperator(visualmode())<CR>
+
 " Async grep for words using the grep command. Shamelessly stolen from romainl
 command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr functions#Grep(<f-args>) 
 command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr functions#Grep(<f-args>)

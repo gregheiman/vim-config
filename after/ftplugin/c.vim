@@ -4,6 +4,7 @@ if glob("makefile") != "" || glob("Makefile") != ""
 else
     if executable("gcc")
         compiler gcc
+        set makeprg=gcc
     elseif executable("clang")
         set makeprg=clang 
     endif
