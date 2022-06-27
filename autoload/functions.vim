@@ -131,7 +131,7 @@ endfunction
 "{{{ Grepping Functions
 " Async grep using cgetexpr
 function! functions#Grep(...) 
-    return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+    return system(join(extend([&grepprg], a:000), ' '))
 endfunction
 
 " Use grep as an operator allowing for motions
@@ -142,7 +142,7 @@ function! functions#GrepOperator(type)
   if a:type ==# 'v'
     " copy selected in visual mode
     normal! gvy
-  elseif a:type ==# 'char'     
+  elseif a:type ==# 'char'
       normal! `[v`]y
   else
     return

@@ -28,7 +28,7 @@ set mouse=a " Enable the mouse
 set nowrap " No line wrapping
 set autowriteall " Auto save on big events
 set encoding=utf-8 fileformat=unix fileformats=unix,dos " Set default encoding and line ending
-set path-=/usr/include " Remove /usr/include form path. Included for C langs. in ftplugin
+set path-=/usr/include " Remove /usr/include from path. Included for C langs. in ftplugin
 set wildignore+=**/.git/** " Add .git directory to wildignore. Nothing inside will be found by :find
 set noshowmode " Disable the mode display below statusline
 set backspace=indent,eol,start " Better backspace
@@ -49,6 +49,7 @@ set undodir=~/.vim-undo// backupdir=~/.vim-backup// " Save backups and undo file
 set sessionoptions=curdir,folds,globals,options,tabpages,unix,slash " Set what is saved in session files
 set colorcolumn=80 " Create line at 80 character mark
 set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
+set wildmenu " Show menu of possible candidates
 
 nnoremap <Nop> "\"
 let mapleader = "\\"
@@ -95,7 +96,7 @@ set clipboard+=unnamedplus " Use system clipboard
 if has("autocmd")
     augroup SaveSessionIfExistsUponExit
         autocmd!
-        autocmd VimLeavePre * if glob("Session.vim") != "" | mksession! | endif " Autosave Session.vim file if it exists
+        autocmd VimLeavePre * call functions#UpdateSessionOnExit() " Autosave Session.vim file if it exists
     augroup END
     augroup CheckVimrcOnEnter
         autocmd!
@@ -178,8 +179,8 @@ nnoremap <leader>f :set operatorfunc=functions#GrepOperator<CR>g@
 vnoremap <leader>f :<C-u>call functions#GrepOperator(visualmode())<CR>
 
 " Async grep for words using the grep command. Shamelessly stolen from romainl
-command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr functions#Grep(<f-args>) 
-command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr functions#Grep(<f-args>)
+command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr functions#Grep(<q-args>) 
+command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr functions#Grep(<q-args>)
 " Auto replace :grep with :Grep
 cnoreabbrev <expr> grep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'Grep' : 'grep'
 cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'

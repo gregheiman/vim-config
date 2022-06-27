@@ -8,5 +8,5 @@ let &packpath = &runtimepath
 if has('win64') || has('win32')
 	source ~/vimfiles/.vimrc 
 else
-	source ~/.vim/.vimrc
+	source ~/.vimrc
 endif
