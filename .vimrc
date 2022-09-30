@@ -15,6 +15,7 @@ Plug 'tpope/vim-surround' " Easy surrounding of current selection
 Plug 'tpope/vim-commentary' " Easy commenting of lines
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
+Plug 'dracula/vim'
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -65,7 +66,7 @@ if has('autocmd')
         autocmd ColorScheme * highlight! link TabLine LineNr
     augroup END
 endif
-colorscheme koehler " Set color theme
+colorscheme dracula " Set color theme
 
 if has("gui_running") | set guifont=JetBrains\ Mono\ Regular:h11 | endif " Set font for gui
 
