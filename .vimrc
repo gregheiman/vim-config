@@ -15,7 +15,9 @@ Plug 'tpope/vim-surround' " Easy surrounding of current selection
 Plug 'tpope/vim-commentary' " Easy commenting of lines
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
-Plug 'dracula/vim'
+Plug 'dense-analysis/ale' " Async linting and LSP support
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy find files and identifiers
+Plug 'dracula/vim' " Dracula color theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -152,21 +154,31 @@ inoremap <C-j> <Esc>/<++><CR><Esc>cf>
 inoremap <C-k> <Esc>?<++><CR><Esc>cf>
 
 " Set bindings for jumping to errors in quickfix list
-nnoremap <silent> ]q :cnext<CR>
-nnoremap <silent> [q :cprev<CR>
-nnoremap <silent> [Q :cfirst<CR>
-nnoremap <silent> ]Q :clast<CR>
+nmap <silent> ]q :cnext<CR>
+nmap <silent> [q :cprev<CR>
+nmap <silent> [Q :cfirst<CR>
+nmap <silent> ]Q :clast<CR>
 
 if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
     nnoremap co<CR> :Copen<CR>
+    " Auto replace :make with :Make
+    cnoreabbrev <expr> make (getcmdtype() ==# ':' && getcmdline() ==# 'make') ? 'Make' : 'make'
 else
     nnoremap co<CR> :copen<CR>
 endif
 
-" Auto replace :make with :Make
-if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
-    cnoreabbrev <expr> make (getcmdtype() ==# ':' && getcmdline() ==# 'make') ? 'Make' : 'make'
+" Add ALE keybinds if ALE is installed
+if !empty(globpath(&runtimepath, 'plugged/ale'))
+    nnoremap <silent> <C-]> :ALEGoToDefinition<CR>
+    nnoremap <silent> [q :ALEPreviousWrap<CR>
+    nnoremap <silent> ]q :ALENextWrap<CR>
 endif 
+
+" Add Files command to match my current Emacs workflow
+if !empty(globpath(&runtimepath, 'plugged/fzf'))
+    command! Files :FZF
+    autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+endif
 
 if has("nvim") " Set Escape to leave terminal mode
   au TermOpen * tnoremap <Esc> <c-\><c-n>
@@ -221,7 +233,7 @@ let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 200
 let g:mucomplete#reopen_immediately = 0
 let g:mucomplete#chains = {
-        \ 'default' : ['path', 'tags', 'keyp'],
+        \ 'default' : ['path', 'tags', 'omni'],
         \ 'latex'   : ['path', 'tags', 'keyp', 'uspl'],
         \ 'vim'     : ['path', 'cmd', 'keyp'],
         \ }
@@ -232,4 +244,10 @@ imap <left> <plug>(MUcompleteCycBwd)
 
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
+
+" ALE Configuration
+let g:ale_completion_enabled = 1
+let g:ale_set_quickfix = 1
+let g:ale_set_loclist = 0
+set omnifunc=ale#completion#OmniFunc
 "}}}
