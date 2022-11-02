@@ -1,5 +1,5 @@
 if glob('mvnw') != "" || glob('mvnw.bat') != ""
-    CompilerSet makeprg=mvnw\ clean\ compile
+    CompilerSet makeprg=mvnw\ -Dstyle.color=never\ clean\ compile
 else
     CompilerSet makeprg=mvn\ -Dstyle.color=never\ clean\ compile
 endif
@@ -7,11 +7,6 @@ endif
 " Set up Dispatch if it exists
 if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
     let b:dispatch = "mvn test" " Set default for :Dispatch command
-    augroup DispatchMake
-        autocmd!
-        " Automatically :Make in background on write
-        autocmd BufWritePost * silent execute("Make!")
-    augroup END
 endif
 
 augroup Make

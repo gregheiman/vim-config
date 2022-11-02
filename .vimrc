@@ -10,15 +10,15 @@ else
 endif
 call plug#begin(plugDirectory) " REQUIRED
 Plug 'tpope/vim-dispatch' " Asynchronous make
-Plug 'dhruvasagar/vim-markify' " Populate sign column with symbols from vim-dispatch
 Plug 'tpope/vim-fugitive' " Git wrapper
 Plug 'tpope/vim-surround' " Easy surrounding of current selection
 Plug 'tpope/vim-commentary' " Easy commenting of lines
-Plug 'airblade/vim-rooter' " Find project root automatically
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
-Plug 'prabirshrestha/vim-lsp' " Vim LSP client
-Plug 'gruvbox-community/gruvbox' " Gruvbox theme
+Plug 'dense-analysis/ale' " Async linting and LSP support
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy find files and identifiers
+Plug 'junegunn/fzf.vim' " Add FZF commands into Vim
+Plug 'dracula/vim' " Dracula color theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration 
@@ -32,7 +32,7 @@ set mouse=a " Enable the mouse
 set nowrap " No line wrapping
 set autowriteall " Auto save on big events
 set encoding=utf-8 fileformat=unix fileformats=unix,dos " Set default encoding and line ending
-set path-=/usr/include " Remove /usr/include form path. Included for C langs. in ftplugin
+set path-=/usr/include " Remove /usr/include from path. Included for C langs. in ftplugin
 set wildignore+=**/.git/** " Add .git directory to wildignore. Nothing inside will be found by :find
 set noshowmode " Disable the mode display below statusline
 set backspace=indent,eol,start " Better backspace
@@ -53,6 +53,7 @@ set undodir=~/.vim-undo// backupdir=~/.vim-backup// " Save backups and undo file
 set sessionoptions=curdir,folds,globals,options,tabpages,unix,slash " Set what is saved in session files
 set colorcolumn=80 " Create line at 80 character mark
 set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
+set wildmenu " Show menu of possible candidates
 
 nnoremap <Nop> "\"
 let mapleader = "\\"
@@ -68,9 +69,7 @@ if has('autocmd')
         autocmd ColorScheme * highlight! link TabLine LineNr
     augroup END
 endif
-let g:gruvbox_contrast_light = "soft"
-let g:gruvbox_contrast_dark = "medium"
-colorscheme gruvbox " Set color theme
+colorscheme dracula " Set color theme
 
 if has("gui_running") | set guifont=JetBrains\ Mono\ Regular:h11 | endif " Set font for gui
 
@@ -101,7 +100,7 @@ set clipboard+=unnamedplus " Use system clipboard
 if has("autocmd")
     augroup SaveSessionIfExistsUponExit
         autocmd!
-        autocmd VimLeavePre * if glob("Session.vim") != "" | mksession! | endif " Autosave Session.vim file if it exists
+        autocmd VimLeavePre * call functions#UpdateSessionOnExit() " Autosave Session.vim file if it exists
     augroup END
     augroup CheckVimrcOnEnter
         autocmd!
@@ -142,14 +141,8 @@ nnoremap <leader>bd :bd<CR>
 nnoremap <silent> <leader>bg :call functions#GoToSpecifiedBuffer()<CR>
 nnoremap <leader>bl :buffers<CR>
 
-" Project wide search
-nnoremap <leader>f :call functions#DetermineGrep("<C-r><C-w>")<CR>
-vnoremap <leader>f :<C-u>call functions#GrepOperator(visualmode())<CR>
 " Local replace all instances of a variable using Vim
 nnoremap <leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
-" Project wide replace
-nnoremap <leader>R :call functions#DetermineGrep("<C-r><C-w>", '1')<CR>
-vnoremap <leader>R :<C-u>call functions#GrepOperator(visualmode(), '1')<CR>
 
 " Search for visually selected text in current file
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
@@ -162,21 +155,31 @@ inoremap <C-j> <Esc>/<++><CR><Esc>cf>
 inoremap <C-k> <Esc>?<++><CR><Esc>cf>
 
 " Set bindings for jumping to errors in quickfix list
-nnoremap <silent> ]q :cnext<CR>
-nnoremap <silent> [q :cprev<CR>
-nnoremap <silent> [Q :cfirst<CR>
-nnoremap <silent> ]Q :clast<CR>
+nmap <silent> ]q :cnext<CR>
+nmap <silent> [q :cprev<CR>
+nmap <silent> [Q :cfirst<CR>
+nmap <silent> ]Q :clast<CR>
 
 if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
     nnoremap co<CR> :Copen<CR>
+    " Auto replace :make with :Make
+    cnoreabbrev <expr> make (getcmdtype() ==# ':' && getcmdline() ==# 'make') ? 'Make' : 'make'
 else
     nnoremap co<CR> :copen<CR>
 endif
 
-" Auto replace :make with :Make
-if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
-    cnoreabbrev <expr> make (getcmdtype() ==# ':' && getcmdline() ==# 'make') ? 'Make' : 'make'
+" Add ALE keybinds if ALE is installed
+if !empty(globpath(&runtimepath, 'plugged/ale'))
+    nnoremap <silent> <C-]> :ALEGoToDefinition<CR>
+    nnoremap <silent> gd :ALEGoToDefinition<CR>
+    nnoremap <silent> [q :ALEPreviousWrap<CR>
+    nnoremap <silent> ]q :ALENextWrap<CR>
 endif 
+
+" Esc closes FZF window
+if !empty(globpath(&runtimepath, 'plugged/fzf'))
+    autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+endif
 
 if has("nvim") " Set Escape to leave terminal mode
   au TermOpen * tnoremap <Esc> <c-\><c-n>
@@ -185,9 +188,13 @@ endif
 " Auto split the terminal and open it in current directory
 command! -nargs=0 -bar Term let $VIM_DIR=expand('%:p:h') | silent exe 'sp' | silent exe 'term' | silent exe 'cd $VIM_DIR'
 
+" Map :grep to motions
+nnoremap <leader>f :set operatorfunc=functions#GrepOperator<CR>g@
+vnoremap <leader>f :<C-u>call functions#GrepOperator(visualmode())<CR>
+
 " Async grep for words using the grep command. Shamelessly stolen from romainl
-command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr functions#Grep(<f-args>) 
-command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr functions#Grep(<f-args>)
+command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr functions#Grep(<q-args>) 
+command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr functions#Grep(<q-args>)
 " Auto replace :grep with :Grep
 cnoreabbrev <expr> grep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'Grep' : 'grep'
 cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
@@ -211,7 +218,7 @@ let g:currentmode={'n'  : 'NORMAL', 'v'  : 'VISUAL', 'V'  : 'V·Line',
                     \ 't': 'Terminal'} 
 set statusline= " Clear the status line 
 set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\| " Mode
-set statusline+=\ %{fugitive#head()}\ \\| " Git branch
+set statusline+=\ %{FugitiveHead()}\ \\| " Git branch
 set statusline+=\ %t\ \\| " File name
 set statusline+=\ %(\%m%r%h%w%) " Modified, Read-only, help display
 set statusline+=%= " Right align
@@ -227,8 +234,7 @@ let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 200
 let g:mucomplete#reopen_immediately = 0
 let g:mucomplete#chains = {
-        \ 'default' : ['path', 'omni', 'tags', 'incl'],
-        \ 'java'    : ['path', 'keyp', 'keyn', 'tags', 'incl'],
+        \ 'default' : ['path', 'tags', 'omni'],
         \ 'latex'   : ['path', 'tags', 'keyp', 'uspl'],
         \ 'vim'     : ['path', 'cmd', 'keyp'],
         \ }
@@ -240,29 +246,12 @@ imap <left> <plug>(MUcompleteCycBwd)
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
 
-" Rooter Configuration
-let g:rooter_silent_chdir = 1
-
-" Vim-Lsp Configuration
-let g:lsp_diagnostics_virtual_text_enabled = 0
-let g:lsp_diagnostics_echo_cursor = 1
-augroup LSP_Config
-    autocmd!
-    if executable('pylsp')
-        autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'pylsp',
-            \ 'cmd': {server_info->['pylsp']},
-            \ 'allowlist': ['python'],
-            \ })
-    endif
-    if executable('clangd')
-        autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'clangd',
-            \ 'cmd': {server_info->['clangd']},
-            \ 'allowlist': ['c', 'cpp'],
-            \ })
-    endif
-    " call g:On_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call g:On_lsp_buffer_enabled()
-augroup END
+" ALE Configuration
+let g:ale_linters = {
+    \ 'python': ['pylsp'],
+\}
+let g:ale_completion_enabled = 1
+let g:ale_set_quickfix = 1
+let g:ale_set_loclist = 0
+set omnifunc=ale#completion#OmniFunc
 "}}}

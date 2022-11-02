@@ -6,5 +6,5 @@ if exists("g:loaded_pear_tree")
 endif
 
 if matchstr(expand("%:t"), "pom.xml")
-    setlocal path^=**/src/main/java**,**/src/test/java/**,**/src/main/resources/**
+    setlocal path^=src/main/java/**,src/test/java/**,src/main/resources/**,src/test/resources/**
 endif
