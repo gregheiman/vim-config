@@ -17,6 +17,7 @@ Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
 Plug 'dense-analysis/ale' " Async linting and LSP support
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy find files and identifiers
+Plug 'junegunn/fzf.vim' " Add FZF commands into Vim
 Plug 'dracula/vim' " Dracula color theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
@@ -170,13 +171,13 @@ endif
 " Add ALE keybinds if ALE is installed
 if !empty(globpath(&runtimepath, 'plugged/ale'))
     nnoremap <silent> <C-]> :ALEGoToDefinition<CR>
+    nnoremap <silent> gd :ALEGoToDefinition<CR>
     nnoremap <silent> [q :ALEPreviousWrap<CR>
     nnoremap <silent> ]q :ALENextWrap<CR>
 endif 
 
-" Add Files command to match my current Emacs workflow
+" Esc closes FZF window
 if !empty(globpath(&runtimepath, 'plugged/fzf'))
-    command! Files :FZF
     autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 endif
 
@@ -246,6 +247,9 @@ imap <left> <plug>(MUcompleteCycBwd)
 let g:pear_tree_repeatable_expand = 0
 
 " ALE Configuration
+let g:ale_linters = {
+    \ 'python': ['pylsp'],
+\}
 let g:ale_completion_enabled = 1
 let g:ale_set_quickfix = 1
 let g:ale_set_loclist = 0
