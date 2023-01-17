@@ -1,6 +1,6 @@
 "{{{ " Plugins
 """"""""""""""""""""""""""""""""""""""""""
-" START Vim Plug Configuration 
+" START Vim Plug Configuration
 filetype off " REQUIRED Disable file type for vim plug.
 " Check for OS system in order to start vim-plug in
 if has('win32') || has('win64')
@@ -21,7 +21,7 @@ Plug 'junegunn/fzf.vim' " Add FZF commands into Vim
 Plug 'dracula/vim' " Dracula color theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
-"""" END Vim Plug Configuration 
+"""" END Vim Plug Configuration
 "}}}"
 
 "{{{ " Vim Configuration Setting
@@ -74,8 +74,8 @@ colorscheme dracula " Set color theme
 if has("gui_running") | set guifont=JetBrains\ Mono\ Regular:h11 | endif " Set font for gui
 
 if has('win32') || has('win64') " Start Vim fullscreen
-    autocmd GUIEnter * simalt ~x 
-endif 
+    autocmd GUIEnter * simalt ~x
+endif
 
 " Set true colors if supported. If not default to 256 colors
 if (has("termguicolors"))
@@ -90,7 +90,7 @@ endif
 
 if executable('rg') " Use ripgrep if available
     set grepprg=rg\ --vimgrep\ $*
-    set grepformat^=%f:%l:%c:%m 
+    set grepformat^=%f:%l:%c:%m
 endif
 
 set clipboard+=unnamedplus " Use system clipboard
@@ -106,12 +106,12 @@ if has("autocmd")
         autocmd!
         if has("job") || has("nvim")
             autocmd VimEnter * call functions#GitFetchVimrc(fnamemodify("%", ":p:h")) " Check if .vimrc needs to be updated on enter
-        endif 
+        endif
     augroup END
     augroup templates
         autocmd!
-        autocmd BufNewFile *.hpp 0r ~/.vim/skeletons/skeleton.h | call functions#SetupHeaderGuards() 
-        autocmd BufNewFile *.h 0r ~/.vim/skeletons/skeleton.h | call functions#SetupHeaderGuards() 
+        autocmd BufNewFile *.hpp 0r ~/.vim/skeletons/skeleton.h | call functions#SetupHeaderGuards()
+        autocmd BufNewFile *.h 0r ~/.vim/skeletons/skeleton.h | call functions#SetupHeaderGuards()
         autocmd BufNewFile *.java 0r ~/.vim/skeletons/skeleton.java | call functions#SetupJavaClass()
     augroup END
     augroup quickfix " Auto open window after issuing :Grep command if there are items present
@@ -128,8 +128,8 @@ endif
 nnoremap <silent> <F1> :call functions#ToggleNetrw()<CR>
 inoremap <silent> <F1> <Esc>:call functions#ToggleNetrw()<CR>
 
-" Keybinding for tabbing visual mode selection to automatically re-select the visual selection 
-vnoremap > >gv 
+" Keybinding for tabbing visual mode selection to automatically re-select the visual selection
+vnoremap > >gv
 vnoremap < <gv
 
 " Change mappings of buffer commands.
@@ -174,7 +174,8 @@ if !empty(globpath(&runtimepath, 'plugged/ale'))
     nnoremap <silent> gd :ALEGoToDefinition<CR>
     nnoremap <silent> [q :ALEPreviousWrap<CR>
     nnoremap <silent> ]q :ALENextWrap<CR>
-endif 
+    nnoremap <silent> K :ALEHover<CR>
+endif
 
 " Esc closes FZF window
 if !empty(globpath(&runtimepath, 'plugged/fzf'))
@@ -193,7 +194,7 @@ nnoremap <leader>f :set operatorfunc=functions#GrepOperator<CR>g@
 vnoremap <leader>f :<C-u>call functions#GrepOperator(visualmode())<CR>
 
 " Async grep for words using the grep command. Shamelessly stolen from romainl
-command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr functions#Grep(<q-args>) 
+command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr functions#Grep(<q-args>)
 command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr functions#Grep(<q-args>)
 " Auto replace :grep with :Grep
 cnoreabbrev <expr> grep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'Grep' : 'grep'
@@ -212,11 +213,11 @@ let g:netrw_banner = 0 " Get rid of banner in netrw
 let g:netrw_keepdir = 0 " Netrw will change working directory every new file
 
 " Status line
-let g:currentmode={'n'  : 'NORMAL', 'v'  : 'VISUAL', 'V'  : 'V·Line', 
-                    \ "\<C-V>" : 'V·Block', 'i'  : 'INSERT', 'R'  : 'R', 
-                    \ 'Rv' : 'V·Replace', 'c'  : 'Command', 'r' : 'Replace', 
-                    \ 't': 'Terminal'} 
-set statusline= " Clear the status line 
+let g:currentmode={'n'  : 'NORMAL', 'v'  : 'VISUAL', 'V'  : 'V·Line',
+                    \ "\<C-V>" : 'V·Block', 'i'  : 'INSERT', 'R'  : 'R',
+                    \ 'Rv' : 'V·Replace', 'c'  : 'Command', 'r' : 'Replace',
+                    \ 't': 'Terminal'}
+set statusline= " Clear the status line
 set statusline+=\ %{toupper(g:currentmode[mode()])}\ \\| " Mode
 set statusline+=\ %{FugitiveHead()}\ \\| " Git branch
 set statusline+=\ %t\ \\| " File name
@@ -247,8 +248,15 @@ imap <left> <plug>(MUcompleteCycBwd)
 let g:pear_tree_repeatable_expand = 0
 
 " ALE Configuration
+let g:ale_fixers = {
+    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \ 'rust': ['rustfmt'],
+\}
+let g:ale_fix_on_save = 1
+
 let g:ale_linters = {
     \ 'python': ['pylsp'],
+    \ 'rust': ['analyzer'],
 \}
 let g:ale_completion_enabled = 1
 let g:ale_set_quickfix = 1
