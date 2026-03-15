@@ -2,12 +2,7 @@
 """"""""""""""""""""""""""""""""""""""""""
 " START Vim Plug Configuration
 filetype off " REQUIRED Disable file type for vim plug.
-" Check for OS system in order to start vim-plug in
-if has('win32') || has('win64')
-    let g:plugDirectory = '~/vimfiles/plugged'
-else
-    let g:plugDirectory = '~/.vim/plugged'
-endif
+let g:plugDirectory = '~/.vim/plugged'
 call plug#begin(plugDirectory) " REQUIRED
 Plug 'tpope/vim-dispatch' " Asynchronous make
 Plug 'tpope/vim-fugitive' " Git wrapper
@@ -15,10 +10,7 @@ Plug 'tpope/vim-surround' " Easy surrounding of current selection
 Plug 'tpope/vim-commentary' " Easy commenting of lines
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
-Plug 'dense-analysis/ale' " Async linting and LSP support
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy find files and identifiers
-Plug 'junegunn/fzf.vim' " Add FZF commands into Vim
-Plug 'dracula/vim' " Dracula color theme
+Plug 'xero/sourcerer.vim' " Theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
 """" END Vim Plug Configuration
@@ -69,7 +61,7 @@ if has('autocmd')
         autocmd ColorScheme * highlight! link TabLine LineNr
     augroup END
 endif
-colorscheme dracula " Set color theme
+colorscheme sourcerer "Set color theme
 
 if has("gui_running") | set guifont=JetBrains\ Mono\ Regular:h11 | endif " Set font for gui
 
@@ -96,37 +88,11 @@ endif
 set clipboard+=unnamedplus " Use system clipboard
 "}}}
 
-"{{{ " Auto Commands
-if has("autocmd")
-    augroup SaveSessionIfExistsUponExit
-        autocmd!
-        autocmd VimLeavePre * call functions#UpdateSessionOnExit() " Autosave Session.vim file if it exists
-    augroup END
-    augroup CheckVimrcOnEnter
-        autocmd!
-        if has("job") || has("nvim")
-            autocmd VimEnter * call functions#GitFetchVimrc(fnamemodify("%", ":p:h")) " Check if .vimrc needs to be updated on enter
-        endif
-    augroup END
-    augroup templates
-        autocmd!
-        autocmd BufNewFile *.hpp 0r ~/.vim/skeletons/skeleton.h | call functions#SetupHeaderGuards()
-        autocmd BufNewFile *.h 0r ~/.vim/skeletons/skeleton.h | call functions#SetupHeaderGuards()
-        autocmd BufNewFile *.java 0r ~/.vim/skeletons/skeleton.java | call functions#SetupJavaClass()
-    augroup END
-    augroup quickfix " Auto open window after issuing :Grep command if there are items present
-        autocmd!
-        autocmd QuickFixCmdPost cgetexpr cwindow
-        autocmd QuickFixCmdPost lgetexpr lwindow
-    augroup END
-endif
-"}}}
-
 "{{{ " Custom Keybindings and Commands
 """"""""""""""""""""""""""""""""""""""""""
 " Toggle Netrw
-nnoremap <silent> <F1> :call functions#ToggleNetrw()<CR>
-inoremap <silent> <F1> <Esc>:call functions#ToggleNetrw()<CR>
+nnoremap <silent> <leader>d :Explore<CR>
+command! -nargs=0 -bar Dired silent exe "Explore"
 
 " Keybinding for tabbing visual mode selection to automatically re-select the visual selection
 vnoremap > >gv
@@ -138,21 +104,10 @@ nnoremap [b :bp<CR>
 nnoremap [B :bfirst<CR>
 nnoremap ]B :blast<CR>
 nnoremap <leader>bd :bd<CR>
-nnoremap <silent> <leader>bg :call functions#GoToSpecifiedBuffer()<CR>
 nnoremap <leader>bl :buffers<CR>
-
-" Local replace all instances of a variable using Vim
-nnoremap <leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
 " Search for visually selected text in current file
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
-
-" Auto jump back to the last spelling mistake and fix it
-inoremap <silent> <C-s> <c-g>u<Esc>mm[s1z=`m<Esc>:delm m<CR>a<c-g>u
-
-" Jump forward and backward to placeholders in abbreviations
-inoremap <C-j> <Esc>/<++><CR><Esc>cf>
-inoremap <C-k> <Esc>?<++><CR><Esc>cf>
 
 " Set bindings for jumping to errors in quickfix list
 nmap <silent> ]q :cnext<CR>
@@ -160,51 +115,8 @@ nmap <silent> [q :cprev<CR>
 nmap <silent> [Q :cfirst<CR>
 nmap <silent> ]Q :clast<CR>
 
-if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
-    nnoremap co<CR> :Copen<CR>
-    " Auto replace :make with :Make
-    cnoreabbrev <expr> make (getcmdtype() ==# ':' && getcmdline() ==# 'make') ? 'Make' : 'make'
-else
-    nnoremap co<CR> :copen<CR>
-endif
-
-" Add ALE keybinds if ALE is installed
-if !empty(globpath(&runtimepath, 'plugged/ale'))
-    nnoremap <silent> <C-]> :ALEGoToDefinition<CR>
-    nnoremap <silent> gd :ALEGoToDefinition<CR>
-    nnoremap <silent> [q :ALEPreviousWrap<CR>
-    nnoremap <silent> ]q :ALENextWrap<CR>
-    nnoremap <silent> K :ALEHover<CR>
-endif
-
-" Esc closes FZF window
-if !empty(globpath(&runtimepath, 'plugged/fzf'))
-    autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
-endif
-
-if has("nvim") " Set Escape to leave terminal mode
-  au TermOpen * tnoremap <Esc> <c-\><c-n>
-endif
-
 " Auto split the terminal and open it in current directory
 command! -nargs=0 -bar Term let $VIM_DIR=expand('%:p:h') | silent exe 'sp' | silent exe 'term' | silent exe 'cd $VIM_DIR'
-
-" Map :grep to motions
-nnoremap <leader>f :set operatorfunc=functions#GrepOperator<CR>g@
-vnoremap <leader>f :<C-u>call functions#GrepOperator(visualmode())<CR>
-
-" Async grep for words using the grep command. Shamelessly stolen from romainl
-command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr functions#Grep(<q-args>)
-command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr functions#Grep(<q-args>)
-" Auto replace :grep with :Grep
-cnoreabbrev <expr> grep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'Grep' : 'grep'
-cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
-
-" Eat spaces (or any other char) for abbreviations
-function! Eatchar(pat)
-    let c = nr2char(getchar(0))
-    return (c =~ a:pat) ? '' : c
-endfunction
 "}}}
 
 "{{{ " Custom Plugin Configuration Options
@@ -246,20 +158,4 @@ imap <left> <plug>(MUcompleteCycBwd)
 
 " Stop pear tree from hiding closing bracket till after leaving insert mode (breaks . command)
 let g:pear_tree_repeatable_expand = 0
-
-" ALE Configuration
-let g:ale_fixers = {
-    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \ 'rust': ['rustfmt'],
-\}
-let g:ale_fix_on_save = 1
-
-let g:ale_linters = {
-    \ 'python': ['pylsp'],
-    \ 'rust': ['analyzer'],
-\}
-let g:ale_completion_enabled = 1
-let g:ale_set_quickfix = 1
-let g:ale_set_loclist = 0
-set omnifunc=ale#completion#OmniFunc
 "}}}

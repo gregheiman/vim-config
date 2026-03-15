@@ -9,12 +9,6 @@ else
     endif
 endif
 
-if !empty(globpath(&runtimepath, 'plugged/vim-dispatch'))
-    nnoremap <buffer> <F8> :update<CR>:Make %<CR>
-else
-    nnoremap <buffer> <F8> :update<CR>:make %<CR>
-endif 
-
 let g:termdebug_wide = 1
 
 " Set up :find
