@@ -10,6 +10,7 @@ Plug 'tpope/vim-surround' " Easy surrounding of current selection
 Plug 'tpope/vim-commentary' " Easy commenting of lines
 Plug 'tmsvg/pear-tree' " Add auto pair support for delimiters
 Plug 'lifepillar/vim-mucomplete' " Stop the Ctrl-X dance
+Plug 'airblade/vim-rooter' " Auto change directory to project root
 Plug 'xero/sourcerer.vim' " Theme
 call plug#end() " REQUIRED
 filetype plugin indent on " REQUIRED Re-enable all that filetype goodness
@@ -46,6 +47,7 @@ set sessionoptions=curdir,folds,globals,options,tabpages,unix,slash " Set what i
 set colorcolumn=80 " Create line at 80 character mark
 set background=dark " Set the background to be dark. Enables dark mode on themes that support both dark and light
 set wildmenu " Show menu of possible candidates
+set wildmode=longest:full,full
 
 nnoremap <Nop> "\"
 let mapleader = "\\"
