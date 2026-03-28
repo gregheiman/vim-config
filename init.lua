@@ -74,9 +74,8 @@ require("lazy").setup({
         "echasnovski/mini.pick",
         version = "*",
         config = function()
-            require('mini.pick').setup()
-            vim.keymap.set("n", "<leader>f", "Pick files<CR>")
-            vim.keymap.set("n", "<leader>h", "Pick help<CR>")
+            require('mini.pick').setup({ window = { config = { width = vim.o.columns } } })
+            vim.keymap.set("n", "<leader>f", ":Pick grep<CR>", { noremap=true, silent=true, desc = "Pick: Grep"})
             vim.api.nvim_create_user_command("Files", function()
                 vim.cmd("Pick files")
             end, {desc = "Open files search"})
@@ -84,7 +83,6 @@ require("lazy").setup({
     },
     {
         "neovim/nvim-lspconfig",
-        branch = "*",
         config = function()
             -- Shared keymaps applied whenever any LSP attaches to a buffer.
             -- LspAttach replaces the old on_attach pattern.
@@ -103,6 +101,7 @@ require("lazy").setup({
                     vim.keymap.set("n", "<C-]>",      vim.lsp.buf.definition,     vim.tbl_extend("force", opts, { desc = "LSP: go to definition" }))
                     vim.keymap.set("n", "K",          vim.lsp.buf.hover,          vim.tbl_extend("force", opts, { desc = "LSP: hover docs" }))
                     vim.keymap.set("n", "gi",         vim.lsp.buf.implementation, vim.tbl_extend("force", opts, { desc = "LSP: go to implementation" }))
+                    vim.keymap.set("n", "gr",         vim.lsp.buf.references,     vim.tbl_extend("force", opts, { desc = "LSP: go to references" }))
                     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename,         vim.tbl_extend("force", opts, { desc = "LSP: rename symbol" }))
                     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action,    vim.tbl_extend("force", opts, { desc = "LSP: code action" }))
                     vim.keymap.set("n", "]q", vim.diagnostic.goto_next, vim.tbl_extend("force", opts, { desc = "Next diagnostic" }))
@@ -231,7 +230,7 @@ vim.fn.mkdir(vim.fn.expand("~/.vim-backup"), "p")
 
 -- Use ripgrep if available
 if vim.fn.executable("rg") == 1 then
-    opt.grepprg    = "rg --vimgrep $*"
+    opt.grepprg    = "rg --vimgrep"
     opt.grepformat = "%f:%l:%c:%m"
 end
 
@@ -301,9 +300,9 @@ local autocmd = vim.api.nvim_create_autocmd
 
 
 -- Auto-save session on exit if Session.vim exists
-augroup("SaveSessionIfExistsUponExit", { clear = true })
+local save_session_if_exists_upon_exit_group = augroup("SaveSessionIfExistsUponExit", { clear = true })
 autocmd("VimLeavePre", {
-    group = "SaveSessionIfExistsUponExit",
+    group = save_session_if_exists_upon_exit_group,
     callback = function()
         -- Port of functions#UpdateSessionOnExit
         -- Saves Session.vim in the current directory if one already exists
@@ -312,6 +311,43 @@ autocmd("VimLeavePre", {
             vim.cmd("mksession! " .. session_file)
         end
     end,
+})
+
+-- Create an augroup for quickfix related autocmds
+local quickfix_group = augroup("quickfix", { clear = true })
+
+-- Open the quickfix window for non-location list commands (e.g., :grep, :make)
+autocmd("QuickFixCmdPost", {
+  group = quickfix_group,
+  pattern = { "[^l]*" },
+  callback = function()
+    vim.cmd("cwindow")
+  end,
+})
+
+-- Open the location window for location list commands (e.g., :lgrep, :lmake)
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  group = quickfix_group,
+  pattern = { "l*" },
+  callback = function()
+    vim.cmd("lwindow")
+  end,
+})
+
+-- Close quickfix window with 'q'
+autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.keymap.set("n", "q", "<cmd>cclose<CR>", { buffer = true, silent = true, desc = "Close quickfix" })
+  end,
+})
+
+-- Close netrw window with 'q'
+autocmd("FileType", {
+  pattern = "netrw",
+  callback = function()
+    vim.keymap.set("n", "q", "<cmd>bd<CR>", { buffer = true, silent = true, desc = "Close netrw" })
+  end,
 })
 
 -- =============================================================================
